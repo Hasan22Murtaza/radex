@@ -840,7 +840,7 @@ a {
 .hero-slide-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(245, 242, 235, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(245, 242, 235, 0.6) 55%, rgba(245, 242, 235, 0.85) 100%);
   z-index: 1;
 }
 
@@ -866,6 +866,7 @@ a {
   color: var(--navy);
   letter-spacing: -0.025em;
   margin: 0;
+  text-shadow: 0 2px 24px rgba(255, 255, 255, 0.8);
 }
 
 .hero-slide-title-centered span {
@@ -878,6 +879,7 @@ a {
   line-height: 1.72;
   max-width: 700px;
   margin: 0 auto;
+  text-shadow: 0 1px 16px rgba(255, 255, 255, 0.9);
 }
 
 .hero-slide-actions-centered {
