@@ -6,16 +6,6 @@ export default function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp Chat starten"
-      style={{
-        backgroundColor: '#25D366',
-        borderRadius: '50%',
-        width: '60px',
-        height: '60px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: '0 6px 20px rgba(37, 211, 102, 0.4)'
-      }}
     >
       {/* Official multi-color WhatsApp SVG with white bubble and green phone receiver */}
       <svg
