@@ -1,4 +1,3 @@
-import React from 'react';
 import { Calendar, Expand, ArrowUpRight } from 'lucide-react';
 import imgProject1 from '../assets/walk_in_shower.png';
 import imgProject2 from '../assets/modern_sink.png';

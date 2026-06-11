@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Check, Shield, Wrench, ShieldAlert } from 'lucide-react';
+import { useState } from 'react';
+import { Phone, Mail, MapPin, Shield, Wrench, ShieldAlert } from 'lucide-react';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -99,22 +99,42 @@ export default function ContactForm() {
           <form onSubmit={handleSubmit}>
             <div className="form-field form-field--full" style={{ marginBottom: '20px' }}>
               <label style={{ fontSize: '11px', fontWeight: '700', marginBottom: '8px', display: 'block' }}>Welche Leistungen interessieren Sie?</label>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '10px' }}>
                 <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Komplettbad" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Komplettbad
+                  <input type="checkbox" name="services" value="Badsanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Badsanierung
                 </label>
                 <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Badmodernisierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Modernisierung
+                  <input type="checkbox" name="services" value="Haussanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Haussanierung
                 </label>
                 <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Barrierefreies Bad" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Barrierefrei
+                  <input type="checkbox" name="services" value="Altbausanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Altbausanierung
                 </label>
                 <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Gäste-WC" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Gäste-WC
+                  <input type="checkbox" name="services" value="Komplettsanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Komplettsanierung
+                </label>
+                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
+                  <input type="checkbox" name="services" value="Heizung & Sanitär" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Heizung &amp; Sanitär
+                </label>
+                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
+                  <input type="checkbox" name="services" value="Wärmepumpe" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Wärmepumpe
+                </label>
+                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
+                  <input type="checkbox" name="services" value="Elektroinstallation" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Elektroinstallation
+                </label>
+                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
+                  <input type="checkbox" name="services" value="Trockenbau" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Trockenbau
+                </label>
+                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
+                  <input type="checkbox" name="services" value="Fliesenarbeiten" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
+                  Fliesenarbeiten
                 </label>
               </div>
             </div>

@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import VisualNav from './components/VisualNav';
-import Benefits from './components/Benefits';
-import Planning from './components/Planning';
-import Process from './components/Process';
-import Costs from './components/Costs';
+import CoreHighlights from './components/CoreHighlights';
+import ServicesOverview from './components/ServicesOverview';
+import InteractiveHub from './components/InteractiveHub';
 import Examples from './components/Examples';
+import ReviewsMarquee from './components/ReviewsMarquee';
 import FAQ from './components/FAQ';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import MobileStickyCTA from './components/MobileStickyCTA';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import BackToTop from './components/BackToTop';
 
 export default function App() {
   useEffect(() => {
@@ -25,6 +25,7 @@ export default function App() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
+          entry.target.__revealed = true;
         }
       });
     }, observerOptions);
@@ -33,8 +34,27 @@ export default function App() {
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
 
+    // MutationObserver to prevent React from stripping 'revealed' on re-render
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const target = mutation.target;
+          if (target.__revealed && !target.classList.contains('revealed')) {
+            target.classList.add('revealed');
+          }
+        }
+      });
+    });
+
+    mutationObserver.observe(document.body, {
+      attributes: true,
+      subtree: true,
+      attributeFilter: ['class']
+    });
+
     return () => {
       revealElements.forEach(el => observer.unobserve(el));
+      mutationObserver.disconnect();
     };
   }, []);
 
@@ -43,18 +63,18 @@ export default function App() {
       <Header />
       <main style={{ flexGrow: 1 }}>
         <Hero />
-        <VisualNav />
-        <Benefits />
-        <Planning />
-        <Process />
-        <Costs />
+        <CoreHighlights />
+        <ServicesOverview />
+        <InteractiveHub />
         <Examples />
+        <ReviewsMarquee />
         <FAQ />
         <ContactForm />
       </main>
       <Footer />
       <MobileStickyCTA />
       <FloatingWhatsApp />
+      <BackToTop />
     </div>
   );
 }

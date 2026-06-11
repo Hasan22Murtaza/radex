@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
+import { Plus, Minus, HelpCircle, MessageCircle } from 'lucide-react';
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
     {
@@ -28,51 +28,67 @@ export default function FAQ() {
   ];
 
   const toggleFAQ = (index) => {
-    if (openIndex === index) {
-      setOpenIndex(null);
-    } else {
-      setOpenIndex(index);
-    }
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section id="faq" className="section reveal">
+    <section id="faq" className="faq-section reveal">
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-          <span className="section-label">Häufige Fragen</span>
-          <h2 className="section-title">FAQ zur <span>Badsanierung</span></h2>
-          <p className="section-subtitle" style={{ margin: '0 auto' }}>
-            Hier finden Sie Antworten auf die wichtigsten Fragen rund um Planung, Dauer und Ablauf Ihrer Badsanierung im Rhein-Main-Gebiet.
-          </p>
-        </div>
+        <div className="faq-layout">
+          {/* Left Column - Sticky Info */}
+          <div className="faq-info-col">
+            <span className="section-label">Häufige Fragen</span>
+            <h2 className="section-title">FAQ zur <span>Badsanierung</span></h2>
+            <p className="faq-info-text">
+              Hier finden Sie Antworten auf die wichtigsten Fragen rund um Planung, Dauer und Ablauf Ihrer Badsanierung im Rhein-Main-Gebiet.
+            </p>
 
-        <div className="faq-list">
-          {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className={`faq-card reveal ${openIndex === idx ? 'open' : ''}`}
-              style={{ transitionDelay: `${idx * 60}ms` }}
-            >
-              <button
-                className="faq-header"
-                onClick={() => toggleFAQ(idx)}
-                aria-expanded={openIndex === idx}
-              >
-                <span>{faq.question}</span>
-                <ChevronDown className="faq-icon" size={18} />
-              </button>
-              <div
-                className="faq-body"
-                style={{
-                  maxHeight: openIndex === idx ? '200px' : '0',
-                }}
-              >
-                <div className="faq-content">
-                  <p>{faq.answer}</p>
-                </div>
+            <div className="faq-cta-card">
+              <div className="faq-cta-icon">
+                <MessageCircle size={28} />
               </div>
+              <h4>Noch Fragen?</h4>
+              <p>Unser Team berät Sie gerne persönlich und unverbindlich.</p>
+              <a href="#kontakt" className="btn btn--rainbow" style={{ width: '100%', justifyContent: 'center' }}>
+                Jetzt Kontakt aufnehmen
+              </a>
             </div>
-          ))}
+          </div>
+
+          {/* Right Column - Accordion */}
+          <div className="faq-accordion-col">
+            {faqs.map((faq, idx) => {
+              const isOpen = openIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  className={`faq-item ${isOpen ? 'faq-item--open' : ''}`}
+                >
+                  <button
+                    className="faq-item-header"
+                    onClick={() => toggleFAQ(idx)}
+                    aria-expanded={isOpen}
+                  >
+                    <span className="faq-item-number">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <span className="faq-item-question">{faq.question}</span>
+                    <span className="faq-item-toggle">
+                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                    </span>
+                  </button>
+                  <div
+                    className="faq-item-body"
+                    style={{ maxHeight: isOpen ? '300px' : '0' }}
+                  >
+                    <div className="faq-item-answer">
+                      <p>{faq.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
