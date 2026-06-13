@@ -150,11 +150,11 @@ export default function ReviewsMarquee() {
   );
 
   return (
-    <section className="reviews-marquee-section">
+    <section id="bewertungen" className="reviews-marquee-section">
       <div className="container">
         <div className="section-header-center">
           <span className="section-label">Referenzen</span>
-          <h2>Was unsere Kunden über uns sagen</h2>
+          <h2>Was unsere Kunden sagen</h2>
           <p className="section-subtitle">
             Hervorragende Qualität und Zuverlässigkeit, bestätigt durch zahlreiche 5-Sterne Google-Bewertungen aus dem gesamten Rhein-Main-Gebiet.
           </p>
@@ -197,6 +197,10 @@ export default function ReviewsMarquee() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="container mt-12 text-center">
+        <a href="#bewertungen" className="br-btn-outline-orange inline-block">Alle Bewertungen ansehen</a>
       </div>
     </section>
   );

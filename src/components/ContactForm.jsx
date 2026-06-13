@@ -1,229 +1,222 @@
 import { useState } from 'react';
-import { Phone, Mail, MapPin, Shield, Wrench, ShieldAlert } from 'lucide-react';
+import { Phone, Mail, MessageSquare, Send, Camera, CheckCircle } from 'lucide-react';
+import { Link } from '../router';
+
+const inputStyle = {
+  width: '100%',
+  padding: '12px 16px',
+  background: '#f9fafb',
+  border: '1px solid #e5e7eb',
+  borderRadius: '12px',
+  fontSize: '15px',
+  color: '#1f2937',
+  fontFamily: 'inherit',
+  outline: 'none',
+  boxSizing: 'border-box',
+  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+};
+
+const labelStyle = {
+  display: 'block',
+  fontSize: '14px',
+  fontWeight: 600,
+  color: '#374151',
+  marginBottom: '8px',
+};
+
+const contactItemStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '16px',
+  padding: '14px',
+  borderRadius: '12px',
+  border: '1px solid transparent',
+  transition: 'background 0.2s ease, border-color 0.2s ease',
+};
+
+const iconCircleStyle = (bg) => ({
+  width: '48px',
+  height: '48px',
+  minWidth: '48px',
+  background: bg,
+  borderRadius: '50%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    phone: '',
-    email: '',
-    message: '',
-    services: [],
-    dsgvo: false
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    if (type === 'checkbox' && name !== 'dsgvo') {
-      const updatedServices = [...formData.services];
-      if (checked) {
-        updatedServices.push(value);
-      } else {
-        const idx = updatedServices.indexOf(value);
-        if (idx > -1) updatedServices.splice(idx, 1);
-      }
-      setFormData({ ...formData, services: updatedServices });
-    } else {
-      setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
-    }
-  };
+  const [sent, setSent] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Vielen Dank für Ihre Anfrage! Wir werden uns innerhalb von 24 Stunden bei Ihnen melden.');
+    const form = e.target;
+    const vorname = form.vorname.value.trim();
+    const nachname = form.nachname.value.trim();
+    const telefon = form.telefon.value.trim();
+    const email = form.email.value.trim();
+    const nachricht = form.nachricht.value.trim();
+
+    const subject = `Projektanfrage von ${vorname} ${nachname}`;
+    const body =
+      `Name: ${vorname} ${nachname}\n` +
+      `Telefon: ${telefon}\n` +
+      `E-Mail: ${email}\n\n` +
+      `Projektbeschreibung:\n${nachricht}`;
+
+    // Open the visitor's email client with a pre-filled message.
+    window.location.href =
+      `mailto:info@radex-objektmanagement.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    setSent(true);
+  };
+
+  const focusOn = (e) => {
+    e.target.style.borderColor = '#f97316';
+    e.target.style.boxShadow = '0 0 0 3px rgba(249,115,22,0.15)';
+  };
+  const focusOff = (e) => {
+    e.target.style.borderColor = '#e5e7eb';
+    e.target.style.boxShadow = 'none';
   };
 
   return (
-    <section id="kontakt" className="section section--beige reveal">
-      <div className="container contact-layout">
-        <div className="contact-info-section reveal">
-          <span className="section-label">Kontakt</span>
-          <h2 className="section-title">Bad sanieren lassen – Beratung anfragen</h2>
-          <p style={{ fontSize: '15px', color: 'var(--text-light)', lineHeight: '1.7', marginBottom: '32px' }}>
-            Vereinbaren Sie einen kostenlosen Beratungstermin bei Ihnen vor Ort im Rhein-Main-Gebiet. Wir begutachten den Ist-Zustand und erstellen Ihnen ein transparentes Angebot.
-          </p>
+    <section id="kontakt" className="home-section bg-white" style={{ borderTop: '1px solid #f3f4f6' }}>
+      <div className="container">
+        <div className="home-grid-2" style={{ alignItems: 'start' }}>
 
-          <div className="contact-channels">
-            <div className="contact-channel reveal" style={{ transitionDelay: '50ms' }}>
-              <div className="contact-channel-icon">
-                <Phone size={20} />
+          {/* Left Column: Contact Info */}
+          <div>
+            <span style={{ fontSize: '14px', fontWeight: 700, color: '#f97316', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '12px' }}>
+              Kontakt aufnehmen
+            </span>
+            <h2 className="text-3xl font-bold text-navy" style={{ marginBottom: '20px' }}>Projekt anfragen</h2>
+            <p className="text-gray-600 text-lg" style={{ lineHeight: 1.6, marginBottom: '32px' }}>
+              Planen Sie ein Sanierungsprojekt im Rhein-Main-Gebiet? Kontaktieren Sie uns für eine erste Einschätzung oder vereinbaren Sie direkt einen Vor-Ort-Termin.
+            </p>
+
+            <div style={{ background: '#fff7ed', borderRadius: '16px', padding: '24px', marginBottom: '32px', border: '1px solid #ffedd5' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <Camera size={24} color="#f97316" />
+                <h3 className="font-bold text-navy" style={{ fontSize: '18px', margin: 0 }}>Fotos senden. Erste Einschätzung erhalten.</h3>
               </div>
-              <div className="contact-channel-details">
-                <h4>Direkt anrufen</h4>
-                <p><a href="tel:+496074960620" style={{ color: 'var(--navy)' }}>06074 960620</a></p>
-              </div>
+              <p className="text-gray-600 text-sm" style={{ margin: 0, lineHeight: 1.6 }}>
+                Senden Sie uns Bilder Ihres aktuellen Bads oder der zu sanierenden Räume bequem per WhatsApp.
+              </p>
             </div>
 
-            <div className="contact-channel reveal" style={{ transitionDelay: '100ms' }}>
-              <div className="contact-channel-icon">
-                <Mail size={20} />
-              </div>
-              <div className="contact-channel-details">
-                <h4>E-Mail schreiben</h4>
-                <p><a href="mailto:info@radex-objektmanagement.de" style={{ color: 'var(--navy)' }}>info@radex-objektmanagement.de</a></p>
-              </div>
-            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <a
+                href="tel:+496074960620"
+                style={contactItemStyle}
+                onMouseEnter={(e) => { e.currentTarget.style.background = '#f9fafb'; e.currentTarget.style.borderColor = '#f3f4f6'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; }}
+              >
+                <div style={iconCircleStyle('#f3f4f6')}>
+                  <Phone color="var(--navy)" size={22} />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500" style={{ marginBottom: '2px' }}>Rufen Sie uns an</div>
+                  <div className="font-bold text-navy" style={{ fontSize: '18px' }}>+49 6074 9606 20</div>
+                </div>
+              </a>
 
-            <div className="contact-channel reveal" style={{ transitionDelay: '150ms' }}>
-              <div className="contact-channel-icon">
-                <MapPin size={20} />
-              </div>
-              <div className="contact-channel-details">
-                <h4>Firmensitz</h4>
-                <p>Odenwaldstraße 38A, 63322 Rödermark</p>
-              </div>
+              <a
+                href="https://wa.me/496074960620"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={contactItemStyle}
+                onMouseEnter={(e) => { e.currentTarget.style.background = '#f9fafb'; e.currentTarget.style.borderColor = '#f3f4f6'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; }}
+              >
+                <div style={iconCircleStyle('rgba(37,211,102,0.1)')}>
+                  <MessageSquare color="#25D366" size={22} />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500" style={{ marginBottom: '2px' }}>Schreiben Sie uns</div>
+                  <div className="font-bold text-navy" style={{ fontSize: '18px' }}>WhatsApp Chat starten</div>
+                </div>
+              </a>
+
+              <a
+                href="mailto:info@radex-objektmanagement.de"
+                style={contactItemStyle}
+                onMouseEnter={(e) => { e.currentTarget.style.background = '#f9fafb'; e.currentTarget.style.borderColor = '#f3f4f6'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; }}
+              >
+                <div style={iconCircleStyle('#f3f4f6')}>
+                  <Mail color="var(--navy)" size={22} />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500" style={{ marginBottom: '2px' }}>Schreiben Sie eine E-Mail</div>
+                  <div className="font-bold text-navy" style={{ fontSize: '18px', wordBreak: 'break-all' }}>info@radex-objektmanagement.de</div>
+                </div>
+              </a>
             </div>
           </div>
 
-          <div className="trust-badges reveal" style={{ transitionDelay: '200ms' }}>
-            <h4>Zertifizierte Fachkompetenz</h4>
-            <div className="badges-grid">
-              <div className="badge-item">
-                <Wrench size={24} />
-                <p>SHK Fachbetrieb</p>
+          {/* Right Column: Contact Form */}
+          <div style={{ background: '#fff', borderRadius: '20px', padding: '32px', boxShadow: '0 10px 30px rgba(0,0,0,0.06)', border: '1px solid #f3f4f6' }}>
+            <h3 className="text-2xl font-bold text-navy" style={{ marginBottom: '24px' }}>Nachricht senden</h3>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div className="contact-name-row">
+                <div>
+                  <label htmlFor="vorname" style={labelStyle}>Vorname *</label>
+                  <input type="text" id="vorname" name="vorname" required placeholder="Max" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
+                </div>
+                <div>
+                  <label htmlFor="nachname" style={labelStyle}>Nachname *</label>
+                  <input type="text" id="nachname" name="nachname" required placeholder="Mustermann" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
+                </div>
               </div>
-              <div className="badge-item">
-                <Shield size={24} />
-                <p>Generalunternehmer</p>
+
+              <div>
+                <label htmlFor="telefon" style={labelStyle}>Telefonnummer *</label>
+                <input type="tel" id="telefon" name="telefon" required placeholder="+49 123 4567890" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
               </div>
-              <div className="badge-item">
-                <ShieldAlert size={24} />
-                <p>Schimmel &amp; Asbest (TRGS 519)</p>
+
+              <div>
+                <label htmlFor="email" style={labelStyle}>E-Mail Adresse *</label>
+                <input type="email" id="email" name="email" required placeholder="max@beispiel.de" style={inputStyle} onFocus={focusOn} onBlur={focusOff} />
               </div>
-            </div>
+
+              <div>
+                <label htmlFor="nachricht" style={labelStyle}>Projektbeschreibung *</label>
+                <textarea
+                  id="nachricht"
+                  name="nachricht"
+                  rows="4"
+                  required
+                  placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Badsanierung, 8qm, Komplettumbau)..."
+                  style={{ ...inputStyle, resize: 'none' }}
+                  onFocus={focusOn}
+                  onBlur={focusOff}
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                className="btn br-btn-orange"
+                style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '16px', fontSize: '16px' }}
+              >
+                Projekt anfragen <Send size={18} />
+              </button>
+
+              {sent && (
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '16px', borderRadius: '12px', background: '#ecfdf5', border: '1px solid #a7f3d0' }}>
+                  <CheckCircle size={20} color="#059669" style={{ flexShrink: 0, marginTop: '2px' }} />
+                  <p style={{ fontSize: '14px', color: '#065f46', margin: 0, lineHeight: 1.5 }}>
+                    Vielen Dank! Ihr E-Mail-Programm wurde mit Ihrer Anfrage geöffnet. Alternativ erreichen Sie uns telefonisch unter <strong>06074 960620</strong> oder per WhatsApp.
+                  </p>
+                </div>
+              )}
+
+              <p style={{ fontSize: '12px', color: '#6b7280', textAlign: 'center', margin: 0 }}>
+                Mit dem Absenden erklären Sie sich mit unserer <Link to="/datenschutz" style={{ color: '#f97316' }}>Datenschutzerklärung</Link> einverstanden.
+              </p>
+            </form>
           </div>
-        </div>
 
-        <div className="form-box reveal" style={{ transitionDelay: '100ms' }}>
-          <h3 style={{ fontSize: '20px', color: 'var(--navy)', marginBottom: '24px' }}>Kostenlose Beratung sichern</h3>
-          <form onSubmit={handleSubmit}>
-            <div className="form-field form-field--full" style={{ marginBottom: '20px' }}>
-              <label style={{ fontSize: '11px', fontWeight: '700', marginBottom: '8px', display: 'block' }}>Welche Leistungen interessieren Sie?</label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Badsanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Badsanierung
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Haussanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Haussanierung
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Altbausanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Altbausanierung
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Komplettsanierung" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Komplettsanierung
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Heizung & Sanitär" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Heizung &amp; Sanitär
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Wärmepumpe" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Wärmepumpe
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Elektroinstallation" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Elektroinstallation
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Trockenbau" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Trockenbau
-                </label>
-                <label style={{ fontSize: '13px', display: 'flex', alignItems: 'center', gap: '8px', textTransform: 'none', fontWeight: '500', color: 'var(--text)' }}>
-                  <input type="checkbox" name="services" value="Fliesenarbeiten" onChange={handleInputChange} style={{ accentColor: 'var(--gold)' }} />
-                  Fliesenarbeiten
-                </label>
-              </div>
-            </div>
-
-            <div className="form-grid">
-              <div className="form-field">
-                <label htmlFor="firstname">Vorname *</label>
-                <input
-                  type="text"
-                  id="firstname"
-                  name="firstname"
-                  placeholder="Ihr Vorname"
-                  required
-                  value={formData.firstname}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-field">
-                <label htmlFor="lastname">Nachname *</label>
-                <input
-                  type="text"
-                  id="lastname"
-                  name="lastname"
-                  placeholder="Ihr Nachname"
-                  required
-                  value={formData.lastname}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
-
-            <div className="form-grid">
-              <div className="form-field">
-                <label htmlFor="phone">Telefon *</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="Ihre Telefonnummer"
-                  required
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-field">
-                <label htmlFor="email">E-Mail *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Ihre E-Mail"
-                  required
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </div>
-
-            <div className="form-field form-field--full">
-              <label htmlFor="message">Projekt-Beschreibung *</label>
-              <textarea
-                id="message"
-                name="message"
-                placeholder="Beschreiben Sie kurz Ihr Vorhaben (z.B. Badgröße, Altersbedingt barrierefrei, Wunsch-Termin)..."
-                required
-                value={formData.message}
-                onChange={handleInputChange}
-                style={{ minHeight: '90px' }}
-              />
-            </div>
-
-            <div className="form-checkbox">
-              <input
-                type="checkbox"
-                id="dsgvo"
-                name="dsgvo"
-                required
-                checked={formData.dsgvo}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="dsgvo">
-                Ich willige ein, dass meine Angaben zur Bearbeitung meiner Anfrage verarbeitet werden. Weitere Infos in der <a href="/datenschutz" target="_blank" rel="noreferrer">Datenschutzerklärung</a>. *
-              </label>
-            </div>
-
-            <button type="submit" className="btn btn--primary form-submit">
-              Projekt jetzt unverbindlich anfragen
-            </button>
-          </form>
         </div>
       </div>
     </section>

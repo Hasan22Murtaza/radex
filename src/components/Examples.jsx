@@ -1,72 +1,67 @@
-import { Calendar, Expand, ArrowUpRight } from 'lucide-react';
-import imgProject1 from '../assets/walk_in_shower.png';
-import imgProject2 from '../assets/modern_sink.png';
+import { Link } from '../router';
+import { ArrowRight } from 'lucide-react';
 
 export default function Examples() {
   const projects = [
     {
-      title: 'Modernes Loft-Bad in Frankfurt am Main',
-      description: 'Vollständige Entkernung und Neugestaltung eines Badezimmers im Dachgeschoss. Einbau einer bodengleichen Walk-In-Regendusche, anthrazitfarbener Schieferoptik-Fliesen und indirekter LED-Lichtbänder.',
-      image: imgProject1,
-      tag: 'Komplettbadsanierung',
-      duration: '10 Werktage',
-      sqm: '9,5 m²'
+      img: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=600',
+      title: 'Wohnungssanierung',
+      location: 'Offenbach',
+      badge: 'live'
     },
     {
-      title: 'Barrierefreie Wellness-Oase in Darmstadt',
-      description: 'Zukunftssicherer Umbau mit Fokus auf Barrierearmut. Montage eines schwebenden Waschtisch-Unterschranks aus geölter Eiche, bodengleicher Duschzone mit klappbarem Duschsitz und rutschhemmenden Fliesen.',
-      image: imgProject2,
-      tag: 'Badmodernisierung',
-      duration: '8 Werktage',
-      sqm: '7,2 m²'
+      img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=600',
+      title: 'Haussanierung',
+      location: 'Darmstadt',
+      badge: null
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600',
+      title: 'Altbausanierung',
+      location: 'Frankfurt',
+      badge: 'before-after'
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1541123356219-284ebe98ae3b?auto=format&fit=crop&q=80&w=600',
+      title: 'Komplettsanierung',
+      location: 'Rödermark',
+      badge: null
     }
   ];
 
   return (
-    <section id="beispiele" className="section section--beige reveal">
+    <section id="beispiele" className="home-section bg-white">
       <div className="container">
-        <span className="section-label">Referenzen</span>
-        <h2 className="section-title">Erfolgreich sanierte <span>Badezimmer</span></h2>
-        <p className="section-subtitle">
-          Werfen Sie einen Blick auf einige unserer abgeschlossenen Projekte im Rhein-Main-Gebiet. Echtes Meisterhandwerk für höchste Ansprüche.
-        </p>
+        <div className="home-split">
+          
+          {/* Left Text Column */}
+          <div className="home-split-left" style={{paddingTop: '16px'}}>
+            <h2 className="text-3xl font-bold text-navy" style={{marginBottom: '16px', lineHeight: 1.2}}>Aktuelle Projekte & Referenzen</h2>
+            <p className="text-gray-600" style={{marginBottom: '32px', fontSize: '15px', lineHeight: 1.6}}>
+              Verfolgen Sie laufende Baustellen, entdecken Sie abgeschlossene Sanierungen und Vorher/Nachher-Vergleiche aus dem Rhein-Main-Gebiet.
+            </p>
+            <Link to="/sanierung-rhein-main" className="home-btn-orange" style={{fontSize: '14px', padding: '10px 20px'}}>
+              Alle Projekte ansehen <ArrowRight size={16} />
+            </Link>
+          </div>
 
-        <div className="portfolio-grid">
-          {projects.map((p, idx) => (
-            <div
-              key={idx}
-              className="portfolio-card reveal"
-              style={{ transitionDelay: `${idx * 150}ms` }}
-            >
-              <div className="portfolio-slider">
-                <img src={p.image} alt={p.title} />
-              </div>
-              <div className="portfolio-content">
-                <span className="portfolio-tag">{p.tag}</span>
-                <h3 style={{ fontSize: '18px', color: 'var(--navy)', marginBottom: '12px' }}>{p.title}</h3>
-                <p style={{ fontSize: '14px', color: 'var(--text-light)', lineHeight: '1.6', marginBottom: '20px' }}>
-                  {p.description}
-                </p>
-                <div className="portfolio-meta">
-                  <div className="portfolio-meta-item">
-                    <Calendar size={16} color="var(--gold)" />
-                    <span>Dauer: {p.duration}</span>
+          {/* Right Images Column */}
+          <div className="home-split-right">
+            <div className="home-grid-4">
+              {projects.map((project, idx) => (
+                <div key={idx} className="home-project-card">
+                  <div className="home-project-img-wrapper" style={{position: 'relative'}}>
+                    <img src={project.img} alt={project.title} className="home-project-img" />
+                    {project.badge === 'live' && <span className="br-project-badge live">Radex Live</span>}
+                    {project.badge === 'before-after' && <span className="br-project-badge before-after">Vorher/Nachher</span>}
                   </div>
-                  <div className="portfolio-meta-item">
-                    <Expand size={16} color="var(--gold)" />
-                    <span>Größe: {p.sqm}</span>
-                  </div>
+                  <h4 className="font-bold text-navy text-sm">{project.title}</h4>
+                  <p className="text-xs text-gray-500">{project.location}</p>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
 
-        <div style={{ textAlign: 'center', marginTop: '48px' }} className="reveal">
-          <a href="#kontakt" className="btn btn--outline-gold">
-            <span>Eigenes Projekt anfragen</span>
-            <ArrowUpRight size={16} />
-          </a>
         </div>
       </div>
     </section>

@@ -2190,7 +2190,7 @@ a {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.2fr repeat(4, 0.8fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 40px;
   margin-bottom: 60px;
 }
@@ -2224,6 +2224,13 @@ a {
   width: 30px;
   height: 2px;
   background-color: var(--gold);
+}
+
+.footer-col-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 16px;
+  line-height: 1.5;
 }
 
 .footer-links {
@@ -2514,6 +2521,82 @@ a {
   color: var(--gold-dark);
   padding-left: 24px;
 }
+
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  padding: 24px;
+  min-width: 600px;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  z-index: 1100;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+}
+
+.mega-menu--large {
+  min-width: 850px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mega-menu--right {
+  left: auto;
+  right: -20px;
+  transform: translateX(0) translateY(10px);
+}
+
+.nav-item-dropdown:hover .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-item-dropdown:hover .mega-menu--right {
+  transform: translateX(0) translateY(0);
+}
+
+.mega-menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mega-menu-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+  border-bottom: 2px solid var(--gold-pale);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mobile-drawer-mega-section {
+  margin-bottom: 16px;
+}
+
+.mobile-drawer-mega-title {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
 
 .mobile-drawer-dropdown {
   padding-left: 16px;
@@ -3341,3 +3424,4 @@ a {
   opacity: 1;
   transform: translateY(0);
 }
+

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from '../router';
 import { Phone, Menu, X, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
 
@@ -42,9 +43,19 @@ export default function Header() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleScrollToSection = (e, id) => {
     e.preventDefault();
     setIsOpen(false);
+    
+    if (location.pathname !== '/') {
+      // Navigate to home page with hash
+      navigate(`/#${id}`);
+      return;
+    }
+    
     const element = document.getElementById(id);
     if (element) {
       const headerOffset = 80;
@@ -73,80 +84,106 @@ export default function Header() {
         backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)'
       }}>
         <div className="header-container">
-          <a href="#" className="logo-link" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+          <Link to="/" className="logo-link" onClick={() => window.scrollTo(0, 0)}>
             <Logo height={42} className="header-logo-svg" />
-          </a>
+          </Link>
 
           <nav>
             <ul className="nav-links">
-              <li><a href="#" className="nav-link" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Startseite</a></li>
+              <li><Link to="/" className="nav-link" onClick={() => window.scrollTo(0, 0)}>Startseite</Link></li>
               
-              {/* Badsanierung Dropdown */}
-              <li className="nav-item-dropdown">
-                <a href="#leistungen-fokus" className="nav-link nav-link-with-icon" onClick={(e) => handleScrollToSection(e, 'leistungen-fokus')}>
-                  Badsanierung <ChevronDown size={12} />
-                </a>
-                <div className="dropdown-menu">
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Komplettbadsanierung</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Badmodernisierung</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Barrierefreies Bad</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Gäste-WC sanieren</a>
-                </div>
-              </li>
+              <li><Link to="/badsanierung-rhein-main" className="nav-link" onClick={() => setIsOpen(false)}>Badsanierung</Link></li>
+              
+              <li><Link to="/sanierung-rhein-main" className="nav-link" onClick={() => setIsOpen(false)}>Sanierung</Link></li>
 
-              {/* Sanierung Dropdown (Shortened from Haussanierung) */}
+              {/* Leistungen Dropdown (Mega Menu) */}
               <li className="nav-item-dropdown">
-                <a href="#leistungen-fokus" className="nav-link nav-link-with-icon" onClick={(e) => handleScrollToSection(e, 'leistungen-fokus')}>
-                  Sanierung <ChevronDown size={12} />
-                </a>
-                <div className="dropdown-menu">
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Wohnungssanierung</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Altbausanierung</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Komplettsanierung</a>
-                </div>
-              </li>
-
-              {/* Leistungen Dropdown (Shortened from Weitere Leistungen) */}
-              <li className="nav-item-dropdown">
-                <a href="#weitere-leistungen" className="nav-link nav-link-with-icon" onClick={(e) => handleScrollToSection(e, 'weitere-leistungen')}>
+                <Link to="/leistungen" className="nav-link nav-link-with-icon" onClick={() => setIsOpen(false)}>
                   Leistungen <ChevronDown size={12} />
-                </a>
-                <div className="dropdown-menu">
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Heizung &amp; Sanitär</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Wärmepumpe</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Elektroinstallation</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Trockenbau</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Fliesenarbeiten</a>
+                </Link>
+                <div className="mega-menu mega-menu--large" style={{width: '900px', left: '50%', transform: 'translateX(-50%) translateY(10px)', padding: 0}}>
+                  <div style={{padding: '20px 30px', borderBottom: '1px solid #e5e7eb', background: '#f9fafb', borderTopLeftRadius: '8px', borderTopRightRadius: '8px'}}>
+                    <h3 style={{margin: 0, fontSize: '18px', color: '#111827'}}>Was möchten Sie tun?</h3>
+                  </div>
+                  
+                  <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '30px', padding: '30px'}}>
+                    
+                    <div>
+                      <h4 style={{fontSize: '15px', color: '#111827', marginBottom: '8px'}}>Komplettsanierung</h4>
+                      <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '12px', lineHeight: 1.4}}>Für Kunden, die ein Projekt aus einer Hand suchen.</p>
+                      <Link to="/komplettsanierung-rhein-main" className="dropdown-item" style={{padding: '6px 0', color: '#f97316'}}>Zur Komplettsanierung &rarr;</Link>
+                    </div>
+
+                    <div>
+                      <h4 style={{fontSize: '15px', color: '#111827', marginBottom: '8px'}}>Heizung & Sanitär</h4>
+                      <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '12px', lineHeight: 1.4}}>Für Heizungs-Modernisierung, Wärmepumpen und Sanitär.</p>
+                      <Link to="/heizung-sanitaer-rhein-main" className="dropdown-item" style={{padding: '6px 0', color: '#f97316'}}>Zur Haustechnik &rarr;</Link>
+                    </div>
+
+                    <div>
+                      <h4 style={{fontSize: '15px', color: '#111827', marginBottom: '8px'}}>Elektrotechnik</h4>
+                      <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '12px', lineHeight: 1.4}}>Für elektrische Aufwertungen und Gebäudetechnik.</p>
+                      <Link to="/elektroinstallation-rhein-main" className="dropdown-item" style={{padding: '6px 0', color: '#f97316'}}>Zur Elektrotechnik &rarr;</Link>
+                    </div>
+
+                    <div>
+                      <h4 style={{fontSize: '15px', color: '#111827', marginBottom: '8px'}}>Innenausbau</h4>
+                      <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '12px', lineHeight: 1.4}}>Für Raumumbauten, Trockenbau und Aufwertungen.</p>
+                      <Link to="/innenausbau-umbau-rhein-main" className="dropdown-item" style={{padding: '6px 0', color: '#f97316'}}>Zum Innenausbau &rarr;</Link>
+                    </div>
+
+                    <div>
+                      <h4 style={{fontSize: '15px', color: '#111827', marginBottom: '8px'}}>Energie & Förderung</h4>
+                      <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '12px', lineHeight: 1.4}}>Für energetische Sanierung und Zuschüsse.</p>
+                      <Link to="/energetische-sanierung-rhein-main" className="dropdown-item" style={{padding: '6px 0', color: '#f97316'}}>Zur Energieberatung &rarr;</Link>
+                    </div>
+
+                    <div>
+                      <h4 style={{fontSize: '15px', color: '#111827', marginBottom: '8px'}}>Schimmel & Asbest</h4>
+                      <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '12px', lineHeight: 1.4}}>Für Sanierung und Gefahrstoffbeseitigung.</p>
+                      <Link to="/schadstoffsanierung-rhein-main" className="dropdown-item" style={{padding: '6px 0', color: '#f97316'}}>Zur Schadstoffsanierung &rarr;</Link>
+                    </div>
+
+                    <div>
+                      <h4 style={{fontSize: '15px', color: '#111827', marginBottom: '8px'}}>Gewerbeobjekte</h4>
+                      <p style={{fontSize: '13px', color: '#6b7280', marginBottom: '12px', lineHeight: 1.4}}>Für Bürorenovierungen und Mieterausbau.</p>
+                      <Link to="/gewerbe-objektsanierung-rhein-main" className="dropdown-item" style={{padding: '6px 0', color: '#f97316'}}>Zur Gewerbesanierung &rarr;</Link>
+                    </div>
+
+                  </div>
+                  
+                  <div style={{background: '#fff3ea', padding: '20px 30px', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', textAlign: 'center'}}>
+                    <Link to="/leistungen" className="btn br-btn-orange" style={{display: 'inline-block'}}>Alle Leistungen ansehen</Link>
+                  </div>
                 </div>
               </li>
 
+              {/* Projekte */}
               <li><a href="#beispiele" className="nav-link" onClick={(e) => handleScrollToSection(e, 'beispiele')}>Projekte</a></li>
-              <li><a href="#faq" className="nav-link" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
-              
-              {/* Ratgeber */}
-              <li><a href="#beispiele" className="nav-link" onClick={(e) => handleScrollToSection(e, 'beispiele')}>Ratgeber</a></li>
-              
-              {/* Live Radex */}
-              <li>
-                <a href="#projekt-hub" className="nav-link" onClick={(e) => handleScrollToSection(e, 'projekt-hub')} style={{ fontWeight: '700', color: 'var(--navy-light)' }}>
-                  Live Radex
-                </a>
-              </li>
 
-              {/* Einsatzgebiete Dropdown */}
+              {/* FAQ */}
+              <li><a href="#faq" className="nav-link" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
+
+              {/* Ratgeber */}
+              <li><a href="#ratgeber" className="nav-link" onClick={(e) => handleScrollToSection(e, 'ratgeber')}>Ratgeber</a></li>
+
+              {/* Einsatzgebiete */}
               <li className="nav-item-dropdown">
-                <a href="#faq" className="nav-link nav-link-with-icon" onClick={(e) => handleScrollToSection(e, 'faq')}>
+                <Link to="/einsatzgebiete-rhein-main" className="nav-link nav-link-with-icon" onClick={() => setIsOpen(false)}>
                   Einsatzgebiete <ChevronDown size={12} />
-                </a>
-                <div className="dropdown-menu">
-                  <span className="dropdown-item" style={{ fontWeight: '700', color: 'var(--text-light)', borderBottom: '1px solid var(--border)', paddingBottom: '6px', marginBottom: '6px' }}>Unsere Einsatzgebiete:</span>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Rödermark</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Frankfurt am Main</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Offenbach</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Darmstadt</a>
-                  <a href="#kontakt" className="dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Hanau</a>
+                </Link>
+                <div className="dropdown-menu" style={{ right: 0, left: 'auto', transform: 'translateX(0) translateY(10px)' }}>
+                  <Link to="/sanierung-frankfurt-am-main" className="dropdown-item" onClick={() => setIsOpen(false)}>Frankfurt</Link>
+                  <Link to="/sanierung-offenbach-am-main" className="dropdown-item" onClick={() => setIsOpen(false)}>Offenbach</Link>
+                  <Link to="/haus-wohnung-bad-modernisieren-darmstadt" className="dropdown-item" onClick={() => setIsOpen(false)}>Darmstadt</Link>
+                  <Link to="/sanierung-hanau" className="dropdown-item" onClick={() => setIsOpen(false)}>Hanau</Link>
+                  <Link to="/einsatzgebiete-rhein-main" className="dropdown-item" onClick={() => setIsOpen(false)} style={{ fontWeight: '700', color: 'var(--gold-dark)', borderTop: '1px solid var(--border)', marginTop: '4px', paddingTop: '10px' }}>Alle Einsatzgebiete &rarr;</Link>
                 </div>
               </li>
+              
+              {/* Kontakt */}
+              <li><a href="#kontakt" className="nav-link" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Kontakt</a></li>
+
             </ul>
           </nav>
 
@@ -155,8 +192,8 @@ export default function Header() {
               <Phone size={18} />
               <span>06074 960620</span>
             </a>
-            <a href="#kontakt" className="btn btn--rainbow" onClick={(e) => handleScrollToSection(e, 'kontakt')}>
-              Kostenlose Beratung
+            <a href="#kontakt" className="btn btn--primary" onClick={(e) => handleScrollToSection(e, 'kontakt')}>
+              Projekt anfragen
             </a>
           </div>
 
@@ -166,7 +203,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile drawer (Premium slide-out sidebar) */}
+      {/* Mobile drawer */}
       <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
         <div className="mobile-drawer-header">
           <Logo height={32} />
@@ -176,90 +213,43 @@ export default function Header() {
         </div>
 
         <ul className="mobile-drawer-links">
-          <li><a href="#" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Startseite</a></li>
+          <li><Link to="/" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Startseite</Link></li>
+          <li><Link to="/badsanierung-rhein-main" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Badsanierung</Link></li>
+          <li><Link to="/sanierung-rhein-main" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Sanierung</Link></li>
           
-          {/* Badsanierung Mobile Dropdown */}
-          <li>
-            <button className="mobile-drawer-link" onClick={() => toggleMobileSubMenu('bad')} style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', padding: 0, textAlign: 'left', fontWeight: 'inherit', fontFamily: 'inherit', cursor: 'pointer' }}>
-              <span>Badsanierung</span>
-              <ChevronDown size={18} style={{ transform: mobileSubMenu === 'bad' ? 'rotate(180deg)' : 'none', transition: 'var(--transition)' }} />
-            </button>
-            {mobileSubMenu === 'bad' && (
-              <div className="mobile-drawer-dropdown">
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Komplettbadsanierung</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Badmodernisierung</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Barrierefreies Bad</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Gäste-WC sanieren</a>
-              </div>
-            )}
-          </li>
-
-          {/* Sanierung Mobile Dropdown */}
-          <li>
-            <button className="mobile-drawer-link" onClick={() => toggleMobileSubMenu('haus')} style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', padding: 0, textAlign: 'left', fontWeight: 'inherit', fontFamily: 'inherit', cursor: 'pointer' }}>
-              <span>Sanierung</span>
-              <ChevronDown size={18} style={{ transform: mobileSubMenu === 'haus' ? 'rotate(180deg)' : 'none', transition: 'var(--transition)' }} />
-            </button>
-            {mobileSubMenu === 'haus' && (
-              <div className="mobile-drawer-dropdown">
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Wohnungssanierung</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Altbausanierung</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Komplettsanierung</a>
-              </div>
-            )}
-          </li>
-
           {/* Leistungen Mobile Dropdown */}
           <li>
-            <button className="mobile-drawer-link" onClick={() => toggleMobileSubMenu('weitere')} style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', padding: 0, textAlign: 'left', fontWeight: 'inherit', fontFamily: 'inherit', cursor: 'pointer' }}>
+            <button className="mobile-drawer-link" onClick={() => toggleMobileSubMenu('leistungen')} style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', padding: 0, textAlign: 'left', fontWeight: 'inherit', fontFamily: 'inherit', cursor: 'pointer' }}>
               <span>Leistungen</span>
-              <ChevronDown size={18} style={{ transform: mobileSubMenu === 'weitere' ? 'rotate(180deg)' : 'none', transition: 'var(--transition)' }} />
+              <ChevronDown size={18} style={{ transform: mobileSubMenu === 'leistungen' ? 'rotate(180deg)' : 'none', transition: 'var(--transition)' }} />
             </button>
-            {mobileSubMenu === 'weitere' && (
+            {mobileSubMenu === 'leistungen' && (
               <div className="mobile-drawer-dropdown">
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Heizung &amp; Sanitär</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Wärmepumpe</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Elektroinstallation</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Trockenbau</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Fliesenarbeiten</a>
+                <Link to="/komplettsanierung-rhein-main" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)}>Komplettsanierung</Link>
+                <Link to="/heizung-sanitaer-rhein-main" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)}>Heizung & Sanitär</Link>
+                <Link to="/elektroinstallation-rhein-main" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)}>Elektrotechnik</Link>
+                <Link to="/innenausbau-umbau-rhein-main" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)}>Innenausbau</Link>
+                <Link to="/energetische-sanierung-rhein-main" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)}>Energie & Förderung</Link>
+                <Link to="/schadstoffsanierung-rhein-main" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)}>Schimmel & Asbest</Link>
+                <Link to="/gewerbe-objektsanierung-rhein-main" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)}>Gewerbeobjekte</Link>
+                <Link to="/leistungen" className="mobile-drawer-dropdown-item" onClick={() => setIsOpen(false)} style={{fontWeight: 'bold', color: '#f97316'}}>Alle Leistungen ansehen</Link>
               </div>
             )}
           </li>
 
           <li><a href="#beispiele" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'beispiele')}>Projekte</a></li>
           <li><a href="#faq" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
-          <li><a href="#beispiele" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'beispiele')}>Ratgeber</a></li>
-          
-          <li>
-            <a href="#projekt-hub" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'projekt-hub')} style={{ fontWeight: '700', color: 'var(--navy-light)' }}>
-              Live Radex
-            </a>
-          </li>
-
-          {/* Einsatzgebiete Mobile Dropdown */}
-          <li>
-            <button className="mobile-drawer-link" onClick={() => toggleMobileSubMenu('staedte')} style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', padding: 0, textAlign: 'left', fontWeight: 'inherit', fontFamily: 'inherit', cursor: 'pointer' }}>
-              <span>Einsatzgebiete</span>
-              <ChevronDown size={18} style={{ transform: mobileSubMenu === 'staedte' ? 'rotate(180deg)' : 'none', transition: 'var(--transition)' }} />
-            </button>
-            {mobileSubMenu === 'staedte' && (
-              <div className="mobile-drawer-dropdown">
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Rödermark</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Frankfurt am Main</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Offenbach</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Darmstadt</a>
-                <a href="#kontakt" className="mobile-drawer-dropdown-item" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Hanau</a>
-              </div>
-            )}
-          </li>
+          <li><a href="#ratgeber" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'ratgeber')}>Ratgeber</a></li>
+          <li><a href="#kontakt" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Kontakt</a></li>
         </ul>
+        
         <div className="mobile-drawer-actions">
           <a href="tel:+496074960620" className="btn btn--secondary" onClick={() => setIsOpen(false)} style={{ width: '100%' }}>
             <Phone size={16} />
             <span>06074 960620 Anrufen</span>
           </a>
           <a href="#kontakt" className="btn btn--primary" onClick={(e) => handleScrollToSection(e, 'kontakt')} style={{ width: '100%' }}>
-            Kostenlose Beratung
+            Projekt anfragen
           </a>
         </div>
       </div>
@@ -269,4 +259,3 @@ export default function Header() {
     </>
   );
 }
-
