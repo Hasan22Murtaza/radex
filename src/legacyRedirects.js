@@ -3,9 +3,7 @@
 
 // Exact-match redirects for pages with no obvious keyword match.
 const exactRedirects = {
-  '/ueber-uns': '/#kontakt',
   '/kontakt': '/#kontakt',
-  '/karriere': '/#kontakt',
   '/dienstleistungen': '/leistungen',
   '/ratgeber': '/sanierung-rhein-main',
   '/radex-live': '/#beispiele',

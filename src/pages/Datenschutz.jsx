@@ -1,10 +1,17 @@
 import { useEffect } from 'react';
 import '../badsanierung.css';
+import useSeo from '../useSeo';
 
 export default function Datenschutz() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useSeo({
+    title: "Datenschutz | Radex Objektmanagement GmbH",
+    description: "Datenschutzerklärung der Radex Objektmanagement GmbH gemäß DSGVO.",
+    path: "/datenschutz"
+  });
 
   const sectionStyle = { marginTop: '24px', marginBottom: '8px', color: '#111827' };
   const textStyle = { color: '#374151', fontSize: '15px', lineHeight: 1.7 };

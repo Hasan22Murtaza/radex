@@ -1,10 +1,17 @@
 import { useEffect } from 'react';
 import '../badsanierung.css';
+import useSeo from '../useSeo';
 
 export default function Impressum() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useSeo({
+    title: "Impressum | Radex Objektmanagement GmbH",
+    description: "Impressum der Radex Objektmanagement GmbH, Odenwaldstraße 61, 63322 Rödermark.",
+    path: "/impressum"
+  });
 
   return (
     <main className="badsanierung-page">

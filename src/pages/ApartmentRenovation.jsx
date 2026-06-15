@@ -73,11 +73,34 @@ export default function ApartmentRenovation() {
         <p className="mb-4 text-gray-600">Die Sanierung einer Eigentumswohnung erfordert eine präzise Koordination aller Gewerke, besonders wenn der Platz begrenzt ist oder Rücksicht auf Nachbarn genommen werden muss. Radex übernimmt für Sie die gesamte Bauleitung, vom Abbruch über den Trockenbau bis zur Endreinigung.</p>
         <p className="text-gray-600">Wir beraten Sie auch zu Themen wie Trittschalldämmung, energieeffiziente Fenster und der Erneuerung von veralteten Steigleitungen innerhalb Ihrer Wohneinheit.</p>
       </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Teilsanierung oder Kernsanierung?</h3>
+        <p className="mb-4 text-gray-600">Nicht jede Wohnung muss komplett entkernt werden. Bei einer Teilsanierung erneuern wir gezielt einzelne Bereiche wie Bad, Böden und Anstriche, um mit überschaubarem Budget eine spürbare Wertsteigerung zu erzielen. Bei der Kernsanierung dagegen wird die Wohnung bis auf den Rohbau zurückgebaut – inklusive Elektrik, Heizung, Sanitär und gegebenenfalls neuer Grundrissaufteilung. Wir beraten Sie ehrlich, welcher Umfang für Ihr Ziel – Eigennutzung, Vermietung oder Verkauf – wirtschaftlich sinnvoll ist.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Wohnungssanierung für Kapitalanleger</h3>
+        <p className="mb-4 text-gray-600">Für vermietete Wohnungen zählt jede Woche Leerstand. Wir arbeiten termintreu und planbar, damit Ihre Wohnung schnell wieder vermietbar ist. Eine modernisierte Wohnung erzielt nicht nur höhere Mieten, sondern zieht auch zuverlässigere Mieter an. Gerne beraten wir Sie zu werterhaltenden Materialien, die robust, pflegeleicht und langlebig sind.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Wichtiges für die Eigentümergemeinschaft</h3>
+        <p className="text-gray-600">Bei Wohnungen in Mehrfamilienhäusern müssen Eingriffe in das Gemeinschaftseigentum – etwa Steigleitungen, tragende Wände oder Fenster – mit der Eigentümergemeinschaft und der Hausverwaltung abgestimmt werden. Wir kennen die typischen Anforderungen, halten Bauzeiten und Lärmschutzregeln ein und sorgen für eine reibungslose, nachbarschaftsverträgliche Abwicklung.</p>
+      </div>
     </>
   );
 
+  const seo = {
+    title: "Wohnungssanierung Rhein-Main | Festpreis & aus einer Hand | Radex",
+    description: "Wohnungssanierung im Rhein-Main-Gebiet: Teilsanierung, Kernsanierung & Modernisierung vom Generalunternehmer. Termingerecht, staubarm, zum Festpreis. Jetzt anfragen!",
+    path: "/sanierung/wohnungssanierung",
+    serviceName: "Wohnungssanierung"
+  };
+
   return (
-    <ServicePageTemplate 
+    <ServicePageTemplate
+      seo={seo}
       heroData={heroData}
       whoIsForData={whoIsForData}
       typicalProjectsData={typicalProjectsData}

@@ -70,13 +70,37 @@ export default function CompleteRenovation() {
     <>
       <div className="br-seo-text-block mb-8">
         <h3 className="mb-4 text-xl font-bold">Ihr Generalunternehmer für Komplettsanierungen</h3>
-        <p className="mb-4 text-gray-600">Bei einer Komplettsanierung wird die Immobilie oft bis auf die Grundmauern entkernt. Das gibt Ihnen die Möglichkeit, Heizsysteme grundlegend zu ändern (z.B. Umstieg auf Wärmepumpe mit Fußbodenheizung), Grundrisse komplett neu zu denken und die Energieeffizienz auf Neubau-Niveau zu heben.</p>
+        <p className="mb-4 text-gray-600">Bei einer Komplettsanierung wird die Immobilie oft bis auf die Grundmauern entkernt. Das gibt Ihnen die Möglichkeit, Heizsysteme grundlegend zu ändern (z. B. Umstieg auf eine Wärmepumpe mit Fußbodenheizung), Grundrisse komplett neu zu denken und die Energieeffizienz auf Neubau-Niveau zu heben.</p>
+        <p className="text-gray-600">Als Generalunternehmer bündeln wir alle Gewerke unter einem Dach – Sie haben einen Vertrag, einen Festpreis und einen Ansprechpartner für das gesamte Projekt.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Was ist eine Kernsanierung?</h3>
+        <p className="mb-4 text-gray-600">Bei einer Kernsanierung wird das Gebäude bis auf die tragende Struktur zurückgebaut. Alle nicht tragenden Wände, sämtliche Leitungen für Strom, Wasser und Heizung sowie Böden und Oberflächen werden vollständig erneuert. Das Ergebnis kommt einem Neubau gleich – mit dem Vorteil, dass Standort, Grundstück und oft auch der besondere Charakter des Hauses erhalten bleiben.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Ablauf einer Komplettsanierung</h3>
+        <p className="mb-4 text-gray-600">Wir beginnen mit einer gründlichen Bestandsaufnahme und Planung. Nach dem Festpreisangebot folgen Entkernung, Rohbauarbeiten und statische Eingriffe, anschließend die komplette Haustechnik (Elektro, Heizung, Sanitär), danach Trockenbau, Estrich, Fliesen, Maler und Bodenbeläge. Den Abschluss bilden Feinmontage und Endreinigung. Ein fester Bauleiter sorgt dafür, dass die Gewerke perfekt getaktet ineinandergreifen.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Festpreis & Planungssicherheit</h3>
+        <p className="text-gray-600">Gerade bei einem Großprojekt wie der Komplettsanierung ist Kostensicherheit entscheidend. Sie erhalten von uns ein verbindliches Festpreisangebot, das alle vereinbarten Leistungen abdeckt. Änderungen während der Bauphase werden transparent dokumentiert und freigegeben – so behalten Sie jederzeit die volle Kontrolle über Ihr Budget.</p>
       </div>
     </>
   );
 
+  const seo = {
+    title: "Komplettsanierung Rhein-Main | Kernsanierung zum Festpreis | Radex",
+    description: "Komplettsanierung & Kernsanierung im Rhein-Main-Gebiet vom Generalunternehmer: ein Ansprechpartner, ein Festpreis, ein Zeitplan. Jetzt kostenlose Beratung sichern!",
+    path: "/komplettsanierung-rhein-main",
+    serviceName: "Komplettsanierung"
+  };
+
   return (
-    <ServicePageTemplate 
+    <ServicePageTemplate
+      seo={seo}
       heroData={heroData}
       whoIsForData={whoIsForData}
       typicalProjectsData={typicalProjectsData}

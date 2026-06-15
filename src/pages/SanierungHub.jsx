@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Camera, CheckCircle2, Users, ShieldCheck, Wrench, ArrowRight, MessageSquare, Home, FileText, Check, ChevronDown, MapPin, Award, Phone } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
+import useSeo, { buildFaqSchema } from '../useSeo';
 
 export default function SanierungHub() {
   useEffect(() => {
@@ -17,6 +18,13 @@ export default function SanierungHub() {
     { q: "Arbeitet Radex als Generalunternehmer?", a: "Ja, wir übernehmen die komplette Koordination aller Gewerke und bieten Ihnen einen zentralen Ansprechpartner sowie Festpreisgarantie." },
     { q: "In welchen Städten ist Radex tätig?", a: "Wir sanieren im gesamten Rhein-Main-Gebiet, unter anderem in Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach und Hanau." }
   ];
+
+  useSeo({
+    title: "Sanierung Rhein-Main | Wohnung, Haus & Altbau modernisieren | Radex",
+    description: "Sanierung im Rhein-Main-Gebiet: Wohnungs-, Haus- & Altbausanierung, Komplettsanierung und Generalunternehmer aus einer Hand. Festpreis & feste Termine. Jetzt anfragen!",
+    path: "/sanierung-rhein-main",
+    jsonLd: [buildFaqSchema(faqsData)]
+  });
 
   return (
     <main className="badsanierung-page">

@@ -2,45 +2,54 @@ import { useEffect, useState } from 'react';
 import { Link } from '../router';
 import { Camera, MapPin, MessageSquare, Phone, CheckCircle2, ArrowRight, Award, Users, ShieldCheck, ChevronDown, AlertTriangle, Wrench } from 'lucide-react';
 import '../badsanierung.css';
+import useSeo, { buildFaqSchema } from '../useSeo';
 
 const cityDataMap = {
   frankfurt: {
     name: "Frankfurt am Main",
+    path: "/sanierung-frankfurt-am-main",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Skyline_Frankfurt_am_Main_2015.jpg/1280px-Skyline_Frankfurt_am_Main_2015.jpg",
     districts: ["Sachsenhausen", "Nordend", "Bornheim", "Bockenheim", "Westend", "Ostend", "Gallus", "Niederrad", "Höchst", "Riedberg"]
   },
   darmstadt: {
     name: "Darmstadt",
+    path: "/haus-wohnung-bad-modernisieren-darmstadt",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Darmstadt_Mathildenh%C3%B6he.jpg/1280px-Darmstadt_Mathildenh%C3%B6he.jpg",
     districts: ["Bessungen", "Eberstadt", "Kranichstein", "Arheilgen", "Wixhausen", "Innenstadt"]
   },
   offenbach: {
     name: "Offenbach",
+    path: "/sanierung-offenbach-am-main",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Offenbach_B%C3%BCsingpalais.jpg/1280px-Offenbach_B%C3%BCsingpalais.jpg",
     districts: ["Innenstadt", "Bürgel", "Bieber", "Rumpenheim", "Lauterborn", "Tempelsee"]
   },
   hanau: {
     name: "Hanau",
+    path: "/sanierung-hanau",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Hanau_Marktplatz_S%C3%BCdseite.jpg/1280px-Hanau_Marktplatz_S%C3%BCdseite.jpg",
     districts: ["Innenstadt", "Kesselstadt", "Großauheim", "Steinheim", "Wolfgang", "Lamboy"]
   },
   wiesbaden: {
     name: "Wiesbaden",
+    path: "/sanierung-wiesbaden",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Wiesbaden_BW_2017-04-24_20-51-36.jpg/1280px-Wiesbaden_BW_2017-04-24_20-51-36.jpg",
     districts: ["Innenstadt", "Biebrich", "Bierstadt", "Sonnenberg", "Schierstein", "Dotzheim"]
   },
   mainz: {
     name: "Mainz",
+    path: "/sanierung-mainz",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mainz_Dom_BW_2012-08-18_16-18-12.JPG/1280px-Mainz_Dom_BW_2012-08-18_16-18-12.JPG",
     districts: ["Altstadt", "Neustadt", "Oberstadt", "Gonsenheim", "Bretzenheim", "Mombach"]
   },
   aschaffenburg: {
     name: "Aschaffenburg",
+    path: "/sanierung-aschaffenburg",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Schloss_Johannisberg_%28Aschaffenburg%29_II.jpg/1280px-Schloss_Johannisberg_%28Aschaffenburg%29_II.jpg",
     districts: ["Innenstadt", "Damm", "Leider", "Nilkheim", "Schweinheim", "Strietwald"]
   },
   roedermark: {
     name: "Rödermark",
+    path: "/sanierung-roedermark",
     heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Seligenstadt_Frankfurter_Strasse_12.jpg/1280px-Seligenstadt_Frankfurter_Strasse_12.jpg",
     districts: ["Ober-Roden", "Urberach", "Waldacker"]
   }
@@ -73,6 +82,14 @@ export default function CityPage({ cityId }) {
     { q: "Kann ich Fotos meines Projekts vorab senden?", a: "Ja, senden Sie uns gerne Fotos per WhatsApp – wir geben Ihnen eine erste Einschätzung, bevor wir einen Vor-Ort-Termin vereinbaren." },
     { q: "Sind Sie ein lizenzierter Fachbetrieb?", a: "Radex ist ein eingetragener SHK-Meisterbetrieb und zertifizierter Generalunternehmer." }
   ];
+
+  useSeo({
+    title: `Sanierung ${city.name} | Bad, Wohnung & Haus modernisieren | Radex`,
+    description: `Sanierung & Badsanierung in ${city.name} aus einer Hand: Wohnungs-, Haus- & Altbausanierung, Heizung, Elektro & mehr vom SHK-Meisterbetrieb. Festpreis. Jetzt Beratung sichern!`,
+    path: city.path,
+    image: city.heroImg,
+    jsonLd: [buildFaqSchema(faqsData)]
+  });
 
   const SharedCTABlock = ({ isHero = false }) => (
     <div className={`br-hero-actions ${isHero ? '' : 'mt-8'}`} style={{display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: isHero ? 'flex-start' : 'center'}}>

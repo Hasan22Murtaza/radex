@@ -71,12 +71,36 @@ export default function HistoricBuildingRenovation() {
       <div className="br-seo-text-block mb-8">
         <h3 className="mb-4 text-xl font-bold">Experten für Altbausanierung</h3>
         <p className="mb-4 text-gray-600">Ein Altbau erfordert Handwerker, die alte Bautechniken verstehen. Radex vereint das Wissen um historische Baumaterialien mit modernen Techniken. Egal ob Holzbalkendecke, Fachwerkwände oder alte Bleirohre – wir wissen genau, was zu tun ist, um die Statik nicht zu gefährden und Schimmelbildung durch falsche Dämmung zu vermeiden.</p>
+        <p className="text-gray-600">Bei jedem Schritt wägen wir ab zwischen dem Erhalt des historischen Charakters und den Anforderungen an modernes, energieeffizientes Wohnen.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Denkmalschutz & Behördenabstimmung</h3>
+        <p className="mb-4 text-gray-600">Bei denkmalgeschützten Gebäuden ist jede Veränderung mit der Denkmalschutzbehörde abzustimmen. Wir kennen den Ablauf, bereiten die nötigen Unterlagen vor und finden Lösungen, die sowohl den Auflagen als auch Ihren Wünschen gerecht werden – etwa denkmalgerechte Fenster, die innen modernen Komfort bieten und außen das historische Erscheinungsbild wahren.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Bauphysik im Altbau</h3>
+        <p className="mb-4 text-gray-600">Altbauten „atmen" anders als moderne Gebäude. Eine falsch ausgeführte Dämmung kann zu Tauwasser und Schimmel führen. Deshalb setzen wir auf bauphysikalisch geprüfte Konzepte wie kapillaraktive Innendämmung und feuchteregulierende Materialien, die zur historischen Bausubstanz passen. So verbessern wir die Energieeffizienz, ohne die Substanz zu schädigen.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Erhalt historischer Details</h3>
+        <p className="text-gray-600">Stuckdecken, Kassettentüren, originale Dielenböden und schmiedeeiserne Geländer machen den Charme eines Altbaus aus. Wir arbeiten diese Elemente behutsam auf, statt sie zu ersetzen, und integrieren moderne Technik so unauffällig wie möglich. Das Ergebnis ist ein Zuhause, das Geschichte atmet und gleichzeitig allen Komfort der Gegenwart bietet.</p>
       </div>
     </>
   );
 
+  const seo = {
+    title: "Altbausanierung Rhein-Main | Denkmalgerecht modernisieren | Radex",
+    description: "Altbausanierung im Rhein-Main-Gebiet: historischen Charme erhalten, moderne Technik integrieren. Denkmalgerecht, fachgerecht, aus einer Hand. Jetzt Beratung sichern!",
+    path: "/sanierung/altbausanierung",
+    serviceName: "Altbausanierung"
+  };
+
   return (
-    <ServicePageTemplate 
+    <ServicePageTemplate
+      seo={seo}
       heroData={heroData}
       whoIsForData={whoIsForData}
       typicalProjectsData={typicalProjectsData}

@@ -168,8 +168,8 @@ export default function Footer() {
               Erfahren Sie mehr über Radex, Karrieremöglichkeiten und Unternehmensinformationen.
             </p>
             <ul className="footer-links">
-              <li><a href="/#kontakt" className="footer-link">Über Radex</a></li>
-              <li><a href="/#kontakt" className="footer-link">Karriere</a></li>
+              <li><Link to="/ueber-uns" className="footer-link">Über Radex</Link></li>
+              <li><Link to="/karriere" className="footer-link">Karriere</Link></li>
               <li><a href="/#kontakt" className="footer-link">Kontakt</a></li>
               <li><Link to="/impressum" className="footer-link">Impressum</Link></li>
               <li><Link to="/datenschutz" className="footer-link">Datenschutz</Link></li>

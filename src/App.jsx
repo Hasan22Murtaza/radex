@@ -31,6 +31,8 @@ import ElectricalServices from './pages/ElectricalServices';
 import InteriorConstruction from './pages/InteriorConstruction';
 import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
+import UeberUns from './pages/UeberUns';
+import Karriere from './pages/Karriere';
 
 function ScrollAndAnimationManager() {
   const location = useLocation();
@@ -118,6 +120,8 @@ export default function App() {
           <Route path="/heizung-sanitaer-rhein-main" element={<HeatingPlumbing />} />
           <Route path="/elektroinstallation-rhein-main" element={<ElectricalServices />} />
           <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
+          <Route path="/ueber-uns" element={<UeberUns />} />
+          <Route path="/karriere" element={<Karriere />} />
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/datenschutz" element={<Datenschutz />} />
         </Routes>

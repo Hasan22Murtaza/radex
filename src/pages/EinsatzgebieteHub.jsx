@@ -2,11 +2,18 @@ import { useEffect } from 'react';
 import { MapPin, ArrowRight, Camera, MessageSquare, Phone, Award, Users, ShieldCheck } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
+import useSeo from '../useSeo';
 
 export default function EinsatzgebieteHub() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useSeo({
+    title: "Einsatzgebiete | Sanierung im Rhein-Main-Gebiet | Radex",
+    description: "Radex saniert in über 60 Städten im Rhein-Main-Gebiet: Frankfurt, Offenbach, Darmstadt, Wiesbaden, Mainz, Hanau, Aschaffenburg, Rödermark u. v. m. Jetzt vor Ort beraten lassen!",
+    path: "/einsatzgebiete-rhein-main"
+  });
 
   const cities = [
     { name: "Frankfurt am Main", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Skyline_Frankfurt_am_Main_2015.jpg/960px-Skyline_Frankfurt_am_Main_2015.jpg", link: "/sanierung-frankfurt-am-main" },

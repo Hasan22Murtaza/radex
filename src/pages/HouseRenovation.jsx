@@ -71,13 +71,36 @@ export default function HouseRenovation() {
       <div className="br-seo-text-block mb-8">
         <h3 className="mb-4 text-xl font-bold">Ganzheitliche Haussanierung mit Radex</h3>
         <p className="mb-4 text-gray-600">Ein Haus zu sanieren ist ein komplexes Projekt, das viel Erfahrung erfordert. Radex koordiniert alle beteiligten Gewerke – von den Rohbauarbeiten über die Haustechnik bis zum finalen Anstrich. Dadurch vermeiden Sie Leerlaufzeiten und Kommunikationsprobleme zwischen verschiedenen Firmen.</p>
-        <p className="text-gray-600">Egal ob Reihenhausbaujahr 1970 oder freistehendes Einfamilienhaus – wir entwickeln ein Sanierungskonzept, das den Charme des Hauses erhält und es gleichzeitig fit für die Zukunft macht.</p>
+        <p className="text-gray-600">Egal ob Reihenhaus Baujahr 1970 oder freistehendes Einfamilienhaus – wir entwickeln ein Sanierungskonzept, das den Charme des Hauses erhält und es gleichzeitig fit für die Zukunft macht.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Sanierungsstau erkennen und beheben</h3>
+        <p className="mb-4 text-gray-600">Viele Bestandshäuser weisen einen über Jahre angesammelten Sanierungsstau auf: veraltete Heizungen, undichte Fenster, marode Leitungen oder Feuchtigkeit im Keller. Wir verschaffen Ihnen bei einer Vor-Ort-Begehung einen klaren Überblick über den tatsächlichen Zustand Ihrer Immobilie und priorisieren die Maßnahmen nach Dringlichkeit und Wirtschaftlichkeit – so investieren Sie Ihr Budget dort, wo es den größten Nutzen bringt.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Energetische Modernisierung von Häusern</h3>
+        <p className="mb-4 text-gray-600">Gerade bei Einfamilienhäusern lohnt sich die energetische Sanierung besonders. Durch Dämmung der Gebäudehülle, neue Fenster und den Umstieg auf eine Wärmepumpe senken Sie Ihre Energiekosten dauerhaft und steigern den Wert der Immobilie. Wir betrachten Ihr Haus als Gesamtsystem und stimmen die Maßnahmen so aufeinander ab, dass sie sich ergänzen und Sie die maximale staatliche Förderung erhalten.</p>
+      </div>
+
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Außenhülle: Dach, Fassade & Keller</h3>
+        <p className="text-gray-600">Eine intakte Außenhülle schützt Ihr Haus vor Witterung und Wertverlust. Wir erneuern und dämmen Dächer, sanieren und gestalten Fassaden neu und dichten feuchte Kellerwände fachgerecht ab. So bleibt die Bausubstanz langfristig geschützt und das Haus präsentiert sich auch optisch in modernem Gewand.</p>
       </div>
     </>
   );
 
+  const seo = {
+    title: "Haussanierung Rhein-Main | Modernisierung aus einer Hand | Radex",
+    description: "Haussanierung im Rhein-Main-Gebiet: energetische Modernisierung, Grundrissoptimierung, Dach & Fassade vom Generalunternehmer. Festpreis & feste Termine. Jetzt anfragen!",
+    path: "/sanierung/haussanierung",
+    serviceName: "Haussanierung"
+  };
+
   return (
-    <ServicePageTemplate 
+    <ServicePageTemplate
+      seo={seo}
       heroData={heroData}
       whoIsForData={whoIsForData}
       typicalProjectsData={typicalProjectsData}

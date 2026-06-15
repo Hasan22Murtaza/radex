@@ -181,6 +181,9 @@ export default function Header() {
                 </div>
               </li>
               
+              {/* Über uns */}
+              <li><Link to="/ueber-uns" className="nav-link" onClick={() => setIsOpen(false)}>Über uns</Link></li>
+
               {/* Kontakt */}
               <li><a href="#kontakt" className="nav-link" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Kontakt</a></li>
 
@@ -240,6 +243,8 @@ export default function Header() {
           <li><a href="#beispiele" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'beispiele')}>Projekte</a></li>
           <li><a href="#faq" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
           <li><a href="#ratgeber" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'ratgeber')}>Ratgeber</a></li>
+          <li><Link to="/ueber-uns" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Über uns</Link></li>
+          <li><Link to="/karriere" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Karriere</Link></li>
           <li><a href="#kontakt" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'kontakt')}>Kontakt</a></li>
         </ul>
         

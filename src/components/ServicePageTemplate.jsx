@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Camera, CheckCircle2, Users, ShieldCheck, Wrench, ArrowRight, MessageSquare, Home, FileText, Check, ChevronDown, MapPin, Award, Phone } from 'lucide-react';
 import '../badsanierung.css';
+import useSeo, { buildFaqSchema, buildServiceSchema } from '../useSeo';
 
 export default function ServicePageTemplate({
   heroData,
@@ -11,8 +12,20 @@ export default function ServicePageTemplate({
   costsData,
   processData,
   faqsData,
-  seoContent
+  seoContent,
+  seo // optional: { title, description, path }
 }) {
+  useSeo({
+    title: seo?.title,
+    description: seo?.description,
+    path: seo?.path,
+    image: heroData?.image,
+    jsonLd: [
+      seo ? buildServiceSchema({ name: seo.serviceName || heroData?.title, description: seo.description, path: seo.path }) : null,
+      buildFaqSchema(faqsData)
+    ]
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

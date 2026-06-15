@@ -2,11 +2,18 @@ import { useEffect } from 'react';
 import { Camera, ArrowRight, MessageSquare, Phone } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
+import useSeo from '../useSeo';
 
 export default function LeistungenHub() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useSeo({
+    title: "Leistungen | Sanierung & Modernisierung im Rhein-Main-Gebiet | Radex",
+    description: "Alle Leistungen von Radex im Rhein-Main-Gebiet: Komplettsanierung, Heizung & Sanitär, Elektrotechnik, Innenausbau, Energie & Förderung, Schimmel & Asbest, Gewerbe.",
+    path: "/leistungen"
+  });
 
   return (
     <main className="badsanierung-page">
