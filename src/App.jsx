@@ -87,9 +87,9 @@ function ScrollAndAnimationManager() {
   return null;
 }
 
-export default function App() {
+export default function App({ location }) {
   return (
-    <BrowserRouter>
+    <BrowserRouter initialPath={location}>
       <ScrollAndAnimationManager />
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />

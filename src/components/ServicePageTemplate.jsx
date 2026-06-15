@@ -32,6 +32,7 @@ export default function ServicePageTemplate({
 
   const [openFaq, setOpenFaq] = useState(null);
   const [activeProjectTab, setActiveProjectTab] = useState('aktuelle');
+  const [seoOpen, setSeoOpen] = useState(false);
 
   const projectTabs = {
     aktuelle: [
@@ -448,15 +449,22 @@ export default function ServicePageTemplate({
       {/* 10. ADDITIONAL INFORMATION (SEO CONTENT) */}
       <section className="br-section br-bg-light">
         <div className="container">
-          <details className="br-seo-dropdown">
-            <summary>
-              Weitere Informationen anzeigen (SEO)
-              <ChevronDown size={20} />
-            </summary>
-            <div className="br-seo-content">
+          {/* Always rendered in the DOM (indexable); only visually collapsed,
+              so search engines and prerendering capture the full content. */}
+          <div className="br-seo-dropdown">
+            <button
+              type="button"
+              className="br-seo-summary"
+              aria-expanded={seoOpen}
+              onClick={() => setSeoOpen((v) => !v)}
+            >
+              {seoOpen ? 'Weitere Informationen ausblenden' : 'Weitere Informationen anzeigen'}
+              <ChevronDown size={20} style={{ transform: seoOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s ease' }} />
+            </button>
+            <div className={`br-seo-content ${seoOpen ? 'open' : ''}`}>
               {seoContent}
             </div>
-          </details>
+          </div>
 
           <div className="br-trust-footer">
             <div className="br-trust-item">

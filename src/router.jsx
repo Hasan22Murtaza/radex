@@ -2,8 +2,13 @@ import { useState, useEffect, createContext, useContext } from 'react';
 
 const RouterContext = createContext({ path: '/', navigate: () => {} });
 
-export function BrowserRouter({ children }) {
-  const [path, setPath] = useState(window.location.pathname);
+// SSR-safe: there is no window during prerendering, so accept an
+// `initialPath` (passed by the server entry) and fall back to the real
+// location only in the browser.
+export function BrowserRouter({ children, initialPath }) {
+  const [path, setPath] = useState(
+    initialPath ?? (typeof window !== 'undefined' ? window.location.pathname : '/')
+  );
 
   useEffect(() => {
     const handlePopState = () => setPath(window.location.pathname);
@@ -12,6 +17,7 @@ export function BrowserRouter({ children }) {
   }, []);
 
   const scrollToHash = (hash) => {
+    if (typeof window === 'undefined') return;
     setTimeout(() => {
       const el = document.getElementById(hash);
       if (el) {
