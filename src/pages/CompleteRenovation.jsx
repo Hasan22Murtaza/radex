@@ -61,9 +61,11 @@ export default function CompleteRenovation() {
   };
 
   const faqsData = [
-    { q: "Wer übernimmt die Bauleitung?", a: "Als Generalunternehmer stellt Radex einen festen Bauleiter, der täglich vor Ort ist und alle Gewerke koordiniert." },
-    { q: "Muss ich mich um Baugenehmigungen kümmern?", a: "Nein, auf Wunsch übernehmen unsere Partnerarchitekten die komplette Bauantragsplanung für statische Eingriffe oder Anbauten." },
-    { q: "Wie lange dauert eine Kernsanierung?", a: "Je nach Objektgröße und Umfang sollten Sie für ein Einfamilienhaus etwa 3 bis 6 Monate einplanen." }
+    { q: "Was ist eine Komplettsanierung?", a: "Eine Komplettsanierung umfasst mehrere zentrale Bereiche einer Immobilie gleichzeitig – nicht nur oberflächliche Renovierungen, sondern eine technische, funktionale und gestalterische Neuaufstellung durch koordinierte Fachgewerke. Typischerweise werden Bad, Heizung, Sanitär, Elektro, Innenausbau und Böden in einem abgestimmten Projekt erneuert." },
+    { q: "Was ist der Unterschied zwischen Komplett- und Kernsanierung?", a: "Eine Komplettsanierung muss nicht bis zur Rohstruktur gehen, während eine Kernsanierung tiefgreifendere Rückbauarbeiten und eine umfassendere technische Erneuerung umfasst. Bei der Kernsanierung wird das Gebäude bis auf die tragende Struktur zurückgebaut; das Ergebnis kommt einem Neubau gleich, erhält aber Standort und Charakter." },
+    { q: "Wann ist eine Komplettsanierung sinnvoll?", a: "Sinnvoll ist sie bei einem Hauskauf vor dem Einzug, bei einer Erbschaft, bei aufgelaufenem Sanierungsstau, wenn Bad, Küche, Böden und Leitungen ohnehin gleichzeitig erneuert werden müssen, oder zur deutlichen Wertverbesserung der Immobilie." },
+    { q: "Wer übernimmt die Bauleitung?", a: "Als Generalunternehmer stellt Radex einen festen Bauleiter, der die Gewerke koordiniert und Ihr zentraler Ansprechpartner ist. Sie müssen nicht selbst Handwerker terminieren, mahnen oder kontrollieren." },
+    { q: "Wie lange dauert eine Kernsanierung?", a: "Je nach Objektgröße und Umfang sollten Sie für ein Einfamilienhaus etwa 3 bis 6 Monate einplanen. Den genauen Zeitrahmen legen wir nach der Bestandsaufnahme im Bauzeitenplan fest." }
   ];
 
   const seoContent = (
