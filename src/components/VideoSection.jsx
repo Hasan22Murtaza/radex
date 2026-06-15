@@ -11,6 +11,10 @@ export default function VideoSection() {
   // Tracks whether the customer has deliberately muted, so the
   // auto-unmute-on-interaction never overrides their choice.
   const userMutedRef = useRef(false);
+  // True once the YouTube player has loaded and accepts API commands.
+  const playerReadyRef = useRef(false);
+  // Latest in-view state, so we can apply it as soon as the player is ready.
+  const inViewRef = useRef(false);
 
   // Control the player via the YouTube iframe postMessage API.
   const sendCommand = (func, args = []) => {
@@ -18,6 +22,23 @@ export default function VideoSection() {
       JSON.stringify({ event: 'command', func, args }),
       '*'
     );
+  };
+
+  // Play only while in view; pause otherwise. No-op until the player is ready.
+  const syncPlayback = () => {
+    if (!playerReadyRef.current) return;
+    sendCommand(inViewRef.current ? 'playVideo' : 'pauseVideo');
+  };
+
+  // Once the iframe loads, register the JS API listener and apply the
+  // current in-view state (commands sent before this are dropped by YouTube).
+  const handleIframeLoad = () => {
+    iframeRef.current?.contentWindow?.postMessage(
+      JSON.stringify({ event: 'listening', id: VIDEO_ID }),
+      '*'
+    );
+    playerReadyRef.current = true;
+    syncPlayback();
   };
 
   const unmute = () => {
@@ -55,17 +76,29 @@ export default function VideoSection() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          sendCommand('playVideo');
-        } else {
-          sendCommand('pauseVideo');
-        }
+        inViewRef.current = entry.isIntersecting;
+        syncPlayback();
       },
-      { threshold: 0.5 }
+      { threshold: 0.4 }
     );
 
     observer.observe(target);
-    return () => observer.disconnect();
+
+    // Also pause when the browser tab is hidden, and resume when it
+    // becomes visible again (only if still in view).
+    const handleVisibility = () => {
+      if (document.hidden) {
+        sendCommand('pauseVideo');
+      } else {
+        syncPlayback();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, []);
 
   const toggleSound = () => {
@@ -126,7 +159,8 @@ export default function VideoSection() {
             }}>
               <iframe
                 ref={iframeRef}
-                src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3&playsinline=1&enablejsapi=1`}
+                onLoad={handleIframeLoad}
+                src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=0&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3&playsinline=1&enablejsapi=1`}
                 title="Radex Sanierungsprojekt"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
