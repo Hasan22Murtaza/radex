@@ -2,82 +2,136 @@ import ServicePageTemplate from '../components/ServicePageTemplate';
 
 export default function CommercialRenovation() {
   const heroData = {
-    title: "Gewerbesanierung im",
-    titleSpan: "Rhein-Main-Gebiet",
-    subtitle: "Schnell, präzise und außerhalb der Öffnungszeiten.",
-    text: "Sanierung von Büros, Praxen und Gastronomieflächen mit minimaler Betriebsunterbrechung.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600"
+    title: 'Gewerbe- und Objektsanierung im',
+    titleSpan: 'Rhein-Main-Gebiet',
+    subtitle: 'Bestandsflächen modernisieren, ohne den Betrieb unnötig zu stören.',
+    text: 'Radex koordiniert Gewerbe- und Objektsanierungen im Rhein-Main-Gebiet für Büro, Praxis, Ladenfläche und Mieterausbau. Heizung, Sanitär und Gebäudetechnik werden als SHK-Meisterbetrieb durch Bernd Knoop geführt, weitere Gewerke werden abgestimmt koordiniert.',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600'
   };
 
   const whoIsForData = {
-    title: "Für wen ist diese Leistung?",
-    subtitle: "",
+    title: 'Für wen Gewerbe- und Objektsanierung wichtig ist',
+    subtitle: 'Wenn Flächen funktionieren müssen, zählen Planung, Zeit und saubere Schnittstellen.',
     list: [
-      { title: "Bürobetreiber", desc: "Moderne Arbeitswelten (New Work) schaffen." },
-      { title: "Arztpraxen", desc: "Sanierung unter strengen hygienischen Auflagen." },
-      { title: "Einzelhandel", desc: "Ladenbau und Modernisierung für bessere Kundenfrequenz." }
+      {
+        title: 'Bürobetreiber',
+        desc: 'Wenn Raumaufteilung, Akustik, Licht, Netzwerk und Arbeitsplätze neu gedacht werden müssen.'
+      },
+      {
+        title: 'Praxisinhaber',
+        desc: 'Wenn Sanitär, Hygiene, Zugänge, Wartebereiche und technische Anforderungen zusammenkommen.'
+      },
+      {
+        title: 'Einzelhandel und Ladenflächen',
+        desc: 'Wenn Kundenführung, Beleuchtung, Boden und Nutzung für den Betrieb stimmen müssen.'
+      },
+      {
+        title: 'Vermieter und Bestandshalter',
+        desc: 'Wenn Leerstand, Neuvermietung oder die Vorbereitung auf einen neuen Mieter im Vordergrund stehen.'
+      },
+      {
+        title: 'Hausverwaltungen und Objektverantwortliche',
+        desc: 'Wenn mehrere Nutzer, enge Zeitfenster und klare Kommunikation den Ablauf bestimmen.'
+      }
     ]
   };
 
   const typicalProjectsData = {
-    title: "Typische Gewerbeprojekte",
-    subtitle: "",
+    title: 'Typische Gewerbe- und Objektprojekte',
+    subtitle: 'Jede Fläche wird nach Nutzung, Zustand und Ziel beurteilt.',
     projects: [
-      { title: "Büroausbau", desc: "Trockenbau, Akustikdecken und IT-Verkabelung.", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" },
-      { title: "Praxisumbau", desc: "Spezifische Installationen und barrierefreier Zugang.", img: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800" },
-      { title: "Gastro-Sanierung", desc: "Brandschutz, Fettabscheider und Gastronomie-Elektrik.", img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=800" }
+      { title: 'Büroumbau', desc: 'Trockenbau, Akustik, Licht, Arbeitsplätze und Raumaufteilung für neue Nutzungsanforderungen.', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Praxisumbau', desc: 'Raumstruktur, Sanitär, Hygiene, Wartebereiche und technische Anforderungen werden abgestimmt.', img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Ladenfläche modernisieren', desc: 'Beleuchtung, Boden, Kassenbereich, Schaufensterwirkung und Aufenthaltsqualität werden verbessert.', img: 'https://images.unsplash.com/photo-1555529771-35a1e2b05f0b?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Mieterausbau', desc: 'Fläche wird gezielt für den neuen Mieter vorbereitet und schlüsselfertig übergeben.', img: 'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Objektsanierung', desc: 'Mehrere Einheiten oder gemeinschaftliche Bereiche werden als Gesamtprojekt betrachtet.', img: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Sanitär und Technik', desc: 'WC-Anlagen, Teeküchen, Leitungen, Heizkörper und Elektrokoordination werden mitgedacht.', img: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=800' }
     ]
   };
 
   const costsData = {
-    title: "Kosten einer Gewerbesanierung",
-    subtitle: "Preise richten sich stark nach der Nutzungsart.",
+    title: 'Kosten einer Gewerbe- und Objektsanierung',
+    subtitle: 'Die Kosten hängen von Fläche, Zustand, Nutzung, Zeitfenster und Fachgewerken ab.',
     items: [
-      { title: "Büro (Standard)", price: "ab €400 / m²", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" },
-      { title: "Einzelhandel", price: "ab €800 / m²", img: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&q=80&w=800" },
-      { title: "Arztpraxis", price: "ab €1.200 / m²", img: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800" }
+      { title: 'Teilumbau', price: 'projektbezogen', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Bürofläche', price: 'nach Begehung', img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Praxis oder Laden', price: 'individuell kalkuliert', img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800' },
+      { title: 'Mieterausbau', price: 'objektbezogen', img: 'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&q=80&w=800' }
+    ]
+  };
+
+  const processData = {
+    steps: [
+      { number: 1, title: 'Projektanfrage', icon: <span>1</span> },
+      { number: 2, title: 'Begehung vor Ort', icon: <span>2</span> },
+      { number: 3, title: 'Nutzung und Ziel definieren', icon: <span>3</span> },
+      { number: 4, title: 'Gewerke und Reihenfolge planen', icon: <span>4</span> },
+      { number: 5, title: 'Ausführung und Übergabe', icon: <span>5</span> }
     ]
   };
 
   const faqsData = [
-    { q: "Können Sie auch nachts oder am Wochenende arbeiten?", a: "Ja. Um Ausfallzeiten für Ihren Betrieb zu minimieren, bieten wir flexible Arbeitszeiten an – auch außerhalb Ihrer Öffnungs- und Geschäftszeiten, an Wochenenden oder in den Betriebsferien. So bleibt Ihr Geschäftsbetrieb möglichst ungestört." },
-    { q: "Berücksichtigen Sie Brandschutz und Arbeitssicherheit?", a: "Selbstverständlich. Gewerbliche Räume unterliegen strengen Vorgaben zu Brandschutz, Fluchtwegen, Arbeitsstätten- und Versammlungsstättenverordnung. Wir kennen die geltenden Richtlinien, stimmen uns bei Bedarf mit Brandschutzsachverständigen ab und setzen Ihr Projekt rechtssicher um." },
-    { q: "Können Sie während des laufenden Betriebs sanieren?", a: "In vielen Fällen ja. Mit Staubschutzwänden, abschnittsweiser Ausführung und sauberer Baustellenorganisation lassen sich Teilbereiche sanieren, während andere weiter genutzt werden. Wir erstellen dazu einen abgestimmten Bauzeitenplan." },
-    { q: "Übernehmen Sie auch die Mieterausbau-Koordination?", a: "Ja. Beim Tenant Fit-Out koordinieren wir den kompletten Ausbau nach den Anforderungen des Mieters und den Vorgaben des Vermieters – von der Grundrissplanung über Technik bis zur schlüsselfertigen Übergabe." },
-    { q: "Wie schnell können Sie starten?", a: "Nach der Vor-Ort-Begehung und dem Festpreisangebot können wir je nach Projektgröße und Materialverfügbarkeit kurzfristig beginnen. Bei dringenden gewerblichen Projekten bieten wir auf Wunsch eine beschleunigte Abwicklung an." }
+    { q: 'Was gehört zu einer Gewerbe- und Objektsanierung?', a: 'Dazu können Rückbau, Bestandsaufnahme, Innenausbau, Trockenbau, Elektro, Netzwerk, Heizung, Sanitär, Böden, Decken, Oberflächen, Brandschutzthemen, Mieterausbau und die Modernisierung gewerblicher Flächen gehören.' },
+    { q: 'Für welche Gewerbeflächen arbeitet Radex?', a: 'Radex begleitet Büroflächen, Praxen, Ladenflächen, Dienstleistungsflächen, Verwaltungsbereiche, Mietflächen, gemischt genutzte Objekte und gewerbliche Bestandsflächen im Rhein-Main-Gebiet.' },
+    { q: 'Was ist der Unterschied zwischen Gewerbesanierung und Objektsanierung?', a: 'Gewerbesanierung bezieht sich oft auf eine konkrete gewerbliche Fläche wie Büro, Praxis oder Laden. Objektsanierung kann größer gedacht sein und mehrere Einheiten oder gemeinschaftliche Bereiche betreffen.' },
+    { q: 'Kann Radex mehrere Gewerke bei einer Objektsanierung koordinieren?', a: 'Ja. Radex koordiniert SHK, Elektro, Trockenbau, Innenausbau, Böden, Oberflächen, Rückbau und weitere Fachgewerke als Gesamtprojekt.' },
+    { q: 'Kann eine Gewerbesanierung im laufenden Betrieb stattfinden?', a: 'Das hängt vom Umfang ab. Teilbereiche können häufig abschnittsweise saniert werden. Bei größeren Eingriffen kann eine temporäre Sperrung sinnvoller sein.' },
+    { q: 'Was kostet eine Gewerbe- und Objektsanierung?', a: 'Die Kosten hängen von Fläche, Zustand, Nutzung, Gewerken, Technik, Materialqualität, Zeitfenster und möglicher Fachplanung ab. Ein realistisches Angebot entsteht nach Begehung.' },
+    { q: 'Was ist beim Mieterausbau wichtig?', a: 'Beim Mieterausbau müssen Übergabezustand, Mietbeginn, Anforderungen des Mieters, technische Anschlüsse, Raumaufteilung, Sanitär, Elektro, Böden und Oberflächen früh geklärt werden.' },
+    { q: 'Muss eine Objektsanierung genehmigt werden?', a: 'Das hängt vom Umfang ab. Wenn Nutzungsänderungen, Brandschutz, Fluchtwege, tragende Bauteile oder öffentlich zugängliche Bereiche betroffen sind, können Fachplanung oder Abstimmung nötig werden.' },
+    { q: 'Arbeitet Radex auch für Hausverwaltungen?', a: 'Ja. Radex begleitet Hausverwaltungen bei der Sanierung einzelner Gewerbeeinheiten, gemeinschaftlicher Bereiche und gewerblicher Bestandsflächen.' },
+    { q: 'In welchen Städten bietet Radex Gewerbe- und Objektsanierung an?', a: 'Radex ist in über 60 Städten und Gemeinden im Rhein-Main-Gebiet tätig, unter anderem in Rödermark, Eschborn, Bad Homburg, Oberursel, Neu-Isenburg, Dreieich, Langen, Darmstadt, Wiesbaden, Mainz, Hanau, Rodgau, Mörfelden-Walldorf und Groß-Gerau.' }
   ];
 
   const seoContent = (
     <>
       <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Gewerblicher Innenausbau</h3>
-        <p className="mb-4 text-gray-600">Brandschutz, Fluchtwege, Arbeitssicherheit: Die Vorgaben für gewerbliche Sanierungen sind streng. Wir kennen die einschlägigen Richtlinien – von der Arbeitsstättenverordnung über die Versammlungsstättenverordnung bis zu den Brandschutzauflagen – und setzen Ihr Gewerbeprojekt rechtssicher und fristgerecht um. Als Generalunternehmer koordinieren wir alle Gewerke aus einer Hand und sorgen für einen verbindlichen Festpreis.</p>
-        <p className="text-gray-600">Vom Büro über die Arztpraxis bis zur Gastronomie- und Einzelhandelsfläche realisieren wir Projekte jeder Größenordnung im gesamten Rhein-Main-Gebiet.</p>
+        <h3 className="mb-4 text-xl font-bold">Gewerbeflächen müssen funktionieren</h3>
+        <p className="mb-4 text-gray-600">Gewerbe- und Objektsanierung bedeutet, Flächen so zu modernisieren, dass sie im Alltag für Mitarbeiter, Kunden, Betreiber und Eigentümer zuverlässig funktionieren. Optik ist wichtig, aber ohne funktionierende Technik und Raumstruktur bleibt die Fläche problematisch.</p>
+        <p className="text-gray-600">Radex koordiniert solche Projekte als Generalunternehmer im Rhein-Main-Gebiet und bringt Heizung, Sanitär und Gebäudetechnik als SHK-Meisterbetrieb mit ein.</p>
       </div>
-
       <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Büro- & Objektsanierung</h3>
-        <p className="mb-4 text-gray-600">Moderne Arbeitswelten brauchen flexible Raumkonzepte. Wir schaffen offene Bürolandschaften, ruhige Rückzugsräume und Besprechungszonen durch Trockenbau, Akustikdecken und durchdachte Beleuchtung. Dabei integrieren wir die nötige IT- und Elektroinfrastruktur sauber in die Gestaltung – für ein repräsentatives und produktives Arbeitsumfeld.</p>
+        <h3 className="mb-4 text-xl font-bold">Bestandsprüfung vor der Planung</h3>
+        <p className="mb-4 text-gray-600">Gewerbliche Bestände haben oft viele Vorarbeiten und Umbauten hinter sich. Deshalb beginnt die sinnvolle Planung immer mit einer Bestandsaufnahme: Raumstruktur, Technik, Sanitär, Elektro, Oberflächen, Zugang und mögliche Schnittstellen.</p>
+        <p className="text-gray-600">Erst daraus entsteht ein realistischer Sanierungsfahrplan für Büro, Praxis, Laden, Dienstleistung oder gemischt genutzte Flächen.</p>
       </div>
-
       <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Praxen, Gastronomie & Einzelhandel</h3>
-        <p className="mb-4 text-gray-600">Für Arztpraxen setzen wir hygienische Oberflächen, barrierefreie Zugänge und spezielle Installationen um. In der Gastronomie berücksichtigen wir Brandschutz, Fettabscheider, Lüftung und die besondere Elektrik von Küchen. Im Einzelhandel sorgen wir mit ansprechendem Ladenbau für eine Umgebung, die Kunden anzieht und zum Verweilen einlädt.</p>
+        <h3 className="mb-4 text-xl font-bold">Mieterausbau, Betrieb und Zeitfenster</h3>
+        <p className="mb-4 text-gray-600">Bei gewerblichen Projekten sind Termine oft eng. Radex plant deshalb Rückbau, Trockenbau, Technik, Oberflächen und Übergabe so, dass Leerstand, Nutzung oder laufender Betrieb möglichst wenig gestört werden.</p>
+        <p className="text-gray-600">Wenn Schadstoffthemen, Brandschutz oder technische Anpassungen dazukommen, werden diese früh in die Reihenfolge integriert.</p>
       </div>
-
       <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Mieterausbau & Tenant Fit-Out</h3>
-        <p className="text-gray-600">Beim Mieterausbau übernehmen wir die komplette Umsetzung der Mieterwünsche im Rahmen der vereinbarten Ausbaustandards. Wir koordinieren zwischen Eigentümer, Mieter und allen Fachfirmen, achten auf Termintreue und übergeben die Fläche schlüsselfertig – damit Ihr neuer Mieter pünktlich einziehen kann.</p>
+        <h3 className="mb-4 text-xl font-bold">Technik und Innenausbau zusammen denken</h3>
+        <p className="mb-4 text-gray-600">Elektro, Licht, Netzwerk, WC-Anlagen, Teeküchen, Heizung und Sanitär müssen zu Raumaufteilung und Nutzung passen. Wer Technik zu spät plant, riskiert fertige Flächen, die nochmals geöffnet werden müssen.</p>
+        <p className="text-gray-600">Radex sorgt dafür, dass diese Schnittstellen rechtzeitig abgestimmt werden und die Fläche am Ende nutzungsgerecht übergeben werden kann.</p>
+      </div>
+      <div className="br-seo-text-block mb-8">
+        <h3 className="mb-4 text-xl font-bold">Regionale Stärke im Rhein-Main-Gebiet</h3>
+        <p className="mb-4 text-gray-600">Ob Büro in Eschborn, Praxis in Darmstadt, Objekt in Hanau oder Ladenfläche in Neu-Isenburg: Radex arbeitet regional mit Erfahrung aus über 40 Jahren und ist unter 06074 960620 gut erreichbar.</p>
+        <p className="text-gray-600">Ziel ist immer eine wirtschaftlich sinnvolle und sauber koordinierte Sanierung.</p>
       </div>
     </>
   );
 
   const seo = {
-    title: "Gewerbesanierung Rhein-Main | Büro, Praxis & Ladenbau | Radex",
-    description: "Gewerbe- & Objektsanierung im Rhein-Main-Gebiet: Büroumbau, Praxis, Gastronomie, Einzelhandel & Mieterausbau mit minimaler Betriebsunterbrechung. Jetzt Projekt besprechen!",
-    path: "/gewerbe-objektsanierung-rhein-main",
-    serviceName: "Gewerbesanierung"
+    title: 'Gewerbesanierung Rhein-Main | Büro, Praxis & Ladenbau | Radex',
+    description:
+      'Gewerbe- und Objektsanierung im Rhein-Main-Gebiet: Büro, Praxis, Laden, Mieterausbau und Objektsanierung mit minimaler Betriebsunterbrechung.',
+    path: '/gewerbe-objektsanierung-rhein-main',
+    serviceName: 'Gewerbesanierung'
   };
 
-  return <ServicePageTemplate seo={seo} heroData={heroData} whoIsForData={whoIsForData} typicalProjectsData={typicalProjectsData} costsData={costsData} faqsData={faqsData} seoContent={seoContent} />;
+  return (
+    <ServicePageTemplate
+      seo={seo}
+      heroData={heroData}
+      whoIsForData={whoIsForData}
+      typicalProjectsData={typicalProjectsData}
+      projectsData={false}
+      costsData={costsData}
+      processData={processData}
+      faqsData={faqsData}
+      seoContent={seoContent}
+    />
+  );
 }
