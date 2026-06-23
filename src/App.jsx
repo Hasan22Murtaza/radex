@@ -33,6 +33,7 @@ import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 import UeberUns from './pages/UeberUns';
 import Karriere from './pages/Karriere';
+import SanierungskostenRechnerPage from './pages/SanierungskostenRechnerPage';
 
 function ScrollAndAnimationManager() {
   const location = useLocation();
@@ -122,6 +123,10 @@ export default function App({ location }) {
           <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
           <Route path="/ueber-uns" element={<UeberUns />} />
           <Route path="/karriere" element={<Karriere />} />
+          <Route path="/sanierungskosten-rechner" element={<SanierungskostenRechnerPage />} />
+          <Route path="/badsanierung-kosten" element={<SanierungskostenRechnerPage defaultType="bad" metaType="bad" />} />
+          <Route path="/wohnungssanierung-kosten" element={<SanierungskostenRechnerPage defaultType="wohnung" metaType="wohnung" />} />
+          <Route path="/altbausanierung-kosten" element={<SanierungskostenRechnerPage defaultType="altbau" metaType="altbau" />} />
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/datenschutz" element={<Datenschutz />} />
         </Routes>

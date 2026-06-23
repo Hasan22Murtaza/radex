@@ -106,6 +106,7 @@ export default function HistoricBuildingRenovation() {
       typicalProjectsData={typicalProjectsData}
       costsData={costsData}
       faqsData={faqsData}
+      calculatorType="altbau"
       seoContent={seoContent}
     />
   );

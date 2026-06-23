@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Camera, CheckCircle2, Users, ShieldCheck, Wrench, ArrowRight, MessageSquare, Home, FileText, Check, ChevronDown, MapPin, Award, Phone } from 'lucide-react';
+import { Camera, CheckCircle2, Users, ShieldCheck, ArrowRight, MessageSquare, ChevronDown, MapPin, Award, Phone } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
 import useSeo, { buildFaqSchema } from '../useSeo';
+import SanierungskostenRechner from '../components/SanierungskostenRechner';
 
 export default function SanierungHub() {
   useEffect(() => {
@@ -304,6 +305,8 @@ export default function SanierungHub() {
           </div>
         </div>
       </section>
+
+      <SanierungskostenRechner defaultType="wohnung" compact />
 
       {/* 7. FAQ */}
       <section className="br-section">

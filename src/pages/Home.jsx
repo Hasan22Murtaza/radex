@@ -8,6 +8,7 @@ import ReviewsMarquee from '../components/ReviewsMarquee';
 import FaqContactSplit from '../components/FaqContactSplit';
 import ContactForm from '../components/ContactForm';
 import SeoAccordion from '../components/SeoAccordion';
+import SanierungskostenRechner from '../components/SanierungskostenRechner';
 import useSeo from '../useSeo';
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       <Hero />
       <ServicesOverview />
       <ProjectHub />
+      <SanierungskostenRechner />
       <VideoSection />
       <Examples />
       <ReviewsMarquee />

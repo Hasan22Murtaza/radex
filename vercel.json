@@ -99,7 +99,7 @@
     },
     {
       "source": "/badsanierung-kosten-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badsanierung-kosten",
       "permanent": true
     },
     {

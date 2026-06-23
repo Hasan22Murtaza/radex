@@ -102,6 +102,7 @@ export default function BathroomRenovation() {
       typicalProjectsData={typicalProjectsData}
       costsData={costsData}
       faqsData={faqsData}
+      calculatorType="bad"
       seoContent={seoContent}
     />
   );

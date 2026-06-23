@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from '../router';
-import { ShieldCheck, Users, Sparkles, BadgeCheck, ArrowRight, MessageSquare, ClipboardList, Search, FileText, Hammer, KeyRound, Bath, Home as HomeIcon, Gem } from 'lucide-react';
+import { ShieldCheck, Users, Sparkles, BadgeCheck, ArrowRight, MessageSquare, Search, FileText, Hammer, KeyRound, Bath, Home as HomeIcon, Gem } from 'lucide-react';
 
 export default function ProjectHub() {
   const [tab, setTab] = useState('why');
@@ -98,7 +98,7 @@ export default function ProjectHub() {
                 ))}
               </div>
               <div className="text-center" style={{marginTop: '40px'}}>
-                <Link to="/badsanierung-rhein-main" className="home-btn-orange" style={{display: 'inline-flex'}}>
+                <Link to="/sanierungskosten-rechner" className="home-btn-orange" style={{display: 'inline-flex'}}>
                   Kosten berechnen <ArrowRight size={16} />
                 </Link>
               </div>

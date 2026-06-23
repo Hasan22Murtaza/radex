@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Camera, CheckCircle2, Users, ShieldCheck, Wrench, ArrowRight, MessageSquare, Home, FileText, Check, ChevronDown, MapPin, Award, Phone } from 'lucide-react';
 import '../badsanierung.css';
 import useSeo, { buildFaqSchema, buildServiceSchema } from '../useSeo';
+import SanierungskostenRechner from './SanierungskostenRechner';
 
 export default function ServicePageTemplate({
   heroData,
@@ -13,6 +14,7 @@ export default function ServicePageTemplate({
   processData,
   faqsData,
   seoContent,
+  calculatorType = 'bad',
   seo // optional: { title, description, path }
 }) {
   useSeo({
@@ -285,14 +287,11 @@ export default function ServicePageTemplate({
                 <div className="br-cost-img" style={{ backgroundImage: `url(${cost.img})` }}></div>
               </div>
             ))}
-            <div className="br-cost-calculator">
-              <h3>Budget-Rechner</h3>
-              <p>Berechnen Sie Ihre geschätzten Kosten in wenigen Schritten.</p>
-              <button className="br-btn-orange w-full mt-4">Kosten berechnen</button>
-            </div>
           </div>
         </div>
       </section>
+
+      <SanierungskostenRechner defaultType={calculatorType} compact />
 
       {/* 7. PROCESS */}
       <section className="br-section">

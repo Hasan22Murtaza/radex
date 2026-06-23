@@ -3,6 +3,7 @@ import { Link } from '../router';
 import { Camera, MapPin, MessageSquare, Phone, CheckCircle2, ArrowRight, Award, Users, ShieldCheck, ChevronDown, AlertTriangle, Wrench } from 'lucide-react';
 import '../badsanierung.css';
 import useSeo, { buildFaqSchema } from '../useSeo';
+import SanierungskostenRechner from '../components/SanierungskostenRechner';
 
 const cityDataMap = {
   frankfurt: {
@@ -323,6 +324,8 @@ export default function CityPage({ cityId }) {
           </div>
         </div>
       </section>
+
+      <SanierungskostenRechner defaultType="bad" compact />
 
       {/* 7. DETAILED SERVICE INFORMATION + LOCAL DISTRICTS (ACCORDIONS) */}
       <section className="br-section br-bg-light">

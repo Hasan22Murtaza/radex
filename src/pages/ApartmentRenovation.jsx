@@ -114,6 +114,7 @@ export default function ApartmentRenovation() {
       typicalProjectsData={typicalProjectsData}
       costsData={costsData}
       faqsData={faqsData}
+      calculatorType="wohnung"
       seoContent={seoContent}
     />
   );

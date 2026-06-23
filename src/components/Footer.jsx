@@ -64,7 +64,7 @@ export default function Footer() {
               <li><a href="/badsanierung-rhein-main" className="footer-link">Barrierefreies Bad</a></li>
               <li><a href="/badsanierung-rhein-main" className="footer-link">Badplanung</a></li>
               <li><a href="/#beispiele" className="footer-link">Aktuelle Badprojekte</a></li>
-              <li><a href="/badsanierung-rhein-main" className="footer-link">Badsanierung Kosten</a></li>
+              <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
             </ul>
           </div>
 
@@ -106,10 +106,11 @@ export default function Footer() {
               Kostenratgeber, Preisbeispiele und wichtige Budgetfaktoren für gängige Sanierungsprojekte.
             </p>
             <ul className="footer-links">
-              <li><a href="/badsanierung-rhein-main" className="footer-link">Badsanierung Kosten</a></li>
-              <li><a href="/sanierung/wohnungssanierung" className="footer-link">Wohnungssanierung Kosten</a></li>
+              <li><a href="/sanierungskosten-rechner" className="footer-link">Sanierungskosten Rechner</a></li>
+              <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
+              <li><a href="/wohnungssanierung-kosten" className="footer-link">Wohnungssanierung Kosten</a></li>
               <li><a href="/sanierung/haussanierung" className="footer-link">Haussanierung Kosten</a></li>
-              <li><a href="/sanierung/altbausanierung" className="footer-link">Altbausanierung Kosten</a></li>
+              <li><a href="/altbausanierung-kosten" className="footer-link">Altbausanierung Kosten</a></li>
               <li><a href="/heizung-sanitaer-rhein-main" className="footer-link">Heizung erneuern Kosten</a></li>
             </ul>
           </div>
