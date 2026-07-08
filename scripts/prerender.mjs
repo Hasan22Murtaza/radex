@@ -5,25 +5,17 @@
 // Run after `vite build` (client) and `vite build --ssr` (server entry).
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { cityDataMap } from '../src/data/cities.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const distDir = path.join(root, 'dist');
 const SITE = 'https://www.radex-objektmanagement.de';
 
-// Single source of truth for per-route head meta. Mirrors the useSeo() calls
-// in the page components so the prerendered <head> matches the runtime head.
-const cityNames = {
-  '/sanierung-frankfurt-am-main': 'Frankfurt am Main',
-  '/haus-wohnung-bad-modernisieren-darmstadt': 'Darmstadt',
-  '/sanierung-offenbach-am-main': 'Offenbach',
-  '/sanierung-hanau': 'Hanau',
-  '/sanierung-wiesbaden': 'Wiesbaden',
-  '/sanierung-mainz': 'Mainz',
-  '/sanierung-aschaffenburg': 'Aschaffenburg',
-  '/sanierung-roedermark': 'Rödermark'
-};
+const cityNames = Object.fromEntries(
+  Object.entries(cityDataMap).map(([id, city]) => [city.path, city.name])
+);
 
 const cityMeta = Object.fromEntries(
   Object.entries(cityNames).map(([p, name]) => [
@@ -99,7 +91,7 @@ function applyHead(html, route, meta) {
 
 async function main() {
   const template = fs.readFileSync(path.join(distDir, 'index.html'), 'utf8');
-  const { render } = await import(path.join(distDir, 'server', 'entry-server.js'));
+  const { render } = await import(pathToFileURL(path.join(distDir, 'server', 'entry-server.js')).href);
 
   let count = 0;
   for (const [route, meta] of Object.entries(routes)) {

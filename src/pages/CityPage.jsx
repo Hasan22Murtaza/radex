@@ -4,57 +4,8 @@ import { Camera, MapPin, MessageSquare, Phone, CheckCircle2, ArrowRight, Award, 
 import '../badsanierung.css';
 import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
-
-const cityDataMap = {
-  frankfurt: {
-    name: "Frankfurt am Main",
-    path: "/sanierung-frankfurt-am-main",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Skyline_Frankfurt_am_Main_2015.jpg/1280px-Skyline_Frankfurt_am_Main_2015.jpg",
-    districts: ["Sachsenhausen", "Nordend", "Bornheim", "Bockenheim", "Westend", "Ostend", "Gallus", "Niederrad", "Höchst", "Riedberg"]
-  },
-  darmstadt: {
-    name: "Darmstadt",
-    path: "/haus-wohnung-bad-modernisieren-darmstadt",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Darmstadt_Mathildenh%C3%B6he.jpg/1280px-Darmstadt_Mathildenh%C3%B6he.jpg",
-    districts: ["Bessungen", "Eberstadt", "Kranichstein", "Arheilgen", "Wixhausen", "Innenstadt"]
-  },
-  offenbach: {
-    name: "Offenbach",
-    path: "/sanierung-offenbach-am-main",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Offenbach_B%C3%BCsingpalais.jpg/1280px-Offenbach_B%C3%BCsingpalais.jpg",
-    districts: ["Innenstadt", "Bürgel", "Bieber", "Rumpenheim", "Lauterborn", "Tempelsee"]
-  },
-  hanau: {
-    name: "Hanau",
-    path: "/sanierung-hanau",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Hanau_Marktplatz_S%C3%BCdseite.jpg/1280px-Hanau_Marktplatz_S%C3%BCdseite.jpg",
-    districts: ["Innenstadt", "Kesselstadt", "Großauheim", "Steinheim", "Wolfgang", "Lamboy"]
-  },
-  wiesbaden: {
-    name: "Wiesbaden",
-    path: "/sanierung-wiesbaden",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Wiesbaden_BW_2017-04-24_20-51-36.jpg/1280px-Wiesbaden_BW_2017-04-24_20-51-36.jpg",
-    districts: ["Innenstadt", "Biebrich", "Bierstadt", "Sonnenberg", "Schierstein", "Dotzheim"]
-  },
-  mainz: {
-    name: "Mainz",
-    path: "/sanierung-mainz",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mainz_Dom_BW_2012-08-18_16-18-12.JPG/1280px-Mainz_Dom_BW_2012-08-18_16-18-12.JPG",
-    districts: ["Altstadt", "Neustadt", "Oberstadt", "Gonsenheim", "Bretzenheim", "Mombach"]
-  },
-  aschaffenburg: {
-    name: "Aschaffenburg",
-    path: "/sanierung-aschaffenburg",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Schloss_Johannisberg_%28Aschaffenburg%29_II.jpg/1280px-Schloss_Johannisberg_%28Aschaffenburg%29_II.jpg",
-    districts: ["Innenstadt", "Damm", "Leider", "Nilkheim", "Schweinheim", "Strietwald"]
-  },
-  roedermark: {
-    name: "Rödermark",
-    path: "/sanierung-roedermark",
-    heroImg: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Seligenstadt_Frankfurter_Strasse_12.jpg/1280px-Seligenstadt_Frankfurter_Strasse_12.jpg",
-    districts: ["Ober-Roden", "Urberach", "Waldacker"]
-  }
-};
+import { citySeoContent } from '../data/citySeoContent';
+import { cityDataMap } from '../data/cities';
 
 const serviceNavCards = [
   { to: "/badsanierung-rhein-main", title: "Badsanierung", desc: "Komplette Bädermodernisierung, barrierefreie Umbauten und Wellnessoasen.", cta: "Badsanierung planen", img: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=800" },
@@ -69,6 +20,7 @@ const serviceNavCards = [
 
 export default function CityPage({ cityId }) {
   const city = cityDataMap[cityId] || { name: "Rhein-Main-Gebiet", heroImg: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1600", districts: [] };
+  const seoContent = citySeoContent[cityId];
 
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -76,7 +28,7 @@ export default function CityPage({ cityId }) {
     window.scrollTo(0, 0);
   }, [cityId]);
 
-  const faqsData = [
+  const faqsData = seoContent?.faqs ?? [
     { q: `Sind Sie auch in ${city.name} und Umgebung tätig?`, a: `Ja, Radex betreut Sanierungs- und Modernisierungsprojekte in ganz ${city.name} sowie den umliegenden Stadtteilen und Gemeinden.` },
     { q: "Wie schnell erhalte ich ein Angebot?", a: "Nach einer Vor-Ort-Besichtigung oder der Auswertung Ihrer Fotos erhalten Sie in der Regel innerhalb von wenigen Tagen ein verbindliches Festpreisangebot." },
     { q: "Bieten Sie eine Festpreisgarantie an?", a: "Ja, alle unsere Angebote sind Festpreise ohne versteckte Zusatzkosten." },
@@ -328,66 +280,92 @@ export default function CityPage({ cityId }) {
       <SanierungskostenRechner defaultType="bad" compact />
 
       {/* 7. DETAILED SERVICE INFORMATION + LOCAL DISTRICTS (ACCORDIONS) */}
-      <section className="br-section br-bg-light">
-        <div className="container">
-          <details className="br-seo-dropdown mb-6">
-            <summary>
-              Detaillierte Informationen zu Radex in {city.name} anzeigen
-              <ChevronDown size={20} />
-            </summary>
-            <div className="br-seo-content">
-              <div className="br-seo-text-block mb-8">
-                <h3 className="mb-4 text-xl font-bold">Sanierung und Modernisierung in {city.name}</h3>
-                <p className="mb-4 text-gray-600">
-                  Als erfahrener SHK-Meisterbetrieb und Generalunternehmer realisiert Radex Sanierungsprojekte für Privathaushalte,
-                  Kapitalanleger und Gewerbekunden in {city.name}. Von der Badsanierung über die Wohnungs- und Haussanierung bis
-                  hin zur Heizungs- und Elektromodernisierung koordinieren wir alle Gewerke aus einer Hand.
-                </p>
-                <p className="text-gray-600">
-                  Unsere lokalen Teams kennen die baulichen Besonderheiten der Gebäude in {city.name} – von Altbauten in zentralen
-                  Lagen bis zu modernen Neubauten in den Stadtrandgebieten – und planen jedes Projekt entsprechend.
-                </p>
-              </div>
-              <p className="text-center mb-6 font-semibold">Hier finden Sie detaillierte Informationen zu folgenden Themen:</p>
-              <div className="br-seo-tags">
-                <span className="br-seo-tag">Badsanierung {city.name}</span>
-                <span className="br-seo-tag">Wohnungssanierung {city.name}</span>
-                <span className="br-seo-tag">Haussanierung {city.name}</span>
-                <span className="br-seo-tag">Altbausanierung {city.name}</span>
-                <span className="br-seo-tag">Heizung & Sanitär {city.name}</span>
-                <span className="br-seo-tag">Elektrotechnik {city.name}</span>
-                <span className="br-seo-tag">Schimmelsanierung {city.name}</span>
-                <span className="br-seo-tag">Gewerbesanierung {city.name}</span>
-                <span className="br-seo-tag">Kostenübersicht & Förderung</span>
-                <span className="br-seo-tag">Projektablauf & Planung</span>
-              </div>
-            </div>
-          </details>
+      {seoContent && (
+        <section className="br-section br-bg-light">
+          <div className="container">
+            {seoContent.intro && (
+              <p className="br-seo-service-text mb-8" style={{margin: '0 auto 32px' }}>
+                {seoContent.intro}
+              </p>
+            )}
 
-          {city.districts && city.districts.length > 0 && (
-            <details className="br-seo-dropdown">
-              <summary>
-                Stadtteile & Umgebung in {city.name} anzeigen
-                <ChevronDown size={20} />
-              </summary>
-              <div className="br-seo-content">
-                <p className="text-center mb-6 font-semibold">Wir betreuen Sanierungsprojekte in folgenden Stadtteilen und Umgebungsgemeinden von {city.name}:</p>
-                <div className="br-seo-tags">
-                  {city.districts.map((district, idx) => (
-                    <span key={idx} className="br-seo-tag">{district}</span>
-                  ))}
-                </div>
+            {seoContent.serviceSections ? (
+              <div className="br-seo-service-list mb-6">
+                {seoContent.serviceSections.map((section, idx) => (
+                  <details key={idx} className="br-seo-service-item">
+                    <summary>
+                      <span className="br-seo-service-title">{section.title}</span>
+                      <ChevronDown size={20} />
+                    </summary>
+                    {(section.description || section.items?.length || section.closingNote) && (
+                      <div className="br-seo-service-body">
+                        {section.description && (
+                          <p className="br-seo-service-text">{section.description}</p>
+                        )}
+                        {section.items?.length > 0 && (
+                          <ul className="br-seo-service-list-items">
+                            {section.items.map((item, itemIdx) => (
+                              <li key={itemIdx}>{item}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {section.closingNote && (
+                          <p className="br-seo-service-text" style={{ marginTop: '16px' }}>
+                            {section.closingNote}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </details>
+                ))}
               </div>
-            </details>
-          )}
-        </div>
-      </section>
+            ) : (
+              <div className="br-seo-tags mb-6">
+                {seoContent.serviceTags.map((tag, idx) => (
+                  <span key={idx} className="br-seo-tag">{tag}</span>
+                ))}
+              </div>
+            )}
+
+            {seoContent.districtDetails && seoContent.districtDetails.length > 0 && (
+              <details className="br-seo-dropdown">
+                <summary>
+                  Stadtteile & Umgebung in {city.name} anzeigen
+                  <ChevronDown size={20} />
+                </summary>
+                <div className="br-seo-content">
+                  <p className="text-center mb-6 font-semibold">
+                    Wir betreuen Sanierungsprojekte in folgenden Stadtteilen und Umgebungsgemeinden von {city.name}:
+                  </p>
+                  <div className="br-seo-tags mb-8">
+                    {seoContent.districtDetails.map((district, idx) => (
+                      <span key={idx} className="br-seo-tag">{district.name}</span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    {seoContent.districtDetails.map((district, idx) => (
+                      <div key={idx}>
+                        <h4 style={{ fontSize: '16px', fontWeight: 700, color: '#111827', marginBottom: '8px' }}>
+                          Sanierung in {district.name}
+                        </h4>
+                        <p style={{ color: '#4b5563', fontSize: '15px', lineHeight: 1.7, margin: 0 }}>
+                          {district.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </details>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* 9. FAQ */}
       <section className="br-section br-bg-light">
         <div className="container" style={{ maxWidth: '900px' }}>
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Häufig gestellte Fragen zu {city.name}</h2>
+            <h2 className="br-section-title">{seoContent?.faqs ? 'Häufige Fragen' : `Häufig gestellte Fragen zu ${city.name}`}</h2>
           </div>
           <div className="br-faq-grid">
             {faqsData.map((faq, i) => (

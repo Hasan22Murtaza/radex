@@ -1,6 +1,8 @@
 // Maps legacy/long-tail URLs from the old radex-objektmanagement.de site
 // to the closest equivalent page on the new site, to preserve SEO rankings.
 
+import { implementedCityPaths } from './data/cities.js';
+
 // Exact-match redirects for pages with no obvious keyword match.
 const exactRedirects = {
   '/kontakt': '/#kontakt',
@@ -57,7 +59,12 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/gewerbe') || p.startsWith('/bueroumbau') || p.startsWith('/mieterausbau'), to: '/gewerbe-objektsanierung-rhein-main' },
 
   // City pages we don't host individually go to the service area hub
-  { test: (p) => p.startsWith('/sanierung-') || p.startsWith('/badsanierung-') || /^\/(haus|wohneigentum|immobilie|eigentumswohnung|villa|reihenhaus|einfamilienhaus|haus-wohnung)[-_a-z]*(darmstadt|kelkheim|bad-soden|friedrichsdorf|bad-vilbel|hattersheim|karben|kelsterbach|moerfelden-walldorf|obertshausen)/.test(p), to: '/einsatzgebiete-rhein-main' },
+  {
+    test: (p) =>
+      !implementedCityPaths.has(p)
+      && (p.startsWith('/sanierung-') || p.startsWith('/badsanierung-') || /^\/(haus|wohneigentum|immobilie|eigentumswohnung|villa|reihenhaus|einfamilienhaus|haus-wohnung)[-_a-z]*(darmstadt|kelkheim|bad-soden|friedrichsdorf|bad-vilbel|hattersheim|karben|kelsterbach|moerfelden-walldorf|obertshausen)/.test(p)),
+    to: '/einsatzgebiete-rhein-main',
+  },
 
   // Ratgeber guide articles - send to the relevant hub by topic keyword
   { test: (p) => p.startsWith('/ratgeber/badsanierung') || p.startsWith('/ratgeber/kleines-bad'), to: '/badsanierung-rhein-main' },

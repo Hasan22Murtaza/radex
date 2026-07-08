@@ -3,6 +3,7 @@ import { MapPin, ArrowRight, Camera, MessageSquare, Phone, Award, Users, ShieldC
 import { Link } from '../router';
 import '../badsanierung.css';
 import useSeo from '../useSeo';
+import { featuredCities, additionalCities } from '../data/cities';
 
 export default function EinsatzgebieteHub() {
   useEffect(() => {
@@ -15,22 +16,7 @@ export default function EinsatzgebieteHub() {
     path: "/einsatzgebiete-rhein-main"
   });
 
-  const cities = [
-    { name: "Frankfurt am Main", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Skyline_Frankfurt_am_Main_2015.jpg/960px-Skyline_Frankfurt_am_Main_2015.jpg", link: "/sanierung-frankfurt-am-main" },
-    { name: "Darmstadt", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Darmstadt_Mathildenh%C3%B6he.jpg/960px-Darmstadt_Mathildenh%C3%B6he.jpg", link: "/haus-wohnung-bad-modernisieren-darmstadt" },
-    { name: "Offenbach", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Offenbach_B%C3%BCsingpalais.jpg/960px-Offenbach_B%C3%BCsingpalais.jpg", link: "/sanierung-offenbach-am-main" },
-    { name: "Hanau", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Hanau_Marktplatz_S%C3%BCdseite.jpg/960px-Hanau_Marktplatz_S%C3%BCdseite.jpg", link: "/sanierung-hanau" },
-    { name: "Wiesbaden", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Wiesbaden_BW_2017-04-24_20-51-36.jpg/960px-Wiesbaden_BW_2017-04-24_20-51-36.jpg", link: "/sanierung-wiesbaden" },
-    { name: "Mainz", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Mainz_Dom_BW_2012-08-18_16-18-12.JPG/960px-Mainz_Dom_BW_2012-08-18_16-18-12.JPG", link: "/sanierung-mainz" },
-    { name: "Aschaffenburg", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Schloss_Johannisberg_%28Aschaffenburg%29_II.jpg/960px-Schloss_Johannisberg_%28Aschaffenburg%29_II.jpg", link: "/sanierung-aschaffenburg" },
-    { name: "Rödermark & Rodgau", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Seligenstadt_Frankfurter_Strasse_12.jpg/960px-Seligenstadt_Frankfurter_Strasse_12.jpg", link: "/sanierung-roedermark" }
-  ];
-
-  const additionalCities = [
-    "Bad Homburg", "Dieburg", "Dietzenbach", "Dreieich", "Groß-Umstadt",
-    "Heusenstamm", "Maintal", "Mörfelden-Walldorf", "Neu-Isenburg",
-    "Obertshausen", "Rodgau", "Seligenstadt", "Weiterstadt", "Langen"
-  ];
+  const cities = featuredCities;
 
   return (
     <main className="badsanierung-page">
@@ -62,7 +48,7 @@ export default function EinsatzgebieteHub() {
             </p>
           </div>
         </div>
-        <div className="br-hero-right" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1600)' }}>
+        <div className="br-hero-right" style={{ backgroundImage: 'url(/img/opt_fra.webp)' }}>
         </div>
       </section>
 
@@ -137,19 +123,19 @@ export default function EinsatzgebieteHub() {
             </p>
           </div>
 
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '12px'}}>
+          <div className="br-projects-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))'}}>
             {additionalCities.map((city, idx) => (
               <Link
                 key={idx}
-                to="/einsatzgebiete-rhein-main"
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                  padding: '14px 18px', borderRadius: '8px',
-                  border: '1px solid #e5e7eb', background: '#fff',
-                  color: '#111827', textDecoration: 'none', fontWeight: 500, fontSize: '15px'
-                }}
+                to={city.link}
+                className="br-project-card"
+                style={{textDecoration: 'none', color: 'inherit', border: '1px solid #e5e7eb'}}
               >
-                <MapPin size={16} color="#f97316" /> {city}
+                <div className="br-project-img" style={{ backgroundImage: `url(${city.img})`, height: '160px' }}>
+                  <div style={{position: 'absolute', bottom: '12px', left: '12px', background: 'rgba(255,255,255,0.9)', padding: '6px 12px', borderRadius: '20px', fontSize: '13px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px'}}>
+                    <MapPin size={14} color="#f97316" /> {city.name}
+                  </div>
+                </div>
               </Link>
             ))}
           </div>

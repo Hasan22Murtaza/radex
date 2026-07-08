@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useContext } from 'react';
+import { useState, useEffect, createContext, useContext, Children } from 'react';
 
 const RouterContext = createContext({ path: '/', navigate: () => {} });
 
@@ -55,8 +55,8 @@ export function BrowserRouter({ children, initialPath }) {
 
 export function Routes({ children, fallback }) {
   const { path } = useContext(RouterContext);
-  const items = Array.isArray(children) ? children : [children];
-  const match = items.find((child) => child && child.props.path === path);
+  const items = Children.toArray(children);
+  const match = items.find((child) => child?.props?.path === path);
   if (match) return match;
   return fallback || null;
 }

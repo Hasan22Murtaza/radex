@@ -16,6 +16,7 @@ import SanierungHub from './pages/SanierungHub';
 import LeistungenHub from './pages/LeistungenHub';
 import EinsatzgebieteHub from './pages/EinsatzgebieteHub';
 import CityPage from './pages/CityPage';
+import { cityDataMap, cityIds } from './data/cities';
 import BathroomRenovation from './pages/BathroomRenovation';
 import ApartmentRenovation from './pages/ApartmentRenovation';
 import HouseRenovation from './pages/HouseRenovation';
@@ -99,14 +100,13 @@ export default function App({ location }) {
           <Route path="/sanierung-rhein-main" element={<SanierungHub />} />
           <Route path="/leistungen" element={<LeistungenHub />} />
           <Route path="/einsatzgebiete-rhein-main" element={<EinsatzgebieteHub />} />
-          <Route path="/sanierung-frankfurt-am-main" element={<CityPage cityId="frankfurt" />} />
-          <Route path="/haus-wohnung-bad-modernisieren-darmstadt" element={<CityPage cityId="darmstadt" />} />
-          <Route path="/sanierung-offenbach-am-main" element={<CityPage cityId="offenbach" />} />
-          <Route path="/sanierung-hanau" element={<CityPage cityId="hanau" />} />
-          <Route path="/sanierung-wiesbaden" element={<CityPage cityId="wiesbaden" />} />
-          <Route path="/sanierung-mainz" element={<CityPage cityId="mainz" />} />
-          <Route path="/sanierung-aschaffenburg" element={<CityPage cityId="aschaffenburg" />} />
-          <Route path="/sanierung-roedermark" element={<CityPage cityId="roedermark" />} />
+          {cityIds.map((cityId) => (
+            <Route
+              key={cityId}
+              path={cityDataMap[cityId].path}
+              element={<CityPage cityId={cityId} />}
+            />
+          ))}
           <Route path="/badsanierung-rhein-main" element={<BathroomRenovation />} />
           <Route path="/sanierung/wohnungssanierung" element={<ApartmentRenovation />} />
           <Route path="/sanierung/haussanierung" element={<HouseRenovation />} />

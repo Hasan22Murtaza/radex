@@ -603,6 +603,32 @@
   margin-bottom: 40px;
 }
 
+.br-seo-dropdown summary {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.br-seo-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.br-seo-dropdown summary svg {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.br-seo-dropdown[open] summary svg {
+  transform: rotate(180deg);
+}
+
 .br-seo-summary {
   width: 100%;
   padding: 20px;
@@ -630,7 +656,8 @@
   transition: max-height 0.4s ease, padding 0.4s ease;
 }
 
-.br-seo-content.open {
+.br-seo-content.open,
+.br-seo-dropdown[open] > .br-seo-content {
   padding: 24px;
   max-height: 6000px;
   border-top-color: var(--br-border);
@@ -649,6 +676,84 @@
   border-radius: 20px;
   font-size: 13px;
   border: 1px solid var(--br-border);
+}
+
+.br-seo-service-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.br-seo-service-item {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.br-seo-service-item summary {
+  width: 100%;
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  color: #111827;
+}
+
+.br-seo-service-title {
+  flex: 1;
+  text-align: left;
+}
+
+.br-seo-service-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.br-seo-service-item summary svg {
+  flex-shrink: 0;
+  color: #6b7280;
+  transition: transform 0.3s ease;
+}
+
+.br-seo-service-item[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.br-seo-service-body {
+  padding: 0 20px 20px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 20px;
+}
+
+.br-seo-service-text {
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.br-seo-service-list-items {
+  list-style-type: disc;
+  margin: 16px 0 0;
+  padding-left: 24px;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.br-seo-service-list-items li {
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.br-seo-service-list-items li::marker {
+  color: #374151;
 }
 
 /* Footer Trust Items */
