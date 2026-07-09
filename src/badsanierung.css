@@ -1502,9 +1502,8 @@
   color: var(--br-orange);
 }
 
-.br-seo-heading-toggle:hover svg{
+.br-seo-heading-toggle:hover svg {
   color: var(--br-orange);
-}
 }
 
 .br-seo-heading-toggle:hover svg,
