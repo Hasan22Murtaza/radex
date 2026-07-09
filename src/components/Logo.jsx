@@ -1,6 +1,5 @@
-export default function Logo({ className = '', height = 40 }) {
+export default function Logo({ className = '', height = 56, width = 96 }) {
   // Maintain the logo's natural aspect ratio (1179 x 760 ≈ 1.55:1)
-  const width = (1179 / 760) * height;
 
   return (
     <img
@@ -9,7 +8,7 @@ export default function Logo({ className = '', height = 40 }) {
       className={className}
       width={Math.round(width)}
       height={height}
-      style={{ height: `${height}px`, width: 'auto', display: 'block' }}
+      style={{ height: `${height}px`, width: `${width}px`, display: 'block' }}
     />
   );
 }

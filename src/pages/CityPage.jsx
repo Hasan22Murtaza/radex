@@ -77,6 +77,7 @@ export default function CityPage({ cityId }) {
   const seoContent = citySeoContent[cityId];
 
   const [openFaq, setOpenFaq] = useState(null);
+  const [seoOpen, setSeoOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -277,11 +278,12 @@ export default function CityPage({ cityId }) {
           <div className="br-meet-grid">
             <div className="br-meet-video">
               <iframe
-                src={`https://www.youtube.com/embed/${VIDEO_ID}?rel=0&modestbranding=1`}
+                src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?rel=0&modestbranding=1&controls=0&iv_load_policy=3&playsinline=1&fs=0`}
                 title="Radex Unternehmenspräsentation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
+
             </div>
 
             <div className="br-meet-profile">
@@ -461,9 +463,19 @@ export default function CityPage({ cityId }) {
       {seoContent && (
         <section className="br-section br-bg-light">
           <div className="container">
-            <h2 className="br-section-title text-center mb-12">Planung, Kosten & wichtige Informationen</h2>
+            <h2 className="br-section-title text-center mb-12">
+              <button
+                type="button"
+                className="br-seo-heading-toggle"
+                onClick={() => setSeoOpen((prev) => !prev)}
+                aria-expanded={seoOpen}
+              >
+                <span>Planung, Kosten & wichtige Informationen</span>
+                <ChevronDown className={seoOpen ? 'open' : ''} size={20} />
+              </button>
+            </h2>
 
-            <div className="br-seo-grid">
+            <div className={`br-seo-grid ${seoOpen ? 'open' : 'collapsed'}`}>
               {seoColumns.map((column, colIdx) => (
                 <div key={colIdx} className="br-seo-grid-col">
                   {column.map((item, idx) => {

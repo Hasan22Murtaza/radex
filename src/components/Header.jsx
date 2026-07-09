@@ -85,7 +85,7 @@ export default function Header() {
       }}>
         <div className="header-container">
           <Link to="/" className="logo-link" onClick={() => window.scrollTo(0, 0)}>
-            <Logo height={42} className="header-logo-svg" />
+            <Logo className="header-logo-svg" />
           </Link>
 
           <nav>
@@ -162,7 +162,7 @@ export default function Header() {
               <li><a href="#beispiele" className="nav-link" onClick={(e) => handleScrollToSection(e, 'beispiele')}>Projekte</a></li>
 
               {/* FAQ */}
-              <li><a href="#faq" className="nav-link" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
+              <li><a href="#faq" className="nav-link nav-link--upper" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
 
               {/* Ratgeber */}
               <li><a href="#ratgeber" className="nav-link" onClick={(e) => handleScrollToSection(e, 'ratgeber')}>Ratgeber</a></li>
@@ -241,7 +241,7 @@ export default function Header() {
           </li>
 
           <li><a href="#beispiele" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'beispiele')}>Projekte</a></li>
-          <li><a href="#faq" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
+          <li><a href="#faq" className="mobile-drawer-link mobile-drawer-link--upper" onClick={(e) => handleScrollToSection(e, 'faq')}>FAQ</a></li>
           <li><a href="#ratgeber" className="mobile-drawer-link" onClick={(e) => handleScrollToSection(e, 'ratgeber')}>Ratgeber</a></li>
           <li><Link to="/ueber-uns" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Über uns</Link></li>
           <li><Link to="/karriere" className="mobile-drawer-link" onClick={() => setIsOpen(false)}>Karriere</Link></li>

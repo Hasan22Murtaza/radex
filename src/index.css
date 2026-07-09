@@ -381,21 +381,11 @@ a {
   position: relative;
   padding: 8px 0;
   white-space: nowrap;
-}
+    text-transform: capitalize;
+  }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--gold);
-  transition: var(--transition);
-}
-
-.nav-link:hover::after {
-  width: 100%;
+  .nav-link--upper {
+    text-transform: uppercase;
 }
 
 .header-actions {
