@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from '../router';
 import {
   Camera, MessageSquare, Phone, CheckCircle2, ArrowRight, Award, Users, ShieldCheck,
@@ -80,10 +80,26 @@ export default function CityPage({ cityId }) {
 
   const [openFaq, setOpenFaq] = useState(null);
   const [seoOpen, setSeoOpen] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [cityId]);
+
+  useEffect(() => {
+    // Attempt autoplay on mount. If blocked, mute and retry.
+    if (videoRef.current) {
+      const p = videoRef.current.play();
+      if (p && p.catch) {
+        p.catch(() => {
+          try {
+            videoRef.current.muted = true;
+            videoRef.current.play().catch(() => {});
+          } catch (e) {}
+        });
+      }
+    }
+  }, []);
 
   const faqsData = seoContent?.faqs ?? [
     { q: `Sind Sie auch in ${city.name} und Umgebung tätig?`, a: `Ja, Radex betreut Sanierungs- und Modernisierungsprojekte in ganz ${city.name} sowie den umliegenden Stadtteilen und Gemeinden.` },
@@ -287,8 +303,12 @@ export default function CityPage({ cityId }) {
               /> */}
 
               <video
+                ref={videoRef}
                 src={testVideo}
                 controls
+                autoPlay
+                muted
+                playsInline
                 poster="/img/radex-unternehmenspraesentation-poster.webp"
                 style={{ width: '100%', height: '100%', borderRadius: '8px' }}
               />
