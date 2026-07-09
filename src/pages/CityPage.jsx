@@ -503,7 +503,7 @@ export default function CityPage({ cityId }) {
                 aria-expanded={seoOpen}
               >
                 <span>Planung, Kosten & wichtige Informationen</span>
-                <ChevronDown className={seoOpen ? 'open' : ''} size={20} />
+                <ChevronDown className={seoOpen ? 'open' : ''} size={30} />
               </button>
             </h2>
 

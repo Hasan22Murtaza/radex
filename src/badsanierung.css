@@ -1446,17 +1446,19 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0 48px;
-  transition: max-height 0.35s ease, opacity 0.35s ease;
+  transition: max-height 0.45s cubic-bezier(.2,.8,.2,1), opacity 0.35s ease;
+  overflow: hidden;
+  max-height: 2000px;
+  opacity: 1;
 }
 
 .br-seo-grid.collapsed {
   max-height: 0;
   opacity: 0;
-  overflow: hidden;
-  display: block;
 }
 
 .br-seo-grid.open {
+  max-height: 2000px;
   opacity: 1;
 }
 
@@ -1473,7 +1475,7 @@
   justify-content: center;
   align-items: center;
   gap: 12px;
-  border: 0;
+  border: none;
   background: transparent;
   color: inherit;
   font: inherit;
@@ -1483,14 +1485,35 @@
 
 .br-seo-heading-toggle span {
   display: inline-block;
+  transition: color 0.2s ease;
+  color: var(--navy);
 }
 
 .br-seo-heading-toggle svg {
-  transition: transform 0.3s ease;
+  color: inherit;
+  transition: transform 0.3s ease, color 0.2s ease;
 }
 
 .br-seo-heading-toggle svg.open {
   transform: rotate(180deg);
+}
+
+.br-seo-heading-toggle:hover span {
+  color: var(--br-orange);
+}
+
+.br-seo-heading-toggle:hover svg{
+  color: var(--br-orange);
+}
+}
+
+.br-seo-heading-toggle:hover svg,
+.br-seo-heading-toggle:focus svg {
+  color: var(--br-orange);
+}
+
+.br-seo-heading-toggle:focus {
+  outline: none;
 }
 
 .br-seo-grid-col {
