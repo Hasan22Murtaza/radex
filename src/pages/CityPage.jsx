@@ -11,6 +11,8 @@ import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
 import { citySeoContent } from '../data/citySeoContent';
 import { cityDataMap } from '../data/cities';
+import testVideo from '../assets/test.mp4';
+import personImage from '../assets/Screenshot_5.png';
 
 const VIDEO_ID = '4A0f7A5mPLI';
 
@@ -277,18 +279,26 @@ export default function CityPage({ cityId }) {
 
           <div className="br-meet-grid">
             <div className="br-meet-video">
-              <iframe
+              {/* <iframe
                 src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?rel=0&modestbranding=1&controls=0&iv_load_policy=3&playsinline=1&fs=0`}
                 title="Radex Unternehmenspräsentation"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+              /> */}
+
+              <video
+                src={testVideo}
+                controls
+                poster="/img/radex-unternehmenspraesentation-poster.webp"
+                style={{ width: '100%', height: '100%', borderRadius: '8px' }}
               />
 
             </div>
 
             <div className="br-meet-profile">
               <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"
+                // src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400"
+                src={personImage}
                 alt="Bernd Knoop, SHK-Meister und Betriebsleiter"
                 className="br-meet-photo"
                 loading="lazy"
@@ -380,11 +390,13 @@ export default function CityPage({ cityId }) {
         <div className="container">
           <div className="br-split-tools">
             <div className="br-calc-promo">
-              <div className="br-calc-promo-icon">
-                <Calculator size={36} />
-              </div>
               <h3>Was kostet Ihre Sanierung?</h3>
               <p>Nutzen Sie unseren Sanierungskosten-Rechner für eine erste Orientierung zu Ihrem Projekt in {city.name}.</p>
+              <div className="br-calc-promo-icon">
+
+                <Calculator size={70} color="#170cea" />
+              </div>
+              
               <a href="#sanierungskosten-rechner" className="br-btn-orange">
                 Kosten berechnen <ArrowRight size={18} style={{ marginLeft: '8px' }} />
               </a>
