@@ -7,7 +7,7 @@ import { implementedCityPaths } from './data/cities.js';
 const exactRedirects = {
   '/kontakt': '/#kontakt',
   '/dienstleistungen': '/leistungen',
-  '/ratgeber': '/sanierung-rhein-main',
+  '/ratgeber': '/ratgeber',
   '/radex-live': '/#beispiele',
   '/gewerbeumbau': '/gewerbe-objektsanierung-rhein-main',
   '/umbau': '/innenausbau-umbau-rhein-main',
@@ -24,7 +24,14 @@ const exactRedirects = {
 // not covered by exactRedirects or the main route table.
 const keywordRedirects = [
   // Bathroom renovation long-tail variants
-  { test: (p) => p.startsWith('/badsanierung') || p.startsWith('/komplettbadsanierung') || p.startsWith('/badmodernisierung') || p.startsWith('/badrenovierung') || p.startsWith('/gaeste-wc') || p.startsWith('/barrierefreies-bad') || p.startsWith('/kleines-bad') || p.startsWith('/dusche-statt-badewanne') || p.startsWith('/badewanne-austauschen') || p.startsWith('/badplanung') || p.startsWith('/bad-soforthilfe') || p.startsWith('/schnelle-badsanierung') || p.startsWith('/badsanierung/'), to: '/badsanierung-rhein-main' },
+  // Bathroom renovation topic pages
+  { test: (p) => p.startsWith('/dusche-statt-badewanne') || p.startsWith('/badewanne-austauschen'), to: '/dusche-statt-badewanne' },
+  { test: (p) => p.startsWith('/barrierefreies-bad'), to: '/barrierefreies-bad' },
+  { test: (p) => p.startsWith('/gaeste-wc') || p.startsWith('/kleines-bad'), to: '/gaeste-wc' },
+  { test: (p) => p.startsWith('/badplanung') || p === '/badsanierung/ablauf-badsanierung', to: '/badplanung' },
+  { test: (p) => p.startsWith('/badsanierung/badezimmer-sanieren') || p.startsWith('/komplettbadsanierung') || p.startsWith('/badmodernisierung') || p.startsWith('/badrenovierung'), to: '/badsanierung/badezimmer-sanieren' },
+  { test: (p) => p.startsWith('/bad-soforthilfe') || p.startsWith('/schnelle-badsanierung'), to: '/badsanierung/badezimmer-sanieren' },
+  { test: (p) => p.startsWith('/badsanierung') || p.startsWith('/badsanierung-kosten-rhein-main'), to: '/badsanierung-rhein-main' },
 
   // Apartment / house / historic building renovation guides
   { test: (p) => p.startsWith('/sanierung/wohnung') || p === '/sanierung/wohnung-sanieren-kosten', to: '/sanierung/wohnungssanierung' },
@@ -67,7 +74,7 @@ const keywordRedirects = [
   },
 
   // Ratgeber guide articles - send to the relevant hub by topic keyword
-  { test: (p) => p.startsWith('/ratgeber/badsanierung') || p.startsWith('/ratgeber/kleines-bad'), to: '/badsanierung-rhein-main' },
+  { test: (p) => p.startsWith('/ratgeber/badsanierung') || p.startsWith('/ratgeber/kleines-bad'), to: '/badsanierung/badezimmer-sanieren' },
   { test: (p) => p.startsWith('/ratgeber/heizung') || p.startsWith('/ratgeber/waermepumpe') || p.startsWith('/ratgeber/sanitaer'), to: '/heizung-sanitaer-rhein-main' },
   { test: (p) => p.startsWith('/ratgeber/elektro'), to: '/elektroinstallation-rhein-main' },
   { test: (p) => p.startsWith('/ratgeber/energie'), to: '/energetische-sanierung-rhein-main' },
@@ -77,7 +84,7 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/ratgeber/schimmel'), to: '/schadstoffsanierung-rhein-main' },
   { test: (p) => p.startsWith('/ratgeber/wohnung'), to: '/sanierung/wohnungssanierung' },
   { test: (p) => p.startsWith('/ratgeber/haus'), to: '/sanierung/haussanierung' },
-  { test: (p) => p.startsWith('/ratgeber/'), to: '/sanierung-rhein-main' },
+  { test: (p) => p.startsWith('/ratgeber/'), to: '/ratgeber' },
 ];
 
 export function resolveLegacyRedirect(pathname) {

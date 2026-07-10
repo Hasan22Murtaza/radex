@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { Award, Users, ShieldCheck, GraduationCap, Building2, Wrench, CheckCircle2, MessageSquare, Phone, Camera } from 'lucide-react';
 import '../badsanierung.css';
 import useSeo from '../useSeo';
+import NavLandingCards from '../components/NavLandingCards';
+import { ueberRadexCards } from '../data/navigation';
 
 export default function UeberUns() {
   useEffect(() => {
@@ -79,8 +81,14 @@ export default function UeberUns() {
         </div>
       </section>
 
+      <NavLandingCards
+        title="Mehr über Radex"
+        subtitle="Lernen Sie unser Unternehmen, Karrieremöglichkeiten und laufende Projekte kennen."
+        cards={ueberRadexCards}
+      />
+
       {/* COMPANY STORY */}
-      <section className="br-section">
+      <section id="unternehmen" className="br-section">
         <div className="container" style={{ maxWidth: '900px' }}>
           <div className="text-center mb-12">
             <h2 className="br-section-title">Über 40 Jahre Erfahrung in Sanierung & Gebäudetechnik</h2>

@@ -3,6 +3,8 @@ import { MapPin, ArrowRight, Camera, MessageSquare, Phone, Award, Users, ShieldC
 import { Link } from '../router';
 import '../badsanierung.css';
 import useSeo from '../useSeo';
+import NavLandingCards from '../components/NavLandingCards';
+import { einsatzgebieteCards } from '../data/navigation';
 import { featuredCities, additionalCities } from '../data/cities';
 
 export default function EinsatzgebieteHub() {
@@ -80,8 +82,14 @@ export default function EinsatzgebieteHub() {
         </div>
       </section>
 
+      <NavLandingCards
+        title="Einsatzgebiete im Rhein-Main-Gebiet"
+        subtitle="Radex ist in über 60 Städten und Gemeinden für Sie vor Ort."
+        cards={einsatzgebieteCards}
+      />
+
       {/* 2. CITIES GRID */}
-      <section className="br-section br-bg-light">
+      <section id="staedte" className="br-section br-bg-light">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Unsere Haupt-Einsatzgebiete</h2>

@@ -4,6 +4,8 @@ import { Link } from '../router';
 import '../badsanierung.css';
 import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
+import NavLandingCards from '../components/NavLandingCards';
+import { sanierungCards } from '../data/navigation';
 
 export default function SanierungHub() {
   useEffect(() => {
@@ -58,86 +60,11 @@ export default function SanierungHub() {
         </div>
       </section>
 
-      {/* 2. WHAT WOULD YOU LIKE TO RENOVATE? (HUB CARDS) */}
-      <section className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Wählen Sie die passende Lösung für Ihr Projekt</h2>
-            <p className="br-section-subtitle">
-              Jede Immobilie hat andere Anforderungen. Wählen Sie die Leistung, die am besten zu Ihren Sanierungszielen passt.
-            </p>
-          </div>
-          
-          <div className="br-projects-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}}>
-            
-            <Link to="/sanierung/wohnungssanierung" className="br-project-card" style={{textDecoration: 'none', color: 'inherit', border: '1px solid #e5e7eb'}}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?auto=format&fit=crop&q=80&w=800)', height: '200px' }}></div>
-              <div className="br-project-info" style={{background: '#fff', padding: '24px'}}>
-                <h4 style={{fontSize: '20px', marginBottom: '8px', color: '#111827'}}>Wohnungssanierung</h4>
-                <p style={{color: '#4b5563', fontSize: '15px', marginBottom: '16px'}}>
-                  Aufwertung von Eigentumswohnungen und Kapitalanlagen. Wir steuern den kompletten Ablauf aus einer Hand.
-                </p>
-                <span style={{color: '#f97316', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Mehr erfahren <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-
-            <Link to="/sanierung/haussanierung" className="br-project-card" style={{textDecoration: 'none', color: 'inherit', border: '1px solid #e5e7eb'}}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800)', height: '200px' }}></div>
-              <div className="br-project-info" style={{background: '#fff', padding: '24px'}}>
-                <h4 style={{fontSize: '20px', marginBottom: '8px', color: '#111827'}}>Haussanierung</h4>
-                <p style={{color: '#4b5563', fontSize: '15px', marginBottom: '16px'}}>
-                  Modernisierung von Einfamilienhäusern. Von strukturellen Upgrades bis zum Innenausbau koordinieren wir alle Gewerke.
-                </p>
-                <span style={{color: '#f97316', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Mehr erfahren <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-
-            <Link to="/sanierung/altbausanierung" className="br-project-card" style={{textDecoration: 'none', color: 'inherit', border: '1px solid #e5e7eb'}}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1524813686514-a57563d77965?auto=format&fit=crop&q=80&w=800)', height: '200px' }}></div>
-              <div className="br-project-info" style={{background: '#fff', padding: '24px'}}>
-                <h4 style={{fontSize: '20px', marginBottom: '8px', color: '#111827'}}>Altbausanierung</h4>
-                <p style={{color: '#4b5563', fontSize: '15px', marginBottom: '16px'}}>
-                  Erhalt von historischem Charme kombiniert mit modernen Wohnstandards und aktueller Haustechnik.
-                </p>
-                <span style={{color: '#f97316', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Mehr erfahren <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-
-            <Link to="/komplettsanierung-rhein-main" className="br-project-card" style={{textDecoration: 'none', color: 'inherit', border: '1px solid #e5e7eb'}}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=80&w=800)', height: '200px' }}></div>
-              <div className="br-project-info" style={{background: '#fff', padding: '24px'}}>
-                <h4 style={{fontSize: '20px', marginBottom: '8px', color: '#111827'}}>Komplettsanierung</h4>
-                <p style={{color: '#4b5563', fontSize: '15px', marginBottom: '16px'}}>
-                  Ein koordiniertes Großprojekt. Wir managen Planung, Zeitplan und Ausführung über einen zentralen Ansprechpartner.
-                </p>
-                <span style={{color: '#f97316', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Mehr erfahren <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-
-            <Link to="/generalunternehmer-rhein-main" className="br-project-card" style={{textDecoration: 'none', color: 'inherit', border: '1px solid #e5e7eb'}}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&q=80&w=800)', height: '200px' }}></div>
-              <div className="br-project-info" style={{background: '#fff', padding: '24px'}}>
-                <h4 style={{fontSize: '20px', marginBottom: '8px', color: '#111827'}}>Generalunternehmer</h4>
-                <p style={{color: '#4b5563', fontSize: '15px', marginBottom: '16px'}}>
-                  Volle Verantwortung für Ihr Projekt. Effiziente Kommunikation, klare Zuständigkeiten und professionelle Ausführung aller Gewerke.
-                </p>
-                <span style={{color: '#f97316', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Mehr erfahren <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-
-          </div>
-        </div>
-      </section>
+      <NavLandingCards
+        title="Wählen Sie die passende Lösung für Ihr Projekt"
+        subtitle="Jede Immobilie hat andere Anforderungen. Wählen Sie das Thema, das am besten zu Ihren Sanierungszielen passt."
+        cards={sanierungCards}
+      />
 
       {/* 3. WHY RADEX */}
       <section className="br-section">

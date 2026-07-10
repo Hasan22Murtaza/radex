@@ -90,7 +90,7 @@ export default function BathroomRenovation() {
   const seo = {
     title: "Badsanierung Rhein-Main | Komplettbad zum Festpreis | Radex",
     description: "Badsanierung im Rhein-Main-Gebiet vom SHK-Meisterbetrieb: Komplettbäder, Badmodernisierung & barrierefreie Bäder aus einer Hand. Jetzt Festpreis-Beratung sichern!",
-    path: "/badsanierung-rhein-main",
+    path: "/badsanierung/badezimmer-sanieren",
     serviceName: "Badsanierung"
   };
 

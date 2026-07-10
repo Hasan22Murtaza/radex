@@ -17,7 +17,11 @@ import LeistungenHub from './pages/LeistungenHub';
 import EinsatzgebieteHub from './pages/EinsatzgebieteHub';
 import CityPage from './pages/CityPage';
 import { cityDataMap, cityIds } from './data/cities';
-import BathroomRenovation from './pages/BathroomRenovation';
+import BadsanierungHub from './pages/BadsanierungHub';
+import BadsanierungTopicPage from './pages/BadsanierungTopicPage';
+import RatgeberHub from './pages/RatgeberHub';
+import LeistungenCategoryPage from './pages/LeistungenCategoryPage';
+import { leistungenCategories } from './data/navigation';
 import ApartmentRenovation from './pages/ApartmentRenovation';
 import HouseRenovation from './pages/HouseRenovation';
 import HistoricBuildingRenovation from './pages/HistoricBuildingRenovation';
@@ -34,6 +38,7 @@ import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 import UeberUns from './pages/UeberUns';
 import Karriere from './pages/Karriere';
+import BathroomRenovation from './pages/BathroomRenovation';
 import SanierungskostenRechnerPage from './pages/SanierungskostenRechnerPage';
 
 function ScrollAndAnimationManager() {
@@ -107,7 +112,20 @@ export default function App({ location }) {
               element={<CityPage cityId={cityId} />}
             />
           ))}
-          <Route path="/badsanierung-rhein-main" element={<BathroomRenovation />} />
+          <Route path="/ratgeber" element={<RatgeberHub />} />
+          <Route path="/badsanierung-rhein-main" element={<BadsanierungHub />} />
+          <Route path="/badsanierung/badezimmer-sanieren" element={<BathroomRenovation />} />
+          <Route path="/dusche-statt-badewanne" element={<BadsanierungTopicPage topicId="dusche-statt-badewanne" />} />
+          <Route path="/barrierefreies-bad" element={<BadsanierungTopicPage topicId="barrierefreies-bad" />} />
+          <Route path="/gaeste-wc" element={<BadsanierungTopicPage topicId="gaeste-wc" />} />
+          <Route path="/badplanung" element={<BadsanierungTopicPage topicId="badplanung" />} />
+          {Object.keys(leistungenCategories).map((categoryId) => (
+            <Route
+              key={categoryId}
+              path={`/leistungen/${categoryId}`}
+              element={<LeistungenCategoryPage categoryId={categoryId} />}
+            />
+          ))}
           <Route path="/sanierung/wohnungssanierung" element={<ApartmentRenovation />} />
           <Route path="/sanierung/haussanierung" element={<HouseRenovation />} />
           <Route path="/sanierung/altbausanierung" element={<HistoricBuildingRenovation />} />

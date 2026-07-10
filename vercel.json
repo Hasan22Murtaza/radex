@@ -13,11 +13,6 @@
       "permanent": true
     },
     {
-      "source": "/ratgeber",
-      "destination": "/sanierung-rhein-main",
-      "permanent": true
-    },
-    {
       "source": "/radex-live",
       "destination": "/#beispiele",
       "permanent": true
@@ -59,42 +54,42 @@
     },
     {
       "source": "/komplettbadsanierung-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badsanierung/badezimmer-sanieren",
       "permanent": true
     },
     {
       "source": "/badmodernisierung-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badsanierung/badezimmer-sanieren",
       "permanent": true
     },
     {
       "source": "/badrenovierung-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badsanierung/badezimmer-sanieren",
       "permanent": true
     },
     {
       "source": "/gaeste-wc-sanieren-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/gaeste-wc",
       "permanent": true
     },
     {
       "source": "/barrierefreies-bad-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/barrierefreies-bad",
       "permanent": true
     },
     {
       "source": "/kleines-bad-sanieren-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/gaeste-wc",
       "permanent": true
     },
     {
       "source": "/dusche-statt-badewanne-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/dusche-statt-badewanne",
       "permanent": true
     },
     {
       "source": "/badewanne-austauschen-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/dusche-statt-badewanne",
       "permanent": true
     },
     {
@@ -119,12 +114,12 @@
     },
     {
       "source": "/badplanung-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badplanung",
       "permanent": true
     },
     {
       "source": "/badsanierung/ablauf-badsanierung",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badplanung",
       "permanent": true
     },
     {

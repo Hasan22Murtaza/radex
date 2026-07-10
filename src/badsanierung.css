@@ -907,6 +907,24 @@
   gap: 24px;
 }
 
+.br-nav-landing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .br-nav-landing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .br-nav-landing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .br-decision-grid {
     grid-template-columns: 1fr;
