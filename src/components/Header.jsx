@@ -88,7 +88,7 @@ export default function Header() {
       >
         <div className="header-container">
           <Link to="/" className="logo-link" onClick={() => window.scrollTo(0, 0)}>
-            <Logo className="header-logo-svg" />
+            <Logo />
           </Link>
 
           <nav>
@@ -127,7 +127,7 @@ export default function Header() {
 
       <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
         <div className="mobile-drawer-header">
-          <Logo height={32} />
+          <Logo className="site-logo site-logo--drawer" height={40} />
           <button className="mobile-drawer-close" onClick={() => setIsOpen(false)} aria-label="Menü schließen">
             <X size={24} color="var(--navy)" />
           </button>
