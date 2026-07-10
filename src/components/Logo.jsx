@@ -1,14 +1,13 @@
-export default function Logo({ className = '', height = 56, width = 96 }) {
-  // Maintain the logo's natural aspect ratio (1179 x 760 ≈ 1.55:1)
+import { LOGO_ALT, LOGO_SRC } from '../constants/brand';
 
+export default function Logo({ className = '', height = 56 }) {
   return (
     <img
-      src="/logo.png"
-      alt="Radex Objektmanagement GmbH"
+      src={LOGO_SRC}
+      alt={LOGO_ALT}
       className={className}
-      width={Math.round(width)}
       height={height}
-      style={{ height: `${height}px`, width: `${width}px`, display: 'block' }}
+      style={{ height: `${height}px`, width: 'auto', display: 'block' }}
     />
   );
 }

@@ -363,7 +363,8 @@ a {
 .logo-link img {
   display: block;
   height: auto;
-  max-width: 140px;
+  max-width: 200px;
+  width: auto;
 }
 
 .nav-links {
