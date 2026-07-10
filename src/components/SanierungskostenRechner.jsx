@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Calculator, Mail, Ruler, AlertTriangle, Home, Bath, Building2 } from 'lucide-react';
+import { Calculator, Mail, Ruler, AlertTriangle, Home, Bath, Building2, ChevronDown, Info } from 'lucide-react';
 import { Link } from '../router';
 import './SanierungskostenRechner.css';
 
@@ -159,102 +159,145 @@ export default function SanierungskostenRechner({
           <div className="sk-rechner-tabs" role="tablist" aria-label="Rechnertyp auswählen">
             {Object.entries(calculators).map(([key, item]) => {
               const Icon = item.icon;
+              const isActive = activeType === key;
               return (
                 <button
                   key={key}
                   type="button"
-                  className={`sk-rechner-tab ${activeType === key ? 'active' : ''}`}
+                  className={`sk-rechner-tab ${isActive ? 'active' : ''}`}
                   onClick={() => setActiveType(key)}
                   role="tab"
-                  aria-selected={activeType === key}
+                  aria-selected={isActive}
+                  aria-controls={`${id}-panel`}
+                  id={`${id}-tab-${key}`}
                 >
-                  <Icon size={18} />
-                  {item.label}
+                  <span className="sk-rechner-tab-icon" aria-hidden="true">
+                    <Icon size={18} />
+                  </span>
+                  <span className="sk-rechner-tab-label">{item.label}</span>
                 </button>
               );
             })}
           </div>
 
-          <div className="sk-rechner-grid">
-            <div className="sk-rechner-inputs">
-              <div className="sk-rechner-field">
-                <label htmlFor={`${id}-quality`}>Qualitätsstufe</label>
-                <select
-                  id={`${id}-quality`}
-                  value={quality}
-                  onChange={(event) => setQuality(event.target.value)}
-                >
-                  {qualityOptions.map((key) => (
-                    <option key={key} value={key}>{active.prices[key].label}</option>
-                  ))}
-                </select>
+          <div
+            className="sk-rechner-body"
+            id={`${id}-panel`}
+            role="tabpanel"
+            aria-labelledby={`${id}-tab-${activeType}`}
+          >
+            <div className="sk-rechner-grid">
+              <div className="sk-rechner-inputs">
+                <div className="sk-rechner-inputs-header">
+                  <h3>Ihre Angaben</h3>
+                  <p>Wählen Sie Qualität und Größe für eine erste Kostenschätzung.</p>
+                </div>
+
+                <div className="sk-rechner-field">
+                  <label htmlFor={`${id}-quality`}>Qualitätsstufe</label>
+                  <div className="sk-rechner-select">
+                    <select
+                      id={`${id}-quality`}
+                      value={quality}
+                      onChange={(event) => setQuality(event.target.value)}
+                    >
+                      {qualityOptions.map((key) => (
+                        <option key={key} value={key}>{active.prices[key].label}</option>
+                      ))}
+                    </select>
+                    <ChevronDown size={18} className="sk-rechner-select-icon" aria-hidden="true" />
+                  </div>
+                </div>
+
+                <div className="sk-rechner-field">
+                  <label htmlFor={`${id}-area`}>{active.areaLabel}</label>
+                  <div className="sk-rechner-number">
+                    <Ruler size={18} aria-hidden="true" />
+                    <input
+                      id={`${id}-area`}
+                      type="number"
+                      min={active.min}
+                      max={active.max}
+                      value={area}
+                      onChange={handleAreaChange}
+                      aria-describedby={`${id}-area-help`}
+                    />
+                    <span className="sk-rechner-number-unit" aria-hidden="true">{active.areaUnit}</span>
+                  </div>
+                  <p className="sk-rechner-help" id={`${id}-area-help`}>
+                    Mindestwert: {active.min} {active.areaUnit} · Maximalwert: {active.max} {active.areaUnit}
+                  </p>
+                </div>
+
+                <div className="sk-rechner-params">
+                  <div className="sk-rechner-params-header">
+                    <Info size={18} aria-hidden="true" />
+                    <strong>Preisparameter {price.label}</strong>
+                  </div>
+                  <dl className="sk-rechner-params-list">
+                    <div className="sk-rechner-params-item">
+                      <dt>Bereich</dt>
+                      <dd>
+                        {active.mode === 'fixed'
+                          ? `${formatEuro(price.min)} bis ${formatEuro(price.max)}${price.suffix || ''}`
+                          : `${price.min.toLocaleString('de-DE')} - ${price.max.toLocaleString('de-DE')} €/m²`}
+                      </dd>
+                    </div>
+                    <div className="sk-rechner-params-item">
+                      <dt>Durchschnitt</dt>
+                      <dd>
+                        {active.mode === 'fixed'
+                          ? formatEuro(price.avg)
+                          : `${price.avg.toLocaleString('de-DE')} €/m²`}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
               </div>
 
-              <div className="sk-rechner-field">
-                <label htmlFor={`${id}-area`}>{active.areaLabel}</label>
-                <div className="sk-rechner-number">
-                  <Ruler size={18} />
-                  <input
-                    id={`${id}-area`}
-                    type="number"
-                    min={active.min}
-                    max={active.max}
-                    value={area}
-                    onChange={handleAreaChange}
-                  />
-                  <span>{active.areaUnit}</span>
+              <div className="sk-rechner-result" aria-live="polite">
+                <div className="sk-rechner-result-header">
+                  <div className="sk-rechner-result-icon" aria-hidden="true">
+                    <Calculator size={22} />
+                  </div>
+                  <h3>{active.resultTitle}</h3>
                 </div>
-                <p className="sk-rechner-help">
-                  Mindestwert: {active.min} {active.areaUnit} · Maximalwert: {active.max} {active.areaUnit}
+
+                <div className="sk-rechner-result-highlight">
+                  <span className="sk-rechner-result-highlight-label">Typischer Kostenbereich</span>
+                  <strong className="sk-rechner-result-highlight-value">{formatEuro(result.avg)}</strong>
+                </div>
+
+                <div className="sk-rechner-result-details">
+                  <div className="sk-rechner-price-row">
+                    <span>Ab ca.</span>
+                    <strong>{formatEuro(result.min)}</strong>
+                  </div>
+                  <div className="sk-rechner-price-row">
+                    <span>Bis ca.</span>
+                    <strong>{formatEuro(result.max)}{price.suffix || ''}</strong>
+                  </div>
+                </div>
+
+                <p className="sk-rechner-range">Kostenbereich: {rangeText}</p>
+              </div>
+            </div>
+
+            <div className="sk-rechner-note">
+              <AlertTriangle size={20} aria-hidden="true" />
+              <div>
+                <strong>Wichtiger Hinweis</strong>
+                <p>
+                  Die angegebenen Kosten dienen lediglich als erste Orientierung. Der tatsächliche Preis hängt vom
+                  Zustand der Immobilie, den gewünschten Materialien und dem Umfang der Arbeiten ab. Nach einer
+                  Besichtigung vor Ort können die Kosten niedriger oder höher ausfallen.
                 </p>
               </div>
-
-              <div className="sk-rechner-params">
-                <strong>Preisparameter {price.label}</strong>
-                <span>
-                  {active.mode === 'fixed'
-                    ? `${formatEuro(price.min)} bis ${formatEuro(price.max)}${price.suffix || ''}`
-                    : `${price.min.toLocaleString('de-DE')} - ${price.max.toLocaleString('de-DE')} €/m²`}
-                </span>
-                <span>Durchschnitt: {active.mode === 'fixed' ? formatEuro(price.avg) : `${price.avg.toLocaleString('de-DE')} €/m²`}</span>
-              </div>
-            </div>
-
-            <div className="sk-rechner-result" aria-live="polite">
-              <div className="sk-rechner-result-icon">
-                <Calculator size={26} />
-              </div>
-              <h3>{active.resultTitle}</h3>
-              <div className="sk-rechner-price-row">
-                <span>Ab ca.</span>
-                <strong>{formatEuro(result.min)}</strong>
-              </div>
-              <div className="sk-rechner-price-row sk-rechner-price-row--main">
-                <span>Typischer Kostenbereich</span>
-                <strong>{formatEuro(result.avg)}</strong>
-              </div>
-              <div className="sk-rechner-price-row">
-                <span>Bis ca.</span>
-                <strong>{formatEuro(result.max)}{price.suffix || ''}</strong>
-              </div>
-              <p className="sk-rechner-range">Kostenbereich: {rangeText}</p>
-            </div>
-          </div>
-
-          <div className="sk-rechner-note">
-            <AlertTriangle size={20} />
-            <div>
-              <strong>Wichtiger Hinweis</strong>
-              <p>
-                Die angegebenen Kosten dienen lediglich als erste Orientierung. Der tatsächliche Preis hängt vom
-                Zustand der Immobilie, den gewünschten Materialien und dem Umfang der Arbeiten ab. Nach einer
-                Besichtigung vor Ort können die Kosten niedriger oder höher ausfallen.
-              </p>
             </div>
           </div>
 
           <div className="sk-rechner-lead">
-            <div>
+            <div className="sk-rechner-lead-copy">
               <h3>Kostenlose Ersteinschätzung vom Sanierungsprofi</h3>
               <p>
                 Senden Sie Ihre Eckdaten direkt an Radex. Wir melden uns für eine persönliche Einschätzung Ihrer
@@ -262,28 +305,28 @@ export default function SanierungskostenRechner({
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="sk-rechner-form">
+            <form onSubmit={handleSubmit} className="sk-rechner-form" aria-label="Kostenlose Beratung anfragen">
               <label>
                 Name
-                <input type="text" name="name" required placeholder="Ihr Name" />
+                <input type="text" name="name" required placeholder="Ihr Name" autoComplete="name" />
               </label>
               <label>
                 Telefonnummer
-                <input type="tel" name="telefon" required placeholder="+49 ..." />
+                <input type="tel" name="telefon" required placeholder="+49 ..." autoComplete="tel" />
               </label>
               <label>
                 E-Mail-Adresse
-                <input type="email" name="email" required placeholder="name@beispiel.de" />
+                <input type="email" name="email" required placeholder="name@beispiel.de" autoComplete="email" />
               </label>
               <label>
                 Postleitzahl
-                <input type="text" name="plz" required inputMode="numeric" placeholder="60311" />
+                <input type="text" name="plz" required inputMode="numeric" placeholder="60311" autoComplete="postal-code" />
               </label>
-              <button type="submit">
-                Kostenlose Beratung anfragen <Mail size={18} />
+              <button type="submit" className="sk-rechner-submit">
+                Kostenlose Beratung anfragen <Mail size={18} aria-hidden="true" />
               </button>
               {sent && (
-                <p className="sk-rechner-sent">
+                <p className="sk-rechner-sent" role="status">
                   Ihr E-Mail-Programm wurde mit der Anfrage geöffnet. Alternativ erreichen Sie uns telefonisch unter
                   <a href="tel:+496074960620"> 06074 960620</a>.
                 </p>
