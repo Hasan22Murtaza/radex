@@ -41,6 +41,8 @@ const processSteps = [
   { icon: <Hammer size={28} strokeWidth={1.5} />, title: 'Fachgerechte Umsetzung' }
 ];
 
+
+
 function splitIntoColumns(items, columnCount = 3) {
   const columns = Array.from({ length: columnCount }, () => []);
   items.forEach((item, index) => {
@@ -310,7 +312,7 @@ export default function CityPage({ cityId }) {
                 muted
                 playsInline
                 poster="/img/radex-unternehmenspraesentation-poster.webp"
-                style={{ width: '100%', height: '100%', borderRadius: '8px' }}
+                style={{ width: '100%', height: '100%', borderRadius: '8px', backgroundColor: '#7D4551' }}
               />
 
             </div>
