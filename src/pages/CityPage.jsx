@@ -13,6 +13,7 @@ import { citySeoContent } from '../data/citySeoContent';
 import { cityDataMap } from '../data/cities';
 import testVideo from '../assets/test.mp4';
 import personImage from '../assets/Screenshot_5.png';
+import Komplettbadsanierung from '../assets/Komplettbadsanierung.jpg';
 
 const VIDEO_ID = '4A0f7A5mPLI';
 
@@ -621,9 +622,10 @@ export default function CityPage({ cityId }) {
 
             <div className="br-city-contact-hero-img">
               <img
-                src="/img/Komplettbadsanierung.webp"
+                src={Komplettbadsanierung}
                 alt={`Modernes Badezimmer nach Radex Sanierung in ${city.name}`}
                 loading="lazy"
+                height="210"
               />
             </div>
           </div>
