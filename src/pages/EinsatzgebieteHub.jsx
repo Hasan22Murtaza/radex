@@ -82,11 +82,11 @@ export default function EinsatzgebieteHub() {
         </div>
       </section>
 
-      <NavLandingCards
+      {/* <NavLandingCards
         title="Einsatzgebiete im Rhein-Main-Gebiet"
         subtitle="Radex ist in über 60 Städten und Gemeinden für Sie vor Ort."
         cards={einsatzgebieteCards}
-      />
+      /> */}
 
       {/* 2. CITIES GRID */}
       <section id="staedte" className="br-section br-bg-light">
