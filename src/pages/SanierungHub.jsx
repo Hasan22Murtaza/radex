@@ -6,6 +6,9 @@ import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
 import NavLandingCards from '../components/NavLandingCards';
 import { sanierungCards } from '../data/navigation';
+import { SharedCTABlock, LandingContactSection } from '../components/landing/SharedLandingParts';
+
+const HERO_IMAGE = '/img/renov1.webp';
 
 export default function SanierungHub() {
   useEffect(() => {
@@ -23,9 +26,10 @@ export default function SanierungHub() {
   ];
 
   useSeo({
-    title: "Sanierung Rhein-Main | Wohnung, Haus & Altbau modernisieren | Radex",
-    description: "Sanierung im Rhein-Main-Gebiet: Wohnungs-, Haus- & Altbausanierung, Komplettsanierung und Generalunternehmer aus einer Hand. Festpreis & feste Termine. Jetzt anfragen!",
-    path: "/sanierung-rhein-main",
+    title: 'Sanierung im Rhein-Main-Gebiet | Wohnung, Haus & Altbau sanieren | Radex',
+    description: 'Sanierung im Rhein-Main-Gebiet vom SHK-meistergeführten Fachbetrieb. Wohnungssanierung, Haussanierung, Altbausanierung und Komplettsanierung aus einer Hand.',
+    path: '/sanierung-rhein-main',
+    image: HERO_IMAGE,
     jsonLd: [buildFaqSchema(faqsData)]
   });
 
@@ -36,35 +40,60 @@ export default function SanierungHub() {
         <div className="br-hero-left">
           <div className="br-hero-content">
             <h1 className="br-hero-title">
-              Sanierungen im<br/>
+              Sanierung im<br/>
               <span>Rhein-Main-Gebiet</span>
             </h1>
             <p className="br-hero-subtitle">
-              Professionelle Sanierungs- und Modernisierungslösungen für Wohnungen, Häuser und Bestandsimmobilien.
+              Ihre Immobilie modernisieren. Professionell geplant. Aus einer Hand umgesetzt.
             </p>
             <p className="br-hero-text">
-              Egal ob Sie eine Wohnung sanieren, ein Haus modernisieren oder einen Altbau aufwerten möchten, Radex begleitet Ihr Projekt von der Planung bis zur schlüsselfertigen Übergabe.
+              Ob Wohnung, Einfamilienhaus, Altbau oder Mehrfamilienhaus – eine erfolgreiche Sanierung beginnt mit einer durchdachten Planung. Als SHK-meistergeführter Fachbetrieb koordiniert Radex alle notwendigen Gewerke und begleitet Sie von der ersten Beratung bis zur schlüsselfertigen Übergabe. Sie erhalten einen festen Ansprechpartner, transparente Abläufe und eine Sanierung, bei der alle Arbeiten optimal aufeinander abgestimmt sind.
             </p>
-            <div className="br-hero-actions">
-              <a href="#kontakt" className="btn br-btn-orange">Projekt anfragen &rarr;</a>
-              <a href="https://wa.me/496074960620" target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
-                WhatsApp uns <MessageSquare size={18} color="#25D366" style={{marginLeft: '8px'}} />
-              </a>
-            </div>
+            <SharedCTABlock isHero />
             <p className="br-hero-micro">
               <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
             </p>
           </div>
         </div>
-        <div className="br-hero-right" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1600)' }}>
+        <div className="br-hero-right" style={{ backgroundImage: `url(${HERO_IMAGE})` }}>
+        </div>
+      </section>
+
+      <section className="br-section">
+        <div className="container">
+          <div className="br-benefits-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+            {[
+              'SHK-meistergeführter Fachbetrieb',
+              'Generalunternehmer für alle Gewerke',
+              'Festpreisangebote',
+              'Über 500 abgeschlossene Projekte',
+              'Ein fester Ansprechpartner',
+              'Im gesamten Rhein-Main-Gebiet im Einsatz',
+            ].map((title) => (
+              <div key={title} className="br-benefit-card" style={{ textAlign: 'center', border: '1px solid #e5e7eb' }}>
+                <div className="br-benefit-icon"><Award size={32} color="#f97316" /></div>
+                <h3 style={{ fontSize: '16px' }}>{title}</h3>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <NavLandingCards
-        title="Wählen Sie die passende Lösung für Ihr Projekt"
-        subtitle="Jede Immobilie hat andere Anforderungen. Wählen Sie das Thema, das am besten zu Ihren Sanierungszielen passt."
+        title="Welche Sanierung planen Sie?"
+        subtitle="Jede Immobilie stellt andere Anforderungen. Wählen Sie den Bereich aus, der am besten zu Ihrem Projekt passt. Auf den jeweiligen Seiten finden Sie ausführliche Informationen zu Planung, Ablauf, Kosten und individuellen Lösungen."
         cards={sanierungCards}
       />
+
+      <section className="br-section">
+        <div className="container text-center" style={{ maxWidth: '800px' }}>
+          <h2 className="br-section-title">Noch unsicher, welche Sanierung die richtige ist?</h2>
+          <p className="br-section-subtitle mb-8">
+            Nicht jedes Gebäude benötigt eine Komplettsanierung. Senden Sie uns Fotos Ihrer Immobilie per WhatsApp oder vereinbaren Sie eine persönliche Beratung. Gemeinsam entwickeln wir die passende Sanierungsstrategie für Ihr Projekt.
+          </p>
+          <SharedCTABlock centered />
+        </div>
+      </section>
 
       {/* 3. WHY RADEX */}
       <section className="br-section">
@@ -280,75 +309,10 @@ export default function SanierungHub() {
       </section>
 
       {/* 8. CONTACT */}
-      <section id="kontakt" className="br-section br-bg-light">
-        <div className="container">
-          <div className="br-contact-grid">
-            <div className="br-contact-left">
-              <h2 className="br-section-title" style={{textAlign: 'left'}}>Planen Sie Ihr Sanierungsprojekt</h2>
-              <p className="br-section-subtitle" style={{textAlign: 'left', marginBottom: '30px'}}>
-                Planen Sie eine Wohnungssanierung, Haussanierung oder Altbaumodernisierung? Senden Sie uns Fotos per WhatsApp oder vereinbaren Sie eine Vor-Ort-Beratung.
-              </p>
-              
-              <div className="br-contact-options">
-                <div className="br-contact-option">
-                  <div className="br-contact-icon-wrapper"><Phone size={24} color="#f97316" /></div>
-                  <div>
-                    <strong>Telefon</strong>
-                    <p>06074 96 9060</p>
-                  </div>
-                </div>
-                <div className="br-contact-option">
-                  <div className="br-contact-icon-wrapper"><MessageSquare size={24} color="#25D366" /></div>
-                  <div>
-                    <strong>WhatsApp</strong>
-                    <p>Schreiben Sie uns</p>
-                  </div>
-                </div>
-                <div className="br-contact-option">
-                  <div className="br-contact-icon-wrapper"><MessageSquare size={24} color="#f97316" /></div>
-                  <div>
-                    <strong>E-Mail</strong>
-                    <p>info@radex.de</p>
-                  </div>
-                </div>
-              </div>
-              <p className="br-hero-micro mt-6">
-                <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
-              </p>
-            </div>
-            
-            <div className="br-contact-form-wrapper">
-              <form className="br-form">
-                <div className="br-form-row">
-                  <div className="br-input-group">
-                    <label>Vorname *</label>
-                    <input type="text" />
-                  </div>
-                  <div className="br-input-group">
-                    <label>Nachname *</label>
-                    <input type="text" />
-                  </div>
-                </div>
-                <div className="br-form-row">
-                  <div className="br-input-group">
-                    <label>Telefon *</label>
-                    <input type="tel" />
-                  </div>
-                  <div className="br-input-group">
-                    <label>E-Mail *</label>
-                    <input type="email" />
-                  </div>
-                </div>
-                <div className="br-input-group">
-                  <label>Ihr Projekt / Nachricht *</label>
-                  <textarea rows="4" placeholder="Bitte beschreiben Sie Ihr Projekt..."></textarea>
-                </div>
-                <button type="button" className="br-btn-orange w-full" style={{marginTop: '10px'}}>Projekt anfragen &rarr;</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
+      <LandingContactSection
+        title="Planen Sie Ihr Sanierungsprojekt"
+        intro="Planen Sie eine Wohnungssanierung, Haussanierung oder Altbaumodernisierung? Senden Sie uns Fotos per WhatsApp oder vereinbaren Sie eine Vor-Ort-Beratung."
+      />
 
       {/* 9. ADDITIONAL INFORMATION (SEO CONTENT) */}
       <section className="br-section">

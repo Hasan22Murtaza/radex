@@ -15,12 +15,24 @@ export default function NavLandingCards({ title, subtitle, cards }) {
             const Icon = card.icon;
             const content = (
               <>
-                <div className="br-decision-icon">
-                  <Icon size={40} strokeWidth={1.5} />
-                </div>
+                {card.image ? (
+                  <div
+                    className="br-cost-img"
+                    style={{
+                      backgroundImage: `url(${card.image})`,
+                      height: '140px',
+                      borderRadius: '8px',
+                      marginBottom: '16px',
+                    }}
+                  />
+                ) : Icon ? (
+                  <div className="br-decision-icon">
+                    <Icon size={40} strokeWidth={1.5} />
+                  </div>
+                ) : null}
                 <h3>{card.title}</h3>
                 {card.desc && <p>{card.desc}</p>}
-                <span className="br-btn-orange">{card.cta || 'Mehr erfahren'}</span>
+                <span className="br-btn-orange">{card.cta || 'Mehr erfahren'} &rarr;</span>
               </>
             );
 

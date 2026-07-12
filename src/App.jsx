@@ -19,7 +19,7 @@ import CityPage from './pages/CityPage';
 import { cityDataMap, cityIds } from './data/cities';
 import BadsanierungHub from './pages/BadsanierungHub';
 import BadsanierungTopicPage from './pages/BadsanierungTopicPage';
-import RatgeberHub from './pages/RatgeberHub';
+import RatgeberRouter from './pages/RatgeberRouter';
 import LeistungenCategoryPage from './pages/LeistungenCategoryPage';
 import { leistungenCategories } from './data/navigation';
 import ApartmentRenovation from './pages/ApartmentRenovation';
@@ -52,6 +52,8 @@ import UeberUns from './pages/UeberUns';
 import Karriere from './pages/Karriere';
 import BathroomRenovation from './pages/BathroomRenovation';
 import SanierungskostenRechnerPage from './pages/SanierungskostenRechnerPage';
+import SanierungAblaufLanding from './pages/SanierungAblaufLanding';
+import SanierungskostenLanding from './pages/SanierungskostenLanding';
 
 function ScrollAndAnimationManager() {
   const location = useLocation();
@@ -115,6 +117,8 @@ export default function App({ location }) {
         <Routes fallback={<LegacyRedirect />}>
           <Route path="/" element={<Home />} />
           <Route path="/sanierung-rhein-main" element={<SanierungHub />} />
+          <Route path="/sanierung-ablauf-rhein-main" element={<SanierungAblaufLanding />} />
+          <Route path="/sanierungskosten-rhein-main" element={<SanierungskostenLanding />} />
           <Route path="/leistungen" element={<LeistungenHub />} />
           <Route path="/einsatzgebiete-rhein-main" element={<EinsatzgebieteHub />} />
           {cityIds.map((cityId) => (
@@ -124,7 +128,7 @@ export default function App({ location }) {
               element={<CityPage cityId={cityId} />}
             />
           ))}
-          <Route path="/ratgeber" element={<RatgeberHub />} />
+          <Route pathPrefix="/ratgeber" element={<RatgeberRouter />} />
           <Route path="/badsanierung-rhein-main" element={<BadsanierungHub />} />
           <Route path="/badsanierung/badezimmer-sanieren" element={<BathroomRenovation />} />
           <Route path="/dusche-statt-badewanne" element={<BadsanierungTopicPage topicId="dusche-statt-badewanne" />} />

@@ -21,6 +21,10 @@ const exactRedirects = {
   '/energetische-sanierung': '/energetische-sanierung-rhein-main',
   '/badsanierung-roedermark': '/sanierung-roedermark',
   '/haus-sanieren-wohnungssanierung-darmstadt': '/haus-wohnung-bad-modernisieren-darmstadt',
+  '/badsanierung-ablauf-rhein-main': '/badplanung',
+  '/wohnung-sanieren-kosten-rhein-main': '/wohnungssanierung-kosten',
+  '/haus-sanieren-kosten-rhein-main': '/sanierungskosten-rechner',
+  '/altbau-sanieren-kosten-rhein-main': '/altbausanierung-kosten',
 };
 
 // Ordered keyword -> destination rules, checked in order for any URL
@@ -82,19 +86,7 @@ const keywordRedirects = [
     to: '/einsatzgebiete-rhein-main',
   },
 
-  // Ratgeber guide articles - send to the relevant hub by topic keyword
-  { test: (p) => p.startsWith('/ratgeber/badsanierung') || p.startsWith('/ratgeber/kleines-bad'), to: '/badsanierung/badezimmer-sanieren' },
-  { test: (p) => p.startsWith('/ratgeber/heizung') || p.startsWith('/ratgeber/waermepumpe') || p.startsWith('/ratgeber/sanitaer'), to: '/heizung-sanitaer-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/elektro'), to: '/elektroinstallation-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/energie'), to: '/energetische-sanierung-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/generalunternehmer') || p.startsWith('/ratgeber/komplettsanierung') || p.startsWith('/ratgeber/sanierung-mit') || p.startsWith('/ratgeber/bauleitung'), to: '/generalunternehmer-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/innenausbau') || p.startsWith('/ratgeber/raumaufteilung'), to: '/innenausbau-umbau-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/wand-entfernen'), to: '/wand-entfernen-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/gewerbe'), to: '/gewerbesanierung-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/schimmel'), to: '/schadstoffsanierung-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/wohnung'), to: '/sanierung/wohnungssanierung' },
-  { test: (p) => p.startsWith('/ratgeber/haus'), to: '/sanierung/haussanierung' },
-  { test: (p) => p.startsWith('/ratgeber/'), to: '/ratgeber' },
+  // Ratgeber articles live at /ratgeber/<slug> – handled by RatgeberRouter
 ];
 
 export function resolveLegacyRedirect(pathname) {

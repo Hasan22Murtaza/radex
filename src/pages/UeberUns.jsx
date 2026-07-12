@@ -1,9 +1,108 @@
 import { useEffect } from 'react';
-import { Award, Users, ShieldCheck, GraduationCap, Building2, Wrench, CheckCircle2, MessageSquare, Phone, Camera } from 'lucide-react';
+import {
+  Award, Users, ShieldCheck, GraduationCap, Building2, Wrench, CheckCircle2,
+  Camera, MapPin,
+} from 'lucide-react';
+import { Link } from '../router';
 import '../badsanierung.css';
 import useSeo from '../useSeo';
-import NavLandingCards from '../components/NavLandingCards';
-import { ueberRadexCards } from '../data/navigation';
+import {
+  SharedCTABlock,
+  PremiumIconCards,
+  RadexLiveSection,
+  LandingContactSection,
+  SeoAccordionSection,
+} from '../components/landing/SharedLandingParts';
+
+const HERO_IMAGE = '/img/leistungen-hero.webp';
+
+const trustStats = [
+  { title: 'Über 40 Jahre Erfahrung', icon: <Wrench size={36} color="#f97316" /> },
+  { title: 'Über 500 abgeschlossene Projekte', icon: <Award size={36} color="#f97316" /> },
+  { title: 'Über 60 betreute Städte', icon: <MapPin size={36} color="#f97316" /> },
+  { title: 'SHK-meistergeführter Fachbetrieb', icon: <ShieldCheck size={36} color="#f97316" /> },
+  { title: 'Generalunternehmer', icon: <Building2 size={36} color="#f97316" /> },
+  { title: 'Ein fester Ansprechpartner', icon: <Users size={36} color="#f97316" /> },
+];
+
+const valuesCards = [
+  { title: 'Deutsche Handwerksqualität', desc: 'Wir setzen auf hochwertige Materialien, fachgerechte Ausführung und Arbeiten nach den geltenden deutschen Normen und Vorschriften.', icon: Award },
+  { title: 'SHK-meistergeführter Fachbetrieb', desc: 'Technische Verantwortung und fachliche Kompetenz durch einen zugelassenen SHK-Meisterbetrieb.', icon: ShieldCheck },
+  { title: 'Alles aus einer Hand', desc: 'Von der Planung über die Koordination bis zur schlüsselfertigen Übergabe erhalten Sie alle Leistungen aus einer Hand.', icon: Users },
+  { title: 'Ein fester Ansprechpartner', desc: 'Während Ihres gesamten Projekts wissen Sie jederzeit, wer Ihr persönlicher Ansprechpartner ist.', icon: CheckCircle2 },
+  { title: 'Innungsmitglied', desc: 'Als Mitglied der Handwerksinnung stehen wir für Qualität, Verantwortung und die kontinuierliche Weiterentwicklung unseres Handwerks.', icon: GraduationCap },
+  { title: 'Ausbildungsbetrieb', desc: 'Wir investieren in die Zukunft des Handwerks und bilden den Fachkräftenachwuchs von morgen aus.', icon: GraduationCap },
+  { title: 'Transparente Festpreisangebote', desc: 'Klare Leistungen, nachvollziehbare Angebote und keine versteckten Kosten.', icon: ShieldCheck },
+  { title: 'Gesetzliche Gewährleistung', desc: 'Selbstverständlich erhalten Sie auf unsere Arbeiten die gesetzlich vorgeschriebene Gewährleistung. Qualität zeigt sich nicht nur bei der Übergabe, sondern auch darin, dass wir langfristig für unsere Arbeit einstehen.', icon: Award },
+];
+
+const team = [
+  {
+    name: 'Hakim Rafoud',
+    role: 'Geschäftsführer',
+    desc: 'Verantwortlich für die strategische Unternehmensentwicklung, Kundenberatung und die kaufmännische Steuerung des Unternehmens.',
+  },
+  {
+    name: 'Abdellah Rafoud',
+    role: 'Prokurist',
+    desc: 'Verantwortlich für Organisation, Einkauf sowie die Koordination der täglichen Projektabläufe.',
+  },
+  {
+    name: 'Bernd Knoop',
+    role: 'SHK-Meister & Betriebsleiter',
+    desc: 'Mit über 30 Jahren Berufserfahrung begleitet Bernd Knoop unsere Kunden von der technischen Planung bis zur fertigen Übergabe und stellt sicher, dass sämtliche Arbeiten den aktuellen technischen Standards entsprechen.',
+  },
+];
+
+const credentials = [
+  { title: 'SHK-Meisterbetrieb', icon: Award },
+  { title: 'Generalunternehmer', icon: Building2 },
+  { title: 'Innungsmitglied', icon: Users },
+  { title: 'Ausbildungsbetrieb', icon: GraduationCap },
+  { title: 'Zertifizierte Schimmel- & Asbestsachkunde', icon: ShieldCheck },
+  { title: 'Über 40 Jahre Erfahrung', icon: Wrench },
+];
+
+const seoAccordions = [
+  {
+    title: 'Unternehmensgeschichte',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">
+          Die Radex Objektmanagement GmbH ist ein zugelassener SHK-Meisterbetrieb mit Sitz in Rödermark. Als
+          Generalunternehmer koordinieren wir Sanierungs- und Modernisierungsprojekte jeder Größenordnung –
+          von einzelnen Maßnahmen über die Badsanierung bis hin zur kompletten Kernsanierung.
+        </p>
+        <p className="text-gray-600">
+          Mit über 40 Jahren Erfahrung in den Bereichen Sanierung, Heizung, Sanitär und Gebäudetechnik kennen
+          wir die Herausforderungen jedes Projekts. Ob Privathaushalt, Kapitalanleger oder Gewerbekunde: Wir begleiten
+          Ihr Vorhaben von der ersten Planung bis zur schlüsselfertigen Übergabe.
+        </p>
+      </>
+    ),
+  },
+  {
+    title: 'Leistungsspektrum',
+    content: (
+      <ul className="space-y-2 text-gray-600">
+        <li><Link to="/badsanierung-rhein-main">Badsanierung</Link></li>
+        <li><Link to="/sanierung-rhein-main">Sanierung Rhein-Main</Link></li>
+        <li><Link to="/heizung-sanitaer-rhein-main">Heizung & Sanitär</Link></li>
+        <li><Link to="/innenausbau-umbau-rhein-main">Innenausbau & Umbau</Link></li>
+        <li><Link to="/gewerbesanierung-rhein-main">Gewerbesanierung</Link></li>
+      </ul>
+    ),
+  },
+  {
+    title: 'Einsatzgebiet',
+    content: (
+      <p className="text-gray-600">
+        Von Rödermark aus betreuen wir Projekte im gesamten Rhein-Main-Gebiet – in über 60 Städten und Gemeinden.
+        Mehr zu unseren <Link to="/einsatzgebiete-rhein-main">Einsatzgebieten</Link>.
+      </p>
+    ),
+  },
+];
 
 export default function UeberUns() {
   useEffect(() => {
@@ -11,182 +110,115 @@ export default function UeberUns() {
   }, []);
 
   useSeo({
-    title: "Über Radex | SHK-Meisterbetrieb im Rhein-Main-Gebiet",
-    description: "Radex Objektmanagement: SHK-Meisterbetrieb & Generalunternehmer mit über 40 Jahren Erfahrung. Lernen Sie unser Team, unsere Werte und Zertifizierungen kennen.",
-    path: "/ueber-uns"
+    title: 'Über Radex | SHK-Meisterbetrieb & Generalunternehmer im Rhein-Main-Gebiet',
+    description: 'Lernen Sie Radex kennen. Über 40 Jahre Erfahrung als SHK-meistergeführter Fachbetrieb und Generalunternehmer für Badsanierung, Sanierung und Modernisierung im Rhein-Main-Gebiet.',
+    path: '/ueber-uns',
+    image: HERO_IMAGE,
   });
-
-  const team = [
-    {
-      name: "Hakim Rafoud",
-      role: "Geschäftsführer",
-      desc: "Leitet das Unternehmen und verantwortet die strategische Ausrichtung sowie die kaufmännische Abwicklung Ihrer Projekte."
-    },
-    {
-      name: "Abdellah Rafoud",
-      role: "Prokurist",
-      desc: "Verantwortet Organisation, Einkauf und die zuverlässige Steuerung der Projektabläufe im Tagesgeschäft."
-    },
-    {
-      name: "Bernd Knoop",
-      role: "SHK-Meister & Betriebsleiter",
-      desc: "Mit über 30 Jahren Erfahrung im SHK-Handwerk begleitet er jedes Projekt von der Planung bis zur Umsetzung – für klare Abläufe, saubere Ausführung und hochwertige Ergebnisse."
-    }
-  ];
-
-  const credentials = [
-    { icon: <Award size={28} color="#f97316" />, title: "SHK-Meisterbetrieb", desc: "Zugelassener Fachbetrieb für Sanitär, Heizung und Klima." },
-    { icon: <Building2 size={28} color="#f97316" />, title: "Generalunternehmer", desc: "Alle Gewerke koordiniert aus einer Hand." },
-    { icon: <Users size={28} color="#f97316" />, title: "Innungsmitglied", desc: "Mitglied der Handwerksinnung mit geprüften Qualitätsstandards." },
-    { icon: <GraduationCap size={28} color="#f97316" />, title: "Ausbildungsbetrieb", desc: "Wir bilden den Handwerker-Nachwuchs von morgen aus." },
-    { icon: <ShieldCheck size={28} color="#f97316" />, title: "Schimmel & Asbest", desc: "Zertifizierte Asbest-Sachkunde nach TRGS 519." },
-    { icon: <Wrench size={28} color="#f97316" />, title: "40+ Jahre Erfahrung", desc: "Langjährige Expertise in Sanierung und Gebäudetechnik." }
-  ];
-
-  const values = [
-    { title: "Alles aus einer Hand", desc: "Von der Planung über die Koordination bis zur Ausführung – ein zentraler Ansprechpartner für Ihr gesamtes Projekt. Kein Koordinationsaufwand für Sie, keine losen Enden." },
-    { title: "Feste Ansprechpartner", desc: "Persönlich, erreichbar und zugewandt. Sie wissen immer, mit wem Sie es zu tun haben." },
-    { title: "Transparente Planung", desc: "Klare Abläufe, feste Termine und verbindliche Festpreise – ohne versteckte Kosten." },
-    { title: "Handwerkliche Qualität", desc: "Strukturierte Projektkoordination und saubere Ausführung nach aktuellen deutschen Normen." }
-  ];
 
   return (
     <main className="badsanierung-page">
-      {/* HERO */}
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
-            <h1 className="br-hero-title">
-              Über Radex <br/>
-              <span>Ihr Sanierungspartner im Rhein-Main-Gebiet</span>
-            </h1>
-            <p className="br-hero-subtitle">SHK-Meisterbetrieb und Generalunternehmer mit über 40 Jahren Erfahrung.</p>
+            <h1 className="br-hero-title">Lernen Sie Radex kennen.</h1>
+            <p className="br-hero-subtitle">Das Vertrauen unserer Kunden muss man sich jeden Tag neu verdienen.</p>
             <p className="br-hero-text">
-              Von Rödermark aus betreuen wir Sanierungs-, Badsanierungs- und Modernisierungsprojekte im gesamten
-              Rhein-Main-Gebiet – von der Einzelmaßnahme bis zur Kernsanierung, immer mit strukturierter
-              Projektkoordination und handwerklicher Qualität.
+              Jede Sanierung ist ein Vertrauensprojekt. Deshalb setzen wir auf klare Kommunikation, eine durchdachte Planung und eine professionelle Ausführung – vom ersten Gespräch bis zur schlüsselfertigen Übergabe. Als SHK-meistergeführter Fachbetrieb begleitet Radex Eigentümer im gesamten Rhein-Main-Gebiet bei Badsanierungen, Wohnungs- und Haussanierungen sowie kompletten Modernisierungen.
             </p>
-            <div className="br-hero-actions" style={{display: 'flex', gap: '16px', flexWrap: 'wrap'}}>
-              <a href="#kontakt" className="btn br-btn-orange">Kostenlose Beratung &rarr;</a>
-              <a href="https://wa.me/496074960620" target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
-                Fotos über WhatsApp senden <MessageSquare size={18} color="#25D366" style={{marginLeft: '8px'}} />
-              </a>
-            </div>
+            <p className="br-hero-text">
+              Seit über 40 Jahren stehen wir für deutsche Handwerksqualität, zuverlässige Projektkoordination und langfristige Kundenzufriedenheit. Unser Anspruch ist nicht nur eine hochwertige Sanierung, sondern eine Zusammenarbeit, auf die Sie sich heute, morgen und auch in vielen Jahren noch verlassen können.
+            </p>
+            <SharedCTABlock isHero />
             <p className="br-hero-micro mt-4">
               <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
             </p>
           </div>
         </div>
-        <div className="br-hero-right" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=1600)` }}>
-        </div>
+        <div className="br-hero-right" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
       </section>
 
-      <NavLandingCards
-        title="Mehr über Radex"
-        subtitle="Lernen Sie unser Unternehmen, Karrieremöglichkeiten und laufende Projekte kennen."
-        cards={ueberRadexCards}
-      />
-
-      {/* COMPANY STORY */}
-      <section id="unternehmen" className="br-section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Über 40 Jahre Erfahrung in Sanierung & Gebäudetechnik</h2>
-          </div>
-          <div style={{ color: '#4b5563', fontSize: '17px', lineHeight: 1.8 }}>
-            <p className="mb-4">
-              Die Radex Objektmanagement GmbH ist ein zugelassener SHK-Meisterbetrieb mit Sitz in Rödermark. Als
-              Generalunternehmer koordinieren wir Sanierungs- und Modernisierungsprojekte jeder Größenordnung –
-              von einzelnen Maßnahmen über die Badsanierung bis hin zur kompletten Kernsanierung.
-            </p>
-            <p className="mb-4">
-              Mit über 40 Jahren Erfahrung in den Bereichen Sanierung, Heizung, Sanitär und Gebäudetechnik kennen
-              wir die Herausforderungen jedes Projekts. Unser Anspruch: strukturierte Projektkoordination,
-              handwerkliche Qualität und eine zuverlässige Umsetzung. Sie haben einen zentralen Ansprechpartner für
-              Ihr gesamtes Projekt – kein Koordinationsaufwand für Sie, keine losen Enden.
-            </p>
-            <p>
-              Ob Privathaushalt, Kapitalanleger oder Gewerbekunde: Wir begleiten Ihr Vorhaben von der ersten Planung
-              bis zur schlüsselfertigen Übergabe – persönlich, transparent und termintreu.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* VALUES / WHY RADEX */}
-      <section className="br-section br-bg-light">
+      <section className="br-section">
         <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Wofür Radex steht</h2>
-          </div>
-          <div className="br-benefits-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))'}}>
-            {values.map((item, idx) => (
-              <div key={idx} className="br-benefit-card" style={{background: '#fff', border: '1px solid #e5e7eb'}}>
-                <div className="br-benefit-icon" style={{background: '#fff3ea', borderRadius: '50%', padding: '12px', width: 'auto', height: 'auto', marginBottom: '16px'}}>
-                  <CheckCircle2 size={32} color="#f97316" />
-                </div>
-                <h3>{item.title}</h3>
-                <p>{item.desc}</p>
+          <div className="br-benefits-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+            {trustStats.map((stat) => (
+              <div key={stat.title} className="br-benefit-card" style={{ textAlign: 'center', border: '1px solid #e5e7eb' }}>
+                <div className="br-benefit-icon">{stat.icon}</div>
+                <h3 style={{ fontSize: '16px' }}>{stat.title}</h3>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* TEAM */}
+      <section className="br-section br-bg-light">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Dafür steht Radex</h2>
+          </div>
+          <PremiumIconCards cards={valuesCards} />
+        </div>
+      </section>
+
+      <RadexLiveSection
+        intro="Vertrauen entsteht nicht durch Werbeversprechen, sondern durch echte Arbeit. Deshalb zeigen wir Ihnen nicht nur fertige Projekte, sondern auch laufende Baustellen, Vorher-Nachher-Vergleiche und authentische Einblicke in unseren Arbeitsalltag."
+        heroImage="/img/innenausbau-radex-live.webp"
+      />
+
       <section className="br-section">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Das Team hinter Radex</h2>
-            <p className="br-section-subtitle">Erfahrene Köpfe, die Ihr Projekt persönlich begleiten.</p>
           </div>
-          <div className="br-benefits-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}}>
-            {team.map((member, idx) => (
-              <div key={idx} className="br-benefit-card" style={{border: '1px solid #e5e7eb', textAlign: 'center'}}>
-                <div style={{width: '88px', height: '88px', borderRadius: '50%', background: '#fff3ea', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px'}}>
-                  <span style={{fontSize: '28px', fontWeight: 700, color: '#f97316'}}>
-                    {member.name.split(' ').map(n => n[0]).join('')}
+          <div className="br-benefits-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+            {team.map((member) => (
+              <div key={member.name} className="br-benefit-card" style={{ border: '1px solid #e5e7eb', textAlign: 'center', padding: '32px' }}>
+                <div style={{ width: '88px', height: '88px', borderRadius: '50%', background: '#fff3ea', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+                  <span style={{ fontSize: '28px', fontWeight: 700, color: '#f97316' }}>
+                    {member.name.split(' ').map((n) => n[0]).join('')}
                   </span>
                 </div>
-                <h3 style={{marginBottom: '4px'}}>{member.name}</h3>
-                <p style={{color: '#f97316', fontWeight: 600, marginBottom: '12px'}}>{member.role}</p>
-                <p style={{color: '#4b5563'}}>{member.desc}</p>
+                <h3 style={{ marginBottom: '4px' }}>{member.name}</h3>
+                <p style={{ color: '#f97316', fontWeight: 600, marginBottom: '12px' }}>{member.role}</p>
+                <p style={{ color: '#4b5563' }}>{member.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CREDENTIALS */}
       <section className="br-section br-bg-light">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Qualifikationen & Zertifizierungen</h2>
-            <p className="br-section-subtitle">Auf diese Standards können Sie bauen.</p>
           </div>
-          <div className="br-benefits-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))'}}>
-            {credentials.map((item, idx) => (
-              <div key={idx} className="br-benefit-card" style={{background: '#fff', border: '1px solid #e5e7eb'}}>
-                <div className="br-benefit-icon" style={{marginBottom: '12px'}}>{item.icon}</div>
-                <h3 style={{fontSize: '18px'}}>{item.title}</h3>
-                <p>{item.desc}</p>
-              </div>
-            ))}
+          <div className="br-benefits-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
+            {credentials.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="br-benefit-card" style={{ background: '#fff', border: '1px solid #e5e7eb', textAlign: 'center' }}>
+                  <div className="br-benefit-icon"><Icon size={28} color="#f97316" /></div>
+                  <h3 style={{ fontSize: '17px' }}>{item.title}</h3>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* TRUST STATS */}
       <section className="br-section">
         <div className="container">
-          <div className="br-trust-footer" style={{border: 'none'}}>
+          <div className="text-center mb-8">
+            <h2 className="br-section-title">Warum Eigentümer Radex vertrauen</h2>
+          </div>
+          <div className="br-trust-footer" style={{ border: 'none' }}>
             <div className="br-trust-item">
               <Award size={32} color="#f97316" />
-              <div><strong>500+</strong><span>Abgeschlossene Projekte</span></div>
+              <div><strong>500+</strong><span>Projekte</span></div>
             </div>
             <div className="br-trust-item">
-              <Building2 size={32} color="#f97316" />
-              <div><strong>60+</strong><span>Betreute Städte</span></div>
+              <MapPin size={32} color="#f97316" />
+              <div><strong>60+</strong><span>Städte</span></div>
             </div>
             <div className="br-trust-item">
               <Wrench size={32} color="#f97316" />
@@ -194,29 +226,18 @@ export default function UeberUns() {
             </div>
             <div className="br-trust-item">
               <Users size={32} color="#f97316" />
-              <div><strong>SHK-Meister</strong><span>Zugelassener Fachbetrieb</span></div>
+              <div><strong>SHK-Meisterbetrieb</strong><span>Zugelassener Fachbetrieb</span></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CONTACT CTA */}
-      <section id="kontakt" className="br-section br-bg-light">
-        <div className="container text-center" style={{maxWidth: '800px'}}>
-          <h2 className="br-section-title">Lernen Sie uns kennen</h2>
-          <p className="br-section-subtitle" style={{marginBottom: '32px'}}>
-            Sprechen Sie mit unserem Team, senden Sie Fotos per WhatsApp oder vereinbaren Sie eine kostenlose Beratung vor Ort.
-          </p>
-          <div style={{display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center'}}>
-            <a href="https://wa.me/496074960620" target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
-              Fotos über WhatsApp senden <MessageSquare size={18} color="#25D366" style={{marginLeft: '8px'}} />
-            </a>
-            <a href="tel:+496074960620" className="btn br-btn-orange" style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-              <Phone size={18} /> 06074 960620
-            </a>
-          </div>
-        </div>
-      </section>
+      <LandingContactSection
+        title="Jetzt lernen wir uns persönlich kennen."
+        intro="Ganz gleich, ob Sie eine Badsanierung, Wohnungssanierung, Haussanierung oder eine komplette Modernisierung planen – wir beraten Sie persönlich, transparent und unverbindlich."
+      />
+
+      <SeoAccordionSection title="Weitere Informationen" accordions={seoAccordions} />
     </main>
   );
 }

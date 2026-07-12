@@ -158,7 +158,7 @@ export default function Footer() {
               <li><a href="/sanierung/altbausanierung" className="footer-link">Altbausanierung</a></li>
               <li><a href="/heizung-sanitaer-rhein-main" className="footer-link">Heizung</a></li>
               <li><a href="/schimmelsanierung-rhein-main" className="footer-link">Schimmelsanierung</a></li>
-              <li><a href="/sanierung-rhein-main" className="footer-link font-semibold">Alle Ratgeber ansehen &rarr;</a></li>
+              <li><a href="/ratgeber" className="footer-link font-semibold">Alle Ratgeber ansehen &rarr;</a></li>
             </ul>
           </div>
 

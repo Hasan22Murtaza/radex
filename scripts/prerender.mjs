@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { cityDataMap } from '../src/data/cities.js';
 import { leistungenCategories } from '../src/data/navigation.js';
+import { ratgeberArticles, ratgeberCategories } from '../src/data/ratgeber.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -30,16 +31,18 @@ const cityMeta = Object.fromEntries(
 
 const routes = {
   '/': { title: 'Radex Objektmanagement | Sanierung & Badsanierung im Rhein-Main-Gebiet', description: 'Sanierung, Badsanierung & Modernisierung im Rhein-Main-Gebiet aus einer Hand. Zugelassener SHK-Meisterbetrieb & Generalunternehmer aus Rödermark. Jetzt kostenlose Beratung sichern!' },
-  '/sanierung-rhein-main': { title: 'Sanierung Rhein-Main | Wohnung, Haus & Altbau modernisieren | Radex', description: 'Sanierung im Rhein-Main-Gebiet: Wohnungs-, Haus- & Altbausanierung, Komplettsanierung und Generalunternehmer aus einer Hand. Festpreis & feste Termine. Jetzt anfragen!' },
+  '/sanierung-rhein-main': { title: 'Sanierung im Rhein-Main-Gebiet | Wohnung, Haus & Altbau sanieren | Radex', description: 'Sanierung im Rhein-Main-Gebiet vom SHK-meistergeführten Fachbetrieb. Wohnungssanierung, Haussanierung, Altbausanierung und Komplettsanierung aus einer Hand.' },
+  '/sanierung-ablauf-rhein-main': { title: 'Sanierung Ablauf im Rhein-Main-Gebiet | Planung bis Fertigstellung | Radex', description: 'Erfahren Sie Schritt für Schritt, wie eine Sanierung mit Radex abläuft – von der ersten Beratung über die Planung bis zur schlüsselfertigen Übergabe.' },
+  '/sanierungskosten-rhein-main': { title: 'Sanierungskosten im Rhein-Main-Gebiet | Kosten einer Sanierung berechnen | Radex', description: 'Sanierungskosten für Wohnung, Haus und Altbau einfach einschätzen. Nutzen Sie den Radex Sanierungskosten-Rechner und erhalten Sie eine erste Orientierung für Ihr Projekt.' },
   '/leistungen': { title: 'Leistungen für Sanierung, Badsanierung & Modernisierung | Radex Objektmanagement', description: 'Entdecken Sie alle Leistungen von Radex Objektmanagement im Rhein-Main-Gebiet. Generalunternehmer, Badsanierung, Heizung & Sanitär, Elektrotechnik, Innenausbau, energetische Sanierung, Schimmel- und Asbestsanierung – alles aus einer Hand.' },
   '/einsatzgebiete-rhein-main': { title: 'Einsatzgebiete | Sanierung im Rhein-Main-Gebiet | Radex', description: 'Radex saniert in über 60 Städten im Rhein-Main-Gebiet: Frankfurt, Offenbach, Darmstadt, Wiesbaden, Mainz, Hanau, Aschaffenburg, Rödermark u. v. m. Jetzt vor Ort beraten lassen!' },
-  '/badsanierung-rhein-main': { title: 'Badsanierung Rhein-Main | Bad sanieren aus einer Hand | Radex', description: 'Badsanierung im Rhein-Main-Gebiet: Badezimmer sanieren, Dusche statt Badewanne, barrierefreies Bad, Gäste-WC, Kosten und Planung – vom SHK-Meisterbetrieb Radex.' },
+  '/badsanierung-rhein-main': { title: 'Badsanierung im Rhein-Main-Gebiet | Bad sanieren vom SHK-Meisterbetrieb | Radex', description: 'Professionelle Badsanierung im Rhein-Main-Gebiet. Komplettbad, Badmodernisierung, Dusche statt Badewanne, barrierefreie Bäder und Sanitärinstallation – alles aus einer Hand.' },
   '/badsanierung/badezimmer-sanieren': { title: 'Badsanierung Rhein-Main | Komplettbad zum Festpreis | Radex', description: 'Badsanierung im Rhein-Main-Gebiet vom SHK-Meisterbetrieb: Komplettbäder, Badmodernisierung & barrierefreie Bäder aus einer Hand. Jetzt Festpreis-Beratung sichern!' },
   '/dusche-statt-badewanne': { title: 'Dusche statt Badewanne | Umbau im Rhein-Main-Gebiet | Radex', description: 'Badewanne durch Dusche ersetzen im Rhein-Main-Gebiet: bodengleich, barrierearm und fachgerecht abgedichtet vom SHK-Meisterbetrieb Radex.' },
   '/barrierefreies-bad': { title: 'Barrierefreies Bad | Sanierung im Rhein-Main-Gebiet | Radex', description: 'Barrierefreies Bad im Rhein-Main-Gebiet: bodengleiche Dusche, Haltegriffe und durchdachte Bewegungsflächen vom SHK-Meisterbetrieb Radex.' },
   '/gaeste-wc': { title: 'Gäste-WC sanieren | Rhein-Main-Gebiet | Radex', description: 'Gäste-WC sanieren im Rhein-Main-Gebiet: kleine Räume optimal nutzen mit modernen Sanitärobjekten und fachgerechter Installation.' },
   '/badplanung': { title: 'Badplanung & Ablauf | Badsanierung Rhein-Main | Radex', description: 'Badsanierung planen: Ablauf, Reihenfolge der Gewerke und typische Fehler vermeiden. Radex begleitet Sie vom Ortstermin bis zur Übergabe.' },
-  '/ratgeber': { title: 'Ratgeber | Sanierung & Badsanierung im Rhein-Main-Gebiet | Radex', description: 'Ratgeber zu Badsanierung, Wohnungssanierung, Heizung, Elektro, Energie, Kosten und Förderung – praxisnah vom SHK-Meisterbetrieb Radex.' },
+  '/ratgeber': { title: 'Ratgeber für Sanierung, Badsanierung & Modernisierung | Radex', description: 'Hilfreiche Informationen rund um Badsanierung, Sanierung, Heizung, Schimmel, Asbest, Energie und Modernisierung im Rhein-Main-Gebiet.' },
   '/sanierung/wohnungssanierung': { title: 'Wohnungssanierung Rhein-Main | Festpreis & aus einer Hand | Radex', description: 'Wohnungssanierung im Rhein-Main-Gebiet: Teilsanierung, Kernsanierung & Modernisierung vom Generalunternehmer. Termingerecht, staubarm, zum Festpreis. Jetzt anfragen!' },
   '/sanierung/haussanierung': { title: 'Haussanierung Rhein-Main | Modernisierung aus einer Hand | Radex', description: 'Haussanierung im Rhein-Main-Gebiet: energetische Modernisierung, Grundrissoptimierung, Dach & Fassade vom Generalunternehmer. Festpreis & feste Termine. Jetzt anfragen!' },
   '/sanierung/altbausanierung': { title: 'Altbausanierung Rhein-Main | Denkmalgerecht modernisieren | Radex', description: 'Altbausanierung im Rhein-Main-Gebiet: historischen Charme erhalten, moderne Technik integrieren. Denkmalgerecht, fachgerecht, aus einer Hand. Jetzt Beratung sichern!' },
@@ -62,7 +65,7 @@ const routes = {
   '/sicherungskasten-erneuern-rhein-main': { title: 'Sicherungskasten erneuern im Rhein-Main-Gebiet | Radex', description: 'Sicherungskasten erneuern vom Fachbetrieb. Moderne Unterverteilungen, FI-Schutzschalter und Zählerschränke für mehr Sicherheit im gesamten Rhein-Main-Gebiet.' },
   '/schnelle-badsanierung-rhein-main': { title: 'Schnelle Badsanierung im Rhein-Main-Gebiet | Modernes Bad | Radex', description: 'Komplettbadsanierung mit kurzer Bauzeit. Professionelle Planung, koordinierte Ausführung und moderne Badezimmer im gesamten Rhein-Main-Gebiet.' },
   '/waermepumpe-rhein-main': { title: 'Wärmepumpe im Rhein-Main-Gebiet | Beratung, Planung & Einbau | Radex', description: 'Wärmepumpe vom SHK-Meisterbetrieb. Beratung, Planung, Einbau und Fördermöglichkeiten für private Eigentümer im gesamten Rhein-Main-Gebiet. Jetzt kostenlos beraten lassen.' },
-  '/ueber-uns': { title: 'Über Radex | SHK-Meisterbetrieb im Rhein-Main-Gebiet', description: 'Radex Objektmanagement: SHK-Meisterbetrieb & Generalunternehmer mit über 40 Jahren Erfahrung. Lernen Sie unser Team, unsere Werte und Zertifizierungen kennen.' },
+  '/ueber-uns': { title: 'Über Radex | SHK-Meisterbetrieb & Generalunternehmer im Rhein-Main-Gebiet', description: 'Lernen Sie Radex kennen. Über 40 Jahre Erfahrung als SHK-meistergeführter Fachbetrieb und Generalunternehmer für Badsanierung, Sanierung und Modernisierung im Rhein-Main-Gebiet.' },
   '/karriere': { title: 'Karriere bei Radex | Jobs im Handwerk im Rhein-Main-Gebiet', description: 'Jobs bei Radex im Rhein-Main-Gebiet: Elektriker, Bauhelfer, Bauleiter & Allrounder (m/w/d). Sicherer Arbeitsplatz, faire Bezahlung, starkes Team. Jetzt unkompliziert bewerben!' },
   '/sanierungskosten-rechner': { title: 'Sanierungskosten Rechner | Bad, Wohnung & Altbau | Radex', description: 'Sanierungskosten Rechner von Radex: Badsanierung Kosten, Wohnungssanierung Kosten und Altbausanierung Kosten kostenlos einschätzen.' },
   '/badsanierung-kosten': { title: 'Badsanierung Kosten | Sanierungskosten Rechner | Radex', description: 'Badsanierung Kosten online berechnen: kostenloser Radex Sanierungskosten Rechner für Bad, Wohnung und Altbau im Rhein-Main-Gebiet.' },
@@ -74,6 +77,21 @@ const routes = {
     Object.entries(leistungenCategories).map(([id, category]) => [
       category.seo.path,
       { title: category.seo.title, description: category.seo.description },
+    ])
+  ),
+  ...Object.fromEntries(
+    ratgeberArticles.map((article) => [
+      article.seo.path,
+      { title: article.seo.title, description: article.seo.description },
+    ])
+  ),
+  ...Object.fromEntries(
+    ratgeberCategories.map((cat) => [
+      `/ratgeber/kategorie/${cat.id}`,
+      {
+        title: `${cat.title} | Ratgeber | Radex`,
+        description: `${cat.desc} – Fachartikel und Tipps im Radex Ratgeber für das Rhein-Main-Gebiet.`,
+      },
     ])
   ),
   ...cityMeta

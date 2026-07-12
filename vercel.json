@@ -238,143 +238,28 @@
       "permanent": true
     },
     {
+      "source": "/badsanierung-ablauf-rhein-main",
+      "destination": "/badplanung",
+      "permanent": true
+    },
+    {
+      "source": "/wohnung-sanieren-kosten-rhein-main",
+      "destination": "/wohnungssanierung-kosten",
+      "permanent": true
+    },
+    {
+      "source": "/haus-sanieren-kosten-rhein-main",
+      "destination": "/sanierungskosten-rechner",
+      "permanent": true
+    },
+    {
+      "source": "/altbau-sanieren-kosten-rhein-main",
+      "destination": "/altbausanierung-kosten",
+      "permanent": true
+    },
+    {
       "source": "/reihenhaus-modernisieren-obertshausen",
       "destination": "/sanierung-obertshausen",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/badsanierung",
-      "destination": "/badsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/badsanierung-kosten-faktoren",
-      "destination": "/badsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/badsanierung-planen-reihenfolge-ablauf-fehler",
-      "destination": "/badsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/kleines-bad-sanieren",
-      "destination": "/badsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/heizung-sanitaer",
-      "destination": "/heizung-sanitaer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/heizung-modernisieren-bei-sanierung",
-      "destination": "/heizung-sanitaer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/waermepumpe-im-bestand-pruefen",
-      "destination": "/heizung-sanitaer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/sanitaerleitungen-erneuern-alte-wasserleitungen-pruefen",
-      "destination": "/heizung-sanitaer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/elektrotechnik",
-      "destination": "/elektroinstallation-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/elektroinstallation-erneuern-wohnung-haus",
-      "destination": "/elektroinstallation-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/energie",
-      "destination": "/energetische-sanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/energetische-sanierung-im-bestand",
-      "destination": "/sanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/energieeffizienz-verbessern-heizung-daemmung-lueftung",
-      "destination": "/energetische-sanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/sanierung-foerderung-vor-baustart-pruefen",
-      "destination": "/sanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/generalunternehmer",
-      "destination": "/generalunternehmer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/komplettsanierung-oder-teilsanierung",
-      "destination": "/generalunternehmer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/sanierung-mit-generalunternehmer",
-      "destination": "/generalunternehmer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/bauleitung-bei-sanierung",
-      "destination": "/generalunternehmer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/innenausbau-umbau",
-      "destination": "/innenausbau-umbau-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/raumaufteilung-aendern-trockenbau",
-      "destination": "/innenausbau-umbau-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/wand-entfernen-durchbruch-pruefen",
-      "destination": "/innenausbau-umbau-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/gewerbe",
-      "destination": "/gewerbe-objektsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/schimmel-asbest",
-      "destination": "/schadstoffsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/schimmel-bei-sanierung-ursache-pruefen",
-      "destination": "/schadstoffsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/wohnung-renovieren-oder-sanieren-unterschied",
-      "destination": "/sanierung/wohnungssanierung",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/wohnung-sanieren-nach-kauf",
-      "destination": "/sanierung/wohnungssanierung",
-      "permanent": true
-    },
-    {
-      "source": "/ratgeber/haus-modernisieren-nach-kauf-erbschaft",
-      "destination": "/sanierung/haussanierung",
       "permanent": true
     }
   ],

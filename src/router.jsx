@@ -56,14 +56,25 @@ export function BrowserRouter({ children, initialPath }) {
 export function Routes({ children, fallback }) {
   const { path } = useContext(RouterContext);
   const items = Children.toArray(children);
-  const match = items.find((child) => child?.props?.path === path);
+  const match = items.find((child) => {
+    const routePath = child?.props?.path;
+    const pathPrefix = child?.props?.pathPrefix;
+    if (routePath && path === routePath) return true;
+    if (pathPrefix && (path === pathPrefix || path.startsWith(`${pathPrefix}/`))) return true;
+    return false;
+  });
   if (match) return match;
   return fallback || null;
 }
 
-export function Route({ path: routePath, element }) {
+export function Route({ path: routePath, pathPrefix, element }) {
   const { path } = useContext(RouterContext);
-  return path === routePath ? element : null;
+  const matches = routePath
+    ? path === routePath
+    : pathPrefix
+      ? path === pathPrefix || path.startsWith(`${pathPrefix}/`)
+      : false;
+  return matches ? element : null;
 }
 
 export function Redirect({ to }) {
