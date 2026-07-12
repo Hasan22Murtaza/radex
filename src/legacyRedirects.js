@@ -11,7 +11,10 @@ const exactRedirects = {
   '/radex-live': '/#beispiele',
   '/gewerbeumbau': '/gewerbe-objektsanierung-rhein-main',
   '/umbau': '/innenausbau-umbau-rhein-main',
-  '/raumoptimierung': '/innenausbau-umbau-rhein-main',
+  '/raumoptimierung': '/raeume-umbauen-rhein-main',
+  '/wohnungssanierung-rhein-main': '/sanierung/wohnungssanierung',
+  '/haussanierung-rhein-main': '/sanierung/haussanierung',
+  '/altbausanierung-rhein-main': '/sanierung/altbausanierung',
   '/elektrotechnik-rhein-main': '/elektroinstallation-rhein-main',
   '/badsanierung': '/badsanierung-rhein-main',
   '/wohnungssanierung': '/sanierung/wohnungssanierung',
@@ -30,7 +33,8 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/gaeste-wc') || p.startsWith('/kleines-bad'), to: '/gaeste-wc' },
   { test: (p) => p.startsWith('/badplanung') || p === '/badsanierung/ablauf-badsanierung', to: '/badplanung' },
   { test: (p) => p.startsWith('/badsanierung/badezimmer-sanieren') || p.startsWith('/komplettbadsanierung') || p.startsWith('/badmodernisierung') || p.startsWith('/badrenovierung'), to: '/badsanierung/badezimmer-sanieren' },
-  { test: (p) => p.startsWith('/bad-soforthilfe') || p.startsWith('/schnelle-badsanierung'), to: '/badsanierung/badezimmer-sanieren' },
+  { test: (p) => p.startsWith('/schnelle-badsanierung') && !p.startsWith('/schnelle-badsanierung-rhein-main'), to: '/schnelle-badsanierung-rhein-main' },
+  { test: (p) => p.startsWith('/bad-soforthilfe'), to: '/badsanierung/badezimmer-sanieren' },
   { test: (p) => p.startsWith('/badsanierung') || p.startsWith('/badsanierung-kosten-rhein-main'), to: '/badsanierung-rhein-main' },
 
   // Apartment / house / historic building renovation guides
@@ -43,13 +47,16 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/komplettsanierung') || p.startsWith('/kernsanierung') || p.startsWith('/teilsanierung'), to: '/komplettsanierung-rhein-main' },
 
   // Electrical
-  { test: (p) => p.startsWith('/elektro') || p.startsWith('/altbau-elektrik') || p.startsWith('/sicherungskasten'), to: '/elektroinstallation-rhein-main' },
+  { test: (p) => p.startsWith('/sicherungskasten') && !p.startsWith('/sicherungskasten-erneuern-rhein-main'), to: '/sicherungskasten-erneuern-rhein-main' },
+  { test: (p) => p.startsWith('/elektro') || p.startsWith('/altbau-elektrik'), to: '/elektroinstallation-rhein-main' },
 
   // Heating & plumbing
-  { test: (p) => p.startsWith('/heizung') || p.startsWith('/waermepumpe') || p.startsWith('/sanitaerinstallation'), to: '/heizung-sanitaer-rhein-main' },
+  { test: (p) => p.startsWith('/waermepumpe') && !p.startsWith('/waermepumpe-rhein-main'), to: '/waermepumpe-rhein-main' },
+  { test: (p) => p.startsWith('/heizung') || p.startsWith('/sanitaerinstallation'), to: '/heizung-sanitaer-rhein-main' },
 
   // Interior construction
-  { test: (p) => p.startsWith('/innenausbau') || p.startsWith('/trockenbau') || p.startsWith('/wand-entfernen'), to: '/innenausbau-umbau-rhein-main' },
+  { test: (p) => p.startsWith('/wand-entfernen') && !p.startsWith('/wand-entfernen-rhein-main'), to: '/wand-entfernen-rhein-main' },
+  { test: (p) => p.startsWith('/innenausbau') || p.startsWith('/trockenbau'), to: '/innenausbau-umbau-rhein-main' },
 
   // Energy efficiency
   { test: (p) => p.startsWith('/energetische-sanierung') || p.startsWith('/energieeffizienz') || p.startsWith('/sanierung-foerderung'), to: '/energetische-sanierung-rhein-main' },
@@ -60,10 +67,12 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/schadstoffsanierung'), to: '/schadstoffsanierung-rhein-main' },
 
   // Fast/emergency renovation
-  { test: (p) => p.startsWith('/sanierungs-soforthilfe') || p.startsWith('/schnellsanierung'), to: '/sanierung-rhein-main' },
+  { test: (p) => p.startsWith('/schnellsanierung') && !p.startsWith('/schnellsanierung-rhein-main'), to: '/schnellsanierung-rhein-main' },
 
   // Commercial / office renovation
-  { test: (p) => p.startsWith('/gewerbe') || p.startsWith('/bueroumbau') || p.startsWith('/mieterausbau'), to: '/gewerbe-objektsanierung-rhein-main' },
+  { test: (p) => p.startsWith('/mieterausbau'), to: '/gewerbesanierung-rhein-main' },
+  { test: (p) => p.startsWith('/bueroumbau'), to: '/gewerbesanierung-rhein-main' },
+  { test: (p) => p.startsWith('/gewerbe'), to: '/gewerbe-objektsanierung-rhein-main' },
 
   // City pages we don't host individually go to the service area hub
   {
@@ -79,8 +88,9 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/ratgeber/elektro'), to: '/elektroinstallation-rhein-main' },
   { test: (p) => p.startsWith('/ratgeber/energie'), to: '/energetische-sanierung-rhein-main' },
   { test: (p) => p.startsWith('/ratgeber/generalunternehmer') || p.startsWith('/ratgeber/komplettsanierung') || p.startsWith('/ratgeber/sanierung-mit') || p.startsWith('/ratgeber/bauleitung'), to: '/generalunternehmer-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/innenausbau') || p.startsWith('/ratgeber/raumaufteilung') || p.startsWith('/ratgeber/wand-entfernen'), to: '/innenausbau-umbau-rhein-main' },
-  { test: (p) => p.startsWith('/ratgeber/gewerbe'), to: '/gewerbe-objektsanierung-rhein-main' },
+  { test: (p) => p.startsWith('/ratgeber/innenausbau') || p.startsWith('/ratgeber/raumaufteilung'), to: '/innenausbau-umbau-rhein-main' },
+  { test: (p) => p.startsWith('/ratgeber/wand-entfernen'), to: '/wand-entfernen-rhein-main' },
+  { test: (p) => p.startsWith('/ratgeber/gewerbe'), to: '/gewerbesanierung-rhein-main' },
   { test: (p) => p.startsWith('/ratgeber/schimmel'), to: '/schadstoffsanierung-rhein-main' },
   { test: (p) => p.startsWith('/ratgeber/wohnung'), to: '/sanierung/wohnungssanierung' },
   { test: (p) => p.startsWith('/ratgeber/haus'), to: '/sanierung/haussanierung' },

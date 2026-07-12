@@ -95,7 +95,7 @@ export default function Footer() {
               <li><a href="/innenausbau-umbau-rhein-main" className="footer-link">Innenausbau & Umbau</a></li>
               <li><a href="/energetische-sanierung-rhein-main" className="footer-link">Energetische Sanierung</a></li>
               <li><a href="/schadstoffsanierung-rhein-main" className="footer-link">Schimmel- & Schadstoffsanierung</a></li>
-              <li><a href="/gewerbe-objektsanierung-rhein-main" className="footer-link">Gewerbesanierung</a></li>
+              <li><a href="/gewerbesanierung-rhein-main" className="footer-link">Gewerbesanierung</a></li>
             </ul>
           </div>
 

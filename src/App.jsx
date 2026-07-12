@@ -29,6 +29,18 @@ import CompleteRenovation from './pages/CompleteRenovation';
 import GeneralContractor from './pages/GeneralContractor';
 import EnergyEfficientRenovation from './pages/EnergyEfficientRenovation';
 import CommercialRenovation from './pages/CommercialRenovation';
+import GewerbesanierungLanding from './pages/GewerbesanierungLanding';
+import HeizungSanitaerHub from './pages/HeizungSanitaerHub';
+import InnenausbauUmbauHub from './pages/InnenausbauUmbauHub';
+import RaeumeUmbauenLanding from './pages/RaeumeUmbauenLanding';
+import SanierungsSoforthilfeLanding from './pages/SanierungsSoforthilfeLanding';
+import SchadstoffsanierungLanding from './pages/SchadstoffsanierungLanding';
+import SchimmelAsbestHub from './pages/SchimmelAsbestHub';
+import SchnelleBadsanierungLanding from './pages/SchnelleBadsanierungLanding';
+import SchnellsanierungLanding from './pages/SchnellsanierungLanding';
+import WandEntfernenLanding from './pages/WandEntfernenLanding';
+import SicherungskastenErneuernLanding from './pages/SicherungskastenErneuernLanding';
+import WaermepumpeLanding from './pages/WaermepumpeLanding';
 import MoldRemediation from './pages/MoldRemediation';
 import AsbestosRemoval from './pages/AsbestosRemoval';
 import HeatingPlumbing from './pages/HeatingPlumbing';
@@ -119,7 +131,12 @@ export default function App({ location }) {
           <Route path="/barrierefreies-bad" element={<BadsanierungTopicPage topicId="barrierefreies-bad" />} />
           <Route path="/gaeste-wc" element={<BadsanierungTopicPage topicId="gaeste-wc" />} />
           <Route path="/badplanung" element={<BadsanierungTopicPage topicId="badplanung" />} />
-          {Object.keys(leistungenCategories).map((categoryId) => (
+          <Route path="/leistungen/heizung-sanitaer" element={<HeizungSanitaerHub />} />
+          <Route path="/leistungen/innenausbau-umbau" element={<InnenausbauUmbauHub />} />
+          <Route path="/leistungen/schimmel-asbest" element={<SchimmelAsbestHub />} />
+          {Object.keys(leistungenCategories)
+            .filter((categoryId) => categoryId !== 'heizung-sanitaer' && categoryId !== 'innenausbau-umbau' && categoryId !== 'schimmel-asbest')
+            .map((categoryId) => (
             <Route
               key={categoryId}
               path={`/leistungen/${categoryId}`}
@@ -132,12 +149,21 @@ export default function App({ location }) {
           <Route path="/komplettsanierung-rhein-main" element={<CompleteRenovation />} />
           <Route path="/generalunternehmer-rhein-main" element={<GeneralContractor />} />
           <Route path="/energetische-sanierung-rhein-main" element={<EnergyEfficientRenovation />} />
+          <Route path="/gewerbesanierung-rhein-main" element={<GewerbesanierungLanding />} />
+          <Route path="/mieterausbau-rhein-main" element={<GewerbesanierungLanding />} />
           <Route path="/gewerbe-objektsanierung-rhein-main" element={<CommercialRenovation />} />
           <Route path="/schimmelsanierung-rhein-main" element={<MoldRemediation />} />
-          <Route path="/schadstoffsanierung-rhein-main" element={<MoldRemediation />} />
+          <Route path="/schadstoffsanierung-rhein-main" element={<SchadstoffsanierungLanding />} />
           <Route path="/asbestsanierung-rhein-main" element={<AsbestosRemoval />} />
           <Route path="/heizung-sanitaer-rhein-main" element={<HeatingPlumbing />} />
+          <Route path="/waermepumpe-rhein-main" element={<WaermepumpeLanding />} />
           <Route path="/elektroinstallation-rhein-main" element={<ElectricalServices />} />
+          <Route path="/sicherungskasten-erneuern-rhein-main" element={<SicherungskastenErneuernLanding />} />
+          <Route path="/wand-entfernen-rhein-main" element={<WandEntfernenLanding />} />
+          <Route path="/schnellsanierung-rhein-main" element={<SchnellsanierungLanding />} />
+          <Route path="/schnelle-badsanierung-rhein-main" element={<SchnelleBadsanierungLanding />} />
+          <Route path="/sanierungs-soforthilfe-rhein-main" element={<SanierungsSoforthilfeLanding />} />
+          <Route path="/raeume-umbauen-rhein-main" element={<RaeumeUmbauenLanding />} />
           <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
           <Route path="/ueber-uns" element={<UeberUns />} />
           <Route path="/karriere" element={<Karriere />} />

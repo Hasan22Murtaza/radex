@@ -6,7 +6,7 @@ export default function Hero() {
     { icon: <Bath size={20} color="#f97316" />, label: 'Badsanierung', to: '/badsanierung-rhein-main' },
     { icon: <Building2 size={20} color="#f97316" />, label: 'Wohnung', to: '/sanierung/wohnungssanierung' },
     { icon: <HomeIcon size={20} color="#f97316" />, label: 'Haus', to: '/sanierung/haussanierung' },
-    { icon: <Briefcase size={20} color="#f97316" />, label: 'Gewerbe', to: '/gewerbe-objektsanierung-rhein-main' }
+    { icon: <Briefcase size={20} color="#f97316" />, label: 'Gewerbe', to: '/gewerbesanierung-rhein-main' }
   ];
 
   return (

@@ -2,7 +2,7 @@ import {
   Bath, ShowerHead, Accessibility, DoorOpen, Calculator, ListOrdered,
   Building2, Home, Landmark, Handshake, Flame, Zap, Hammer, Leaf,
   AlertTriangle, Zap as ExpressIcon,   Briefcase, MapPin, Users, Video, Wrench, Shield, FileText, Thermometer, Droplets,
-  LayoutGrid, Trash2, Clock, Building
+  LayoutGrid, Trash2, Clock, Building, Sofa
 } from 'lucide-react';
 
 export const badsanierungCards = [
@@ -172,13 +172,13 @@ export const leistungenCategories = {
     title: 'Heizung & Sanitär',
     subtitle: 'Moderne Haustechnik vom SHK-Meisterbetrieb – Heizung, Wärmepumpe und Sanitär.',
     seo: {
-      title: 'Heizung & Sanitär | Leistungen | Radex',
-      description: 'Heizung modernisieren, Wärmepumpe installieren und Sanitärinstallation im Rhein-Main-Gebiet vom SHK-Meisterbetrieb Radex.',
+      title: 'Heizung & Sanitär im Rhein-Main-Gebiet | SHK-Meisterbetrieb | Radex',
+      description: 'Moderne Heizungs- und Sanitärtechnik vom SHK-Meisterbetrieb. Heizungsmodernisierung, Wärmepumpen und Sanitärinstallationen für private Eigentümer und Unternehmen im Rhein-Main-Gebiet.',
       path: '/leistungen/heizung-sanitaer',
     },
     subpages: [
       { to: '/heizung-sanitaer-rhein-main', title: 'Heizung modernisieren', desc: 'Heizungstausch, Heizkörper und Wärmeverteilung im Bestand.', icon: Thermometer },
-      { to: '/heizung-sanitaer-rhein-main', title: 'Wärmepumpe', desc: 'Luft- und Sole-Wasser-Wärmepumpen inkl. Förderabwicklung.', icon: Flame },
+      { to: '/waermepumpe-rhein-main', title: 'Wärmepumpe', desc: 'Luft- und Sole-Wasser-Wärmepumpen inkl. Förderabwicklung.', icon: Flame },
       { to: '/heizung-sanitaer-rhein-main', title: 'Sanitärinstallation', desc: 'Wasserleitungen, Abwasser und Sanitäranlagen fachgerecht installiert.', icon: Droplets },
     ],
   },
@@ -193,21 +193,23 @@ export const leistungenCategories = {
     subpages: [
       { to: '/elektroinstallation-rhein-main', title: 'Elektroinstallation', desc: 'Steckdosen, Leitungen, Licht und Gebäudetechnik nach VDE.', icon: Zap },
       { to: '/elektroinstallation-rhein-main', title: 'Altbau Elektrik erneuern', desc: 'Veraltete Installationen sicher und normgerecht modernisieren.', icon: Home },
-      { to: '/elektroinstallation-rhein-main', title: 'Sicherungskasten erneuern', desc: 'Unterverteilung, FI-Schutz und Zählerschrank auf aktuellen Stand bringen.', icon: Shield },
+      { to: '/sicherungskasten-erneuern-rhein-main', title: 'Sicherungskasten erneuern', desc: 'Unterverteilung, FI-Schutz und Zählerschrank auf aktuellen Stand bringen.', icon: Shield },
     ],
   },
   'innenausbau-umbau': {
     title: 'Innenausbau & Umbau',
     subtitle: 'Räume neu gestalten, Wände versetzen und moderne Wohnkonzepte umsetzen.',
     seo: {
-      title: 'Innenausbau & Umbau | Leistungen | Radex',
-      description: 'Räume umbauen, Trockenbau und Wand entfernen im Rhein-Main-Gebiet – koordiniert aus einer Hand.',
+      title: 'Innenausbau & Umbau im Rhein-Main-Gebiet | Radex Objektmanagement',
+      description: 'Innenausbau, Trockenbau und Umbauten für Wohnungen und Häuser im Rhein-Main-Gebiet. Professionell geplant und aus einer Hand umgesetzt.',
       path: '/leistungen/innenausbau-umbau',
     },
     subpages: [
-      { to: '/innenausbau-umbau-rhein-main', title: 'Räume umbauen', desc: 'Grundriss anpassen und Wohnflächen besser nutzen.', icon: LayoutGrid },
-      { to: '/innenausbau-umbau-rhein-main', title: 'Trockenbau', desc: 'Wände, Decken und Vorwandinstallationen fachgerecht erstellen.', icon: Hammer },
-      { to: '/innenausbau-umbau-rhein-main', title: 'Wand entfernen', desc: 'Nichttragende Wände entfernen und Räume öffnen.', icon: Wrench },
+      { to: '/raeume-umbauen-rhein-main', title: 'Räume umbauen', desc: 'Grundriss anpassen und Wohnflächen besser nutzen.', icon: Sofa },
+      { to: '/innenausbau-wohnung-rhein-main', title: 'Innenausbau Wohnung', desc: 'Wohnungen modernisieren und an neue Nutzung anpassen.', icon: LayoutGrid },
+      { to: '/innenausbau-haus-rhein-main', title: 'Innenausbau Haus', desc: 'Komplette Wohnhäuser modernisieren und Räume neu gestalten.', icon: Home },
+      { to: '/trockenbau-rhein-main', title: 'Trockenbau', desc: 'Wände, Decken und Vorwandinstallationen fachgerecht erstellen.', icon: Hammer },
+      { to: '/wand-entfernen-rhein-main', title: 'Wand entfernen', desc: 'Nichttragende Wände entfernen und Räume öffnen.', icon: Wrench },
     ],
   },
   'energie-foerderung': {
@@ -228,8 +230,8 @@ export const leistungenCategories = {
     title: 'Schimmel & Asbest',
     subtitle: 'Professionelle Schadstoffsanierung nach TRGS 519 – sicher und dokumentiert.',
     seo: {
-      title: 'Schimmel & Asbest | Leistungen | Radex',
-      description: 'Schimmel entfernen, Asbest sanieren und Schadstoffsanierung im Rhein-Main-Gebiet durch zertifizierte Experten.',
+      title: 'Schimmel & Asbest im Rhein-Main-Gebiet | Fachgerechte Sanierung | Radex',
+      description: 'Schimmel fachgerecht beseitigen und Asbest sicher sanieren. Professionelle Schadstoffsanierung und koordinierte Sanierungslösungen im gesamten Rhein-Main-Gebiet.',
       path: '/leistungen/schimmel-asbest',
     },
     subpages: [
@@ -247,9 +249,10 @@ export const leistungenCategories = {
       path: '/leistungen/express-soforthilfe',
     },
     subpages: [
-      { to: '/sanierung-rhein-main', title: 'Express-Sanierung', desc: 'Beschleunigte Sanierungsprojekte mit klarer Priorisierung.', icon: ExpressIcon },
+      { to: '/sanierungs-soforthilfe-rhein-main', title: 'Sanierungs-Soforthilfe', desc: 'Kurzfristige Beratung und schneller Sanierungsstart.', icon: ExpressIcon },
+      { to: '/schnellsanierung-rhein-main', title: 'Schnellsanierung Rhein-Main', desc: 'Wohnung oder Haus schnell sanieren mit klarer Planung.', icon: ExpressIcon },
       { to: '/badsanierung-rhein-main', title: 'Bad-Soforthilfe', desc: 'Schnelle Hilfe bei dringenden Bad- und Sanitärproblemen.', icon: Bath },
-      { to: '/badsanierung/badezimmer-sanieren', title: 'Schnelle Badsanierung', desc: 'Zeitnahe Badsanierung mit strukturiertem Ablauf.', icon: Clock },
+      { to: '/schnelle-badsanierung-rhein-main', title: 'Schnelle Badsanierung', desc: 'Zeitnahe Badsanierung mit strukturiertem Ablauf.', icon: Clock },
     ],
   },
   'gewerbe-objektsanierung': {
@@ -261,9 +264,9 @@ export const leistungenCategories = {
       path: '/leistungen/gewerbe-objektsanierung',
     },
     subpages: [
-      { to: '/gewerbe-objektsanierung-rhein-main', title: 'Gewerbesanierung', desc: 'Praxen, Läden und Gewerbeflächen modernisieren.', icon: Building },
+      { to: '/gewerbesanierung-rhein-main', title: 'Gewerbesanierung', desc: 'Praxen, Läden und Gewerbeflächen modernisieren.', icon: Building },
       { to: '/gewerbe-objektsanierung-rhein-main', title: 'Büroumbau', desc: 'Büroflächen umbauen und an neue Nutzung anpassen.', icon: Briefcase },
-      { to: '/gewerbe-objektsanierung-rhein-main', title: 'Mieterausbau', desc: 'Ausbau nach Mieterwunsch – termingerecht und sauber.', icon: Users },
+      { to: '/mieterausbau-rhein-main', title: 'Mieterausbau', desc: 'Ausbau nach Mieterwunsch – termingerecht und sauber.', icon: Users },
     ],
   },
 };
