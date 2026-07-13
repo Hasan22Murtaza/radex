@@ -50,9 +50,9 @@ const calculators = {
     mode: 'sqm',
     seoText: 'Haussanierung Kosten',
     prices: {
-      basis: { label: 'Basis', min: 400, avg: 550, max: 700 },
-      komfort: { label: 'Komfort', min: 700, avg: 950, max: 1200 },
-      premium: { label: 'Premium', min: 1200, avg: 1600, max: 2000 },
+      basis: { label: 'Leichte Modernisierung', min: 400, avg: 500, max: 600 },
+      komfort: { label: 'Standard-Haussanierung', min: 800, avg: 1000, max: 1200 },
+      premium: { label: 'Kernsanierung', min: 1500, avg: 2000, max: 2500 },
     },
   },
   altbau: {
@@ -98,15 +98,18 @@ export default function SanierungskostenRechner({
   badOnly = false,
   sanierungOnly = false,
   wohnungOnly = false,
+  hausOnly = false,
   id = 'sanierungskosten-rechner'
 }) {
   const availableTypes = badOnly
     ? ['bad']
     : wohnungOnly
       ? ['wohnung']
-      : sanierungOnly
-        ? sanierungTypes
-        : Object.keys(calculators);
+      : hausOnly
+        ? ['haus']
+        : sanierungOnly
+          ? sanierungTypes
+          : Object.keys(calculators);
   const fallbackType = availableTypes.includes(defaultType) ? defaultType : availableTypes[0];
   const [activeType, setActiveType] = useState(fallbackType);
   const [quality, setQuality] = useState('komfort');
@@ -176,23 +179,41 @@ export default function SanierungskostenRechner({
         {showIntro && (
           <div className="sk-rechner-heading">
             <span className="sk-rechner-kicker">
-              {badOnly ? 'Badsanierung Kosten-Rechner' : wohnungOnly ? 'Wohnungssanierung Kosten-Rechner' : sanierungOnly ? 'Sanierungskosten-Rechner' : 'Sanierungskosten Rechner'}
+              {badOnly
+                ? 'Badsanierung Kosten-Rechner'
+                : wohnungOnly
+                  ? 'Wohnungssanierung Kosten-Rechner'
+                  : hausOnly
+                    ? 'Haussanierung Kosten-Rechner'
+                    : sanierungOnly
+                      ? 'Sanierungskosten-Rechner'
+                      : 'Sanierungskosten Rechner'}
             </span>
-            <h2>{badOnly ? 'Was kostet Ihre Badsanierung?' : wohnungOnly ? 'Was kostet Ihre Wohnungssanierung?' : 'Was kostet Ihr Sanierungsprojekt?'}</h2>
+            <h2>
+              {badOnly
+                ? 'Was kostet Ihre Badsanierung?'
+                : wohnungOnly
+                  ? 'Was kostet Ihre Wohnungssanierung?'
+                  : hausOnly
+                    ? 'Was kostet Ihre Haussanierung?'
+                    : 'Was kostet Ihr Sanierungsprojekt?'}
+            </h2>
             <p>
               {badOnly
                 ? 'Jede Badsanierung ist individuell. Wählen Sie Qualitätsstufe und Badgröße, um eine erste Orientierung zu den typischen Einstiegspreisen zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'
                 : wohnungOnly
                   ? 'Jede Wohnungssanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Qualitätsstufe und Wohnfläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
-                  : sanierungOnly
-                  ? 'Jede Sanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Projekttyp, Qualitätsstufe und Fläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
-                  : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
+                  : hausOnly
+                    ? 'Jede Haussanierung ist anders – Sanierungsstau, Wohnfläche und Ausstattungswünsche bestimmen den Preis. Wählen Sie Sanierungsumfang und Wohnfläche, um typische Orientierungswerte zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
+                    : sanierungOnly
+                      ? 'Jede Sanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Projekttyp, Qualitätsstufe und Fläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
+                      : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
             </p>
           </div>
         )}
 
         <div className="sk-rechner-card">
-          {!badOnly && !wohnungOnly && (
+          {!badOnly && !wohnungOnly && !hausOnly && (
           <div className="sk-rechner-tabs" role="tablist" aria-label="Rechnertyp auswählen">
             {availableTypes.map((key) => {
               const item = calculators[key];
@@ -269,6 +290,21 @@ export default function SanierungskostenRechner({
                   <p className="sk-rechner-help" id={`${id}-area-help`}>
                     Mindestwert: {active.min} {active.areaUnit} · Maximalwert: {active.max} {active.areaUnit}
                   </p>
+                  {active.mode === 'sqm' && (
+                    <input
+                      type="range"
+                      className="sk-rechner-slider"
+                      min={active.min}
+                      max={active.max}
+                      step={5}
+                      value={area}
+                      onChange={handleAreaChange}
+                      aria-label={`${active.areaLabel} per Schieberegler`}
+                      aria-valuemin={active.min}
+                      aria-valuemax={active.max}
+                      aria-valuenow={area}
+                    />
+                  )}
                 </div>
 
                 <div className="sk-rechner-params">
@@ -307,7 +343,7 @@ export default function SanierungskostenRechner({
 
                 <div className="sk-rechner-result-highlight">
                   <span className="sk-rechner-result-highlight-label">
-                    {badOnly || sanierungOnly || wohnungOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
+                    {badOnly || sanierungOnly || wohnungOnly || hausOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
                   </span>
                   <strong className="sk-rechner-result-highlight-value">{formatEuro(result.avg)}</strong>
                 </div>
@@ -336,9 +372,11 @@ export default function SanierungskostenRechner({
                     ? 'Alle angezeigten Beträge sind typische Einstiegspreise für Badsanierungen zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Badgröße, Zustand der Leitungen, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'
                     : wohnungOnly
                       ? 'Alle angezeigten Beträge sind typische Einstiegspreise für Wohnungssanierungen zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Wohnfläche, Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
-                      : sanierungOnly
-                      ? 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
-                      : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
+                      : hausOnly
+                        ? 'Alle angezeigten Beträge sind typische Orientierungswerte für Haussanierungen – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Wohnfläche, Sanierungsstau, Bausubstanz, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
+                        : sanierungOnly
+                          ? 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
+                          : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
                 </p>
               </div>
             </div>
@@ -396,6 +434,13 @@ export default function SanierungskostenRechner({
                 <Link to="/sanierung/wohnungssanierung">Wohnungssanierung Rhein-Main</Link>
                 <span>Wohnung sanieren Kosten</span>
                 <span>Wohnungssanierung Frankfurt</span>
+              </>
+            ) : hausOnly ? (
+              <>
+                <Link to="/haussanierung-kosten">Haussanierung Kosten</Link>
+                <Link to="/sanierung/haussanierung">Haussanierung Rhein-Main</Link>
+                <span>Haus sanieren Kosten</span>
+                <span>Haussanierung Frankfurt</span>
               </>
             ) : (
               <>

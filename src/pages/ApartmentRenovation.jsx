@@ -204,28 +204,28 @@ const processSteps = [
 
 const faqsData = [
   {
-    q: 'Wann lohnt sich eine Wohnungssanierung?',
-    a: 'Eine Wohnungssanierung lohnt sich immer dann, wenn die Substanz nicht dem aktuellen Standard entspricht oder die Immobilie zur Eigennutzung oder Vermietung aufgewertet werden soll. Typische Anlässe: Kauf einer älteren Eigentumswohnung, Mieterwechsel mit Modernisierungsbedarf, veraltete Elektroinstallation oder ein Bad aus den 1980er/1990er Jahren sowie abgenutzte Böden und Oberflächen. Auch lange vermietete Wohnungen mit veralteter Technik profitieren erheblich. Für Rhein-Main-Eigentümer gilt: modernisierter Bestand steigert Mietertrag und Wiederverkaufswert messbar.',
+    q: 'Was kostet eine Wohnungssanierung?',
+    a: 'Die Kosten richten sich nach Wohnfläche, Zustand der Wohnung, Materialwahl und Umfang der geplanten Arbeiten. Nach einer Besichtigung lässt sich ein realistischer Kostenrahmen erstellen.',
   },
   {
-    q: 'Was muss bei einer Wohnung im Mehrfamilienhaus beachtet werden?',
-    a: 'Bei einer Wohnung im Mehrfamilienhaus gelten besondere Rahmenbedingungen: Lärm- und Ruhezeiten müssen eingehalten werden, Zufahrten und Treppenhäuser dürfen nicht dauerhaft blockiert werden, und bei baulichen Eingriffen in gemeinschaftliche Leitungsstränge ist oft die Zustimmung der Eigentümergemeinschaft erforderlich. Radex koordiniert alle Abläufe so, dass Nachbarn und Hausverwaltung minimal belastet werden – mit klaren Zeitplänen, abgestimmter Logistik und konsequenter Einhaltung der Hausordnung.',
+    q: 'Wie lange dauert eine Wohnungssanierung?',
+    a: 'Die Bauzeit hängt von der Größe der Wohnung und dem Umfang der Modernisierung ab. Eine sorgfältige Planung sorgt für einen strukturierten und möglichst terminsicheren Ablauf.',
   },
   {
-    q: 'Kann Radex eine Wohnung nach dem Kauf sanieren?',
-    a: 'Ja – die Sanierung einer frisch gekauften Eigentumswohnung ist einer unserer häufigsten Aufträge im Rhein-Main-Gebiet. Wir empfehlen, möglichst früh – idealerweise noch vor dem Notartermin – eine Erstbegehung durchzuführen, damit Sie schon beim Kauf eine realistische Vorstellung der Sanierungskosten haben. Nach dem Kauf übernehmen wir die Bestandsaufnahme, erarbeiten den Maßnahmenplan und koordinieren alle Gewerke – vom Bad über die Elektrik bis zu Böden und Innenausbau.',
+    q: 'Kann ich während der Wohnungssanierung in der Wohnung wohnen?',
+    a: 'Das hängt vom Umfang der Arbeiten ab. Kleinere Modernisierungen lassen sich häufig abschnittsweise durchführen. Bei einer kompletten Wohnungssanierung ist ein vorübergehender Auszug in vielen Fällen sinnvoll.',
   },
   {
-    q: 'Welche Arbeiten sind bei einer Eigentumswohnung sinnvoll?',
-    a: 'Welche Maßnahmen sinnvoll sind, hängt von Baujahr, Zustand und Nutzungsabsicht ab. Häufig kombiniert werden: Badsanierung, Erneuerung der Elektroinstallation, neue Böden, frische Oberflächen an Wänden und Decken, Türen und Innenwände sowie Heizkörper- und Leitungsanpassungen. Bei älteren Wohnungen aus den 1960er–1980er Jahren kommen manchmal eine Leitungsüberprüfung und eine Schadstoffbegutachtung hinzu. Radex berät ergebnisoffen und empfiehlt nur, was Objekt und Zielen wirklich nutzt.',
+    q: 'Übernimmt Radex alle Gewerke?',
+    a: 'Ja. Als Generalunternehmer koordiniert Radex sämtliche Gewerke – von der Planung über Sanitär-, Elektro- und Innenausbauarbeiten bis zur schlüsselfertigen Übergabe.',
   },
   {
-    q: 'Wie läuft eine Wohnungssanierung ab?',
-    a: 'Der Ablauf beginnt mit einer kostenlosen Erstberatung vor Ort. Dabei nehmen wir den Ist-Zustand auf und klären Ihre Ziele. Danach erstellen wir einen konkreten Maßnahmenplan und ein transparentes Angebot. Nach Auftragsvergabe koordinieren wir alle Gewerke in abgestimmter Reihenfolge, damit die Bauzeit so kurz wie möglich bleibt. Am Ende stehen eine gemeinsame Abnahme und eine vollständige Dokumentation.',
+    q: 'Erhalte ich einen festen Ansprechpartner?',
+    a: 'Während der gesamten Wohnungssanierung steht Ihnen ein persönlicher Ansprechpartner zur Verfügung, der den Projektablauf koordiniert und alle Fragen beantwortet.',
   },
   {
-    q: 'Kann ich Fotos meiner Wohnung per WhatsApp senden?',
-    a: 'Ja. Senden Sie uns Fotos Ihrer Wohnung per WhatsApp und erhalten Sie eine erste fachliche Einschätzung zu Ihrem Sanierungsprojekt – oft noch am selben Tag.',
+    q: 'Kann ich vorab Fotos meiner Wohnung senden?',
+    a: 'Ja. Über WhatsApp können Sie Fotos Ihrer Wohnung senden. Dadurch erhalten Sie eine erste fachliche Einschätzung und können anschließend einen persönlichen Beratungstermin vereinbaren.',
   },
 ];
 

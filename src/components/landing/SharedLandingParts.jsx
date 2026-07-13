@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Camera, ChevronDown, MessageSquare, Phone } from 'lucide-react';
 import { Link } from '../../router';
 import { RADEX_LIVE_URL } from '../../constants/brand';
@@ -225,7 +225,46 @@ export function SeoAccordionSection({ title = 'Weitere Informationen', intro, ac
   );
 }
 
-export function SeoTocSection({ title = 'Weitere Informationen', intro, sections }) {
+export function SeoTocSection({ title = 'Weitere Informationen', intro, sections, showAllContent = false }) {
+  const [activeId, setActiveId] = useState(() => sections[0]?.id ?? null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && sections.some((s) => s.id === hash)) {
+      setActiveId(hash);
+      if (showAllContent) {
+        requestAnimationFrame(() => {
+          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      } else {
+        requestAnimationFrame(() => {
+          contentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    }
+  }, [sections, showAllContent]);
+
+  const scrollToContent = useCallback(() => {
+    requestAnimationFrame(() => {
+      contentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, []);
+
+  const handleTocClick = useCallback(
+    (e, id) => {
+      e.preventDefault();
+      setActiveId(id);
+      window.history.replaceState(null, '', `#${id}`);
+      if (showAllContent) {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        scrollToContent();
+      }
+    },
+    [scrollToContent, showAllContent],
+  );
+
   return (
     <section className="br-section br-bg-light br-seo-toc-section">
       <div className="container br-seo-toc-container">
@@ -239,15 +278,30 @@ export function SeoTocSection({ title = 'Weitere Informationen', intro, sections
           <ol className="br-seo-toc-list">
             {sections.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`}>{item.title}</a>
+                <a
+                  href={`#${item.id}`}
+                  className={activeId === item.id ? 'is-active' : undefined}
+                  aria-current={activeId === item.id ? 'true' : undefined}
+                  onClick={(e) => handleTocClick(e, item.id)}
+                >
+                  {item.title}
+                </a>
               </li>
             ))}
           </ol>
         </nav>
 
-        <div className="br-seo-toc-content">
+        <div
+          className={`br-seo-toc-content${showAllContent ? ' br-seo-toc-content--all' : ''}`}
+          ref={contentRef}
+        >
           {sections.map((item) => (
-            <article key={item.id} id={item.id} className="br-seo-toc-article">
+            <article
+              key={item.id}
+              id={item.id}
+              className="br-seo-toc-article"
+              hidden={!showAllContent && activeId !== item.id}
+            >
               <h3 className="br-seo-toc-article-title">{item.title}</h3>
               <div className="br-seo-toc-article-body">{item.content}</div>
             </article>

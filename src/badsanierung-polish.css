@@ -304,13 +304,25 @@
   text-decoration: underline;
 }
 
+.br-seo-toc-list a.is-active {
+  color: var(--br-orange);
+  text-decoration: underline;
+}
+
+.br-seo-toc-content {
+  scroll-margin-top: 120px;
+}
+
 .br-seo-toc-article {
   background: #fff;
   border: 1px solid var(--br-border);
   border-radius: 12px;
   padding: 28px 32px;
-  margin-bottom: 20px;
-  scroll-margin-top: 120px;
+  margin-bottom: 0;
+}
+
+.br-seo-toc-article[hidden] {
+  display: none;
 }
 
 .br-seo-toc-article-title {

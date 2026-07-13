@@ -194,3 +194,15 @@
 .badsanierung-page .br-trust-usp-grid {
   gap: 16px;
 }
+
+/* SEO knowledge center – all chapters visible */
+.br-seo-toc-content--all {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.br-seo-toc-content--all .br-seo-toc-article {
+  scroll-margin-top: 120px;
+  margin-bottom: 0;
+}
