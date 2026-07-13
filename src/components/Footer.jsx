@@ -33,7 +33,7 @@ export default function Footer() {
           {/* COLUMN 1 - COMPANY */}
           <div className="footer-col">
             <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{display: 'inline-block', marginBottom: '24px', background: '#fff', padding: '10px 14px', borderRadius: '12px'}}>
-              <Logo height={40} />
+              <Logo height={88} />
             </a>
             <p className="footer-col-desc">
               Sanierungs-, Badsanierungs- und Modernisierungsleistungen im gesamten Rhein-Main-Gebiet. Als zugelassener SHK-Meisterbetrieb und Generalunternehmer begleitet Radex Wohn- und Gewerbesanierungen von der Planung bis zur Schlüsselübergabe.

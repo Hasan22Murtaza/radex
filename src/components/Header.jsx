@@ -51,7 +51,7 @@ export default function Header() {
 
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 100;
+      const headerOffset = 160;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
@@ -129,7 +129,7 @@ export default function Header() {
 
       <div className={`mobile-drawer ${isOpen ? 'open' : ''}`}>
         <div className="mobile-drawer-header">
-          <Logo className="site-logo site-logo--drawer" height={48} />
+          <Logo className="site-logo site-logo--drawer" height={96} />
           <button className="mobile-drawer-close" onClick={() => setIsOpen(false)} aria-label="Menü schließen">
             <X size={24} color="var(--navy)" />
           </button>
