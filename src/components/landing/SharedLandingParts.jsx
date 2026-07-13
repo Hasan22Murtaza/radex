@@ -231,7 +231,7 @@ export function SeoTocSection({ title = 'Weitere Informationen', intro, sections
       <div className="container br-seo-toc-container">
         <div className="text-center mb-12">
           <h2 className="br-section-title">{title}</h2>
-          {intro && <p className="br-section-subtitle br-seo-toc-intro">{intro}</p>}
+          {intro && <div className="br-section-subtitle br-seo-toc-intro">{intro}</div>}
         </div>
 
         <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">

@@ -18,6 +18,7 @@ import {
   RadexLiveSection,
   TrustUspCards,
 } from '../components/landing/SharedLandingParts';
+import { sanierungSeoIntro, sanierungSeoSections } from '../data/sanierungSeoContent';
 import { RADEX_LIVE_URL } from '../constants/brand';
 
 const HERO_IMAGE = '/img/sanierung-hero.png';
@@ -135,99 +136,6 @@ const faqsData = [
   { q: 'Arbeitet Radex als Generalunternehmer?', a: 'Ja, wir übernehmen die komplette Koordination aller Gewerke und bieten Ihnen einen zentralen Ansprechpartner sowie Festpreisgarantie.' },
   { q: 'In welchen Städten ist Radex tätig?', a: 'Wir sanieren im gesamten Rhein-Main-Gebiet, unter anderem in Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach und Hanau – in über 60 Städten und Gemeinden.' },
   { q: 'Kann ich Fotos meiner Immobilie per WhatsApp senden?', a: 'Ja. Senden Sie uns Fotos per WhatsApp und erhalten Sie eine erste fachliche Einschätzung zu Ihrem Sanierungsprojekt – oft noch am selben Tag.' },
-];
-
-const seoSections = [
-  {
-    id: 'wohnungssanierung',
-    title: 'Wohnungssanierung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Eine Wohnungssanierung unterscheidet sich grundlegend vom Hausumbau: begrenzte Fläche, unmittelbare Nachbarschaft und Vorgaben der Hausverwaltung prägen das Projekt. Radex koordiniert als Generalunternehmer alle Gewerke – von Bad und Elektro über Böden bis zum Innenausbau.</p>
-        <p className="text-gray-600">Mehr zur <Link to="/wohnungssanierung-rhein-main">Wohnungssanierung im Rhein-Main-Gebiet</Link>.</p>
-      </>
-    ),
-  },
-  {
-    id: 'haussanierung',
-    title: 'Haussanierung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Eine Haussanierung umfasst mehrere Etagen, Keller, Dachgeschoss und oft jahrzehntealte Haustechnik. Radex fungiert als Generalunternehmer und koordiniert Heizung, Sanitär, Elektro, Bad, Innenausbau und energetische Maßnahmen aus einer Hand.</p>
-        <p className="text-gray-600">Details zur <Link to="/haussanierung-rhein-main">Haussanierung</Link> und typischen Gewerken.</p>
-      </>
-    ),
-  },
-  {
-    id: 'altbausanierung',
-    title: 'Altbausanierung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Altbauten im Rhein-Main-Gebiet besitzen charakteristische Substanz, die bewahrenswert ist. Die Herausforderung liegt darin, technische Modernisierung sinnvoll mit gewachsenem Charakter zu verbinden – Leitungen, Elektrik und Heizung werden behutsam erneuert.</p>
-        <p className="text-gray-600">Mehr zur <Link to="/altbausanierung-rhein-main">Altbausanierung</Link> mit Respekt vor der Bausubstanz.</p>
-      </>
-    ),
-  },
-  {
-    id: 'komplettsanierung',
-    title: 'Komplettsanierung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Bei einer Komplettsanierung werden mehrere zentrale Bereiche gleichzeitig erneuert – Bad, Heizung, Sanitär, Elektro, Innenausbau und Böden in einem abgestimmten Projekt. Wenn mehrere Gewerke veraltet sind, ist das wirtschaftlicher als viele Einzelmaßnahmen.</p>
-        <p className="text-gray-600"><Link to="/komplettsanierung-rhein-main">Komplettsanierung</Link> als Generalunternehmer im Rhein-Main-Gebiet.</p>
-      </>
-    ),
-  },
-  {
-    id: 'generalunternehmer',
-    title: 'Generalunternehmer',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Als Generalunternehmer steuert Radex Ihr gesamtes Bauvorhaben. Von der Kernsanierung über energetische Maßnahmen bis zum schlüsselfertigen Innenausbau erhalten Sie alle Leistungen aus einer Hand – ein Vertrag, ein Ansprechpartner, ein Festpreis.</p>
-        <p className="text-gray-600">Mehr zum <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link> und zur Bauleitung.</p>
-      </>
-    ),
-  },
-  {
-    id: 'sanierungsablauf',
-    title: 'Sanierungsablauf',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Eine erfolgreiche Sanierung beginnt mit einer strukturierten Planung: Erstberatung, Besichtigung vor Ort, individuelles Sanierungskonzept, Festpreisangebot, koordinierte Ausführung aller Gewerke und schlüsselfertige Übergabe.</p>
-        <p className="text-gray-600">Details zum <Link to="/sanierung-ablauf-rhein-main">Sanierungsablauf</Link> mit Radex.</p>
-      </>
-    ),
-  },
-  {
-    id: 'sanierungskosten',
-    title: 'Sanierungskosten',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Die Sanierungskosten hängen von Größe, Zustand und Umfang ab. Typische Einstiegspreise: Wohnungssanierung ab ca. 300 €/m², Haussanierung ab ca. 400 €/m², Altbausanierung ab ca. 500 €/m². Nutzen Sie unseren <Link to="/sanierungskosten-rhein-main">Sanierungskosten-Rechner</Link> für eine erste Orientierung.</p>
-        <p className="text-gray-600">Das verbindliche Festpreisangebot folgt nach Vor-Ort-Besichtigung.</p>
-      </>
-    ),
-  },
-  {
-    id: 'energetische-sanierung',
-    title: 'Energetische Sanierung & Förderung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Bei energetischen Maßnahmen im Zusammenhang mit einer Sanierung können Fördermittel (KfW/BAFA) relevant sein – etwa bei Heizungstausch, Dämmung oder energetischer Modernisierung. Radex unterstützt Sie bei der frühzeitigen Prüfung von Fördermöglichkeiten.</p>
-        <p className="text-gray-600">Mehr zur <Link to="/energetische-sanierung-rhein-main">energetischen Sanierung</Link>.</p>
-      </>
-    ),
-  },
-  {
-    id: 'einsatzgebiete',
-    title: 'Einsatzgebiete Rhein-Main',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Radex ist in über 60 Städten und Gemeinden im Rhein-Main-Gebiet tätig – von Frankfurt am Main, Wiesbaden und Mainz über Darmstadt, Offenbach und Hanau bis Rodgau, Dreieich, Rödermark und viele weitere Orte.</p>
-        <p className="text-gray-600">Alle <Link to="/einsatzgebiete-rhein-main">Einsatzgebiete</Link> im Überblick.</p>
-      </>
-    ),
-  },
 ];
 
 export default function SanierungHub() {
@@ -407,9 +315,9 @@ export default function SanierungHub() {
       <ContactForm />
 
       <SeoTocSection
-        title="Weitere Informationen zur Sanierung"
-        intro="Umfassende Sanierungsleistungen im Rhein-Main-Gebiet – von Wohnungssanierung und Haussanierung über Altbausanierung und Komplettsanierung bis zur energetischen Modernisierung. Hier finden Sie weiterführende Informationen zu Planung, Kosten, Ablauf und Leistungen."
-        sections={seoSections}
+        title="Alles, was Sie über eine Sanierung wissen sollten"
+        intro={sanierungSeoIntro}
+        sections={sanierungSeoSections}
       />
     </main>
   );

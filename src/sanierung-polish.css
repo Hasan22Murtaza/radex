@@ -54,9 +54,58 @@
 }
 
 /* Cost category cards */
-.br-cost-category-img {
-  height: 140px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 8px 8px 0 0;
+.br-seo-toc-intro {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.br-seo-toc-intro p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.br-seo-list {
+  list-style: disc;
+  padding-left: 1.25rem;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.br-seo-list li {
+  margin-bottom: 6px;
+}
+
+.br-seo-subheading {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 20px 0 10px;
+}
+
+.br-seo-subheading:first-child {
+  margin-top: 0;
+}
+
+.br-seo-toc-article-body a {
+  color: var(--br-orange);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.br-seo-toc-article-body a:hover {
+  text-decoration: underline;
+}
+
+.br-seo-checklist {
+  list-style: none;
+  padding-left: 0;
+}
+
+.br-seo-checklist li::before {
+  content: '✓ ';
+  color: var(--br-orange);
+  font-weight: 700;
 }
