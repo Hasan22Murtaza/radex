@@ -109,3 +109,88 @@
   color: var(--br-orange);
   font-weight: 700;
 }
+
+/* Section storytelling transitions */
+.br-section-transition {
+  padding: 40px 0;
+  background: linear-gradient(180deg, #fff 0%, #f9fafb 100%);
+  border-top: 1px solid #f3f4f6;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.br-section-transition-text {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.75;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+/* Static image topic cards */
+.br-decision-card--static {
+  cursor: default;
+  text-decoration: none;
+}
+
+.br-decision-card--static:hover {
+  transform: none;
+}
+
+.br-image-card-grid .br-decision-card p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #4b5563;
+}
+
+/* Service project cards without link */
+.br-service-card {
+  background: #fff;
+  border: 1px solid var(--br-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+
+.br-service-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.br-service-card .br-project-info h4 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.br-service-card .br-project-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #4b5563;
+}
+
+/* Smaller USP icons on topic pages */
+.badsanierung-page .br-trust-usp-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.badsanierung-page .br-trust-usp-icon {
+  margin: 10px 0 8px;
+}
+
+.badsanierung-page .br-trust-usp-img {
+  height: 88px;
+}
+
+.badsanierung-page .br-trust-usp-card h3 {
+  font-size: 13px;
+}
+
+.badsanierung-page .br-trust-usp-section {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.badsanierung-page .br-trust-usp-grid {
+  gap: 16px;
+}

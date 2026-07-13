@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { Phone, Mail, MessageSquare, Send, Camera, CheckCircle } from 'lucide-react';
 import { Link } from '../router';
 
-export default function ContactForm() {
+export default function ContactForm({
+  kicker = 'Kontakt aufnehmen',
+  title = 'Projekt anfragen',
+  intro = 'Planen Sie eine Badsanierung oder Sanierung im Rhein-Main-Gebiet? Rufen Sie uns an, schreiben Sie per WhatsApp oder senden Sie uns Ihre Projektbeschreibung – wir melden uns zeitnah mit einer ersten Einschätzung.',
+  photoTip = 'Senden Sie uns Bilder Ihres Bads oder Ihrer Räume bequem per WhatsApp.',
+  placeholder = 'Bitte beschreiben Sie kurz Ihr Projekt (z.B. Badsanierung, 8 m², Komplettumbau)...',
+}) {
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e) => {
@@ -64,13 +70,9 @@ export default function ContactForm() {
     <section id="kontakt" className="home-section home-contact-section">
       <div className="container">
         <div className="home-contact-header">
-          <span className="home-section-kicker">Kontakt aufnehmen</span>
-          <h2 className="text-3xl font-bold text-navy">Projekt anfragen</h2>
-          <p className="text-gray-600 text-lg home-section-intro-text">
-            Planen Sie eine Badsanierung oder Sanierung im Rhein-Main-Gebiet? Rufen Sie uns an,
-            schreiben Sie per WhatsApp oder senden Sie uns Ihre Projektbeschreibung – wir melden uns
-            zeitnah mit einer ersten Einschätzung.
-          </p>
+          <span className="home-section-kicker">{kicker}</span>
+          <h2 className="text-3xl font-bold text-navy">{title}</h2>
+          <p className="text-gray-600 text-lg home-section-intro-text">{intro}</p>
         </div>
 
         <div className="home-contact-layout">
@@ -79,7 +81,7 @@ export default function ContactForm() {
               <Camera size={22} color="#f97316" />
               <div>
                 <strong>Fotos senden. Erste Einschätzung erhalten.</strong>
-                <p>Senden Sie uns Bilder Ihres Bads oder Ihrer Räume bequem per WhatsApp.</p>
+                <p>{photoTip}</p>
               </div>
             </div>
 
@@ -137,7 +139,7 @@ export default function ContactForm() {
                   name="nachricht"
                   rows="4"
                   required
-                  placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Badsanierung, 8 m², Komplettumbau)..."
+                  placeholder={placeholder}
                 />
               </label>
 

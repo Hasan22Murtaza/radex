@@ -97,13 +97,16 @@ export default function SanierungskostenRechner({
   showIntro = true,
   badOnly = false,
   sanierungOnly = false,
+  wohnungOnly = false,
   id = 'sanierungskosten-rechner'
 }) {
   const availableTypes = badOnly
     ? ['bad']
-    : sanierungOnly
-      ? sanierungTypes
-      : Object.keys(calculators);
+    : wohnungOnly
+      ? ['wohnung']
+      : sanierungOnly
+        ? sanierungTypes
+        : Object.keys(calculators);
   const fallbackType = availableTypes.includes(defaultType) ? defaultType : availableTypes[0];
   const [activeType, setActiveType] = useState(fallbackType);
   const [quality, setQuality] = useState('komfort');
@@ -173,13 +176,15 @@ export default function SanierungskostenRechner({
         {showIntro && (
           <div className="sk-rechner-heading">
             <span className="sk-rechner-kicker">
-              {badOnly ? 'Badsanierung Kosten-Rechner' : sanierungOnly ? 'Sanierungskosten-Rechner' : 'Sanierungskosten Rechner'}
+              {badOnly ? 'Badsanierung Kosten-Rechner' : wohnungOnly ? 'Wohnungssanierung Kosten-Rechner' : sanierungOnly ? 'Sanierungskosten-Rechner' : 'Sanierungskosten Rechner'}
             </span>
-            <h2>{badOnly ? 'Was kostet Ihre Badsanierung?' : 'Was kostet Ihr Sanierungsprojekt?'}</h2>
+            <h2>{badOnly ? 'Was kostet Ihre Badsanierung?' : wohnungOnly ? 'Was kostet Ihre Wohnungssanierung?' : 'Was kostet Ihr Sanierungsprojekt?'}</h2>
             <p>
               {badOnly
                 ? 'Jede Badsanierung ist individuell. Wählen Sie Qualitätsstufe und Badgröße, um eine erste Orientierung zu den typischen Einstiegspreisen zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'
-                : sanierungOnly
+                : wohnungOnly
+                  ? 'Jede Wohnungssanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Qualitätsstufe und Wohnfläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
+                  : sanierungOnly
                   ? 'Jede Sanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Projekttyp, Qualitätsstufe und Fläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
                   : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
             </p>
@@ -187,7 +192,7 @@ export default function SanierungskostenRechner({
         )}
 
         <div className="sk-rechner-card">
-          {!badOnly && (
+          {!badOnly && !wohnungOnly && (
           <div className="sk-rechner-tabs" role="tablist" aria-label="Rechnertyp auswählen">
             {availableTypes.map((key) => {
               const item = calculators[key];
@@ -302,7 +307,7 @@ export default function SanierungskostenRechner({
 
                 <div className="sk-rechner-result-highlight">
                   <span className="sk-rechner-result-highlight-label">
-                    {badOnly || sanierungOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
+                    {badOnly || sanierungOnly || wohnungOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
                   </span>
                   <strong className="sk-rechner-result-highlight-value">{formatEuro(result.avg)}</strong>
                 </div>
@@ -329,7 +334,9 @@ export default function SanierungskostenRechner({
                 <p>
                   {badOnly
                     ? 'Alle angezeigten Beträge sind typische Einstiegspreise für Badsanierungen zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Badgröße, Zustand der Leitungen, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'
-                    : sanierungOnly
+                    : wohnungOnly
+                      ? 'Alle angezeigten Beträge sind typische Einstiegspreise für Wohnungssanierungen zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Wohnfläche, Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
+                      : sanierungOnly
                       ? 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
                       : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
                 </p>
@@ -382,6 +389,13 @@ export default function SanierungskostenRechner({
                 <Link to="/badsanierung-rhein-main">Badsanierung Rhein-Main</Link>
                 <span>Badsanierung Frankfurt</span>
                 <span>Bad sanieren Kosten</span>
+              </>
+            ) : wohnungOnly ? (
+              <>
+                <Link to="/wohnungssanierung-kosten">Wohnungssanierung Kosten</Link>
+                <Link to="/sanierung/wohnungssanierung">Wohnungssanierung Rhein-Main</Link>
+                <span>Wohnung sanieren Kosten</span>
+                <span>Wohnungssanierung Frankfurt</span>
               </>
             ) : (
               <>

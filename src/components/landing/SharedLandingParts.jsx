@@ -258,7 +258,9 @@ export function SeoTocSection({ title = 'Weitere Informationen', intro, sections
   );
 }
 
-export function BerndKnoopWelcome() {
+export function BerndKnoopWelcome({
+  introText = 'Mit über 30 Jahren Berufserfahrung begleitet Bernd Knoop Ihr Sanierungsprojekt von der technischen Planung bis zur fertigen Übergabe – persönlich, transparent und zum Festpreis.',
+}) {
   return (
     <div className="br-bernd-welcome">
       <div className="br-bernd-welcome-grid">
@@ -275,10 +277,7 @@ export function BerndKnoopWelcome() {
           <span className="br-bernd-welcome-kicker">Persönlich an Ihrer Seite</span>
           <h3 className="br-bernd-welcome-name">Bernd Knoop</h3>
           <p className="br-bernd-welcome-role">SHK-Meister & Betriebsleiter</p>
-          <p className="br-bernd-welcome-text">
-            Mit über 30 Jahren Berufserfahrung begleitet Bernd Knoop Ihre Badsanierung von der technischen
-            Planung bis zur fertigen Übergabe – persönlich, transparent und zum Festpreis.
-          </p>
+          <p className="br-bernd-welcome-text">{introText}</p>
           <blockquote className="br-bernd-welcome-quote">
             „Als SHK-Meisterbetrieb und Generalunternehmer stehen wir für handwerkliche Qualität,
             klare Kommunikation und verlässliche Umsetzung – im gesamten Rhein-Main-Gebiet.“
@@ -295,6 +294,37 @@ export function BerndKnoopWelcome() {
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+export function ImageCardGrid({ cards }) {
+  return (
+    <div className="br-nav-landing-grid br-image-card-grid">
+      {cards.map((card) => (
+        <div key={card.title} className="br-decision-card br-decision-card--static">
+          {card.image && (
+            <div
+              className="br-cost-img br-nav-card-img"
+              style={{ backgroundImage: `url(${card.image})` }}
+              role="img"
+              aria-label={card.imageAlt || card.title}
+            />
+          )}
+          <h3>{card.title}</h3>
+          {card.desc && <p>{card.desc}</p>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function SectionTransition({ children }) {
+  return (
+    <div className="br-section-transition">
+      <div className="container">
+        <p className="br-section-transition-text">{children}</p>
       </div>
     </div>
   );
@@ -331,6 +361,7 @@ export function RadexLiveSection({
   intro,
   heroImage = '/img/leistungen-radex-live.webp',
   showWelcomeVideo = false,
+  berndIntroText,
   projects = [
     { image: '/img/bad1.webp', badge: 'LIVE', title: 'Komplettbadsanierung', location: 'Frankfurt am Main', desc: 'Komplettbadsanierung inklusive neuer Sanitärinstallation, bodengleicher Dusche und großformatiger Fliesen.', cta: 'Projekt ansehen' },
     { image: '/img/renov1.webp', badge: 'LIVE', title: 'Wohnungssanierung', location: 'Darmstadt', desc: 'Modernisierung inklusive neuer Leitungen, Vorwandinstallation und hochwertiger Ausstattung.', cta: 'Projekt ansehen' },
@@ -345,7 +376,7 @@ export function RadexLiveSection({
           {intro && <p className="br-section-subtitle br-radex-live-intro">{intro}</p>}
         </div>
 
-        {showWelcomeVideo && <BerndKnoopWelcome />}
+        {showWelcomeVideo && <BerndKnoopWelcome introText={berndIntroText} />}
 
         {!showWelcomeVideo && heroImage && (
           <div
