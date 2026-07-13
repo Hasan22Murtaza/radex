@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Camera, ChevronDown, MessageSquare, Phone } from 'lucide-react';
+import { ArrowRight, Camera, ChevronDown, MessageSquare, Phone } from 'lucide-react';
 import { Link } from '../../router';
 import { RADEX_LIVE_URL } from '../../constants/brand';
+import testVideo from '../../assets/test.mp4';
+import personImage from '../../assets/Screenshot_5.png';
 
 const projectCardLinkStyle = { textDecoration: 'none', color: 'inherit' };
 
@@ -44,39 +46,19 @@ export function RadexLiveProjectCard({
 export function SharedCTABlock({ isHero = false, centered = false }) {
   return (
     <div
-      className={`br-hero-actions ${isHero ? '' : 'mt-8'}`}
-      style={{
-        display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: centered ? 'center' : 'flex-start',
-      }}
+      className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
     >
-      <a href="#kontakt" className="btn br-btn-orange">Kostenlose Beratung &rarr;</a>
       <a
         href="https://wa.me/496074960620"
         target="_blank"
         rel="noopener noreferrer"
-        className="btn br-btn-whatsapp"
+        className="btn br-btn-whatsapp br-btn-whatsapp--primary"
       >
-        Fotos über WhatsApp senden <MessageSquare size={18} color="#25D366" style={{ marginLeft: '8px' }} />
+        <MessageSquare size={20} />
+        Fotos per WhatsApp senden
       </a>
-      <a
-        href="tel:+496074960620"
-        className="btn"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: isHero ? 'transparent' : '#fff',
-          border: isHero ? '1px solid #111827' : '1px solid #d1d5db',
-          color: '#111827',
-          padding: '12px 24px',
-          borderRadius: '4px',
-          fontWeight: 'bold',
-          textDecoration: 'none',
-        }}
-      >
+      <a href="#kontakt" className="btn br-btn-orange">Kostenlose Beratung &rarr;</a>
+      <a href="tel:+496074960620" className="btn br-btn-phone">
         <Phone size={18} /> Jetzt anrufen
       </a>
     </div>
@@ -102,8 +84,8 @@ export function PremiumIconCards({ cards, linked = false }) {
               />
             )}
             {Icon && (
-              <div className="br-decision-icon">
-                <Icon size={40} strokeWidth={1.5} />
+              <div className="br-decision-icon br-decision-icon--small">
+                <Icon size={28} strokeWidth={1.5} />
               </div>
             )}
             <h3>{card.title}</h3>
@@ -243,10 +225,112 @@ export function SeoAccordionSection({ title = 'Weitere Informationen', intro, ac
   );
 }
 
+export function SeoTocSection({ title = 'Weitere Informationen', intro, sections }) {
+  return (
+    <section className="br-section br-bg-light br-seo-toc-section">
+      <div className="container br-seo-toc-container">
+        <div className="text-center mb-12">
+          <h2 className="br-section-title">{title}</h2>
+          {intro && <p className="br-section-subtitle br-seo-toc-intro">{intro}</p>}
+        </div>
+
+        <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
+          <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
+          <ol className="br-seo-toc-list">
+            {sections.map((item) => (
+              <li key={item.id}>
+                <a href={`#${item.id}`}>{item.title}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+        <div className="br-seo-toc-content">
+          {sections.map((item) => (
+            <article key={item.id} id={item.id} className="br-seo-toc-article">
+              <h3 className="br-seo-toc-article-title">{item.title}</h3>
+              <div className="br-seo-toc-article-body">{item.content}</div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function BerndKnoopWelcome() {
+  return (
+    <div className="br-bernd-welcome">
+      <div className="br-bernd-welcome-grid">
+        <div className="br-bernd-welcome-video">
+          <video
+            src={testVideo}
+            controls
+            playsInline
+            poster="/img/radex-unternehmenspraesentation-poster.webp"
+            title="Bernd Knoop – SHK-Meister & Betriebsleiter"
+          />
+        </div>
+        <div className="br-bernd-welcome-profile">
+          <span className="br-bernd-welcome-kicker">Persönlich an Ihrer Seite</span>
+          <h3 className="br-bernd-welcome-name">Bernd Knoop</h3>
+          <p className="br-bernd-welcome-role">SHK-Meister & Betriebsleiter</p>
+          <p className="br-bernd-welcome-text">
+            Mit über 30 Jahren Berufserfahrung begleitet Bernd Knoop Ihre Badsanierung von der technischen
+            Planung bis zur fertigen Übergabe – persönlich, transparent und zum Festpreis.
+          </p>
+          <blockquote className="br-bernd-welcome-quote">
+            „Als SHK-Meisterbetrieb und Generalunternehmer stehen wir für handwerkliche Qualität,
+            klare Kommunikation und verlässliche Umsetzung – im gesamten Rhein-Main-Gebiet.“
+          </blockquote>
+          <div className="br-bernd-welcome-row">
+            <img
+              src={personImage}
+              alt="Bernd Knoop, SHK-Meister und Betriebsleiter"
+              className="br-bernd-welcome-photo"
+              loading="lazy"
+            />
+            <a href="#kontakt" className="br-btn-orange">
+              Projekt besprechen <ArrowRight size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function TrustUspCards({ cards }) {
+  return (
+    <div className="br-trust-usp-grid">
+      {cards.map((card) => {
+        const Icon = card.icon;
+        return (
+          <div key={card.title} className="br-trust-usp-card">
+            <div
+              className="br-trust-usp-img"
+              style={{ backgroundImage: `url(${card.image})` }}
+              role="img"
+              aria-label={card.imageAlt || card.title}
+            />
+            {Icon && (
+              <div className="br-trust-usp-icon">
+                <Icon size={22} strokeWidth={1.5} color="#f97316" />
+              </div>
+            )}
+            <h3>{card.title}</h3>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export function RadexLiveSection({
   title = 'Schauen Sie uns bei der Arbeit über die Schulter.',
   intro,
   heroImage = '/img/leistungen-radex-live.webp',
+  showWelcomeVideo = false,
   projects = [
     { image: '/img/bad1.webp', badge: 'LIVE', title: 'Komplettbadsanierung', location: 'Frankfurt am Main', desc: 'Komplettbadsanierung inklusive neuer Sanitärinstallation, bodengleicher Dusche und großformatiger Fliesen.', cta: 'Projekt ansehen' },
     { image: '/img/renov1.webp', badge: 'LIVE', title: 'Wohnungssanierung', location: 'Darmstadt', desc: 'Modernisierung inklusive neuer Leitungen, Vorwandinstallation und hochwertiger Ausstattung.', cta: 'Projekt ansehen' },
@@ -254,25 +338,25 @@ export function RadexLiveSection({
   ],
 }) {
   return (
-    <section className="br-section br-bg-light">
+    <section className="br-section br-bg-light br-radex-live-section">
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="br-section-title">{title}</h2>
-          {intro && <p className="br-section-subtitle" style={{ maxWidth: '760px', margin: '0 auto' }}>{intro}</p>}
+          {intro && <p className="br-section-subtitle br-radex-live-intro">{intro}</p>}
         </div>
 
-        <div
-          className="br-project-img mb-10"
-          style={{
-            backgroundImage: `url(${heroImage})`,
-            height: '420px',
-            borderRadius: '8px',
-          }}
-          role="img"
-          aria-label="Laufendes Sanierungsprojekt von Radex im Rhein-Main-Gebiet"
-        />
+        {showWelcomeVideo && <BerndKnoopWelcome />}
 
-        <div className="br-projects-grid">
+        {!showWelcomeVideo && heroImage && (
+          <div
+            className="br-project-img br-radex-live-hero mb-10"
+            style={{ backgroundImage: `url(${heroImage})` }}
+            role="img"
+            aria-label="Laufendes Sanierungsprojekt von Radex im Rhein-Main-Gebiet"
+          />
+        )}
+
+        <div className="br-projects-grid br-radex-live-projects">
           {projects.map((project) => (
             <RadexLiveProjectCard
               key={project.title}

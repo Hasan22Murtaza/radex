@@ -314,7 +314,6 @@ export default function CityPage({ cityId }) {
                 muted
                 playsInline
                 poster="/img/radex-unternehmenspraesentation-poster.webp"
-                style={{ width: '100%', height: '100%', borderRadius: '8px', backgroundColor: '#7D4551' }}
               />
 
             </div>

@@ -93,6 +93,7 @@ export default function SanierungskostenRechner({
   defaultType = 'bad',
   compact = false,
   showIntro = true,
+  badOnly = false,
   id = 'sanierungskosten-rechner'
 }) {
   const safeDefault = calculators[defaultType] ? defaultType : 'bad';
@@ -103,7 +104,7 @@ export default function SanierungskostenRechner({
   );
   const [sent, setSent] = useState(false);
 
-  const active = calculators[activeType];
+  const active = calculators[badOnly ? 'bad' : activeType];
   const price = active.prices[quality];
   const area = clamp(areaValues[activeType], active.min, active.max);
 
@@ -163,18 +164,20 @@ export default function SanierungskostenRechner({
       <div className="container">
         {showIntro && (
           <div className="sk-rechner-heading">
-            <span className="sk-rechner-kicker">Sanierungskosten Rechner</span>
-            <h2>Was kostet Ihr Sanierungsprojekt?</h2>
+            <span className="sk-rechner-kicker">
+              {badOnly ? 'Badsanierung Kosten-Rechner' : 'Sanierungskosten Rechner'}
+            </span>
+            <h2>{badOnly ? 'Was kostet Ihre Badsanierung?' : 'Was kostet Ihr Sanierungsprojekt?'}</h2>
             <p>
-              Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp,
-              Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend
-              können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung
-              im Rhein-Main-Gebiet.
+              {badOnly
+                ? 'Jede Badsanierung ist individuell. Wählen Sie Qualitätsstufe und Badgröße, um eine erste Orientierung zu den typischen Einstiegspreisen zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'
+                : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
             </p>
           </div>
         )}
 
         <div className="sk-rechner-card">
+          {!badOnly && (
           <div className="sk-rechner-tabs" role="tablist" aria-label="Rechnertyp auswählen">
             {Object.entries(calculators).map(([key, item]) => {
               const Icon = item.icon;
@@ -198,6 +201,7 @@ export default function SanierungskostenRechner({
               );
             })}
           </div>
+          )}
 
           <div
             className="sk-rechner-body"
@@ -286,7 +290,9 @@ export default function SanierungskostenRechner({
                 </div>
 
                 <div className="sk-rechner-result-highlight">
-                  <span className="sk-rechner-result-highlight-label">Typischer Kostenbereich</span>
+                  <span className="sk-rechner-result-highlight-label">
+                    {badOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
+                  </span>
                   <strong className="sk-rechner-result-highlight-value">{formatEuro(result.avg)}</strong>
                 </div>
 
@@ -310,10 +316,9 @@ export default function SanierungskostenRechner({
               <div>
                 <strong>Orientierungswerte – kein Festpreis</strong>
                 <p>
-                  Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein
-                  verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand,
-                  Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung
-                  erhalten Sie ein transparentes Festpreisangebot von Radex.
+                  {badOnly
+                    ? 'Alle angezeigten Beträge sind typische Einstiegspreise für Badsanierungen zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Badgröße, Zustand der Leitungen, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'
+                    : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
                 </p>
               </div>
             </div>
@@ -358,15 +363,26 @@ export default function SanierungskostenRechner({
           </div>
 
           <div className="sk-rechner-seo">
-            <Link to="/sanierungskosten-rechner">Sanierungskosten Rechner</Link>
-            <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>
-            <Link to="/wohnungssanierung-kosten">Wohnungssanierung Kosten</Link>
-            <Link to="/haussanierung-kosten">Haussanierung Kosten</Link>
-            <Link to="/altbausanierung-kosten">Altbausanierung Kosten</Link>
-            <span>Kernsanierung Kosten</span>
-            <span>Sanierung Frankfurt</span>
-            <span>Sanierung Rhein-Main</span>
-            <span>{active.seoText}</span>
+            {badOnly ? (
+              <>
+                <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>
+                <Link to="/badsanierung-rhein-main">Badsanierung Rhein-Main</Link>
+                <span>Badsanierung Frankfurt</span>
+                <span>Bad sanieren Kosten</span>
+              </>
+            ) : (
+              <>
+                <Link to="/sanierungskosten-rechner">Sanierungskosten Rechner</Link>
+                <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>
+                <Link to="/wohnungssanierung-kosten">Wohnungssanierung Kosten</Link>
+                <Link to="/haussanierung-kosten">Haussanierung Kosten</Link>
+                <Link to="/altbausanierung-kosten">Altbausanierung Kosten</Link>
+                <span>Kernsanierung Kosten</span>
+                <span>Sanierung Frankfurt</span>
+                <span>Sanierung Rhein-Main</span>
+                <span>{active.seoText}</span>
+              </>
+            )}
           </div>
         </div>
       </div>

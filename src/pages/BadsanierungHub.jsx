@@ -1,31 +1,64 @@
 import { useEffect } from 'react';
 import { RADEX_LIVE_URL } from '../constants/brand';
-import { Camera, Award, Users, ShieldCheck, MapPin, CheckCircle2 } from 'lucide-react';
+import { Award, Users, ShieldCheck, MapPin, CheckCircle2, Camera } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
+import '../badsanierung-polish.css';
+import '../home.css';
 import useSeo, { buildFaqSchema } from '../useSeo';
 import NavLandingCards from '../components/NavLandingCards';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
+import ContactForm from '../components/ContactForm';
 import { badsanierungCards } from '../data/navigation';
 import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoAccordionSection,
+  SeoTocSection,
   RadexLiveSection,
   ProcessSteps,
-  LandingContactSection,
+  TrustUspCards,
 } from '../components/landing/SharedLandingParts';
 
-const HERO_IMAGE = '/img/Komplettbadsanierung.webp';
+const HERO_IMAGE = '/img/badsanierung-hero.png';
 
 const trustCards = [
-  { title: 'SHK-meistergeführter Fachbetrieb', icon: <Award size={40} color="#f97316" /> },
-  { title: 'Generalunternehmer für alle Gewerke', icon: <Users size={40} color="#f97316" /> },
-  { title: 'Festpreisangebote', icon: <ShieldCheck size={40} color="#f97316" /> },
-  { title: 'Über 500 Projekte', icon: <CheckCircle2 size={40} color="#f97316" /> },
-  { title: 'Zertifiziert für Schimmel & Asbest', icon: <ShieldCheck size={40} color="#f97316" /> },
-  { title: 'Im gesamten Rhein-Main-Gebiet', icon: <MapPin size={40} color="#f97316" /> },
+  {
+    title: 'SHK-meistergeführter Fachbetrieb',
+    image: '/img/badsanierung-usp-shk.png',
+    icon: Award,
+    imageAlt: 'Moderne Sanitärinstallation bei einer Badsanierung',
+  },
+  {
+    title: 'Generalunternehmer für alle Gewerke',
+    image: '/img/badsanierung-usp-generalunternehmer.png',
+    icon: Users,
+    imageAlt: 'Bauplanung und Koordination aller Gewerke',
+  },
+  {
+    title: 'Festpreisangebote',
+    image: '/img/badsanierung-usp-festpreis.png',
+    icon: ShieldCheck,
+    imageAlt: 'Transparente Festpreisangebote für Badsanierungen',
+  },
+  {
+    title: 'Über 500 Projekte',
+    image: '/img/badsanierung-usp-projekte.png',
+    icon: CheckCircle2,
+    imageAlt: 'Abgeschlossenes modernes Badezimmer nach Radex Badsanierung',
+  },
+  {
+    title: 'Zertifiziert für Schimmel & Asbest',
+    image: '/img/badsanierung-usp-schimmel.png',
+    icon: ShieldCheck,
+    imageAlt: 'Feuchtemessung und Schimmelprüfung bei Sanierung',
+  },
+  {
+    title: 'Im gesamten Rhein-Main-Gebiet',
+    image: '/img/badsanierung-usp-rheinmain.png',
+    icon: MapPin,
+    imageAlt: 'Moderne Wohngebäude im Rhein-Main-Gebiet',
+  },
 ];
 
 const whyRadexCards = [
@@ -38,18 +71,18 @@ const whyRadexCards = [
 ];
 
 const referenceCards = [
-  { image: '/img/bad1.webp', location: 'Frankfurt am Main', size: '8 m²', desc: 'Komplettbadsanierung mit bodengleicher Dusche und großformatigen Fliesen.' },
-  { image: '/img/Komplettbadsanierung.webp', location: 'Darmstadt', size: '10 m²', desc: 'Modernes Wohlfühlbad mit hochwertiger Ausstattung und indirekter Beleuchtung.' },
-  { image: '/img/bad1.webp', location: 'Offenbach am Main', size: '6 m²', desc: 'Badmodernisierung mit Dusche statt Badewanne und neuen Sanitärobjekten.' },
-  { image: '/img/wohnzimmer.webp', location: 'Rodgau', size: '9 m²', desc: 'Barrierefreies Bad mit bodengleicher Dusche und durchdachten Bewegungsflächen.' },
-  { image: '/img/bad1.webp', location: 'Dreieich', size: '4 m²', desc: 'Gäste-WC modernisiert – kompakt, funktional und hochwertig gestaltet.' },
-  { image: '/img/Komplettbadsanierung.webp', location: 'Rödermark', size: '12 m²', desc: 'Premium-Badsanierung mit Walk-in-Dusche und freistehendem Waschtisch.' },
+  { image: '/img/badsanierung-ref-1.png', location: 'Frankfurt am Main', size: '8 m²', desc: 'Komplettbadsanierung mit bodengleicher Dusche und großformatigen Fliesen.' },
+  { image: '/img/badsanierung-thema-komplett.png', location: 'Darmstadt', size: '10 m²', desc: 'Modernes Wohlfühlbad mit hochwertiger Ausstattung und indirekter Beleuchtung.' },
+  { image: '/img/badsanierung-thema-dusche.png', location: 'Offenbach am Main', size: '6 m²', desc: 'Badmodernisierung mit Dusche statt Badewanne und neuen Sanitärobjekten.' },
+  { image: '/img/badsanierung-thema-barrierefrei.png', location: 'Rodgau', size: '9 m²', desc: 'Barrierefreies Bad mit bodengleicher Dusche und durchdachten Bewegungsflächen.' },
+  { image: '/img/badsanierung-thema-gaestewc.png', location: 'Dreieich', size: '4 m²', desc: 'Gäste-WC modernisiert – kompakt, funktional und hochwertig gestaltet.' },
+  { image: '/img/badsanierung-ref-2.png', location: 'Rödermark', size: '12 m²', desc: 'Premium-Badsanierung mit Walk-in-Dusche und freistehendem Waschtisch.' },
 ];
 
 const costTeaserCards = [
-  { title: 'Basis', desc: 'Ideal für funktionale Modernisierungen.', to: '/badsanierung-kosten-rhein-main' },
-  { title: 'Komfort', desc: 'Die häufigste Wahl unserer Kunden.', to: '/badsanierung-kosten-rhein-main' },
-  { title: 'Premium', desc: 'Hochwertige Ausstattung und individuelle Gestaltung.', to: '/badsanierung-kosten-rhein-main' },
+  { title: 'Basis', price: 'ab ca. 8.000 €', desc: 'Ideal für funktionale Modernisierungen mit solider Ausstattung.', to: '/badsanierung-kosten-rhein-main' },
+  { title: 'Komfort', price: '15.000–25.000 €', desc: 'Die häufigste Wahl unserer Kunden – ausgewogene Qualität und Komfort.', to: '/badsanierung-kosten-rhein-main' },
+  { title: 'Premium', price: '25.000–45.000 €+', desc: 'Hochwertige Ausstattung, großformatige Fliesen und individuelle Gestaltung.', to: '/badsanierung-kosten-rhein-main' },
 ];
 
 const processSteps = [
@@ -59,6 +92,33 @@ const processSteps = [
   { title: 'Festpreisangebot' },
   { title: 'Koordinierte Ausführung aller Gewerke' },
   { title: 'Schlüsselfertige Übergabe' },
+];
+
+const radexLiveProjects = [
+  {
+    image: '/img/badsanierung-ref-1.png',
+    badge: 'LIVE',
+    title: 'Komplettbadsanierung',
+    location: 'Frankfurt am Main',
+    desc: 'Komplettbadsanierung inklusive neuer Sanitärinstallation, bodengleicher Dusche und großformatiger Fliesen.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/badsanierung-thema-dusche.png',
+    badge: 'LIVE',
+    title: 'Dusche statt Badewanne',
+    location: 'Darmstadt',
+    desc: 'Umbau von Badewanne zu bodengleicher Walk-in-Dusche mit neuer Abdichtung und Fliesenarbeiten.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/badsanierung-thema-barrierefrei.png',
+    badge: 'Vorher & Nachher',
+    title: 'Barrierefreies Bad',
+    location: 'Offenbach am Main',
+    desc: 'Aus einem veralteten Badezimmer entstand ein barrierefreies Wohlfühlbad mit bodengleicher Dusche.',
+    cta: 'Vorher & Nachher ansehen',
+  },
 ];
 
 const faqsData = [
@@ -72,8 +132,9 @@ const faqsData = [
   { q: 'Kann ich Fotos meines Badezimmers per WhatsApp senden?', a: 'Ja. Senden Sie uns Fotos per WhatsApp und erhalten Sie eine erste fachliche Einschätzung zu Ihrem Projekt.' },
 ];
 
-const seoAccordions = [
+const seoSections = [
   {
+    id: 'komplettbadsanierung',
     title: 'Komplettbadsanierung',
     content: (
       <>
@@ -83,6 +144,7 @@ const seoAccordions = [
     ),
   },
   {
+    id: 'badmodernisierung',
     title: 'Badmodernisierung',
     content: (
       <>
@@ -92,6 +154,7 @@ const seoAccordions = [
     ),
   },
   {
+    id: 'badplanung',
     title: 'Badplanung',
     content: (
       <>
@@ -101,6 +164,7 @@ const seoAccordions = [
     ),
   },
   {
+    id: 'sanitaerinstallation',
     title: 'Sanitärinstallation',
     content: (
       <>
@@ -110,12 +174,14 @@ const seoAccordions = [
     ),
   },
   {
+    id: 'fliesen-oberflaechen',
     title: 'Fliesen & Oberflächen',
     content: (
       <p className="text-gray-600">Großformatige Bodenfliesen, Wandfliesen im Wunschformat oder Mosaik – durch routinierte Fliesenleger, die mit modernen Abdichtungssystemen vertraut sind. Radex koordiniert Fliesenarbeiten als Teil der Gesamtplanung.</p>
     ),
   },
   {
+    id: 'dusche-statt-badewanne',
     title: 'Dusche statt Badewanne',
     content: (
       <>
@@ -125,6 +191,7 @@ const seoAccordions = [
     ),
   },
   {
+    id: 'barrierefreies-bad',
     title: 'Barrierefreies Bad',
     content: (
       <>
@@ -134,6 +201,7 @@ const seoAccordions = [
     ),
   },
   {
+    id: 'gaeste-wc',
     title: 'Gäste-WC',
     content: (
       <>
@@ -143,15 +211,17 @@ const seoAccordions = [
     ),
   },
   {
+    id: 'kosten-badsanierung',
     title: 'Kosten einer Badsanierung',
     content: (
       <>
-        <p className="mb-4 text-gray-600">Die Kosten hängen von Badgröße, Umfang der Arbeiten, Zustand der Leitungen und gewählter Ausstattung ab. Nutzen Sie unseren <Link to="/badsanierung-kosten-rhein-main">Badsanierung Kosten-Rechner</Link> für eine erste Orientierung.</p>
-        <p className="text-gray-600">Weitere Kostenratgeber: <Link to="/wohnung-sanieren-kosten-rhein-main">Wohnung sanieren Kosten</Link>, <Link to="/haus-sanieren-kosten-rhein-main">Haus sanieren Kosten</Link>.</p>
+        <p className="mb-4 text-gray-600">Die Kosten hängen von Badgröße, Umfang der Arbeiten, Zustand der Leitungen und gewählter Ausstattung ab. Nutzen Sie unseren <Link to="/badsanierung-kosten-rhein-main">Badsanierung Kosten-Rechner</Link> für eine erste Orientierung zu typischen Einstiegspreisen.</p>
+        <p className="text-gray-600">Typische Preisbereiche: Basis ab ca. 8.000 €, Komfort 15.000–25.000 €, Premium 25.000–45.000 €+.</p>
       </>
     ),
   },
   {
+    id: 'foerdermoeglichkeiten',
     title: 'Fördermöglichkeiten',
     content: (
       <>
@@ -180,16 +250,31 @@ export default function BadsanierungHub() {
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <p className="br-hero-kicker">
+              SHK-Meisterbetrieb · Generalunternehmer · Rhein-Main-Gebiet
+            </p>
             <h1 className="br-hero-title">
               Badsanierung im<br />
               <span>Rhein-Main-Gebiet</span>
             </h1>
-            <p className="br-hero-subtitle">Ihr neues Badezimmer beginnt mit der richtigen Planung.</p>
-            <p className="br-hero-text">
-              Ein neues Badezimmer ist eine Investition in Wohnkomfort, Lebensqualität und den Wert Ihrer Immobilie. Als SHK-meistergeführter Fachbetrieb übernimmt Radex die komplette Badsanierung im gesamten Rhein-Main-Gebiet – von der ersten Beratung über Sanitär-, Elektro- und Fliesenarbeiten bis zur schlüsselfertigen Übergabe. Sie erhalten alle Leistungen aus einer Hand und haben während des gesamten Projekts einen festen Ansprechpartner.
+            <p className="br-hero-lead">
+              Alles aus einer Hand – mit transparenten Festpreisangeboten.
             </p>
+            <p className="br-hero-text">
+              Als SHK-meistergeführter Fachbetrieb und Generalunternehmer übernimmt Radex Ihre komplette
+              Badsanierung – von der ersten Beratung über Sanitär-, Elektro- und Fliesenarbeiten bis zur
+              schlüsselfertigen Übergabe. Ein fester Ansprechpartner, klare Festpreisangebote und täglicher
+              Einsatz im gesamten Rhein-Main-Gebiet.
+            </p>
+            <ul className="br-hero-highlights" aria-label="Ihre Vorteile auf einen Blick">
+              <li>SHK-Meisterbetrieb</li>
+              <li>Generalunternehmer</li>
+              <li>Alles aus einer Hand</li>
+              <li>Festpreisangebote</li>
+              <li>Rhein-Main-Gebiet</li>
+            </ul>
             <SharedCTABlock isHero />
-            <p className="br-hero-micro mt-4">
+            <p className="br-hero-micro">
               <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
             </p>
           </div>
@@ -203,16 +288,9 @@ export default function BadsanierungHub() {
         />
       </section>
 
-      <section className="br-section">
+      <section className="br-section br-trust-usp-section">
         <div className="container">
-          <div className="br-benefits-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
-            {trustCards.map((card) => (
-              <div key={card.title} className="br-benefit-card" style={{ textAlign: 'center', border: '1px solid #e5e7eb' }}>
-                <div className="br-benefit-icon">{card.icon}</div>
-                <h3 style={{ fontSize: '16px' }}>{card.title}</h3>
-              </div>
-            ))}
-          </div>
+          <TrustUspCards cards={trustCards} />
         </div>
       </section>
 
@@ -222,19 +300,24 @@ export default function BadsanierungHub() {
         cards={badsanierungCards}
       />
 
-      <section className="br-section">
-        <div className="container text-center" style={{ maxWidth: '800px' }}>
-          <h2 className="br-section-title">Noch unsicher, welche Lösung die richtige ist?</h2>
-          <p className="br-section-subtitle mb-8">
-            Nicht jedes Badezimmer passt in eine Standardlösung. Senden Sie uns einfach Fotos Ihres Badezimmers per WhatsApp oder vereinbaren Sie eine kostenlose Beratung. Gemeinsam finden wir die passende Lösung für Ihr Projekt.
-          </p>
+      <section className="br-section br-whatsapp-cta-section">
+        <div className="container br-whatsapp-cta-inner">
+          <div className="br-whatsapp-cta-copy">
+            <span className="br-whatsapp-cta-kicker">Schnellste Antwort</span>
+            <h2 className="br-section-title">Noch unsicher, welche Lösung die richtige ist?</h2>
+            <p className="br-section-subtitle">
+              Senden Sie uns Fotos Ihres Badezimmers per WhatsApp – Sie erhalten eine erste fachliche
+              Einschätzung, oft noch am selben Tag. Oder vereinbaren Sie eine kostenlose Beratung.
+            </p>
+          </div>
           <SharedCTABlock centered />
         </div>
       </section>
 
       <RadexLiveSection
         intro="Eine Badsanierung ist Vertrauenssache. Deshalb zeigen wir Ihnen nicht nur fertige Badezimmer, sondern auch echte Einblicke in unsere tägliche Arbeit – von der Entkernung über die Sanitärinstallation bis zur fertigen Übergabe."
-        heroImage="/img/schnelle-badsanierung-radex-live.webp"
+        showWelcomeVideo
+        projects={radexLiveProjects}
       />
 
       <section className="br-section">
@@ -247,23 +330,29 @@ export default function BadsanierungHub() {
         </div>
       </section>
 
-      <section className="br-section br-bg-light">
+      <section className="br-section br-bg-light br-references-section">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Das Ergebnis spricht für sich.</h2>
             <p className="br-section-subtitle">Entdecken Sie eine Auswahl abgeschlossener Badsanierungsprojekte im Rhein-Main-Gebiet.</p>
           </div>
-          <div className="br-projects-grid">
+          <div className="br-projects-grid br-references-grid">
             {referenceCards.map((ref) => (
-              <div key={ref.location + ref.size} className="br-project-card">
+              <a
+                key={ref.location + ref.size}
+                href={RADEX_LIVE_URL}
+                className="br-project-card br-reference-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <div className="br-project-img" style={{ backgroundImage: `url(${ref.image})` }} />
                 <div className="br-project-info">
                   <h4>{ref.location}</h4>
-                  <p>{ref.size}</p>
-                  <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '8px' }}>{ref.desc}</p>
-                  <span className="br-btn-orange" style={{ display: 'inline-block', marginTop: '12px', fontSize: '14px' }}>Projekt ansehen &rarr;</span>
+                  <p className="br-project-meta">{ref.size}</p>
+                  <p className="br-project-desc">{ref.desc}</p>
+                  <span className="br-btn-orange br-project-cta">Projekt ansehen &rarr;</span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
           <div className="text-center mt-10">
@@ -276,18 +365,23 @@ export default function BadsanierungHub() {
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Kosten einer Badsanierung</h2>
-            <p className="br-section-subtitle" style={{ maxWidth: '720px', margin: '0 auto' }}>
-              Was eine Badsanierung kostet, hängt von vielen Faktoren ab. Mit unserem Kostenrechner erhalten Sie schnell eine erste Orientierung.
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Was eine Badsanierung kostet, hängt von vielen Faktoren ab. Hier finden Sie typische Einstiegspreise –
+              für eine individuelle Schätzung nutzen Sie unseren Kostenrechner weiter unten.
             </p>
           </div>
-          <div className="br-costs-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
+          <p className="br-cost-kicker text-center">Typische Einstiegspreise</p>
+          <div className="br-costs-grid br-costs-grid--three">
             {costTeaserCards.map((card) => (
-              <Link key={card.title} to={card.to} className="br-cost-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link key={card.title} to={card.to} className="br-cost-card">
                 <div className="br-cost-header">
                   <h3>{card.title}</h3>
+                  <p className="br-cost-price">
+                    <span>{card.price}</span>
+                  </p>
                 </div>
-                <p style={{ padding: '0 20px 20px', color: '#6b7280' }}>{card.desc}</p>
-                <span className="br-btn-orange" style={{ display: 'block', margin: '0 20px 20px' }}>Badsanierung Kosten ansehen &rarr;</span>
+                <p className="br-cost-desc">{card.desc}</p>
+                <span className="br-btn-orange br-cost-cta">Badsanierung Kosten ansehen &rarr;</span>
               </Link>
             ))}
           </div>
@@ -295,18 +389,13 @@ export default function BadsanierungHub() {
       </section>
 
       <section className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center mb-8">
-            <h2 className="br-section-title">Was kostet Ihre Badsanierung?</h2>
-            <p className="br-section-subtitle" style={{ maxWidth: '720px', margin: '0 auto' }}>
-              Jede Badsanierung ist individuell. Mit unserem Sanierungskosten-Rechner erhalten Sie innerhalb weniger Sekunden eine erste Orientierung.
-            </p>
-          </div>
-        </div>
-        <SanierungskostenRechner defaultType="bad" compact />
-        <div className="container" style={{ maxWidth: '720px', marginTop: '24px' }}>
-          <p style={{ fontSize: '14px', color: '#6b7280', lineHeight: 1.6, textAlign: 'center' }}>
-            <strong>Hinweis:</strong> Die berechneten Kosten dienen ausschließlich als erste Orientierung. Der tatsächliche Preis hängt unter anderem von der Größe des Badezimmers, dem Zustand der vorhandenen Leitungen, der gewünschten Ausstattung und dem Umfang der Arbeiten ab. Nach einer Besichtigung erhalten Sie ein individuelles Festpreisangebot.
+        <SanierungskostenRechner defaultType="bad" compact badOnly />
+        <div className="container br-calculator-disclaimer">
+          <p>
+            <strong>Hinweis:</strong> Die berechneten Kosten sind typische Einstiegspreise und dienen ausschließlich
+            als erste Orientierung für Ihre Badsanierung. Der tatsächliche Festpreis hängt von Badgröße,
+            Zustand der Leitungen, gewünschter Ausstattung und Umfang der Arbeiten ab. Nach einer Besichtigung
+            erhalten Sie ein individuelles Festpreisangebot.
           </p>
         </div>
       </section>
@@ -315,20 +404,17 @@ export default function BadsanierungHub() {
         title="So entsteht Ihr neues Badezimmer"
         intro="Eine erfolgreiche Badsanierung beginnt lange vor dem ersten Handgriff. Durch eine strukturierte Planung und die Koordination aller Gewerke sorgen wir für einen reibungslosen Ablauf."
         steps={processSteps}
-        image="/img/leistungen-hero.webp"
+        image="/img/badsanierung-process.png"
       />
 
       <FaqAccordion faqs={faqsData} />
 
-      <LandingContactSection
-        title="Jetzt Ihr Projekt starten"
-        intro="Sie möchten Ihr Badezimmer modernisieren oder planen bereits eine komplette Badsanierung? Senden Sie uns Fotos per WhatsApp oder vereinbaren Sie eine persönliche Beratung."
-      />
+      <ContactForm />
 
-      <SeoAccordionSection
+      <SeoTocSection
         title="Weitere Informationen zur Badsanierung"
         intro="Wer sich intensiver mit einer Badsanierung beschäftigen möchte, findet hier weiterführende Informationen rund um Planung, Kosten, Materialien, Sanitärinstallation, Badmodernisierung und den Ablauf."
-        accordions={seoAccordions}
+        sections={seoSections}
       />
     </main>
   );
