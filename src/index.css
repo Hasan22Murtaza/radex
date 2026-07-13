@@ -28,8 +28,8 @@
   
   /* Spacing */
   --container-width: 1280px;
-  --header-height: 160px;
-  --header-height-mobile: 128px;
+  --header-height: 140px;
+  --header-height-mobile: 108px;
   
   /* Box Shadow */
   --shadow-sm: 0 2px 8px rgba(30, 58, 138, 0.04);
@@ -370,15 +370,15 @@ a {
 
 .site-logo {
   display: block;
-  height: 132px;
+  height: 112px;
   width: auto;
-  max-width: 380px;
+  max-width: 340px;
   object-fit: contain;
 }
 
 .site-logo--drawer {
-  height: 96px;
-  max-width: 280px;
+  height: 76px;
+  max-width: 250px;
 }
 
 .nav-links {
@@ -481,8 +481,8 @@ a {
     font-size: 13px;
   }
   .site-logo {
-    height: 112px;
-    max-width: 320px;
+    height: 92px;
+    max-width: 290px;
   }
 }
 
@@ -501,8 +501,8 @@ a {
   }
 
   .site-logo {
-    height: 104px;
-    max-width: 280px;
+    height: 84px;
+    max-width: 250px;
   }
 
   .hero {
