@@ -66,7 +66,7 @@ export const sanierungCards = [
     desc: 'Modernisieren Sie Ihre Eigentumswohnung oder Bestandswohnung – von neuen Böden über Elektro bis zur kompletten Badmodernisierung.',
     cta: 'Mehr erfahren',
     icon: Building2,
-    image: '/img/wohnzimmer.webp',
+    image: '/img/sanierung-thema-wohnung.png',
   },
   {
     to: '/haussanierung-rhein-main',
@@ -74,7 +74,7 @@ export const sanierungCards = [
     desc: 'Komplette Modernisierung Ihres Hauses – technisch, energetisch und optisch aus einer Hand.',
     cta: 'Mehr erfahren',
     icon: Home,
-    image: '/img/renov1.webp',
+    image: '/img/sanierung-thema-haus.png',
   },
   {
     to: '/altbausanierung-rhein-main',
@@ -82,7 +82,7 @@ export const sanierungCards = [
     desc: 'Historische Gebäude und ältere Bestandsimmobilien professionell modernisieren und den Charakter erhalten.',
     cta: 'Mehr erfahren',
     icon: Landmark,
-    image: '/img/wohnzimmer.webp',
+    image: '/img/sanierung-thema-altbau.png',
   },
   {
     to: '/generalunternehmer-rhein-main',
@@ -90,7 +90,7 @@ export const sanierungCards = [
     desc: 'Ein Ansprechpartner für Planung, Koordination und die komplette Umsetzung Ihrer Sanierung.',
     cta: 'Mehr erfahren',
     icon: Handshake,
-    image: '/img/leistungen-hero.webp',
+    image: '/img/sanierung-thema-generalunternehmer.png',
   },
   {
     to: '/sanierungskosten-rhein-main',
@@ -98,7 +98,7 @@ export const sanierungCards = [
     desc: 'Nutzen Sie unseren Sanierungskosten-Rechner und erhalten Sie eine erste Orientierung für Ihr Projekt.',
     cta: 'Mehr erfahren',
     icon: Calculator,
-    image: '/img/boden.webp',
+    image: '/img/sanierung-thema-kosten.png',
   },
   {
     to: '/sanierung-ablauf-rhein-main',
@@ -106,7 +106,7 @@ export const sanierungCards = [
     desc: 'Erfahren Sie Schritt für Schritt, wie Ihre Sanierung mit Radex geplant und umgesetzt wird.',
     cta: 'Mehr erfahren',
     icon: ListOrdered,
-    image: '/img/leistungen-hero.webp',
+    image: '/img/sanierung-thema-ablauf.png',
   },
 ];
 

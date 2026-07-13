@@ -17,17 +17,12 @@ export default function NavLandingCards({ title, subtitle, cards }) {
               <>
                 {card.image ? (
                   <div
-                    className="br-cost-img"
-                    style={{
-                      backgroundImage: `url(${card.image})`,
-                      height: '140px',
-                      borderRadius: '8px',
-                      marginBottom: '16px',
-                    }}
+                    className="br-cost-img br-nav-card-img"
+                    style={{ backgroundImage: `url(${card.image})` }}
                   />
                 ) : Icon ? (
-                  <div className="br-decision-icon">
-                    <Icon size={40} strokeWidth={1.5} />
+                  <div className="br-decision-icon br-decision-icon--small">
+                    <Icon size={28} strokeWidth={1.5} />
                   </div>
                 ) : null}
                 <h3>{card.title}</h3>

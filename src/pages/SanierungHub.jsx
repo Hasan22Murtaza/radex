@@ -1,378 +1,416 @@
-import { useEffect, useState } from 'react';
-import { Camera, CheckCircle2, Users, ShieldCheck, ArrowRight, MessageSquare, ChevronDown, MapPin, Award, Phone } from 'lucide-react';
+import { useEffect } from 'react';
+import { Camera, Award, Users, ShieldCheck, CheckCircle2, MapPin } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
+import '../badsanierung-polish.css';
+import '../sanierung-polish.css';
+import '../home.css';
 import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
 import NavLandingCards from '../components/NavLandingCards';
+import ContactForm from '../components/ContactForm';
 import { sanierungCards } from '../data/navigation';
-import { SharedCTABlock, LandingContactSection } from '../components/landing/SharedLandingParts';
+import {
+  SharedCTABlock,
+  PremiumIconCards,
+  FaqAccordion,
+  SeoTocSection,
+  RadexLiveSection,
+  TrustUspCards,
+} from '../components/landing/SharedLandingParts';
 import { RADEX_LIVE_URL } from '../constants/brand';
 
-const HERO_IMAGE = '/img/renov1.webp';
+const HERO_IMAGE = '/img/sanierung-hero.png';
+
+const trustCards = [
+  {
+    title: 'SHK-meistergeführter Fachbetrieb',
+    image: '/img/badsanierung-usp-shk.png',
+    icon: Award,
+    imageAlt: 'Moderne Haustechnik bei einer Sanierung',
+  },
+  {
+    title: 'Generalunternehmer für alle Gewerke',
+    image: '/img/badsanierung-usp-generalunternehmer.png',
+    icon: Users,
+    imageAlt: 'Bauplanung und Koordination aller Gewerke',
+  },
+  {
+    title: 'Festpreisangebote',
+    image: '/img/badsanierung-usp-festpreis.png',
+    icon: ShieldCheck,
+    imageAlt: 'Transparente Festpreisangebote für Sanierungen',
+  },
+  {
+    title: 'Über 500 abgeschlossene Projekte',
+    image: '/img/badsanierung-usp-projekte.png',
+    icon: CheckCircle2,
+    imageAlt: 'Abgeschlossenes Sanierungsprojekt nach Radex Umsetzung',
+  },
+  {
+    title: 'Ein fester Ansprechpartner',
+    image: '/img/sanierung-thema-generalunternehmer.png',
+    icon: Users,
+    imageAlt: 'Persönliche Beratung und Projektsteuerung',
+  },
+  {
+    title: 'Im gesamten Rhein-Main-Gebiet',
+    image: '/img/badsanierung-usp-rheinmain.png',
+    icon: MapPin,
+    imageAlt: 'Moderne Wohngebäude im Rhein-Main-Gebiet',
+  },
+];
+
+const whyRadexCards = [
+  { title: 'Eingetragener SHK-Meisterbetrieb', desc: 'Zertifizierte Arbeit nach aktuellen technischen Richtlinien und Handwerksstandards.', icon: Award },
+  { title: 'Alles aus einer Hand', desc: 'Ein zentraler Ansprechpartner während des gesamten Projektverlaufs.', icon: Users },
+  { title: 'Festpreis-Garantie', desc: 'Transparente Angebote ohne versteckte Überraschungen oder Nachforderungen.', icon: ShieldCheck },
+  { title: 'Staubarme Sanierung', desc: 'Professionelle Schutzsysteme für saubere Baustellenumgebungen.', icon: CheckCircle2 },
+];
+
+const referenceCards = [
+  { image: '/img/sanierung-thema-wohnung.png', location: 'Frankfurt Riedberg', desc: 'Penthouse-Modernisierung mit neuen Böden, Elektro und Bad.' },
+  { image: '/img/sanierung-thema-haus.png', location: 'Bad Homburg', desc: 'Kernsanierung Einfamilienhaus mit Heizung, Sanitär und Innenausbau.' },
+  { image: '/img/sanierung-thema-altbau.png', location: 'Kronberg', desc: 'Altbausanierung mit erhaltener Fassade und modernem Innenausbau.' },
+  { image: '/img/sanierung-thema-wohnung.png', location: 'Wiesbaden', desc: 'Wohnungssanierung Innenausbau inklusive neuer Leitungen und Ausstattung.' },
+  { image: '/img/sanierung-thema-haus.png', location: 'Darmstadt', desc: 'Heizungsmodernisierung und energetische Aufwertung im Bestand.' },
+  { image: '/img/sanierung-thema-altbau.png', location: 'Offenbach am Main', desc: 'Altbauwohnung modernisiert – Charakter bewahrt, Technik erneuert.' },
+];
+
+const costCategoryCards = [
+  {
+    title: 'Wohnungssanierung',
+    price: 'ab ca. 300 €/m²',
+    desc: 'Typische Einstiegspreise für Eigentumswohnungen und Bestandswohnungen – abhängig von Umfang und Ausstattung.',
+    image: '/img/sanierung-thema-wohnung.png',
+    to: '/wohnungssanierung-rhein-main',
+  },
+  {
+    title: 'Haussanierung',
+    price: 'ab ca. 400 €/m²',
+    desc: 'Orientierungswerte für Einfamilienhäuser und Reihenhäuser – von Teilsanierung bis Komplettmodernisierung.',
+    image: '/img/sanierung-thema-haus.png',
+    to: '/haussanierung-rhein-main',
+  },
+  {
+    title: 'Altbausanierung',
+    price: 'ab ca. 500 €/m²',
+    desc: 'Einstiegspreise für ältere Bestandsimmobilien – mit Respekt vor Substanz und Charakter.',
+    image: '/img/sanierung-thema-altbau.png',
+    to: '/altbausanierung-rhein-main',
+  },
+];
+
+const radexLiveProjects = [
+  {
+    image: '/img/sanierung-hero.png',
+    badge: 'LIVE',
+    title: 'Rohbauphase Komplettsanierung',
+    location: 'Frankfurt am Main',
+    desc: 'Komplettsanierung inklusive Entkernung, neuer Haustechnik und Innenausbau.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/sanierung-thema-wohnung.png',
+    badge: 'LIVE',
+    title: 'Wohnungssanierung Innenausbau',
+    location: 'Wiesbaden',
+    desc: 'Modernisierung inklusive neuer Leitungen, Vorwandinstallation und hochwertiger Ausstattung.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/sanierung-thema-haus.png',
+    badge: 'LIVE',
+    title: 'Heizungsmodernisierung Altbau',
+    location: 'Darmstadt',
+    desc: 'Heizungstausch und energetische Aufwertung in einem älteren Bestandsgebäude.',
+    cta: 'Projekt ansehen',
+  },
+];
+
+const faqsData = [
+  { q: 'Was kostet eine Sanierung?', a: 'Die Kosten hängen stark vom Sanierungsstau, der Fläche und Ihren Ausstattungswünschen ab. Eine einfache Renovierung startet oft bei 400 €/m², eine Komplettsanierung liegt meist zwischen 1.200 € und 2.500 €/m². Nutzen Sie unseren Sanierungskosten-Rechner für typische Einstiegspreise – das verbindliche Festpreisangebot folgt nach Besichtigung.' },
+  { q: 'Wie lange dauert eine Sanierung?', a: 'Eine Wohnungssanierung dauert in der Regel 4–8 Wochen. Eine umfangreiche Haussanierung kann 3–6 Monate beanspruchen – abhängig von Umfang und baulichen Gegebenheiten.' },
+  { q: 'Wann lohnt sich eine Komplettsanierung?', a: 'Wenn mehrere Gewerke (Heizung, Sanitär, Elektro) gleichzeitig veraltet sind, ist eine Komplettsanierung wirtschaftlicher und schneller als viele Einzelmaßnahmen.' },
+  { q: 'Arbeitet Radex als Generalunternehmer?', a: 'Ja, wir übernehmen die komplette Koordination aller Gewerke und bieten Ihnen einen zentralen Ansprechpartner sowie Festpreisgarantie.' },
+  { q: 'In welchen Städten ist Radex tätig?', a: 'Wir sanieren im gesamten Rhein-Main-Gebiet, unter anderem in Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach und Hanau – in über 60 Städten und Gemeinden.' },
+  { q: 'Kann ich Fotos meiner Immobilie per WhatsApp senden?', a: 'Ja. Senden Sie uns Fotos per WhatsApp und erhalten Sie eine erste fachliche Einschätzung zu Ihrem Sanierungsprojekt – oft noch am selben Tag.' },
+];
+
+const seoSections = [
+  {
+    id: 'wohnungssanierung',
+    title: 'Wohnungssanierung',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Eine Wohnungssanierung unterscheidet sich grundlegend vom Hausumbau: begrenzte Fläche, unmittelbare Nachbarschaft und Vorgaben der Hausverwaltung prägen das Projekt. Radex koordiniert als Generalunternehmer alle Gewerke – von Bad und Elektro über Böden bis zum Innenausbau.</p>
+        <p className="text-gray-600">Mehr zur <Link to="/wohnungssanierung-rhein-main">Wohnungssanierung im Rhein-Main-Gebiet</Link>.</p>
+      </>
+    ),
+  },
+  {
+    id: 'haussanierung',
+    title: 'Haussanierung',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Eine Haussanierung umfasst mehrere Etagen, Keller, Dachgeschoss und oft jahrzehntealte Haustechnik. Radex fungiert als Generalunternehmer und koordiniert Heizung, Sanitär, Elektro, Bad, Innenausbau und energetische Maßnahmen aus einer Hand.</p>
+        <p className="text-gray-600">Details zur <Link to="/haussanierung-rhein-main">Haussanierung</Link> und typischen Gewerken.</p>
+      </>
+    ),
+  },
+  {
+    id: 'altbausanierung',
+    title: 'Altbausanierung',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Altbauten im Rhein-Main-Gebiet besitzen charakteristische Substanz, die bewahrenswert ist. Die Herausforderung liegt darin, technische Modernisierung sinnvoll mit gewachsenem Charakter zu verbinden – Leitungen, Elektrik und Heizung werden behutsam erneuert.</p>
+        <p className="text-gray-600">Mehr zur <Link to="/altbausanierung-rhein-main">Altbausanierung</Link> mit Respekt vor der Bausubstanz.</p>
+      </>
+    ),
+  },
+  {
+    id: 'komplettsanierung',
+    title: 'Komplettsanierung',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Bei einer Komplettsanierung werden mehrere zentrale Bereiche gleichzeitig erneuert – Bad, Heizung, Sanitär, Elektro, Innenausbau und Böden in einem abgestimmten Projekt. Wenn mehrere Gewerke veraltet sind, ist das wirtschaftlicher als viele Einzelmaßnahmen.</p>
+        <p className="text-gray-600"><Link to="/komplettsanierung-rhein-main">Komplettsanierung</Link> als Generalunternehmer im Rhein-Main-Gebiet.</p>
+      </>
+    ),
+  },
+  {
+    id: 'generalunternehmer',
+    title: 'Generalunternehmer',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Als Generalunternehmer steuert Radex Ihr gesamtes Bauvorhaben. Von der Kernsanierung über energetische Maßnahmen bis zum schlüsselfertigen Innenausbau erhalten Sie alle Leistungen aus einer Hand – ein Vertrag, ein Ansprechpartner, ein Festpreis.</p>
+        <p className="text-gray-600">Mehr zum <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link> und zur Bauleitung.</p>
+      </>
+    ),
+  },
+  {
+    id: 'sanierungsablauf',
+    title: 'Sanierungsablauf',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Eine erfolgreiche Sanierung beginnt mit einer strukturierten Planung: Erstberatung, Besichtigung vor Ort, individuelles Sanierungskonzept, Festpreisangebot, koordinierte Ausführung aller Gewerke und schlüsselfertige Übergabe.</p>
+        <p className="text-gray-600">Details zum <Link to="/sanierung-ablauf-rhein-main">Sanierungsablauf</Link> mit Radex.</p>
+      </>
+    ),
+  },
+  {
+    id: 'sanierungskosten',
+    title: 'Sanierungskosten',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Die Sanierungskosten hängen von Größe, Zustand und Umfang ab. Typische Einstiegspreise: Wohnungssanierung ab ca. 300 €/m², Haussanierung ab ca. 400 €/m², Altbausanierung ab ca. 500 €/m². Nutzen Sie unseren <Link to="/sanierungskosten-rhein-main">Sanierungskosten-Rechner</Link> für eine erste Orientierung.</p>
+        <p className="text-gray-600">Das verbindliche Festpreisangebot folgt nach Vor-Ort-Besichtigung.</p>
+      </>
+    ),
+  },
+  {
+    id: 'energetische-sanierung',
+    title: 'Energetische Sanierung & Förderung',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Bei energetischen Maßnahmen im Zusammenhang mit einer Sanierung können Fördermittel (KfW/BAFA) relevant sein – etwa bei Heizungstausch, Dämmung oder energetischer Modernisierung. Radex unterstützt Sie bei der frühzeitigen Prüfung von Fördermöglichkeiten.</p>
+        <p className="text-gray-600">Mehr zur <Link to="/energetische-sanierung-rhein-main">energetischen Sanierung</Link>.</p>
+      </>
+    ),
+  },
+  {
+    id: 'einsatzgebiete',
+    title: 'Einsatzgebiete Rhein-Main',
+    content: (
+      <>
+        <p className="mb-4 text-gray-600">Radex ist in über 60 Städten und Gemeinden im Rhein-Main-Gebiet tätig – von Frankfurt am Main, Wiesbaden und Mainz über Darmstadt, Offenbach und Hanau bis Rodgau, Dreieich, Rödermark und viele weitere Orte.</p>
+        <p className="text-gray-600">Alle <Link to="/einsatzgebiete-rhein-main">Einsatzgebiete</Link> im Überblick.</p>
+      </>
+    ),
+  },
+];
 
 export default function SanierungHub() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [openFaq, setOpenFaq] = useState(null);
-
-  const faqsData = [
-    { q: "Was kostet eine Sanierung?", a: "Die Kosten hängen stark vom Sanierungsstau, der Fläche und Ihren Ausstattungswünschen ab. Eine einfache Renovierung startet oft bei 400€/m², eine Komplettsanierung liegt meist zwischen 1.200€ und 2.500€/m²." },
-    { q: "Wie lange dauert eine Sanierung?", a: "Eine Wohnungssanierung dauert in der Regel 4-8 Wochen. Eine umfangreiche Haussanierung kann 3-6 Monate beanspruchen." },
-    { q: "Wann lohnt sich eine Komplettsanierung?", a: "Wenn mehrere Gewerke (Heizung, Sanitär, Elektro) gleichzeitig veraltet sind, ist eine Komplettsanierung wirtschaftlicher und schneller als viele Einzelmaßnahmen." },
-    { q: "Arbeitet Radex als Generalunternehmer?", a: "Ja, wir übernehmen die komplette Koordination aller Gewerke und bieten Ihnen einen zentralen Ansprechpartner sowie Festpreisgarantie." },
-    { q: "In welchen Städten ist Radex tätig?", a: "Wir sanieren im gesamten Rhein-Main-Gebiet, unter anderem in Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach und Hanau." }
-  ];
-
   useSeo({
     title: 'Sanierung im Rhein-Main-Gebiet | Wohnung, Haus & Altbau sanieren | Radex',
-    description: 'Sanierung im Rhein-Main-Gebiet vom SHK-meistergeführten Fachbetrieb. Wohnungssanierung, Haussanierung, Altbausanierung und Komplettsanierung aus einer Hand.',
+    description: 'Sanierung im Rhein-Main-Gebiet vom SHK-meistergeführten Fachbetrieb. Wohnungssanierung, Haussanierung, Altbausanierung und Komplettsanierung als Generalunternehmer – aus einer Hand.',
     path: '/sanierung-rhein-main',
     image: HERO_IMAGE,
-    jsonLd: [buildFaqSchema(faqsData)]
+    jsonLd: [buildFaqSchema(faqsData)],
   });
 
   return (
     <main className="badsanierung-page">
-      {/* 1. HERO */}
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <p className="br-hero-kicker">
+              SHK-Meisterbetrieb · Generalunternehmer · Rhein-Main-Gebiet
+            </p>
             <h1 className="br-hero-title">
-              Sanierung im<br/>
+              Sanierung im<br />
               <span>Rhein-Main-Gebiet</span>
             </h1>
-            <p className="br-hero-subtitle">
+            <p className="br-hero-lead">
               Ihre Immobilie modernisieren. Professionell geplant. Aus einer Hand umgesetzt.
             </p>
             <p className="br-hero-text">
-              Ob Wohnung, Einfamilienhaus, Altbau oder Mehrfamilienhaus – eine erfolgreiche Sanierung beginnt mit einer durchdachten Planung. Als SHK-meistergeführter Fachbetrieb koordiniert Radex alle notwendigen Gewerke und begleitet Sie von der ersten Beratung bis zur schlüsselfertigen Übergabe. Sie erhalten einen festen Ansprechpartner, transparente Abläufe und eine Sanierung, bei der alle Arbeiten optimal aufeinander abgestimmt sind.
+              Ob Wohnung, Einfamilienhaus, Altbau oder Mehrfamilienhaus – eine erfolgreiche Sanierung beginnt
+              mit einer durchdachten Planung. Als SHK-meistergeführter Fachbetrieb koordiniert Radex alle
+              notwendigen Gewerke und begleitet Sie von der ersten Beratung bis zur schlüsselfertigen Übergabe.
             </p>
+            <ul className="br-hero-highlights" aria-label="Ihre Vorteile auf einen Blick">
+              <li>SHK-Meisterbetrieb</li>
+              <li>Generalunternehmer</li>
+              <li>Festpreisangebote</li>
+              <li>Rhein-Main-Gebiet</li>
+            </ul>
             <SharedCTABlock isHero />
             <p className="br-hero-micro">
               <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
             </p>
           </div>
         </div>
-        <div className="br-hero-right" style={{ backgroundImage: `url(${HERO_IMAGE})` }}>
-        </div>
+        <div
+          className="br-hero-right"
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          role="img"
+          aria-label="Teilsaniertes deutsches Einfamilienhaus mit professioneller Baustelle im Rhein-Main-Gebiet"
+          title="Sanierung Rhein-Main | Radex Objektmanagement"
+        />
       </section>
 
-      <section className="br-section">
+      <section className="br-section br-trust-usp-section">
         <div className="container">
-          <div className="br-benefits-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
-            {[
-              'SHK-meistergeführter Fachbetrieb',
-              'Generalunternehmer für alle Gewerke',
-              'Festpreisangebote',
-              'Über 500 abgeschlossene Projekte',
-              'Ein fester Ansprechpartner',
-              'Im gesamten Rhein-Main-Gebiet im Einsatz',
-            ].map((title) => (
-              <div key={title} className="br-benefit-card" style={{ textAlign: 'center', border: '1px solid #e5e7eb' }}>
-                <div className="br-benefit-icon"><Award size={32} color="#f97316" /></div>
-                <h3 style={{ fontSize: '16px' }}>{title}</h3>
-              </div>
-            ))}
-          </div>
+          <TrustUspCards cards={trustCards} />
         </div>
       </section>
 
       <NavLandingCards
         title="Welche Sanierung planen Sie?"
-        subtitle="Jede Immobilie stellt andere Anforderungen. Wählen Sie den Bereich aus, der am besten zu Ihrem Projekt passt. Auf den jeweiligen Seiten finden Sie ausführliche Informationen zu Planung, Ablauf, Kosten und individuellen Lösungen."
+        subtitle="Radex saniert Wohnungen, Häuser und ältere Bestandsgebäude im gesamten Rhein-Main-Gebiet – als Generalunternehmer von der Planung bis zur schlüsselfertigen Übergabe. Ob Wohnungssanierung, Haussanierung, Altbausanierung oder Komplettsanierung: Wählen Sie den Bereich, der zu Ihrem Projekt passt. Auf den jeweiligen Seiten finden Sie ausführliche Informationen zu Planung, Ablauf, Kosten und individuellen Lösungen."
         cards={sanierungCards}
       />
 
-      <section className="br-section">
-        <div className="container text-center" style={{ maxWidth: '800px' }}>
-          <h2 className="br-section-title">Noch unsicher, welche Sanierung die richtige ist?</h2>
-          <p className="br-section-subtitle mb-8">
-            Nicht jedes Gebäude benötigt eine Komplettsanierung. Senden Sie uns Fotos Ihrer Immobilie per WhatsApp oder vereinbaren Sie eine persönliche Beratung. Gemeinsam entwickeln wir die passende Sanierungsstrategie für Ihr Projekt.
-          </p>
+      <section className="br-section br-whatsapp-cta-section">
+        <div className="container br-whatsapp-cta-inner">
+          <div className="br-whatsapp-cta-copy">
+            <span className="br-whatsapp-cta-kicker">Schnellste Antwort</span>
+            <h2 className="br-section-title">Noch unsicher, welche Sanierung die richtige ist?</h2>
+            <p className="br-section-subtitle">
+              Nicht jede Immobilie benötigt eine Komplettsanierung. Oft reicht eine gezielte Teilsanierung –
+              von Bad und Elektro bis zu Böden und Heizung. Senden Sie uns einfach Fotos Ihrer Räume per
+              WhatsApp und erhalten Sie eine erste fachliche Einschätzung, oft noch am selben Tag.
+            </p>
+          </div>
           <SharedCTABlock centered />
         </div>
       </section>
 
-      {/* 3. WHY RADEX */}
       <section className="br-section">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Warum Eigentümer Radex wählen</h2>
           </div>
-          <div className="br-benefits-grid">
-            <div className="br-benefit-card">
-              <div className="br-benefit-icon"><Award size={40} color="#f97316" /></div>
-              <h3>Eingetragener<br/>SHK-Meisterbetrieb</h3>
-              <p>Zertifizierte Arbeit nach aktuellen technischen Richtlinien und Handwerksstandards.</p>
-            </div>
-            <div className="br-benefit-card">
-              <div className="br-benefit-icon"><Users size={40} color="#f97316" /></div>
-              <h3>Alles aus<br/>einer Hand</h3>
-              <p>Ein zentraler Ansprechpartner während des gesamten Projektverlaufs.</p>
-            </div>
-            <div className="br-benefit-card">
-              <div className="br-benefit-icon"><ShieldCheck size={40} color="#f97316" /></div>
-              <h3>Festpreis-<br/>Garantie</h3>
-              <p>Transparente Angebote ohne versteckte Überraschungen oder Nachforderungen.</p>
-            </div>
-            <div className="br-benefit-card">
-              <div className="br-benefit-icon"><CheckCircle2 size={40} color="#f97316" /></div>
-              <h3>Staubarme<br/>Sanierung</h3>
-              <p>Professionelle Schutzsysteme für saubere Baustellenumgebungen.</p>
-            </div>
-          </div>
+          <PremiumIconCards cards={whyRadexCards} />
         </div>
       </section>
 
-      {/* 4. CURRENT PROJECTS */}
-      <section className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Aktuelle Sanierungsprojekte</h2>
-            <p className="br-section-subtitle">
-              Verfolgen Sie laufende Sanierungen und erhalten Sie Einblicke, wie Immobilien im Rhein-Main-Gebiet modernisiert werden.
-            </p>
-          </div>
-          
-          <div className="br-projects-grid">
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&q=80&w=800)' }}>
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Rohbauphase Komplettsanierung</h4>
-                <p>Frankfurt am Main</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800)' }}>
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Wohnungssanierung Innenausbau</h4>
-                <p>Wiesbaden</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=800)' }}>
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Heizungsmodernisierung Altbau</h4>
-                <p>Darmstadt</p>
-              </div>
-            </a>
-          </div>
-          
-          <div className="text-center mt-10">
-            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{display: 'inline-block', textDecoration: 'none'}}>Alle Live-Projekte ansehen</a>
-          </div>
-        </div>
-      </section>
+      <RadexLiveSection
+        title="Aktuelle Sanierungsprojekte"
+        intro="Verfolgen Sie laufende Sanierungen und erhalten Sie Einblicke, wie Immobilien im Rhein-Main-Gebiet modernisiert werden."
+        heroImage="/img/sanierung-hero.png"
+        projects={radexLiveProjects}
+      />
 
-      {/* 5. REFERENCES */}
-      <section className="br-section">
+      <section className="br-section br-bg-light br-references-section">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Abgeschlossene Sanierungen</h2>
             <p className="br-section-subtitle">
               Entdecken Sie fertiggestellte Wohnungssanierungen, Haussanierungen und Altbauaufwertungen aus der gesamten Region.
             </p>
-            <div className="br-tabs">
-              <div className="br-tab active">Wohnungssanierungen</div>
-              <div className="br-tab">Haussanierungen</div>
-              <div className="br-tab">Altbausanierungen</div>
-            </div>
           </div>
-          
-          <div className="br-projects-grid">
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800)' }}></div>
-              <div className="br-project-info">
-                <h4>Penthouse Modernisierung</h4>
-                <p>Frankfurt Riedberg</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800)' }}></div>
-              <div className="br-project-info">
-                <h4>Kernsanierung EFH</h4>
-                <p>Bad Homburg</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1524813686514-a57563d77965?auto=format&fit=crop&q=80&w=800)' }}></div>
-              <div className="br-project-info">
-                <h4>Denkmalschutz Villa</h4>
-                <p>Kronberg</p>
-              </div>
-            </a>
+          <div className="br-projects-grid br-references-grid">
+            {referenceCards.map((ref) => (
+              <a
+                key={ref.location + ref.desc}
+                href={RADEX_LIVE_URL}
+                className="br-project-card br-reference-card"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="br-project-img" style={{ backgroundImage: `url(${ref.image})` }} />
+                <div className="br-project-info">
+                  <h4>{ref.location}</h4>
+                  <p className="br-project-desc">{ref.desc}</p>
+                  <span className="br-btn-orange br-project-cta">Projekt ansehen &rarr;</span>
+                </div>
+              </a>
+            ))}
           </div>
           <div className="text-center mt-10">
-            <button className="br-btn-outline-orange">Alle Referenzen ansehen</button>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+              Alle Referenzen ansehen
+            </a>
           </div>
         </div>
       </section>
 
-      {/* 6. COSTS */}
-      <section className="br-section br-bg-light">
+      <section className="br-section">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Was kostet eine Sanierung?</h2>
-            <p className="br-section-subtitle">
-              Die Sanierungskosten hängen von der Größe, dem Zustand und dem Umfang Ihres Projekts ab. Detaillierte Kostenratgeber finden Sie unten.
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Jede Sanierung ist anders – Größe, Bausubstanz und Umfang bestimmen den Preis. Die folgenden
+              Kategorien geben Ihnen typische Einstiegspreise als erste Orientierung. Für eine individuelle
+              Schätzung nutzen Sie unseren Kostenrechner – das verbindliche Festpreisangebot folgt nach Besichtigung.
             </p>
           </div>
-          
-          <div className="br-costs-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))'}}>
-            
-            <Link to="/sanierung/wohnungssanierung" className="br-cost-card" style={{textDecoration: 'none', color: 'inherit'}}>
-              <div className="br-cost-header">
-                <h3>Wohnungssanierung Kosten</h3>
-                <div className="br-cost-price" style={{fontSize: '15px', color: '#f97316', display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Ratgeber lesen <ArrowRight size={14} />
+          <p className="br-cost-kicker text-center">Typische Einstiegspreise</p>
+          <div className="br-costs-grid br-costs-grid--three">
+            {costCategoryCards.map((card) => (
+              <Link key={card.title} to={card.to} className="br-cost-card">
+                <div className="br-cost-category-img" style={{ backgroundImage: `url(${card.image})` }} />
+                <div className="br-cost-header">
+                  <h3>{card.title}</h3>
+                  <p className="br-cost-price">
+                    <span>{card.price}</span>
+                  </p>
                 </div>
-              </div>
-              <div className="br-cost-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1631889993959-41b4e9c6e3c5?auto=format&fit=crop&q=80&w=800)' }}></div>
-            </Link>
-
-            <Link to="/sanierung/haussanierung" className="br-cost-card" style={{textDecoration: 'none', color: 'inherit'}}>
-              <div className="br-cost-header">
-                <h3>Haussanierung Kosten</h3>
-                <div className="br-cost-price" style={{fontSize: '15px', color: '#f97316', display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Ratgeber lesen <ArrowRight size={14} />
-                </div>
-              </div>
-              <div className="br-cost-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800)' }}></div>
-            </Link>
-
-            <Link to="/sanierung/altbausanierung" className="br-cost-card" style={{textDecoration: 'none', color: 'inherit'}}>
-              <div className="br-cost-header">
-                <h3>Altbausanierung Kosten</h3>
-                <div className="br-cost-price" style={{fontSize: '15px', color: '#f97316', display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  Ratgeber lesen <ArrowRight size={14} />
-                </div>
-              </div>
-              <div className="br-cost-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1524813686514-a57563d77965?auto=format&fit=crop&q=80&w=800)' }}></div>
-            </Link>
-            
-          </div>
-        </div>
-      </section>
-
-      <SanierungskostenRechner defaultType="wohnung" compact />
-
-      {/* 7. FAQ */}
-      <section className="br-section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Häufig gestellte Fragen</h2>
-          </div>
-          <div className="br-faq-grid">
-            {faqsData.map((faq, i) => (
-              <div key={i} className="home-faq-item">
-                <button 
-                  className="home-faq-btn" 
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                >
-                  <span style={{fontWeight: 600, color: '#1f2937', fontSize: '16px', textAlign: 'left'}}>{faq.q}</span>
-                  <ChevronDown 
-                    style={{
-                      transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease'
-                    }}
-                    color="#9ca3af" 
-                    size={18} 
-                  />
-                </button>
-                <div 
-                  className="home-faq-answer" 
-                  style={{
-                    display: 'grid', 
-                    gridTemplateRows: openFaq === i ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                    padding: 0
-                  }}
-                >
-                  <div style={{overflow: 'hidden'}}>
-                    <div style={{borderTop: '1px solid #f9fafb', paddingTop: '16px', paddingBottom: '16px', paddingLeft: '16px', paddingRight: '16px', color: '#4b5563', fontSize: '15px', lineHeight: '1.6'}}>
-                      {faq.a}
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <p className="br-cost-desc">{card.desc}</p>
+                <span className="br-btn-orange br-cost-cta">Kosten ansehen &rarr;</span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 8. CONTACT */}
-      <LandingContactSection
-        title="Planen Sie Ihr Sanierungsprojekt"
-        intro="Planen Sie eine Wohnungssanierung, Haussanierung oder Altbaumodernisierung? Senden Sie uns Fotos per WhatsApp oder vereinbaren Sie eine Vor-Ort-Beratung."
-      />
-
-      {/* 9. ADDITIONAL INFORMATION (SEO CONTENT) */}
-      <section className="br-section">
-        <div className="container">
-          <details className="br-seo-dropdown">
-            <summary>
-              Weitere Informationen anzeigen
-              <ChevronDown size={20} />
-            </summary>
-            <div className="br-seo-content">
-              <div className="br-seo-text-block mb-8">
-                <h3 className="mb-4 text-xl font-bold">Umfassende Sanierungsleistungen im Rhein-Main-Gebiet</h3>
-                <p className="mb-4 text-gray-600">Als Generalunternehmer steuert Radex Ihr gesamtes Bauvorhaben. Von der Kernsanierung über energetische Maßnahmen bis hin zum schlüsselfertigen Innenausbau erhalten Sie alle Leistungen aus einer Hand.</p>
-                <p className="text-gray-600">Wir unterstützen Sie bei der Beantragung von Fördermitteln (KfW/BAFA), koordinieren alle Gewerke und garantieren eine fachgerechte Umsetzung nach neuesten technischen Standards. Unser Einzugsgebiet umfasst Frankfurt, Wiesbaden, Mainz, Darmstadt und die gesamte umliegende Region.</p>
-              </div>
-              <p className="text-center mb-6 font-semibold">Hier finden Sie detaillierte Informationen zu folgenden Themen:</p>
-              <div className="br-seo-tags">
-                <span className="br-seo-tag">Kernsanierung</span>
-                <span className="br-seo-tag">Sanierungsablauf</span>
-                <span className="br-seo-tag">Fördermittel</span>
-                <span className="br-seo-tag">Energieeffizienz</span>
-                <span className="br-seo-tag">Modernisierungsratgeber</span>
-                <span className="br-seo-tag">Technische Informationen</span>
-              </div>
-            </div>
-          </details>
-
-          <div className="br-trust-footer">
-            <div className="br-trust-item">
-              <Award size={32} color="#aaa" />
-              <div>
-                <strong>500+</strong>
-                <span>Abgeschlossene Projekte</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <MapPin size={32} color="#aaa" />
-              <div>
-                <strong>60+</strong>
-                <span>Betreute Städte</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <ShieldCheck size={32} color="#aaa" />
-              <div>
-                <strong>100%</strong>
-                <span>Festpreisgarantie</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <Users size={32} color="#aaa" />
-              <div>
-                <strong>SHK-Meister</strong>
-                <span>Zugelassener Fachbetrieb</span>
-              </div>
-            </div>
-          </div>
+      <section className="br-section br-bg-light">
+        <SanierungskostenRechner defaultType="wohnung" compact sanierungOnly />
+        <div className="container br-calculator-disclaimer">
+          <p>
+            <strong>Hinweis:</strong> Die berechneten Kosten sind typische Einstiegspreise und dienen ausschließlich
+            als erste Orientierung für Ihre Sanierung. Der tatsächliche Festpreis hängt von Fläche, Bausubstanz,
+            Sanierungsumfang und gewünschter Ausstattung ab. Nach einer Besichtigung erhalten Sie ein individuelles
+            Festpreisangebot.
+          </p>
         </div>
       </section>
+
+      <FaqAccordion faqs={faqsData} />
+
+      <ContactForm />
+
+      <SeoTocSection
+        title="Weitere Informationen zur Sanierung"
+        intro="Umfassende Sanierungsleistungen im Rhein-Main-Gebiet – von Wohnungssanierung und Haussanierung über Altbausanierung und Komplettsanierung bis zur energetischen Modernisierung. Hier finden Sie weiterführende Informationen zu Planung, Kosten, Ablauf und Leistungen."
+        sections={seoSections}
+      />
     </main>
   );
 }

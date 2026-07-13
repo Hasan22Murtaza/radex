@@ -1,0 +1,62 @@
+/* Sanierung Hub – Final Polish additions */
+
+/* FAQ polish */
+.badsanierung-page .br-faq-grid {
+  gap: 16px;
+}
+
+.badsanierung-page .br-faq-grid .home-faq-item {
+  border: 1px solid var(--br-border);
+  border-radius: 10px;
+  margin-bottom: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.badsanierung-page .br-faq-grid .home-faq-btn {
+  padding: 20px 24px;
+  gap: 16px;
+}
+
+.badsanierung-page .br-faq-grid .home-faq-btn span {
+  font-size: 17px !important;
+  line-height: 1.45;
+  color: var(--navy) !important;
+}
+
+.badsanierung-page .br-faq-grid .home-faq-answer > div > div {
+  padding: 0 24px 20px !important;
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  color: #4b5563 !important;
+  border-top: 1px solid #f3f4f6;
+}
+
+/* Nav landing cards – smaller icons */
+.br-nav-landing-grid .br-decision-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+}
+
+.br-nav-landing-grid .br-decision-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.br-nav-landing-grid .br-decision-card {
+  padding: 20px;
+}
+
+.br-nav-landing-grid .br-cost-img {
+  height: 160px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+/* Cost category cards */
+.br-cost-category-img {
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px 8px 0 0;
+}

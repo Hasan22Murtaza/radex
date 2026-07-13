@@ -89,22 +89,30 @@ function clamp(value, min, max) {
   return Math.min(Math.max(number, min), max);
 }
 
+const sanierungTypes = ['wohnung', 'haus', 'altbau'];
+
 export default function SanierungskostenRechner({
   defaultType = 'bad',
   compact = false,
   showIntro = true,
   badOnly = false,
+  sanierungOnly = false,
   id = 'sanierungskosten-rechner'
 }) {
-  const safeDefault = calculators[defaultType] ? defaultType : 'bad';
-  const [activeType, setActiveType] = useState(safeDefault);
+  const availableTypes = badOnly
+    ? ['bad']
+    : sanierungOnly
+      ? sanierungTypes
+      : Object.keys(calculators);
+  const fallbackType = availableTypes.includes(defaultType) ? defaultType : availableTypes[0];
+  const [activeType, setActiveType] = useState(fallbackType);
   const [quality, setQuality] = useState('komfort');
   const [areaValues, setAreaValues] = useState(() =>
     Object.fromEntries(Object.entries(calculators).map(([key, item]) => [key, item.defaultArea]))
   );
   const [sent, setSent] = useState(false);
 
-  const active = calculators[badOnly ? 'bad' : activeType];
+  const active = calculators[activeType];
   const price = active.prices[quality];
   const area = clamp(areaValues[activeType], active.min, active.max);
 
@@ -165,13 +173,15 @@ export default function SanierungskostenRechner({
         {showIntro && (
           <div className="sk-rechner-heading">
             <span className="sk-rechner-kicker">
-              {badOnly ? 'Badsanierung Kosten-Rechner' : 'Sanierungskosten Rechner'}
+              {badOnly ? 'Badsanierung Kosten-Rechner' : sanierungOnly ? 'Sanierungskosten-Rechner' : 'Sanierungskosten Rechner'}
             </span>
             <h2>{badOnly ? 'Was kostet Ihre Badsanierung?' : 'Was kostet Ihr Sanierungsprojekt?'}</h2>
             <p>
               {badOnly
                 ? 'Jede Badsanierung ist individuell. Wählen Sie Qualitätsstufe und Badgröße, um eine erste Orientierung zu den typischen Einstiegspreisen zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'
-                : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
+                : sanierungOnly
+                  ? 'Jede Sanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Projekttyp, Qualitätsstufe und Fläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
+                  : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
             </p>
           </div>
         )}
@@ -179,7 +189,8 @@ export default function SanierungskostenRechner({
         <div className="sk-rechner-card">
           {!badOnly && (
           <div className="sk-rechner-tabs" role="tablist" aria-label="Rechnertyp auswählen">
-            {Object.entries(calculators).map(([key, item]) => {
+            {availableTypes.map((key) => {
+              const item = calculators[key];
               const Icon = item.icon;
               const isActive = activeType === key;
               return (
@@ -291,7 +302,7 @@ export default function SanierungskostenRechner({
 
                 <div className="sk-rechner-result-highlight">
                   <span className="sk-rechner-result-highlight-label">
-                    {badOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
+                    {badOnly || sanierungOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
                   </span>
                   <strong className="sk-rechner-result-highlight-value">{formatEuro(result.avg)}</strong>
                 </div>
@@ -318,7 +329,9 @@ export default function SanierungskostenRechner({
                 <p>
                   {badOnly
                     ? 'Alle angezeigten Beträge sind typische Einstiegspreise für Badsanierungen zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Badgröße, Zustand der Leitungen, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'
-                    : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
+                    : sanierungOnly
+                      ? 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
+                      : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
                 </p>
               </div>
             </div>
