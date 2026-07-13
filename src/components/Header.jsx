@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from '../router';
 import { Phone, Menu, X } from 'lucide-react';
 import Logo from './Logo';
+import { RADEX_LIVE_URL } from '../constants/brand';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,6 +74,7 @@ export default function Header() {
     { label: 'Einsatzgebiete', to: '/einsatzgebiete-rhein-main', onClick: () => setIsOpen(false) },
     { label: 'Ratgeber', to: '/ratgeber', onClick: () => setIsOpen(false) },
     { label: 'Über Radex', to: '/ueber-uns', onClick: () => setIsOpen(false) },
+    { label: 'Radex Live', href: RADEX_LIVE_URL, onClick: () => setIsOpen(false) },
     { label: 'Kontakt', href: '#kontakt', onClick: (e) => handleScrollToSection(e, 'kontakt') },
   ];
 

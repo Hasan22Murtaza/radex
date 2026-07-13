@@ -1,67 +1,80 @@
 import { ArrowRight } from 'lucide-react';
+import { Link } from '../router';
 import { RADEX_LIVE_URL } from '../constants/brand';
 
 export default function Examples() {
   const projects = [
     {
-      img: 'https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=600',
+      img: '/img/home-sanierung.webp',
       title: 'Wohnungssanierung',
-      location: 'Offenbach',
-      badge: 'live'
+      location: 'Offenbach am Main',
+      badge: 'live',
     },
     {
-      img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=600',
+      img: '/img/home-hero.webp',
       title: 'Haussanierung',
       location: 'Darmstadt',
-      badge: null
+      badge: null,
     },
     {
-      img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=600',
+      img: '/img/Komplettbadsanierung.jpg',
       title: 'Altbausanierung',
-      location: 'Frankfurt',
-      badge: 'before-after'
+      location: 'Frankfurt am Main',
+      badge: 'before-after',
     },
     {
-      img: 'https://images.unsplash.com/photo-1541123356219-284ebe98ae3b?auto=format&fit=crop&q=80&w=600',
+      img: '/img/leistungen-radex-live.webp',
       title: 'Komplettsanierung',
       location: 'Rödermark',
-      badge: null
-    }
+      badge: null,
+    },
   ];
+
+  const FALLBACK_IMG = '/img/leistungen-radex-live.webp';
 
   return (
     <section id="beispiele" className="home-section bg-white">
       <div className="container">
-        <div className="home-split">
-          
-          {/* Left Text Column */}
-          <div className="home-split-left" style={{paddingTop: '16px'}}>
-            <h2 className="text-3xl font-bold text-navy" style={{marginBottom: '16px', lineHeight: 1.2}}>Aktuelle Projekte & Referenzen</h2>
-            <p className="text-gray-600" style={{marginBottom: '32px', fontSize: '15px', lineHeight: 1.6}}>
-              Verfolgen Sie laufende Baustellen, entdecken Sie abgeschlossene Sanierungen und Vorher/Nachher-Vergleiche aus dem Rhein-Main-Gebiet.
+        <div className="home-split home-split--projects">
+          <div className="home-split-left">
+            <span className="home-section-kicker">Referenzen</span>
+            <h2 className="text-3xl font-bold text-navy">Aktuelle Projekte & Referenzen</h2>
+            <p className="text-gray-600 home-section-intro-text">
+              Verfolgen Sie laufende Baustellen, entdecken Sie abgeschlossene Sanierungen und
+              Vorher/Nachher-Vergleiche aus dem Rhein-Main-Gebiet – transparent auf Radex Live.
             </p>
-            <a href={RADEX_LIVE_URL} className="home-btn-orange" style={{fontSize: '14px', padding: '10px 20px'}}>
+            <Link to={RADEX_LIVE_URL} className="home-btn-orange">
               Alle Projekte ansehen <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
 
-          {/* Right Images Column */}
           <div className="home-split-right">
-            <div className="home-grid-4">
+            <div className="home-projects-grid">
               {projects.map((project, idx) => (
-                <a key={idx} href={RADEX_LIVE_URL} className="home-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div className="home-project-img-wrapper" style={{position: 'relative'}}>
-                    <img src={project.img} alt={project.title} className="home-project-img" />
+                <Link key={idx} to={RADEX_LIVE_URL} className="home-project-card home-project-card--premium">
+                  <div className="home-project-img-wrapper">
+                    <img
+                      src={project.img}
+                      alt={project.title}
+                      className="home-project-img"
+                      loading="lazy"
+                      onError={(e) => {
+                        if (e.currentTarget.src !== FALLBACK_IMG) {
+                          e.currentTarget.src = FALLBACK_IMG;
+                        }
+                      }}
+                    />
                     {project.badge === 'live' && <span className="br-project-badge live">Radex Live</span>}
                     {project.badge === 'before-after' && <span className="br-project-badge before-after">Vorher/Nachher</span>}
                   </div>
-                  <h4 className="font-bold text-navy text-sm">{project.title}</h4>
-                  <p className="text-xs text-gray-500">{project.location}</p>
-                </a>
+                  <div className="home-project-body">
+                    <h3>{project.title}</h3>
+                    <p className="home-project-location">{project.location}</p>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
-
         </div>
       </div>
     </section>

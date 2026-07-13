@@ -14,8 +14,12 @@ export function RadexLiveProjectCard({
   desc,
   cta,
 }) {
+  const isInternal = RADEX_LIVE_URL.startsWith('/');
+  const CardWrapper = isInternal ? Link : 'a';
+  const linkProps = isInternal ? { to: RADEX_LIVE_URL } : { href: RADEX_LIVE_URL };
+
   return (
-    <a href={RADEX_LIVE_URL} className="br-project-card" style={projectCardLinkStyle}>
+    <CardWrapper {...linkProps} className="br-project-card" style={projectCardLinkStyle}>
       <div className="br-project-img" style={{ backgroundImage: `url(${image})` }}>
         {badge && (
           <span className={`br-project-badge ${badgeClassName || (badge === 'LIVE' || badge === 'Live' ? 'live' : '')}`}>
@@ -33,7 +37,7 @@ export function RadexLiveProjectCard({
           </span>
         )}
       </div>
-    </a>
+    </CardWrapper>
   );
 }
 
@@ -284,9 +288,15 @@ export function RadexLiveSection({
         </div>
 
         <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
-            Alle Projekte ansehen
-          </a>
+          {RADEX_LIVE_URL.startsWith('/') ? (
+            <Link to={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+              Alle Projekte ansehen
+            </Link>
+          ) : (
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+              Alle Projekte ansehen
+            </a>
+          )}
           <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
             Projekt anfragen
           </a>

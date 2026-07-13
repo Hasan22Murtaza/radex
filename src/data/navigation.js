@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 
 const RADEX_LIVE_URL = 'https://www.radex-objektmanagement.de/radex-live/ger';
+export { RADEX_LIVE_URL };
 
 export const badsanierungCards = [
   {

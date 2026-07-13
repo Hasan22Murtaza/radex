@@ -82,15 +82,30 @@ export default function FaqContactSplit() {
                 Sie planen eine Wohnungs-, Haus- oder Altbausanierung? Senden Sie uns Bilder per WhatsApp oder vereinbaren Sie einen Vor-Ort-Termin mit unserem Team.
               </p>
               
-              <div style={{display: 'flex', flexWrap: 'wrap', gap: '12px'}}>
-                <a href="#kontakt" className="home-btn-orange" style={{padding: '10px 20px', fontSize: '14px'}}>
+              <div className="home-contact-channels" style={{ marginTop: '8px' }}>
+                <a href="tel:+496074960620" className="home-contact-channel home-contact-channel--highlight">
+                  <div className="home-contact-channel-icon" style={{ background: '#fff7ed' }}>
+                    <Phone color="var(--navy)" size={20} />
+                  </div>
+                  <div>
+                    <span className="home-contact-channel-label">Telefon</span>
+                    <strong className="home-contact-channel-value">+49 6074 9606 20</strong>
+                  </div>
+                </a>
+                <a href="https://wa.me/496074960620" target="_blank" rel="noopener noreferrer" className="home-contact-channel home-contact-channel--highlight">
+                  <div className="home-contact-channel-icon" style={{ background: 'rgba(37,211,102,0.12)' }}>
+                    <MessageSquare color="#25D366" size={20} />
+                  </div>
+                  <div>
+                    <span className="home-contact-channel-label">WhatsApp</span>
+                    <strong className="home-contact-channel-value">Fotos senden & Chat starten</strong>
+                  </div>
+                </a>
+              </div>
+
+              <div style={{ marginTop: '20px' }}>
+                <a href="#kontakt" className="home-btn-orange" style={{ padding: '10px 20px', fontSize: '14px', display: 'inline-flex' }}>
                   Projekt anfragen <ArrowRight size={14} />
-                </a>
-                <a href="https://wa.me/496074960620" target="_blank" rel="noopener noreferrer" className="home-btn-white" style={{padding: '10px 20px', fontSize: '14px'}}>
-                  WhatsApp schreiben <MessageSquare size={14} color="#25D366" />
-                </a>
-                <a href="tel:+496074960620" className="home-btn-white" style={{padding: '10px 20px', fontSize: '14px'}}>
-                  Jetzt anrufen <Phone size={14} />
                 </a>
               </div>
             </div>

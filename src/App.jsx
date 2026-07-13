@@ -54,6 +54,7 @@ import BathroomRenovation from './pages/BathroomRenovation';
 import SanierungskostenRechnerPage from './pages/SanierungskostenRechnerPage';
 import SanierungAblaufLanding from './pages/SanierungAblaufLanding';
 import SanierungskostenLanding from './pages/SanierungskostenLanding';
+import RadexLiveRedirect from './pages/RadexLiveRedirect';
 
 function ScrollAndAnimationManager() {
   const location = useLocation();
@@ -169,12 +170,14 @@ export default function App({ location }) {
           <Route path="/sanierungs-soforthilfe-rhein-main" element={<SanierungsSoforthilfeLanding />} />
           <Route path="/raeume-umbauen-rhein-main" element={<RaeumeUmbauenLanding />} />
           <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
+          <Route path="/radex-live" element={<RadexLiveRedirect />} />
           <Route path="/ueber-uns" element={<UeberUns />} />
           <Route path="/karriere" element={<Karriere />} />
           <Route path="/sanierungskosten-rechner" element={<SanierungskostenRechnerPage />} />
           <Route path="/badsanierung-kosten" element={<SanierungskostenRechnerPage defaultType="bad" metaType="bad" />} />
           <Route path="/wohnungssanierung-kosten" element={<SanierungskostenRechnerPage defaultType="wohnung" metaType="wohnung" />} />
           <Route path="/altbausanierung-kosten" element={<SanierungskostenRechnerPage defaultType="altbau" metaType="altbau" />} />
+          <Route path="/haussanierung-kosten" element={<SanierungskostenRechnerPage defaultType="haus" metaType="haus" />} />
           <Route path="/impressum" element={<Impressum />} />
           <Route path="/datenschutz" element={<Datenschutz />} />
         </Routes>

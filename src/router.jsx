@@ -91,6 +91,16 @@ export function Redirect({ to }) {
 
 export function Link({ to, children, className, onClick, style }) {
   const { navigate } = useContext(RouterContext);
+  const isExternal = /^https?:\/\//i.test(to);
+
+  if (isExternal) {
+    return (
+      <a href={to} className={className} style={style} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+
   return (
     <a 
       href={to} 

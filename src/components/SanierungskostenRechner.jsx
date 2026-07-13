@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Calculator, Mail, Ruler, AlertTriangle, Home, Bath, Building2, ChevronDown, Info } from 'lucide-react';
+import { Calculator, Mail, Ruler, AlertTriangle, Home, Bath, Building2, Landmark, ChevronDown, Info } from 'lucide-react';
 import { Link } from '../router';
 import './SanierungskostenRechner.css';
 
@@ -18,8 +18,8 @@ const calculators = {
     prices: {
       basis: { label: 'Basis', min: 8000, avg: 11500, max: 15000 },
       komfort: { label: 'Komfort', min: 15000, avg: 20000, max: 25000 },
-      premium: { label: 'Premium', min: 25000, avg: 35000, max: 45000, suffix: '+' }
-    }
+      premium: { label: 'Premium', min: 25000, avg: 35000, max: 45000, suffix: '+' },
+    },
   },
   wohnung: {
     label: 'Wohnungssanierung',
@@ -35,12 +35,29 @@ const calculators = {
     prices: {
       basis: { label: 'Basis', min: 300, avg: 450, max: 600 },
       komfort: { label: 'Komfort', min: 600, avg: 800, max: 1000 },
-      premium: { label: 'Premium', min: 1000, avg: 1400, max: 1800 }
-    }
+      premium: { label: 'Premium', min: 1000, avg: 1400, max: 1800 },
+    },
+  },
+  haus: {
+    label: 'Haussanierung',
+    icon: Home,
+    resultTitle: 'Geschätzte Kosten Ihrer Haussanierung',
+    areaLabel: 'Wohnfläche',
+    areaUnit: 'm²',
+    min: 50,
+    max: 1000,
+    defaultArea: 150,
+    mode: 'sqm',
+    seoText: 'Haussanierung Kosten',
+    prices: {
+      basis: { label: 'Basis', min: 400, avg: 550, max: 700 },
+      komfort: { label: 'Komfort', min: 700, avg: 950, max: 1200 },
+      premium: { label: 'Premium', min: 1200, avg: 1600, max: 2000 },
+    },
   },
   altbau: {
     label: 'Altbausanierung',
-    icon: Home,
+    icon: Landmark,
     resultTitle: 'Geschätzte Kosten Ihrer Altbausanierung',
     areaLabel: 'Wohnfläche',
     areaUnit: 'm²',
@@ -52,9 +69,9 @@ const calculators = {
     prices: {
       basis: { label: 'Basis', min: 500, avg: 700, max: 900 },
       komfort: { label: 'Komfort', min: 900, avg: 1200, max: 1500 },
-      premium: { label: 'Premium', min: 1500, avg: 2000, max: 2500 }
-    }
-  }
+      premium: { label: 'Premium', min: 1500, avg: 2000, max: 2500 },
+    },
+  },
 };
 
 const qualityOptions = ['basis', 'komfort', 'premium'];
@@ -147,10 +164,12 @@ export default function SanierungskostenRechner({
         {showIntro && (
           <div className="sk-rechner-heading">
             <span className="sk-rechner-kicker">Sanierungskosten Rechner</span>
-            <h2>Sanierungskosten schnell einschätzen</h2>
+            <h2>Was kostet Ihr Sanierungsprojekt?</h2>
             <p>
-              Nutzen Sie den Radex Sanierungskosten Rechner für eine erste Orientierung zu Badsanierung Kosten,
-              Wohnungssanierung Kosten und Altbausanierung Kosten im Rhein-Main-Gebiet.
+              Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp,
+              Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend
+              können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung
+              im Rhein-Main-Gebiet.
             </p>
           </div>
         )}
@@ -190,7 +209,10 @@ export default function SanierungskostenRechner({
               <div className="sk-rechner-inputs">
                 <div className="sk-rechner-inputs-header">
                   <h3>Ihre Angaben</h3>
-                  <p>Wählen Sie Qualität und Größe für eine erste Kostenschätzung.</p>
+                  <p>
+                    Passen Sie Qualitätsstufe und Fläche an – der Rechner zeigt Ihnen sofort einen
+                    typischen Kostenbereich als Orientierung.
+                  </p>
                 </div>
 
                 <div className="sk-rechner-field">
@@ -286,11 +308,12 @@ export default function SanierungskostenRechner({
             <div className="sk-rechner-note">
               <AlertTriangle size={20} aria-hidden="true" />
               <div>
-                <strong>Wichtiger Hinweis</strong>
+                <strong>Orientierungswerte – kein Festpreis</strong>
                 <p>
-                  Die angegebenen Kosten dienen lediglich als erste Orientierung. Der tatsächliche Preis hängt vom
-                  Zustand der Immobilie, den gewünschten Materialien und dem Umfang der Arbeiten ab. Nach einer
-                  Besichtigung vor Ort können die Kosten niedriger oder höher ausfallen.
+                  Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein
+                  verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand,
+                  Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung
+                  erhalten Sie ein transparentes Festpreisangebot von Radex.
                 </p>
               </div>
             </div>
@@ -298,10 +321,10 @@ export default function SanierungskostenRechner({
 
           <div className="sk-rechner-lead">
             <div className="sk-rechner-lead-copy">
-              <h3>Kostenlose Ersteinschätzung vom Sanierungsprofi</h3>
+              <h3>Kostenlose Ersteinschätzung anfordern</h3>
               <p>
-                Senden Sie Ihre Eckdaten direkt an Radex. Wir melden uns für eine persönliche Einschätzung Ihrer
-                Sanierungskosten in Frankfurt und im Rhein-Main-Gebiet.
+                Überzeugt von Ihrem Ergebnis? Senden Sie Ihre Rechnerdaten direkt an uns – wir melden uns
+                persönlich mit einer fachlichen Einschätzung und vereinbaren auf Wunsch einen Vor-Ort-Termin.
               </p>
             </div>
 
@@ -338,6 +361,7 @@ export default function SanierungskostenRechner({
             <Link to="/sanierungskosten-rechner">Sanierungskosten Rechner</Link>
             <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>
             <Link to="/wohnungssanierung-kosten">Wohnungssanierung Kosten</Link>
+            <Link to="/haussanierung-kosten">Haussanierung Kosten</Link>
             <Link to="/altbausanierung-kosten">Altbausanierung Kosten</Link>
             <span>Kernsanierung Kosten</span>
             <span>Sanierung Frankfurt</span>

@@ -1,22 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
-import { Play, Volume2, VolumeX } from 'lucide-react';
+import { Link } from '../router';
+import { Play, Volume2, VolumeX, ArrowRight } from 'lucide-react';
+import { RADEX_LIVE_URL } from '../constants/brand';
+import testVideo from '../assets/test.mp4';
+import personImage from '../assets/Screenshot_5.png';
 import '../home.css';
 
-const VIDEO_ID = '4A0f7A5mPLI';
+const RADEX_LIVE_VIDEO_ID = '4A0f7A5mPLI';
 
-export default function VideoSection() {
+function YouTubeEmbed({ videoId, title }) {
   const iframeRef = useRef(null);
   const containerRef = useRef(null);
   const [muted, setMuted] = useState(true);
-  // Tracks whether the customer has deliberately muted, so the
-  // auto-unmute-on-interaction never overrides their choice.
   const userMutedRef = useRef(false);
-  // True once the YouTube player has loaded and accepts API commands.
   const playerReadyRef = useRef(false);
-  // Latest in-view state, so we can apply it as soon as the player is ready.
   const inViewRef = useRef(false);
 
-  // Control the player via the YouTube iframe postMessage API.
   const sendCommand = (func, args = []) => {
     iframeRef.current?.contentWindow?.postMessage(
       JSON.stringify({ event: 'command', func, args }),
@@ -24,17 +23,14 @@ export default function VideoSection() {
     );
   };
 
-  // Play only while in view; pause otherwise. No-op until the player is ready.
   const syncPlayback = () => {
     if (!playerReadyRef.current) return;
     sendCommand(inViewRef.current ? 'playVideo' : 'pauseVideo');
   };
 
-  // Once the iframe loads, register the JS API listener and apply the
-  // current in-view state (commands sent before this are dropped by YouTube).
   const handleIframeLoad = () => {
     iframeRef.current?.contentWindow?.postMessage(
-      JSON.stringify({ event: 'listening', id: VIDEO_ID }),
+      JSON.stringify({ event: 'listening', id: videoId }),
       '*'
     );
     playerReadyRef.current = true;
@@ -47,9 +43,6 @@ export default function VideoSection() {
     setMuted(false);
   };
 
-  // Sound on by default: browsers block unmuted autoplay, so the video
-  // starts muted and we turn the sound on the moment the user first
-  // interacts with the page (click / tap / scroll / key).
   useEffect(() => {
     const handleFirstInteraction = () => {
       if (!userMutedRef.current) {
@@ -67,9 +60,6 @@ export default function VideoSection() {
     return removeListeners;
   }, []);
 
-  // Auto play/pause based on whether the video is in view.
-  // Pausing preserves the playback position, so re-entering resumes
-  // from where it left off.
   useEffect(() => {
     const target = containerRef.current;
     if (!target) return;
@@ -84,8 +74,6 @@ export default function VideoSection() {
 
     observer.observe(target);
 
-    // Also pause when the browser tab is hidden, and resume when it
-    // becomes visible again (only if still in view).
     const handleVisibility = () => {
       if (document.hidden) {
         sendCommand('pauseVideo');
@@ -114,123 +102,115 @@ export default function VideoSection() {
   };
 
   return (
-    <section className="home-section" style={{background: '#111827', color: '#fff', padding: '80px 0'}}>
-      <div className="container">
-        <div style={{display: 'flex', flexWrap: 'wrap', gap: '40px', alignItems: 'center'}}>
+    <div ref={containerRef} className="home-radex-live-video">
+      <iframe
+        ref={iframeRef}
+        onLoad={handleIframeLoad}
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=0&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3&playsinline=1&enablejsapi=1`}
+        title={title}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      />
 
-          <div style={{flex: '1 1 400px'}}>
-            <div style={{display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(249, 115, 22, 0.1)', color: '#f97316', padding: '6px 12px', borderRadius: '20px', fontSize: '14px', fontWeight: 'bold', marginBottom: '20px'}}>
-              <Play size={16} fill="#f97316" /> Radex Live
+      <button
+        type="button"
+        onClick={toggleSound}
+        className="home-radex-live-sound"
+        aria-label={muted ? 'Ton einschalten' : 'Ton ausschalten'}
+      >
+        {muted ? <VolumeX size={22} /> : <Volume2 size={22} />}
+      </button>
+
+      {muted && (
+        <button type="button" onClick={toggleSound} className="home-radex-live-sound-hint">
+          <Volume2 size={16} /> Ton einschalten
+        </button>
+      )}
+    </div>
+  );
+}
+
+export default function VideoSection() {
+  return (
+    <>
+      {/* Bernd Knoop – Intro Video */}
+      <section className="home-section home-meet-section bg-white">
+        <div className="container">
+          <div className="home-meet-grid">
+            <div className="home-meet-video">
+              <video
+                src={testVideo}
+                controls
+                playsInline
+                poster="/img/radex-unternehmenspraesentation-poster.webp"
+                title="Bernd Knoop – SHK-Meister & Betriebsleiter"
+              />
             </div>
-            <h2 className="text-3xl font-bold" style={{color: '#fff', marginBottom: '24px'}}>
-              Sehen Sie uns bei der Arbeit zu
-            </h2>
-            <p style={{color: '#9ca3af', fontSize: '18px', lineHeight: 1.6, marginBottom: '32px'}}>
-              Wir legen größten Wert auf Transparenz und Premium-Qualität. Verfolgen Sie unsere aktuellen Sanierungsprojekte direkt von der Baustelle und überzeugen Sie sich selbst von unserer Arbeit.
-            </p>
-            <ul style={{listStyle: 'none', padding: 0, margin: '0 0 32px 0', color: '#d1d5db', display: 'flex', flexDirection: 'column', gap: '16px'}}>
-              <li style={{display: 'flex', gap: '12px', alignItems: 'flex-start'}}>
-                <div style={{color: '#f97316', marginTop: '2px'}}>✓</div>
-                <span>Echte Einblicke in unsere Bauphasen</span>
-              </li>
-              <li style={{display: 'flex', gap: '12px', alignItems: 'flex-start'}}>
-                <div style={{color: '#f97316', marginTop: '2px'}}>✓</div>
-                <span>Professionelle und saubere Ausführung</span>
-              </li>
-              <li style={{display: 'flex', gap: '12px', alignItems: 'flex-start'}}>
-                <div style={{color: '#f97316', marginTop: '2px'}}>✓</div>
-                <span>Modernste Materialien und Techniken</span>
-              </li>
-            </ul>
-            <a href="#kontakt" className="btn br-btn-orange">Kostenlose Beratung anfordern &rarr;</a>
-          </div>
 
-          <div style={{flex: '1 1 300px', display: 'flex', justifyContent: 'center'}}>
-            <div ref={containerRef} style={{
-              position: 'relative',
-              width: '100%',
-              maxWidth: '360px',
-              aspectRatio: '9/16',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-              border: '4px solid #1f2937',
-              backgroundColor: '#000'
-            }}>
-              <iframe
-                ref={iframeRef}
-                onLoad={handleIframeLoad}
-                src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=0&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&modestbranding=1&rel=0&disablekb=1&iv_load_policy=3&playsinline=1&enablejsapi=1`}
-                title="Radex Sanierungsprojekt"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                style={{
-                  position: 'absolute',
-                  top: '-15%',
-                  left: '-30%',
-                  width: '160%',
-                  height: '130%',
-                  pointerEvents: 'none'
-                }}
-              ></iframe>
-
-              {/* Sound toggle button */}
-              <button
-                onClick={toggleSound}
-                aria-label={muted ? 'Ton einschalten' : 'Ton ausschalten'}
-                style={{
-                  position: 'absolute',
-                  bottom: '16px',
-                  right: '16px',
-                  zIndex: 20,
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  border: 'none',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: muted ? 'rgba(17,24,39,0.7)' : '#f97316',
-                  color: '#fff',
-                  backdropFilter: 'blur(4px)',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.35)',
-                  transition: 'all 0.25s ease'
-                }}
-              >
-                {muted ? <VolumeX size={22} /> : <Volume2 size={22} />}
-              </button>
-
-              {/* Hint label shown while muted */}
-              {muted && (
-                <div
-                  onClick={toggleSound}
-                  style={{
-                    position: 'absolute',
-                    bottom: '24px',
-                    left: '16px',
-                    zIndex: 20,
-                    background: 'rgba(17,24,39,0.7)',
-                    color: '#fff',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    padding: '8px 14px',
-                    borderRadius: '20px',
-                    backdropFilter: 'blur(4px)',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}
-                >
-                  <Volume2 size={16} /> Ton einschalten
-                </div>
-              )}
+            <div className="home-meet-profile">
+              <span className="home-section-kicker">Persönlich an Ihrer Seite</span>
+              <h2 className="text-3xl font-bold text-navy">Bernd Knoop</h2>
+              <p className="home-meet-role">SHK-Meister & Betriebsleiter</p>
+              <p className="text-gray-600" style={{ lineHeight: 1.7, marginBottom: '24px' }}>
+                Mit über 30 Jahren Berufserfahrung begleitet Bernd Knoop Ihr Sanierungsprojekt von der
+                technischen Planung bis zur fertigen Übergabe – persönlich, transparent und zum Festpreis.
+              </p>
+              <blockquote className="home-meet-quote">
+                „Als SHK-Meisterbetrieb und Generalunternehmer stehen wir für handwerkliche Qualität,
+                klare Kommunikation und verlässliche Umsetzung – im gesamten Rhein-Main-Gebiet.“
+              </blockquote>
+              <div className="home-meet-profile-row">
+                <img
+                  src={personImage}
+                  alt="Bernd Knoop, SHK-Meister und Betriebsleiter"
+                  className="home-meet-photo"
+                  loading="lazy"
+                />
+                <a href="#kontakt" className="home-btn-orange">
+                  Projekt besprechen <ArrowRight size={16} />
+                </a>
+              </div>
             </div>
           </div>
-
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Radex Live */}
+      <section className="home-section home-radex-live-section">
+        <div className="container">
+          <div className="home-radex-live-grid">
+            <div className="home-radex-live-copy">
+              <div className="home-radex-live-badge">
+                <Play size={16} fill="#f97316" /> Radex Live
+              </div>
+              <h2 className="text-3xl font-bold">Schauen Sie uns über die Schulter.</h2>
+              <p>
+                Fotos zeigen Ergebnisse – Videos zeigen echte Arbeit. Mit Radex Live können Sie laufende
+                Baustellen, Renovierungsfortschritte und abgeschlossene Projekte im gesamten Rhein-Main-Gebiet
+                verfolgen. Transparenz und Handwerksqualität, die Sie sehen können.
+              </p>
+              <ul className="home-radex-live-list">
+                <li>Echte Baustellen-Einblicke aus Frankfurt, Offenbach, Darmstadt & Umgebung</li>
+                <li>Fortschritts-Updates, Vorher/Nachher und Projektberichte</li>
+                <li>Professionelle Ausführung – dokumentiert und nachvollziehbar</li>
+              </ul>
+              <div className="home-radex-live-actions">
+                <Link to={RADEX_LIVE_URL} className="home-btn-orange">
+                  Alle Projekte ansehen <ArrowRight size={16} />
+                </Link>
+                <a href="#kontakt" className="home-btn-white home-btn-white--dark">
+                  Beratung anfordern
+                </a>
+              </div>
+            </div>
+
+            <YouTubeEmbed
+              videoId={RADEX_LIVE_VIDEO_ID}
+              title="Radex Live – Sanierungsprojekt im Rhein-Main-Gebiet"
+            />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

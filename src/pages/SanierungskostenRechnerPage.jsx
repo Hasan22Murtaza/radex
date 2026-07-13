@@ -17,6 +17,11 @@ const metaByType = {
     description: 'Altbausanierung Kosten online berechnen: kostenlose Orientierung für Sanierung, Kernsanierung und Modernisierung im Rhein-Main-Gebiet.',
     path: '/altbausanierung-kosten'
   },
+  haus: {
+    title: 'Haussanierung Kosten | Sanierungskosten Rechner | Radex',
+    description: 'Haussanierung Kosten online einschätzen: Radex Sanierungskosten Rechner mit Orientierungswerten ab ca. 400 €/m² im Rhein-Main-Gebiet.',
+    path: '/haussanierung-kosten'
+  },
   default: {
     title: 'Sanierungskosten Rechner | Bad, Wohnung & Altbau | Radex',
     description: 'Sanierungskosten Rechner von Radex: Badsanierung Kosten, Wohnungssanierung Kosten und Altbausanierung Kosten kostenlos einschätzen.',
