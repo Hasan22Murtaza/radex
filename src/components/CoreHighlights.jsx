@@ -7,7 +7,7 @@ export default function CoreHighlights() {
     e.preventDefault();
     const element = document.getElementById(targetId.substring(1));
     if (element) {
-      const headerOffset = 80;
+      const headerOffset = 100;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });

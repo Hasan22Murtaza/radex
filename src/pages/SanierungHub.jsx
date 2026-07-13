@@ -7,6 +7,7 @@ import SanierungskostenRechner from '../components/SanierungskostenRechner';
 import NavLandingCards from '../components/NavLandingCards';
 import { sanierungCards } from '../data/navigation';
 import { SharedCTABlock, LandingContactSection } from '../components/landing/SharedLandingParts';
+import { RADEX_LIVE_URL } from '../constants/brand';
 
 const HERO_IMAGE = '/img/renov1.webp';
 
@@ -137,7 +138,7 @@ export default function SanierungHub() {
           </div>
           
           <div className="br-projects-grid">
-            <div className="br-project-card">
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1565538810643-b5bdb714032a?auto=format&fit=crop&q=80&w=800)' }}>
                 <span className="br-project-badge live">Live</span>
               </div>
@@ -145,8 +146,8 @@ export default function SanierungHub() {
                 <h4>Rohbauphase Komplettsanierung</h4>
                 <p>Frankfurt am Main</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=800)' }}>
                 <span className="br-project-badge live">Live</span>
               </div>
@@ -154,8 +155,8 @@ export default function SanierungHub() {
                 <h4>Wohnungssanierung Innenausbau</h4>
                 <p>Wiesbaden</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&q=80&w=800)' }}>
                 <span className="br-project-badge live">Live</span>
               </div>
@@ -163,11 +164,11 @@ export default function SanierungHub() {
                 <h4>Heizungsmodernisierung Altbau</h4>
                 <p>Darmstadt</p>
               </div>
-            </div>
+            </a>
           </div>
           
           <div className="text-center mt-10">
-            <Link to="/#beispiele" className="br-btn-outline-orange" style={{display: 'inline-block', textDecoration: 'none'}}>Alle Live-Projekte ansehen</Link>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{display: 'inline-block', textDecoration: 'none'}}>Alle Live-Projekte ansehen</a>
           </div>
         </div>
       </section>
@@ -188,27 +189,27 @@ export default function SanierungHub() {
           </div>
           
           <div className="br-projects-grid">
-            <div className="br-project-card">
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800)' }}></div>
               <div className="br-project-info">
                 <h4>Penthouse Modernisierung</h4>
                 <p>Frankfurt Riedberg</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800)' }}></div>
               <div className="br-project-info">
                 <h4>Kernsanierung EFH</h4>
                 <p>Bad Homburg</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1524813686514-a57563d77965?auto=format&fit=crop&q=80&w=800)' }}></div>
               <div className="br-project-info">
                 <h4>Denkmalschutz Villa</h4>
                 <p>Kronberg</p>
               </div>
-            </div>
+            </a>
           </div>
           <div className="text-center mt-10">
             <button className="br-btn-outline-orange">Alle Referenzen ansehen</button>

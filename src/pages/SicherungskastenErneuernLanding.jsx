@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import {
   Camera,
   ChevronDown,
@@ -292,7 +293,7 @@ const seoAccordions = [
         <li><a href="/wohnungssanierung-rhein-main">Wohnungssanierung</a></li>
         <li><a href="/haussanierung-rhein-main">Haussanierung</a></li>
         <li><a href="/altbausanierung-rhein-main">Altbausanierung</a></li>
-        <li><a href="/radex-live">Radex Live</a></li>
+        <li><a href={RADEX_LIVE_URL}>Radex Live</a></li>
         <li><a href="/kontakt">Kontakt</a></li>
       </ul>
     ),
@@ -505,7 +506,7 @@ export default function SicherungskastenErneuernLanding() {
           </p>
 
           <div className="br-projects-grid">
-            <div className="br-project-card">
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: `url(${LIVE_IMAGE})` }}>
                 <span className="br-project-badge live">Live</span>
               </div>
@@ -513,8 +514,8 @@ export default function SicherungskastenErneuernLanding() {
                 <h4>Unterverteilung erneuern</h4>
                 <p>Frankfurt am Main</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(/img/wohnzimmer.webp)' }}>
                 <span className="br-project-badge live">Live</span>
               </div>
@@ -522,8 +523,8 @@ export default function SicherungskastenErneuernLanding() {
                 <h4>Elektro bei Haussanierung</h4>
                 <p>Offenbach</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(/img/boden.webp)' }}>
                 <span className="br-project-badge">Abgeschlossen</span>
               </div>
@@ -531,11 +532,11 @@ export default function SicherungskastenErneuernLanding() {
                 <h4>Altbau-Elektrik modernisiert</h4>
                 <p>Darmstadt</p>
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/radex-live" className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
               Alle Projekte ansehen
             </a>
             <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>

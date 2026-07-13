@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import {
   Camera,
   ChevronDown,
@@ -185,7 +186,7 @@ const seoAccordions = [
       <p className="text-gray-600">
         Ja. Als SHK-Meisterbetrieb warten wir Ihre Heizungs- und Sanitäranlagen und stehen bei Störungen wie Heizungsausfall oder Wasserschäden zur Verfügung.{' '}
         <a href="/kontakt">Kontaktieren Sie uns</a> oder verfolgen Sie laufende Projekte bei{' '}
-        <a href="/radex-live">Radex Live</a>.
+        <a href={RADEX_LIVE_URL}>Radex Live</a>.
       </p>
     ),
   },
@@ -354,7 +355,7 @@ export default function HeizungSanitaerHub() {
           </p>
 
           <div className="br-projects-grid">
-            <div className="br-project-card">
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div
                 className="br-project-img"
                 style={{ backgroundImage: 'url(/img/Heizungstechnik.webp)' }}
@@ -365,8 +366,8 @@ export default function HeizungSanitaerHub() {
                 <h4>Heizungsmodernisierung Altbau</h4>
                 <p>Bad Homburg</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div
                 className="br-project-img"
                 style={{ backgroundImage: 'url(/img/Komplettbadsanierung.webp)' }}
@@ -377,8 +378,8 @@ export default function HeizungSanitaerHub() {
                 <h4>Sanitärinstallation Badsanierung</h4>
                 <p>Oberursel</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div
                 className="br-project-img"
                 style={{ backgroundImage: `url(${LIVE_IMAGE})` }}
@@ -389,11 +390,11 @@ export default function HeizungSanitaerHub() {
                 <h4>Wärmepumpe im Bestand</h4>
                 <p>Darmstadt</p>
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/radex-live" className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
               Alle Projekte ansehen
             </a>
             <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>

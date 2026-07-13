@@ -3,6 +3,7 @@ import { Camera, CheckCircle2, Users, ShieldCheck, Wrench, ArrowRight, MessageSq
 import '../badsanierung.css';
 import useSeo, { buildFaqSchema, buildServiceSchema } from '../useSeo';
 import SanierungskostenRechner from './SanierungskostenRechner';
+import { RADEX_LIVE_URL } from '../constants/brand';
 
 export default function ServicePageTemplate({
   heroData,
@@ -241,7 +242,12 @@ export default function ServicePageTemplate({
 
             <div className="br-projects-grid">
               {projectTabs[activeProjectTab].map((project, index) => (
-                <div className="br-project-card" key={`${activeProjectTab}-${index}`}>
+                <a
+                  key={`${activeProjectTab}-${index}`}
+                  href={RADEX_LIVE_URL}
+                  className="br-project-card"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
                   <div className="br-project-img" style={{ backgroundImage: `url(${project.img})` }}>
                     {project.badge && (
                       <span className={`br-project-badge ${project.badge.className}`}>{project.badge.text}</span>
@@ -251,11 +257,13 @@ export default function ServicePageTemplate({
                     <h4>{project.title}</h4>
                     <p>{project.location}</p>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
             <div className="text-center mt-10">
-              <button className="br-btn-outline-orange mb-8">Alle Projekte ansehen</button>
+              <a href={RADEX_LIVE_URL} className="br-btn-outline-orange mb-8" style={{ display: 'inline-block', textDecoration: 'none' }}>
+                Alle Projekte ansehen
+              </a>
             </div>
             
             {/* Mid-Page CTA */}

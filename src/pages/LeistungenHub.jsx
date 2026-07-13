@@ -22,6 +22,8 @@ import {
 import { Link } from '../router';
 import '../badsanierung.css';
 import useSeo from '../useSeo';
+import { RadexLiveProjectCard } from '../components/landing/SharedLandingParts';
+import { RADEX_LIVE_URL } from '../constants/brand';
 
 const HERO_IMAGE = '/img/leistungen-hero.webp';
 const LIVE_IMAGE = '/img/leistungen-radex-live.webp';
@@ -399,7 +401,7 @@ const seoAccordions = [
           <Link to="/leistungen/schimmel-asbest">Schimmel & Asbest</Link>,{' '}
           <Link to="/leistungen/express-soforthilfe">Express & Soforthilfe</Link> oder{' '}
           <Link to="/leistungen/gewerbe-objektsanierung">Gewerbe & Objektsanierung</Link>.
-          {' '}<a href="/kontakt">Kontakt</a> · <a href="/radex-live">Radex Live</a>.
+          {' '}<a href="/kontakt">Kontakt</a> · <a href={RADEX_LIVE_URL}>Radex Live</a>.
         </p>
       </>
     ),
@@ -569,46 +571,30 @@ export default function LeistungenHub() {
           </p>
 
           <div className="br-projects-grid">
-            <div className="br-project-card">
-              <div
-                className="br-project-img"
-                style={{ backgroundImage: 'url(/img/renov1.webp)' }}
-              >
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Komplettsanierung Wohnung</h4>
-                <p>Frankfurt am Main</p>
-              </div>
-            </div>
-            <div className="br-project-card">
-              <div
-                className="br-project-img"
-                style={{ backgroundImage: 'url(/img/Komplettbadsanierung.webp)' }}
-              >
-                <span className="br-project-badge">Abgeschlossen</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Badsanierung Komplettbad</h4>
-                <p>Bad Homburg</p>
-              </div>
-            </div>
-            <div className="br-project-card">
-              <div
-                className="br-project-img"
-                style={{ backgroundImage: `url(${LIVE_IMAGE})` }}
-              >
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Haussanierung Innenausbau</h4>
-                <p>Oberursel</p>
-              </div>
-            </div>
+            <RadexLiveProjectCard
+              image="/img/renov1.webp"
+              badge="Live"
+              badgeClassName="live"
+              title="Komplettsanierung Wohnung"
+              subtitle="Frankfurt am Main"
+            />
+            <RadexLiveProjectCard
+              image="/img/Komplettbadsanierung.webp"
+              badge="Abgeschlossen"
+              title="Badsanierung Komplettbad"
+              subtitle="Bad Homburg"
+            />
+            <RadexLiveProjectCard
+              image={LIVE_IMAGE}
+              badge="Live"
+              badgeClassName="live"
+              title="Haussanierung Innenausbau"
+              subtitle="Oberursel"
+            />
           </div>
 
           <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/radex-live" className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
               Alle Projekte ansehen
             </a>
             <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>

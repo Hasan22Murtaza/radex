@@ -5,6 +5,8 @@ import {
   LayoutGrid, Trash2, Clock, Building, Sofa
 } from 'lucide-react';
 
+const RADEX_LIVE_URL = 'https://www.radex-objektmanagement.de/radex-live/ger';
+
 export const badsanierungCards = [
   {
     to: '/komplettbadsanierung-rhein-main',
@@ -298,7 +300,7 @@ export const ratgeberCards = [
 export const ueberRadexCards = [
   { to: '/ueber-uns#unternehmen', title: 'Unternehmen', desc: 'Team, Werte und Qualifikationen von Radex kennenlernen.', cta: 'Mehr erfahren', icon: Users },
   { to: '/karriere', title: 'Karriere', desc: 'Jobs und Perspektiven im Handwerk im Rhein-Main-Gebiet.', cta: 'Karriere entdecken', icon: Briefcase },
-  { to: '/#beispiele', title: 'Radex Live', desc: 'Laufende und abgeschlossene Projekte in Echtzeit verfolgen.', cta: 'Projekte ansehen', icon: Video },
+  { to: RADEX_LIVE_URL, title: 'Radex Live', desc: 'Laufende und abgeschlossene Projekte in Echtzeit verfolgen.', cta: 'Projekte ansehen', icon: Video },
 ];
 
 export const einsatzgebieteCards = [

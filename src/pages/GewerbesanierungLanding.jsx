@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import {
   Camera,
   ChevronDown,
@@ -156,7 +157,7 @@ const seoAccordions = [
         </p>
         <p className="text-gray-600">
           Ziel ist immer eine wirtschaftlich sinnvolle und sauber koordinierte Sanierung. Verfolgen Sie laufende Projekte bei{' '}
-          <a href="/radex-live">Radex Live</a> oder{' '}
+          <a href={RADEX_LIVE_URL}>Radex Live</a> oder{' '}
           <a href="/kontakt">kontaktieren Sie uns</a> direkt.
         </p>
       </>
@@ -470,7 +471,7 @@ export default function GewerbesanierungLanding() {
           />
 
           <div className="br-projects-grid">
-            <div className="br-project-card">
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div
                 className="br-project-img"
                 style={{ backgroundImage: `url(/img/buero1.webp)` }}
@@ -481,8 +482,8 @@ export default function GewerbesanierungLanding() {
                 <h4>Büroumbau Eschborn</h4>
                 <p>Eschborn</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div
                 className="br-project-img"
                 style={{ backgroundImage: `url(/img/buro2.webp)` }}
@@ -493,8 +494,8 @@ export default function GewerbesanierungLanding() {
                 <h4>Praxisumbau Bad Homburg</h4>
                 <p>Bad Homburg</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div
                 className="br-project-img"
                 style={{ backgroundImage: `url(/img/gewerbesanierung-radex-live.webp)` }}
@@ -505,11 +506,11 @@ export default function GewerbesanierungLanding() {
                 <h4>Gewerbesanierung Frankfurt</h4>
                 <p>Frankfurt am Main</p>
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/radex-live" className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
               Alle Projekte ansehen
             </a>
             <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>

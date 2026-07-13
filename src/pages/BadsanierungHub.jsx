@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import { Camera, Award, Users, ShieldCheck, MapPin, CheckCircle2 } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
@@ -266,7 +267,7 @@ export default function BadsanierungHub() {
             ))}
           </div>
           <div className="text-center mt-10">
-            <a href="/#beispiele" className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>Alle Referenzen ansehen</a>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>Alle Referenzen ansehen</a>
           </div>
         </div>
       </section>

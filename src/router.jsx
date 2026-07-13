@@ -21,7 +21,7 @@ export function BrowserRouter({ children, initialPath }) {
     setTimeout(() => {
       const el = document.getElementById(hash);
       if (el) {
-        const headerOffset = 80;
+        const headerOffset = 100;
         const elementPosition = el.getBoundingClientRect().top;
         window.scrollTo({ top: elementPosition + window.pageYOffset - headerOffset, behavior: 'smooth' });
       }

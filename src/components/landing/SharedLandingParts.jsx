@@ -1,6 +1,41 @@
 import { useState } from 'react';
 import { Camera, ChevronDown, MessageSquare, Phone } from 'lucide-react';
 import { Link } from '../../router';
+import { RADEX_LIVE_URL } from '../../constants/brand';
+
+const projectCardLinkStyle = { textDecoration: 'none', color: 'inherit' };
+
+export function RadexLiveProjectCard({
+  image,
+  badge,
+  badgeClassName = '',
+  title,
+  subtitle,
+  desc,
+  cta,
+}) {
+  return (
+    <a href={RADEX_LIVE_URL} className="br-project-card" style={projectCardLinkStyle}>
+      <div className="br-project-img" style={{ backgroundImage: `url(${image})` }}>
+        {badge && (
+          <span className={`br-project-badge ${badgeClassName || (badge === 'LIVE' || badge === 'Live' ? 'live' : '')}`}>
+            {badge}
+          </span>
+        )}
+      </div>
+      <div className="br-project-info">
+        <h4>{title}</h4>
+        <p>{subtitle}</p>
+        {desc && <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '8px' }}>{desc}</p>}
+        {cta && (
+          <span className="br-btn-orange" style={{ display: 'inline-block', marginTop: '12px', fontSize: '14px' }}>
+            {cta} &rarr;
+          </span>
+        )}
+      </div>
+    </a>
+  );
+}
 
 export function SharedCTABlock({ isHero = false, centered = false }) {
   return (
@@ -235,24 +270,21 @@ export function RadexLiveSection({
 
         <div className="br-projects-grid">
           {projects.map((project) => (
-            <div key={project.title} className="br-project-card">
-              <div className="br-project-img" style={{ backgroundImage: `url(${project.image})` }}>
-                <span className={`br-project-badge ${project.badge === 'LIVE' ? 'live' : ''}`}>{project.badge}</span>
-              </div>
-              <div className="br-project-info">
-                <h4>{project.title}</h4>
-                <p>{project.location}</p>
-                <p style={{ fontSize: '14px', color: '#6b7280', marginTop: '8px' }}>{project.desc}</p>
-                <span className="br-btn-orange" style={{ display: 'inline-block', marginTop: '12px', fontSize: '14px' }}>
-                  {project.cta} &rarr;
-                </span>
-              </div>
-            </div>
+            <RadexLiveProjectCard
+              key={project.title}
+              image={project.image}
+              badge={project.badge}
+              badgeClassName={project.badge === 'LIVE' ? 'live' : ''}
+              title={project.title}
+              subtitle={project.location}
+              desc={project.desc}
+              cta={project.cta}
+            />
           ))}
         </div>
 
         <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="/#beispiele" className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+          <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
             Alle Projekte ansehen
           </a>
           <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>

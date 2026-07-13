@@ -28,6 +28,8 @@
   
   /* Spacing */
   --container-width: 1280px;
+  --header-height: 100px;
+  --header-height-mobile: 76px;
   
   /* Box Shadow */
   --shadow-sm: 0 2px 8px rgba(30, 58, 138, 0.04);
@@ -355,7 +357,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
+  height: var(--header-height);
   width: 100%;
   padding: 0 48px;
 }
@@ -368,15 +370,15 @@ a {
 
 .site-logo {
   display: block;
-  height: 52px;
+  height: 72px;
   width: auto;
-  max-width: 220px;
+  max-width: 280px;
   object-fit: contain;
 }
 
 .site-logo--drawer {
-  height: 40px;
-  max-width: 180px;
+  height: 48px;
+  max-width: 200px;
 }
 
 .nav-links {
@@ -479,8 +481,8 @@ a {
     font-size: 13px;
   }
   .site-logo {
-    height: 44px;
-    max-width: 190px;
+    height: 58px;
+    max-width: 230px;
   }
 }
 
@@ -494,8 +496,17 @@ a {
   }
   
   .header-container {
-    height: 64px;
+    height: var(--header-height-mobile);
     padding: 0 20px;
+  }
+
+  .site-logo {
+    height: 52px;
+    max-width: 200px;
+  }
+
+  .hero {
+    min-height: calc(100vh - var(--header-height-mobile));
   }
 }
 
@@ -592,7 +603,7 @@ a {
    ========================================================================== */
 .hero {
   position: relative;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - var(--header-height));
   display: grid;
   grid-template-columns: 1fr;
   align-items: stretch;

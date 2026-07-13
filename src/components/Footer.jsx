@@ -1,4 +1,5 @@
 import { Shield, Wrench, ShieldAlert, MapPin, Phone, Mail } from 'lucide-react';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import { Link } from '../router';
 import Logo from './Logo';
 
@@ -63,7 +64,7 @@ export default function Footer() {
               <li><a href="/badsanierung-rhein-main" className="footer-link">Badsanierung</a></li>
               <li><a href="/badsanierung-rhein-main" className="footer-link">Barrierefreies Bad</a></li>
               <li><a href="/badsanierung-rhein-main" className="footer-link">Badplanung</a></li>
-              <li><a href="/#beispiele" className="footer-link">Aktuelle Badprojekte</a></li>
+              <li><a href={RADEX_LIVE_URL} className="footer-link">Aktuelle Badprojekte</a></li>
               <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
             </ul>
           </div>
@@ -122,10 +123,10 @@ export default function Footer() {
               Entdecken Sie laufende Baustellen, abgeschlossene Sanierungen und echte Praxisbeispiele aus unserem Baualltag.
             </p>
             <ul className="footer-links">
-              <li><a href="/#beispiele" className="footer-link">Aktuelle Projekte</a></li>
-              <li><a href="/#beispiele" className="footer-link">Abgeschlossene Projekte</a></li>
-              <li><a href="/#beispiele" className="footer-link">Vorher & Nachher</a></li>
-              <li><a href="/#beispiele" className="footer-link">Radex Live</a></li>
+              <li><a href={RADEX_LIVE_URL} className="footer-link">Aktuelle Projekte</a></li>
+              <li><a href={RADEX_LIVE_URL} className="footer-link">Abgeschlossene Projekte</a></li>
+              <li><a href={RADEX_LIVE_URL} className="footer-link">Vorher & Nachher</a></li>
+              <li><a href={RADEX_LIVE_URL} className="footer-link">Radex Live</a></li>
             </ul>
           </div>
 

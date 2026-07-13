@@ -11,6 +11,7 @@ import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
 import { citySeoContent } from '../data/citySeoContent';
 import { cityDataMap } from '../data/cities';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import testVideo from '../assets/test.mp4';
 import personImage from '../assets/Screenshot_5.png';
 import Komplettbadsanierung from '../assets/Komplettbadsanierung.jpg';
@@ -381,7 +382,12 @@ export default function CityPage({ cityId }) {
 
           <div className="br-city-projects-grid">
             {projectCards.map((project, idx) => (
-              <div key={idx} className="br-project-card">
+              <a
+                key={idx}
+                href={RADEX_LIVE_URL}
+                className="br-project-card"
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
                 <div className="br-project-img" style={{ backgroundImage: `url(${project.img})` }}>
                   {project.badge === 'live' && <span className="br-project-badge live">Live</span>}
                   {project.badge === 'before-after' && <span className="br-project-badge before-after">Vorher & Nachher</span>}
@@ -390,14 +396,14 @@ export default function CityPage({ cityId }) {
                   <h4>{project.title}</h4>
                   <p>{project.type} · {city.name}</p>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/sanierung-rhein-main" className="br-btn-navy">
+            <a href={RADEX_LIVE_URL} className="br-btn-navy" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
               Alle Projekte ansehen <ArrowRight size={18} />
-            </Link>
+            </a>
           </div>
 
           <div className="br-cta-banner br-cta-banner--warm">

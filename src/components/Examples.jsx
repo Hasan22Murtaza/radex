@@ -1,5 +1,5 @@
-import { Link } from '../router';
 import { ArrowRight } from 'lucide-react';
+import { RADEX_LIVE_URL } from '../constants/brand';
 
 export default function Examples() {
   const projects = [
@@ -40,16 +40,16 @@ export default function Examples() {
             <p className="text-gray-600" style={{marginBottom: '32px', fontSize: '15px', lineHeight: 1.6}}>
               Verfolgen Sie laufende Baustellen, entdecken Sie abgeschlossene Sanierungen und Vorher/Nachher-Vergleiche aus dem Rhein-Main-Gebiet.
             </p>
-            <Link to="/sanierung-rhein-main" className="home-btn-orange" style={{fontSize: '14px', padding: '10px 20px'}}>
+            <a href={RADEX_LIVE_URL} className="home-btn-orange" style={{fontSize: '14px', padding: '10px 20px'}}>
               Alle Projekte ansehen <ArrowRight size={16} />
-            </Link>
+            </a>
           </div>
 
           {/* Right Images Column */}
           <div className="home-split-right">
             <div className="home-grid-4">
               {projects.map((project, idx) => (
-                <div key={idx} className="home-project-card">
+                <a key={idx} href={RADEX_LIVE_URL} className="home-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
                   <div className="home-project-img-wrapper" style={{position: 'relative'}}>
                     <img src={project.img} alt={project.title} className="home-project-img" />
                     {project.badge === 'live' && <span className="br-project-badge live">Radex Live</span>}
@@ -57,7 +57,7 @@ export default function Examples() {
                   </div>
                   <h4 className="font-bold text-navy text-sm">{project.title}</h4>
                   <p className="text-xs text-gray-500">{project.location}</p>
-                </div>
+                </a>
               ))}
             </div>
           </div>

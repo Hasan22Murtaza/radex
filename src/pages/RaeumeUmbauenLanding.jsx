@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import {
   Camera,
   ChevronDown,
@@ -143,7 +144,7 @@ const seoAccordions = [
         <p className="text-gray-600">
           Für eine erste Einschätzung reicht oft ein Gespräch unter 06074 960620 oder über den{' '}
           <a href="/kontakt">Kontaktbereich</a>. Verfolgen Sie laufende Projekte bei{' '}
-          <a href="/radex-live">Radex Live</a>.
+          <a href={RADEX_LIVE_URL}>Radex Live</a>.
         </p>
       </>
     ),
@@ -420,7 +421,7 @@ export default function RaeumeUmbauenLanding() {
           </p>
 
           <div className="br-projects-grid">
-            <div className="br-project-card">
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(/img/boden.webp)' }}>
                 <span className="br-project-badge live">Live</span>
               </div>
@@ -428,8 +429,8 @@ export default function RaeumeUmbauenLanding() {
                 <h4>Grundrissumbau Wohnung</h4>
                 <p>Frankfurt am Main</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: 'url(/img/wohnzimmer.webp)' }}>
                 <span className="br-project-badge">Abgeschlossen</span>
               </div>
@@ -437,8 +438,8 @@ export default function RaeumeUmbauenLanding() {
                 <h4>Offenes Wohnkonzept</h4>
                 <p>Bad Homburg</p>
               </div>
-            </div>
-            <div className="br-project-card">
+            </a>
+            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="br-project-img" style={{ backgroundImage: `url(${LIVE_IMAGE})` }}>
                 <span className="br-project-badge live">Live</span>
               </div>
@@ -446,11 +447,11 @@ export default function RaeumeUmbauenLanding() {
                 <h4>Raumumbau Einfamilienhaus</h4>
                 <p>Oberursel</p>
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/radex-live" className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
+            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
               Alle Projekte ansehen
             </a>
             <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
