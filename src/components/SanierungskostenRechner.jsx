@@ -10,7 +10,7 @@ const calculators = {
     resultTitle: 'Geschätzte Kosten Ihrer Badsanierung',
     areaLabel: 'Badezimmergröße',
     areaUnit: 'm²',
-    min: 3,
+    min: 0,
     max: 40,
     defaultArea: 8,
     mode: 'fixed',
@@ -27,7 +27,7 @@ const calculators = {
     resultTitle: 'Geschätzte Kosten Ihrer Wohnungssanierung',
     areaLabel: 'Wohnfläche',
     areaUnit: 'm²',
-    min: 20,
+    min: 0,
     max: 500,
     defaultArea: 80,
     mode: 'sqm',
@@ -44,7 +44,7 @@ const calculators = {
     resultTitle: 'Geschätzte Kosten Ihrer Haussanierung',
     areaLabel: 'Wohnfläche',
     areaUnit: 'm²',
-    min: 50,
+    min: 0,
     max: 1000,
     defaultArea: 150,
     mode: 'sqm',
@@ -61,7 +61,7 @@ const calculators = {
     resultTitle: 'Geschätzte Kosten Ihrer Altbausanierung',
     areaLabel: 'Wohnfläche',
     areaUnit: 'm²',
-    min: 40,
+    min: 0,
     max: 800,
     defaultArea: 100,
     mode: 'sqm',
@@ -83,10 +83,10 @@ const formatEuro = (value) =>
     maximumFractionDigits: 0
   }).format(value);
 
-function clamp(value, min, max) {
+function toNonNegative(value) {
   const number = Number(value);
-  if (Number.isNaN(number)) return min;
-  return Math.min(Math.max(number, min), max);
+  if (Number.isNaN(number) || number < 0) return 0;
+  return number;
 }
 
 const sanierungTypes = ['wohnung', 'haus', 'altbau'];
@@ -123,7 +123,8 @@ export default function SanierungskostenRechner({
 
   const active = calculators[activeType];
   const price = active.prices[quality];
-  const area = clamp(areaValues[activeType], active.min, active.max);
+  const area = toNonNegative(areaValues[activeType]);
+  const sliderArea = Math.min(Math.max(area, active.min), active.max);
 
   const result = useMemo(() => {
     if (active.mode === 'fixed') {
@@ -141,7 +142,7 @@ export default function SanierungskostenRechner({
   const handleAreaChange = (event) => {
     setAreaValues((current) => ({
       ...current,
-      [activeType]: clamp(event.target.value, active.min, active.max)
+      [activeType]: toNonNegative(event.target.value)
     }));
   };
 
@@ -288,8 +289,8 @@ export default function SanierungskostenRechner({
                     <input
                       id={`${id}-area`}
                       type="number"
-                      min={active.min}
-                      max={active.max}
+                      min={0}
+                      step="any"
                       value={area}
                       onChange={handleAreaChange}
                       aria-describedby={`${id}-area-help`}
@@ -297,7 +298,7 @@ export default function SanierungskostenRechner({
                     <span className="sk-rechner-number-unit" aria-hidden="true">{active.areaUnit}</span>
                   </div>
                   <p className="sk-rechner-help" id={`${id}-area-help`}>
-                    Mindestwert: {active.min} {active.areaUnit} · Maximalwert: {active.max} {active.areaUnit}
+                    Nur Werte ab 0 {active.areaUnit} (keine negativen Werte)
                   </p>
                   {active.mode === 'sqm' && (
                     <input
@@ -306,12 +307,12 @@ export default function SanierungskostenRechner({
                       min={active.min}
                       max={active.max}
                       step={5}
-                      value={area}
+                      value={sliderArea}
                       onChange={handleAreaChange}
                       aria-label={`${active.areaLabel} per Schieberegler`}
                       aria-valuemin={active.min}
                       aria-valuemax={active.max}
-                      aria-valuenow={area}
+                      aria-valuenow={sliderArea}
                     />
                   )}
                 </div>
