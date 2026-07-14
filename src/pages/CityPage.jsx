@@ -106,8 +106,8 @@ export default function CityPage({ cityId }) {
   ];
 
   useSeo({
-    title: `Sanierung ${city.name} | Bad, Wohnung & Haus modernisieren | Radex`,
-    description: `Sanierung & Badsanierung in ${city.name} aus einer Hand: Wohnungs-, Haus- & Altbausanierung, Heizung, Elektro & mehr vom SHK-Meisterbetrieb. Festpreis. Jetzt Beratung sichern!`,
+    title: seoContent?.title || `Sanierung ${city.name} | Bad, Wohnung & Haus modernisieren | Radex`,
+    description: seoContent?.description || `Sanierung & Badsanierung in ${city.name} aus einer Hand: Wohnungs-, Haus- & Altbausanierung, Heizung, Elektro & mehr vom SHK-Meisterbetrieb. Festpreis. Jetzt Beratung sichern!`,
     path: city.path,
     image: city.heroImg,
     jsonLd: [buildFaqSchema(faqsData)]
@@ -166,14 +166,14 @@ export default function CityPage({ cityId }) {
         <div className="container br-city-hero-inner">
           <div className="br-city-hero-box">
             <h1 className="br-hero-title">
-              Sanierung & Badsanierung <br />
-              <span>in {city.name}</span>
+              {seoContent?.heroTitle || 'Sanierung & Badsanierung'} <br />
+              <span>{seoContent?.heroTitleAccent || `in ${city.name}`}</span>
             </h1>
             <p className="br-hero-subtitle">
-              Ihr lokaler Experte für hochwertige Umbauten, Badsanierungen und Haustechnik in {city.name} und Umgebung.
+              {seoContent?.heroSubtitle || `Ihr lokaler Experte für hochwertige Umbauten, Badsanierungen und Haustechnik in ${city.name} und Umgebung.`}
             </p>
             <p className="br-hero-text">
-              Von der ersten Planung bis zur schlüsselfertigen Übergabe unterstützen wir Sie bei Ihrem Projekt in {city.name} – zum Festpreis und aus einer Hand.
+              {seoContent?.heroText || `Von der ersten Planung bis zur schlüsselfertigen Übergabe unterstützen wir Sie bei Ihrem Projekt in ${city.name} – zum Festpreis und aus einer Hand.`}
             </p>
             <SharedCTABlock isHero={true} />
             <p className="br-hero-micro mt-4">
