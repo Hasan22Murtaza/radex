@@ -137,7 +137,7 @@ export default function Footer() {
               Radex betreut Sanierungs- und Modernisierungsprojekte in zahlreichen Städten im Rhein-Main-Gebiet.
             </p>
             <ul className="footer-links">
-              <li><a href="/sanierung-frankfurt-am-main" className="footer-link">Frankfurt am Main</a></li>
+              <li><a href="/frankfurt" className="footer-link">Frankfurt am Main</a></li>
               <li><a href="/sanierung-offenbach-am-main" className="footer-link">Offenbach am Main</a></li>
               <li><a href="/einsatzgebiete-rhein-main" className="footer-link">Rodgau</a></li>
               <li><a href="/sanierung-roedermark" className="footer-link">Rödermark</a></li>

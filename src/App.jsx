@@ -16,6 +16,7 @@ import SanierungHub from './pages/SanierungHub';
 import LeistungenHub from './pages/LeistungenHub';
 import EinsatzgebieteHub from './pages/EinsatzgebieteHub';
 import CityPage from './pages/CityPage';
+import CityAreaRouter from './pages/CityAreaRouter';
 import { cityDataMap, cityIds } from './data/cities';
 import BadsanierungHub from './pages/BadsanierungHub';
 import BadsanierungTopicPage from './pages/BadsanierungTopicPage';
@@ -127,6 +128,13 @@ export default function App({ location }) {
               key={cityId}
               path={cityDataMap[cityId].path}
               element={<CityPage cityId={cityId} />}
+            />
+          ))}
+          {cityIds.map((cityId) => (
+            <Route
+              key={`clean-${cityId}`}
+              pathPrefix={`/${cityId}`}
+              element={<CityAreaRouter cityId={cityId} />}
             />
           ))}
           <Route pathPrefix="/ratgeber" element={<RatgeberRouter />} />

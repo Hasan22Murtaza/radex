@@ -3,7 +3,7 @@ import { Link } from '../router';
 import {
   Camera, MessageSquare, Phone, CheckCircle2, ArrowRight, Award, Users, ShieldCheck,
   ChevronDown, AlertTriangle, Wrench, Bath, Building2, Home, Landmark, Flame, Zap,
-  Briefcase, Calculator, FileText, Hammer, MapPin, Mail
+  Briefcase, Calculator, FileText, Hammer, MapPin, Mail, X, Info
 } from 'lucide-react';
 import '../badsanierung.css';
 import '../home.css';
@@ -11,6 +11,12 @@ import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
 import { citySeoContent } from '../data/citySeoContent';
 import { cityDataMap } from '../data/cities';
+import {
+  buildCityHubPath,
+  buildCityServicePath,
+  listCityServiceRoutes,
+  resolveCardService,
+} from '../data/cityServiceRoutes';
 import { RADEX_LIVE_URL } from '../constants/brand';
 import testVideo from '../assets/test.mp4';
 import personImage from '../assets/Screenshot_5.png';
@@ -45,53 +51,32 @@ const processSteps = [
 
 
 
-function slugifySectionId(text) {
-  return String(text || '')
-    .toLowerCase()
-    .replace(/ä/g, 'ae')
-    .replace(/ö/g, 'oe')
-    .replace(/ü/g, 'ue')
-    .replace(/ß/g, 'ss')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function SeoSectionBody({ section }) {
-  return (
-    <div className="br-city-seo-body">
-      {section.description && <p>{section.description}</p>}
-      {section.items?.length > 0 && (
-        <ul className="br-city-seo-list">
-          {section.items.map((item, itemIdx) => (
-            <li key={itemIdx}>{item}</li>
-          ))}
-        </ul>
-      )}
-      {section.closingNote && <p>{section.closingNote}</p>}
-      {section.content && <p>{section.content}</p>}
-      {section.districts?.map((district, idx) => (
-        <div key={idx} className="br-city-seo-district" style={{ marginTop: idx > 0 ? '16px' : 0 }}>
-          <strong>Sanierung in {district.name}</strong>
-          <p>{district.text}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export default function CityPage({ cityId }) {
+export default function CityPage({ cityId, canonicalPath }) {
   const city = cityDataMap[cityId] || { name: "Rhein-Main-Gebiet", heroImg: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1600", districts: [] };
   const seoContent = citySeoContent[cityId];
+  const hubPath = canonicalPath || city.path || buildCityHubPath(cityId);
 
   const [openFaq, setOpenFaq] = useState(null);
-  const [seoOpen, setSeoOpen] = useState(false);
+  const [seoPanelOpen, setSeoPanelOpen] = useState(false);
   const videoRef = useRef(null);
-  const seoSectionRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setSeoOpen(false);
+    setSeoPanelOpen(false);
   }, [cityId]);
+
+  useEffect(() => {
+    if (!seoPanelOpen) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') setSeoPanelOpen(false);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [seoPanelOpen]);
 
   useEffect(() => {
     // Attempt autoplay on mount. If blocked, mute and retry.
@@ -119,113 +104,14 @@ export default function CityPage({ cityId }) {
   useSeo({
     title: seoContent?.title || `Sanierung ${city.name} | Bad, Wohnung & Haus modernisieren | Radex`,
     description: seoContent?.description || `Sanierung & Badsanierung in ${city.name} aus einer Hand: Wohnungs-, Haus- & Altbausanierung, Heizung, Elektro & mehr vom SHK-Meisterbetrieb. Festpreis. Jetzt Beratung sichern!`,
-    path: city.path,
+    path: hubPath,
     image: city.heroImg,
     jsonLd: [buildFaqSchema(faqsData)]
   });
 
   const mainDecisionCards = serviceNavCards.slice(0, 2);
   const additionalServiceCards = serviceNavCards.slice(2);
-
-  const seoGridItems = [];
-  if (seoContent?.intro) {
-    seoGridItems.push({
-      type: 'intro',
-      id: `sanierung-${slugifySectionId(city.name)}-mit-radex`,
-      title: `Sanierung in ${city.name} mit Radex`,
-      content: seoContent.intro,
-    });
-  }
-  if (seoContent?.serviceSections) {
-    seoContent.serviceSections.forEach((section) => {
-      seoGridItems.push({
-        type: 'section',
-        ...section,
-        id: slugifySectionId(section.title),
-      });
-    });
-  } else if (seoContent?.serviceTags) {
-    seoContent.serviceTags.forEach((tag) => {
-      seoGridItems.push({ type: 'tag', id: slugifySectionId(tag), title: tag, content: tag });
-    });
-  }
-  if (seoContent?.districtDetails?.length) {
-    seoGridItems.push({
-      type: 'districts',
-      id: `stadtteile-${slugifySectionId(city.name)}`,
-      title: `Stadtteile in ${city.name}`,
-      districts: seoContent.districtDetails,
-    });
-  }
-  seoGridItems.push({ type: 'faq-link', title: 'FAQ' });
-
-  const openSeoSectionFromHash = (hash) => {
-    if (!hash) return false;
-    const id = hash.replace(/^#/, '');
-    if (id === 'seo-informationen') {
-      setSeoOpen(true);
-      setTimeout(() => {
-        const target = seoSectionRef.current;
-        if (!target) return;
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 140, behavior: 'smooth' });
-      }, 80);
-      return true;
-    }
-
-    const match = seoGridItems.find((item) => item.id === id);
-    if (!match || match.type === 'faq-link') return false;
-
-    setSeoOpen(true);
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      const target = el || seoSectionRef.current;
-      if (!target) return;
-      window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 140, behavior: 'smooth' });
-    }, 120);
-    return true;
-  };
-
-  useEffect(() => {
-    const handleHash = () => openSeoSectionFromHash(window.location.hash);
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cityId, seoContent]);
-
-  const resolveSummaryHref = (card) => {
-    const needle = (card.target || card.title || '').toLowerCase().trim();
-    // Match service sections only — never the city intro (avoids "sanierung" inside "Badsanierung")
-    const sections = seoGridItems.filter((item) => item.type === 'section' || item.type === 'tag');
-
-    const exact = sections.find((item) => item.title.toLowerCase() === needle);
-    if (exact?.id) return `#${exact.id}`;
-
-    const includes = sections.find((item) => {
-      const title = item.title.toLowerCase();
-      return title.includes(needle) || needle.includes(title);
-    });
-    if (includes?.id) return `#${includes.id}`;
-
-    const firstToken = needle.split(/[\s,&–—-]+/).filter(Boolean)[0];
-    if (firstToken && firstToken.length > 3) {
-      const byToken = sections.find((item) => item.title.toLowerCase().includes(firstToken));
-      if (byToken?.id) return `#${byToken.id}`;
-    }
-
-    if (card.id) return `#${card.id}`;
-    return '#seo-informationen';
-  };
-
-  const handleSummaryCardClick = (event, href) => {
-    if (!href?.startsWith('#')) return;
-    event.preventDefault();
-    if (openSeoSectionFromHash(href)) {
-      window.history.replaceState(null, '', href);
-    } else {
-      window.location.hash = href;
-    }
-  };
+  const cityServiceLinks = listCityServiceRoutes(cityId, seoContent);
 
   const summaryCards =
     seoContent?.summaryCards ??
@@ -253,6 +139,12 @@ export default function CityPage({ cityId }) {
         bullets: (section.items || []).slice(0, 4),
       };
     });
+
+  const resolveCardHref = (card) => {
+    const service = resolveCardService(card);
+    if (service) return buildCityServicePath(cityId, service.slug);
+    return hubPath;
+  };
 
   const SharedCTABlock = ({ isHero = false, centered = false }) => (
     <div
@@ -605,98 +497,149 @@ export default function CityPage({ cityId }) {
         </div>
       </section>
 
-      {/* 8. SEO CONTENT – accordion with summary cards + detail panels */}
+      {/* 8. SEO CONTENT – light overview + slide-over details; service pages hold full text */}
       {seoContent && (
-        <section id="seo-informationen" ref={seoSectionRef} className="br-section br-bg-light">
+        <section id="seo-informationen" className="br-section br-bg-light">
           <div className="container">
-            <h2 className="br-section-title text-center mb-12">
+            <div className="text-center mb-12">
               <button
                 type="button"
                 className="br-seo-heading-toggle"
-                onClick={() => setSeoOpen((prev) => !prev)}
-                aria-expanded={seoOpen}
+                onClick={() => setSeoPanelOpen(true)}
+                aria-haspopup="dialog"
+                aria-expanded={seoPanelOpen}
               >
                 <span>Planung, Kosten & wichtige Informationen</span>
-                <ChevronDown className={seoOpen ? 'open' : ''} size={30} />
+                <Info size={26} />
               </button>
-            </h2>
+              <h2 className="br-section-title" style={{ marginTop: '20px' }}>
+                {seoContent.summaryIntroTitle || 'Finden Sie den passenden Sanierungsbereich für Ihr Projekt.'}
+              </h2>
+              <p className="br-section-subtitle br-section-subtitle--wide">
+                {seoContent.summaryIntroText ||
+                  `Ob Badsanierung, Wohnungssanierung, Haussanierung oder weitere Leistungen – die folgenden Bereiche führen direkt zu den passenden Informationen für Ihr Projekt in ${city.name}.`}
+              </p>
+              <button
+                type="button"
+                className="br-city-seo-panel-trigger"
+                onClick={() => setSeoPanelOpen(true)}
+              >
+                Zusätzliche Informationen öffnen
+              </button>
+            </div>
 
-            <div className={`br-seo-collapse ${seoOpen ? 'open' : 'collapsed'}`}>
-              {summaryCards.length > 0 && (
-                <div className="br-city-seo-summary-block">
-                  <div className="text-center mb-12">
-                    <h3 className="br-section-title">
-                      {seoContent.summaryIntroTitle || 'Finden Sie den passenden Sanierungsbereich für Ihr Projekt.'}
-                    </h3>
-                    <p className="br-section-subtitle br-section-subtitle--wide">
-                      {seoContent.summaryIntroText ||
-                        `Ob Badsanierung, Wohnungssanierung, Haussanierung oder weitere Leistungen – die folgenden Bereiche führen direkt zu den passenden Informationen für Ihr Projekt in ${city.name}.`}
+            {summaryCards.length > 0 && (
+              <div className="br-city-seo-summary-block">
+                <div className="br-city-summary-grid">
+                  {summaryCards.map((card) => {
+                    const href = resolveCardHref(card);
+                    return (
+                      <Link key={card.title} to={href} className="br-city-summary-card">
+                        {card.image && (
+                          <div className="br-city-summary-img-wrap">
+                            <img
+                              src={card.image}
+                              alt={card.imageAlt || card.title}
+                              className="br-city-summary-img"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                        <div className="br-city-summary-body">
+                          <h3>{card.title}</h3>
+                          {card.bullets?.length > 0 && (
+                            <ul>
+                              {card.bullets.map((bullet) => (
+                                <li key={bullet}>{bullet}</li>
+                              ))}
+                            </ul>
+                          )}
+                          <span className="br-city-summary-cta">Mehr erfahren</span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* SEO-indexable copy stays in the DOM; shown in the slide-over for visitors */}
+          <div
+            className={`br-city-seo-panel-root ${seoPanelOpen ? 'open' : ''}`}
+            aria-hidden={!seoPanelOpen}
+          >
+            <button
+              type="button"
+              className="br-city-seo-panel-backdrop"
+              aria-label="Hintergrund schließen"
+              tabIndex={seoPanelOpen ? 0 : -1}
+              onClick={() => setSeoPanelOpen(false)}
+            />
+            <aside
+              className="br-city-seo-panel"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="city-seo-panel-title"
+            >
+              <div className="br-city-seo-panel-header">
+                <h2 id="city-seo-panel-title">Planung, Kosten & wichtige Informationen</h2>
+                <button
+                  type="button"
+                  className="br-city-seo-panel-close"
+                  aria-label="Schließen"
+                  onClick={() => setSeoPanelOpen(false)}
+                >
+                  <X size={22} />
+                </button>
+              </div>
+              <div className="br-city-seo-panel-body">
+                {seoContent.intro && (
+                  <div className="br-city-seo-panel-block">
+                    <h3>Sanierung in {city.name} mit Radex</h3>
+                    <p>{seoContent.intro}</p>
+                    <p className="br-city-seo-panel-note">
+                      Ausführliche Leistungsbeschreibungen öffnen Sie über die Karten oder die Links unten – jeweils auf einer eigenen, SEO-freundlichen Seite.
                     </p>
                   </div>
+                )}
 
-                  <div className="br-city-summary-grid">
-                    {summaryCards.map((card) => {
-                      const href = resolveSummaryHref(card);
-                      return (
-                        <a
-                          key={card.title}
-                          href={href}
-                          className="br-city-summary-card"
-                          onClick={(event) => handleSummaryCardClick(event, href)}
-                        >
-                          {card.image && (
-                            <div className="br-city-summary-img-wrap">
-                              <img
-                                src={card.image}
-                                alt={card.imageAlt || card.title}
-                                className="br-city-summary-img"
-                                loading="lazy"
-                              />
-                            </div>
-                          )}
-                          <div className="br-city-summary-body">
-                            <h3>{card.title}</h3>
-                            {card.bullets?.length > 0 && (
-                              <ul>
-                                {card.bullets.map((bullet) => (
-                                  <li key={bullet}>{bullet}</li>
-                                ))}
-                              </ul>
-                            )}
-                            <span className="br-city-summary-cta">Zum Abschnitt</span>
-                          </div>
-                        </a>
-                      );
-                    })}
+                {cityServiceLinks.length > 0 && (
+                  <div className="br-city-seo-panel-block">
+                    <h3>Leistungsseiten für {city.name}</h3>
+                    <ul className="br-city-seo-panel-links">
+                      {cityServiceLinks.map((item) => (
+                        <li key={item.slug}>
+                          <Link to={item.path} onClick={() => setSeoPanelOpen(false)}>
+                            {item.label}
+                            <ArrowRight size={16} />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-              )}
+                )}
 
-              <div className="br-city-seo-articles">
-                {seoGridItems.map((item, idx) => {
-                  if (item.type === 'faq-link') {
-                    return (
-                      <a key={idx} href="#faq" className="br-seo-grid-link">
-                        <span>{item.title}</span>
-                        <ChevronDown size={20} />
-                      </a>
-                    );
-                  }
+                {seoContent.districtDetails?.length > 0 && (
+                  <div className="br-city-seo-panel-block">
+                    <h3>Stadtteile in {city.name}</h3>
+                    {seoContent.districtDetails.map((district) => (
+                      <div key={district.name} className="br-city-seo-district" style={{ marginBottom: '14px' }}>
+                        <strong>Sanierung in {district.name}</strong>
+                        <p>{district.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-                  return (
-                    <article key={item.id || idx} id={item.id} className={`br-city-seo-article${item.type === 'intro' ? ' br-city-seo-article--intro' : ''}`}>
-                      {item.type !== 'intro' && (
-                        <h3 className="br-city-seo-article-title">{item.title}</h3>
-                      )}
-                      <SeoSectionBody section={item} />
-                      <a href="#kontakt" className="br-city-seo-article-cta">
-                        Kostenlose Beratung anfragen <ArrowRight size={16} />
-                      </a>
-                    </article>
-                  );
-                })}
+                <a href="#faq" className="br-city-seo-panel-faq" onClick={() => setSeoPanelOpen(false)}>
+                  Häufige Fragen ansehen <ChevronDown size={18} />
+                </a>
+                <a href="#kontakt" className="br-city-seo-article-cta" onClick={() => setSeoPanelOpen(false)}>
+                  Kostenlose Beratung anfragen <ArrowRight size={16} />
+                </a>
               </div>
-            </div>
+            </aside>
           </div>
         </section>
       )}

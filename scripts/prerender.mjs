@@ -7,6 +7,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { cityDataMap } from '../src/data/cities.js';
+import { citySeoContent } from '../src/data/citySeoContent.js';
+import { listCityServiceRoutes } from '../src/data/cityServiceRoutes.js';
 import { leistungenCategories } from '../src/data/navigation.js';
 import { ratgeberArticles, ratgeberCategories } from '../src/data/ratgeber.js';
 
@@ -27,6 +29,27 @@ const cityMeta = Object.fromEntries(
       description: `Sanierung & Badsanierung in ${name} aus einer Hand: Wohnungs-, Haus- & Altbausanierung, Heizung, Elektro & mehr vom SHK-Meisterbetrieb. Festpreis. Jetzt Beratung sichern!`
     }
   ])
+);
+
+const cleanCityMeta = Object.fromEntries(
+  Object.entries(cityDataMap).flatMap(([id, city]) => {
+    const hubPath = `/${id}`;
+    const hub = [
+      hubPath,
+      {
+        title: `Sanierung ${city.name} | Bad, Wohnung & Haus modernisieren | Radex`,
+        description: `Sanierung & Badsanierung in ${city.name} aus einer Hand: Wohnungs-, Haus- & Altbausanierung, Heizung, Elektro & mehr vom SHK-Meisterbetrieb. Festpreis. Jetzt Beratung sichern!`,
+      },
+    ];
+    const services = listCityServiceRoutes(id, citySeoContent[id]).map((service) => [
+      service.path,
+      {
+        title: `${service.titleSuffix} ${city.name} | Radex`,
+        description: `${service.titleSuffix} in ${city.name} mit Radex: Planung, Umsetzung und Beratung aus einer Hand.`,
+      },
+    ]);
+    return [hub, ...services];
+  })
 );
 
 const routes = {
@@ -94,7 +117,8 @@ const routes = {
       },
     ])
   ),
-  ...cityMeta
+  ...cityMeta,
+  ...cleanCityMeta
 };
 
 function escapeAttr(s) {

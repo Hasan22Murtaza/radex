@@ -374,9 +374,10 @@ export const cityDataMap = {
 
 export const cityIds = Object.keys(cityDataMap);
 
-export const implementedCityPaths = new Set(
-  Object.values(cityDataMap).map((city) => city.path)
-);
+export const implementedCityPaths = new Set([
+  ...Object.values(cityDataMap).map((city) => city.path),
+  ...cityIds.map((id) => `/${id}`),
+]);
 
 export const featuredCities = cityIds
   .filter((id) => cityDataMap[id].featured)
@@ -384,7 +385,7 @@ export const featuredCities = cityIds
     id,
     name: cityDataMap[id].name,
     img: cityDataMap[id].heroImg,
-    link: cityDataMap[id].path,
+    link: `/${id}`,
   }));
 
 export const additionalCities = cityIds
@@ -393,7 +394,7 @@ export const additionalCities = cityIds
     id,
     name: cityDataMap[id].name,
     img: cityDataMap[id].heroImg,
-    link: cityDataMap[id].path,
+    link: `/${id}`,
   }));
 
 export const cityScrapeUrls = {

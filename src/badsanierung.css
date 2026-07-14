@@ -2080,3 +2080,286 @@
   display: block;
 }
 
+/* City SEO slide-over panel */
+.br-city-seo-panel-trigger {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.br-city-seo-panel-trigger:hover {
+  border-color: var(--br-orange);
+  color: var(--br-orange);
+}
+
+.br-city-seo-panel-root {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  pointer-events: none;
+}
+
+.br-city-seo-panel-root.open {
+  pointer-events: auto;
+}
+
+.br-city-seo-panel-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: rgba(15, 23, 42, 0.45);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  cursor: pointer;
+}
+
+.br-city-seo-panel-root.open .br-city-seo-panel-backdrop {
+  opacity: 1;
+}
+
+.br-city-seo-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(560px, 100%);
+  height: 100%;
+  background: #fff;
+  box-shadow: -12px 0 40px rgba(15, 23, 42, 0.18);
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(.2, .8, .2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.br-city-seo-panel-root.open .br-city-seo-panel {
+  transform: translateX(0);
+}
+
+.br-city-seo-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 16px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.br-city-seo-panel-header h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--br-orange);
+}
+
+.br-city-seo-panel-close {
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.br-city-seo-panel-close:hover {
+  color: var(--navy);
+  background: #f1f5f9;
+}
+
+.br-city-seo-panel-body {
+  overflow-y: auto;
+  padding: 20px 24px 40px;
+  flex: 1;
+}
+
+.br-city-seo-panel-block {
+  margin-bottom: 28px;
+}
+
+.br-city-seo-panel-block h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  color: var(--navy);
+}
+
+.br-city-seo-panel-block p {
+  margin: 0 0 12px;
+  color: var(--br-text-light);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.br-city-seo-panel-note {
+  font-size: 14px !important;
+  color: #64748b !important;
+}
+
+.br-city-seo-panel-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.br-city-seo-panel-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 600;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.br-city-seo-panel-links a:hover {
+  border-color: var(--br-orange);
+  background: #fff7ed;
+}
+
+.br-city-seo-panel-faq {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  color: var(--navy);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.br-city-seo-panel-faq:hover {
+  color: var(--br-orange);
+}
+
+/* City service detail pages */
+.br-city-service-hero {
+  position: relative;
+  min-height: 360px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+}
+
+.br-city-service-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.35) 0%, rgba(15, 23, 42, 0.78) 100%);
+}
+
+.br-city-service-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding: 48px 0 56px;
+  color: #fff;
+}
+
+.br-city-service-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.br-city-service-breadcrumb a {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+}
+
+.br-city-service-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.br-city-service-layout {
+  max-width: 860px;
+}
+
+.br-city-service-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  color: var(--navy);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.br-city-service-back:hover {
+  color: var(--br-orange);
+}
+
+.br-city-seo-article--standalone {
+  background: #fff;
+  border: 1px solid #eef2f7;
+  border-radius: 10px;
+  padding: 28px 28px 32px;
+  margin-bottom: 36px;
+}
+
+.br-city-service-related h3 {
+  margin: 0 0 16px;
+  color: var(--navy);
+  font-size: 20px;
+}
+
+.br-city-service-related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.br-city-service-related-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.br-city-service-related-card:hover {
+  border-color: var(--br-orange);
+}
+
+@media (max-width: 640px) {
+  .br-city-service-related-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .br-city-seo-article--standalone {
+    padding: 20px;
+  }
+
+  .br-city-seo-panel-header,
+  .br-city-seo-panel-body {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
+
