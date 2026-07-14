@@ -6,6 +6,7 @@ import {
   Briefcase, Calculator, FileText, Hammer, MapPin, Mail
 } from 'lucide-react';
 import '../badsanierung.css';
+import '../badsanierung-polish.css';
 import '../home.css';
 import useSeo, { buildFaqSchema } from '../useSeo';
 import SanierungskostenRechner from '../components/SanierungskostenRechner';
@@ -45,12 +46,23 @@ const processSteps = [
 
 
 
+function slugifySectionId(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/ä/g, 'ae')
+    .replace(/ö/g, 'oe')
+    .replace(/ü/g, 'ue')
+    .replace(/ß/g, 'ss')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function SeoSectionBody({ section }) {
   return (
-    <div className="br-seo-grid-body">
+    <div className="br-city-seo-body">
       {section.description && <p>{section.description}</p>}
       {section.items?.length > 0 && (
-        <ul>
+        <ul className="br-city-seo-list">
           {section.items.map((item, itemIdx) => (
             <li key={itemIdx}>{item}</li>
           ))}
@@ -59,11 +71,9 @@ function SeoSectionBody({ section }) {
       {section.closingNote && <p>{section.closingNote}</p>}
       {section.content && <p>{section.content}</p>}
       {section.districts?.map((district, idx) => (
-        <div key={idx} style={{ marginTop: idx > 0 ? '16px' : 0 }}>
-          <strong style={{ color: 'var(--navy)', display: 'block', marginBottom: '6px' }}>
-            Sanierung in {district.name}
-          </strong>
-          <p style={{ margin: 0 }}>{district.text}</p>
+        <div key={idx} className="br-city-seo-district" style={{ marginTop: idx > 0 ? '16px' : 0 }}>
+          <strong>Sanierung in {district.name}</strong>
+          <p>{district.text}</p>
         </div>
       ))}
     </div>
@@ -75,7 +85,6 @@ export default function CityPage({ cityId }) {
   const seoContent = citySeoContent[cityId];
 
   const [openFaq, setOpenFaq] = useState(null);
-  const [seoOpen, setSeoOpen] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -116,27 +125,45 @@ export default function CityPage({ cityId }) {
   const mainDecisionCards = serviceNavCards.slice(0, 2);
   const additionalServiceCards = serviceNavCards.slice(2);
 
-  const seoGridItems = [];
-  if (seoContent?.serviceSections) {
-    seoContent.serviceSections.forEach((section) => {
-      seoGridItems.push({ type: 'section', ...section });
+  const serviceSections = seoContent?.serviceSections ?? [];
+  const sectionIdByTitle = Object.fromEntries(
+    serviceSections.map((section) => [section.title, slugifySectionId(section.title)])
+  );
+
+  const resolveSummaryHref = (card) => {
+    const needle = (card.target || card.title || '').toLowerCase();
+    const match = serviceSections.find((section) => section.title.toLowerCase().includes(needle));
+    if (match) return `#${sectionIdByTitle[match.title]}`;
+    if (card.id) return `#${card.id}`;
+    return '#faq';
+  };
+
+  const summaryCards =
+    seoContent?.summaryCards ??
+    serviceSections.slice(0, 8).map((section) => {
+      const titleLower = section.title.toLowerCase();
+      const imageMap = [
+        ['bad', '/img/city-cards/badsanierung.webp'],
+        ['wohnung', '/img/city-cards/wohnungssanierung.webp'],
+        ['haus', '/img/city-cards/haussanierung.webp'],
+        ['altbau', '/img/city-cards/altbausanierung.webp'],
+        ['innenausbau', '/img/city-cards/innenausbau.webp'],
+        ['heizung', '/img/city-cards/heizung-sanitaer.webp'],
+        ['elektro', '/img/city-cards/elektrotechnik.webp'],
+        ['energet', '/img/city-cards/energetische-sanierung.webp'],
+        ['schimmel', '/img/city-cards/schimmel-asbest.webp'],
+        ['asbest', '/img/city-cards/schimmel-asbest.webp'],
+        ['gewerbe', '/img/city-cards/gewerbeumbau.webp'],
+      ];
+      const image = imageMap.find(([key]) => titleLower.includes(key))?.[1];
+      return {
+        title: section.title,
+        target: section.title,
+        image,
+        imageAlt: section.title,
+        bullets: (section.items || []).slice(0, 4),
+      };
     });
-  } else if (seoContent?.serviceTags) {
-    seoContent.serviceTags.forEach((tag) => {
-      seoGridItems.push({ type: 'tag', title: tag, content: tag });
-    });
-  }
-  if (seoContent?.intro) {
-    seoGridItems.push({ type: 'intro', title: 'Weitere Informationen', content: seoContent.intro });
-  }
-  if (seoContent?.districtDetails?.length) {
-    seoGridItems.push({
-      type: 'districts',
-      title: `Stadtteile in ${city.name}`,
-      districts: seoContent.districtDetails
-    });
-  }
-  seoGridItems.push({ type: 'faq-link', title: 'FAQ' });
 
   const SharedCTABlock = ({ isHero = false, centered = false }) => (
     <div
@@ -225,57 +252,143 @@ export default function CityPage({ cityId }) {
         </div>
       </section>
 
-      {/* 2. MAIN DECISION + ADDITIONAL SERVICES */}
+      {/* 2. SUMMARY CARDS / SERVICE OVERVIEW */}
       <section className="br-section br-bg-light">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Wobei dürfen wir Sie unterstützen?</h2>
-            <p className="br-section-subtitle">
-              Wir bieten das gesamte Spektrum der Immobilienmodernisierung in {city.name} und Umgebung.
+            <h2 className="br-section-title">
+              {seoContent?.summaryIntroTitle || 'Finden Sie den passenden Sanierungsbereich für Ihr Projekt.'}
+            </h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              {seoContent?.summaryIntroText ||
+                `Ob Badsanierung, Wohnungssanierung, Haussanierung oder weitere Leistungen – die folgenden Bereiche führen direkt zu den passenden Informationen für Ihr Projekt in ${city.name}.`}
             </p>
           </div>
 
-          <div className="br-decision-grid mb-12">
-            {mainDecisionCards.map((card, idx) => {
-              const Icon = card.icon;
-              return (
-                <Link key={idx} to={card.to} className="br-decision-card">
-                  <div className="br-decision-icon">
-                    <Icon size={40} strokeWidth={1.5} />
-                  </div>
-                  <h3>{card.title} in {city.name}</h3>
-                  <p>{card.desc}</p>
-                  <span className="br-btn-orange">{card.cta}</span>
-                </Link>
-              );
-            })}
-          </div>
+          {summaryCards.length > 0 ? (
+            <div className="br-city-summary-grid">
+              {summaryCards.map((card) => {
+                const href = resolveSummaryHref(card);
+                return (
+                  <a key={card.title} href={href} className="br-city-summary-card">
+                    {card.image && (
+                      <div className="br-city-summary-img-wrap">
+                        <img
+                          src={card.image}
+                          alt={card.imageAlt || card.title}
+                          className="br-city-summary-img"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <div className="br-city-summary-body">
+                      <h3>{card.title}</h3>
+                      {card.bullets?.length > 0 && (
+                        <ul>
+                          {card.bullets.map((bullet) => (
+                            <li key={bullet}>{bullet}</li>
+                          ))}
+                        </ul>
+                      )}
+                      <span className="br-city-summary-cta">Zum Abschnitt</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          ) : (
+            <>
+              <div className="br-decision-grid mb-12">
+                {mainDecisionCards.map((card, idx) => {
+                  const Icon = card.icon;
+                  return (
+                    <Link key={idx} to={card.to} className="br-decision-card">
+                      <div className="br-decision-icon">
+                        <Icon size={40} strokeWidth={1.5} />
+                      </div>
+                      <h3>{card.title} in {city.name}</h3>
+                      <p>{card.desc}</p>
+                      <span className="br-btn-orange">{card.cta}</span>
+                    </Link>
+                  );
+                })}
+              </div>
 
-          <div className="text-center mb-8">
-            <h3 className="br-section-title" style={{ fontSize: '22px' }}>Weitere Leistungen rund um Ihr Projekt</h3>
-          </div>
+              <div className="text-center mb-8">
+                <h3 className="br-section-title" style={{ fontSize: '22px' }}>Weitere Leistungen rund um Ihr Projekt</h3>
+              </div>
 
-          <div className="br-service-icons-grid">
-            {additionalServiceCards.map((card, idx) => {
-              const Icon = card.icon;
-              return (
-                <Link key={idx} to={card.to} className="br-service-icon-card">
-                  <div className="br-service-icon-wrap">
-                    <Icon size={20} strokeWidth={1.5} />
-                  </div>
-                  <span>{card.title}</span>
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="br-cta-banner br-cta-banner--light">
-            <h3>Planen Sie ein Projekt in {city.name}?</h3>
-            <p>Senden Sie uns Fotos und erhalten Sie eine professionelle Ersteinschätzung.</p>
-            <SharedCTABlock centered />
-          </div>
+              <div className="br-service-icons-grid">
+                {additionalServiceCards.map((card, idx) => {
+                  const Icon = card.icon;
+                  return (
+                    <Link key={idx} to={card.to} className="br-service-icon-card">
+                      <div className="br-service-icon-wrap">
+                        <Icon size={20} strokeWidth={1.5} />
+                      </div>
+                      <span>{card.title}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
       </section>
+
+      {/* 2b. OPEN SEO DETAIL SECTIONS (no accordion) */}
+      {seoContent && (serviceSections.length > 0 || seoContent.intro) && (
+        <section className="br-section br-city-seo-section">
+          <div className="container br-city-seo-container">
+            {seoContent.intro && (
+              <div className="br-city-seo-intro">
+                <h2 className="br-section-title">Sanierung in {city.name} mit Radex</h2>
+                <p>{seoContent.intro}</p>
+              </div>
+            )}
+
+            <div className="br-city-seo-articles">
+              {serviceSections.map((section) => {
+                const id = sectionIdByTitle[section.title];
+                return (
+                  <article key={id} id={id} className="br-city-seo-article">
+                    <h2 className="br-city-seo-article-title">{section.title}</h2>
+                    <SeoSectionBody section={section} />
+                    <a href="#kontakt" className="br-city-seo-article-cta">
+                      Kostenlose Beratung anfragen <ArrowRight size={16} />
+                    </a>
+                  </article>
+                );
+              })}
+
+              {seoContent.districtDetails?.length > 0 && (
+                <article id={`stadtteile-${slugifySectionId(city.name)}`} className="br-city-seo-article">
+                  <h2 className="br-city-seo-article-title">Stadtteile in {city.name}</h2>
+                  <SeoSectionBody section={{ districts: seoContent.districtDetails }} />
+                </article>
+              )}
+            </div>
+
+            <div className="br-cta-banner br-cta-banner--light" style={{ marginTop: '48px' }}>
+              <h3>Planen Sie ein Projekt in {city.name}?</h3>
+              <p>Senden Sie uns Fotos und erhalten Sie eine professionelle Ersteinschätzung.</p>
+              <SharedCTABlock centered />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {!seoContent && (
+        <section className="br-section br-bg-light">
+          <div className="container">
+            <div className="br-cta-banner br-cta-banner--light">
+              <h3>Planen Sie ein Projekt in {city.name}?</h3>
+              <p>Senden Sie uns Fotos und erhalten Sie eine professionelle Ersteinschätzung.</p>
+              <SharedCTABlock centered />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 3. MEET RADEX */}
       <section className="br-section">
@@ -488,48 +601,6 @@ export default function CityPage({ cityId }) {
           </div>
         </div>
       </section>
-
-      {/* 8. SEO CONTENT */}
-      {seoContent && (
-        <section className="br-section br-bg-light">
-          <div className="container">
-            <h2 className="br-section-title text-center mb-12">
-              <button
-                type="button"
-                className="br-seo-heading-toggle"
-                onClick={() => setSeoOpen((prev) => !prev)}
-                aria-expanded={seoOpen}
-              >
-                <span>Planung, Kosten & wichtige Informationen</span>
-                <ChevronDown className={seoOpen ? 'open' : ''} size={30} />
-              </button>
-            </h2>
-
-            <div className={`br-seo-grid ${seoOpen ? 'open' : 'collapsed'}`}>
-              {seoGridItems.map((item, idx) => {
-                if (item.type === 'faq-link') {
-                  return (
-                    <a key={idx} href="#faq" className="br-seo-grid-link">
-                      <span>{item.title}</span>
-                      <ChevronDown size={20} />
-                    </a>
-                  );
-                }
-
-                return (
-                  <details key={idx} className="br-seo-grid-item">
-                    <summary>
-                      <span>{item.title}</span>
-                      <ChevronDown size={20} />
-                    </summary>
-                    <SeoSectionBody section={item} />
-                  </details>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* 9. FAQ */}
       <section id="faq" className="br-section br-city-faq">
