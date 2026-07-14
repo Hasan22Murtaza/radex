@@ -194,13 +194,25 @@ export default function CityPage({ cityId }) {
   }, [cityId, seoContent]);
 
   const resolveSummaryHref = (card) => {
-    const needle = (card.target || card.title || '').toLowerCase();
-    const match = seoGridItems.find((item) => {
-      if (!item.title || item.type === 'faq-link') return false;
+    const needle = (card.target || card.title || '').toLowerCase().trim();
+    // Match service sections only — never the city intro (avoids "sanierung" inside "Badsanierung")
+    const sections = seoGridItems.filter((item) => item.type === 'section' || item.type === 'tag');
+
+    const exact = sections.find((item) => item.title.toLowerCase() === needle);
+    if (exact?.id) return `#${exact.id}`;
+
+    const includes = sections.find((item) => {
       const title = item.title.toLowerCase();
-      return title.includes(needle) || needle.includes(title.split(' ')[0]);
+      return title.includes(needle) || needle.includes(title);
     });
-    if (match?.id) return `#${match.id}`;
+    if (includes?.id) return `#${includes.id}`;
+
+    const firstToken = needle.split(/[\s,&–—-]+/).filter(Boolean)[0];
+    if (firstToken && firstToken.length > 3) {
+      const byToken = sections.find((item) => item.title.toLowerCase().includes(firstToken));
+      if (byToken?.id) return `#${byToken.id}`;
+    }
+
     if (card.id) return `#${card.id}`;
     return '#seo-informationen';
   };
@@ -672,8 +684,10 @@ export default function CityPage({ cityId }) {
                   }
 
                   return (
-                    <article key={item.id || idx} id={item.id} className="br-city-seo-article">
-                      <h3 className="br-city-seo-article-title">{item.title}</h3>
+                    <article key={item.id || idx} id={item.id} className={`br-city-seo-article${item.type === 'intro' ? ' br-city-seo-article--intro' : ''}`}>
+                      {item.type !== 'intro' && (
+                        <h3 className="br-city-seo-article-title">{item.title}</h3>
+                      )}
                       <SeoSectionBody section={item} />
                       <a href="#kontakt" className="br-city-seo-article-cta">
                         Kostenlose Beratung anfragen <ArrowRight size={16} />
