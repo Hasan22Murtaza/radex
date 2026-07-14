@@ -247,7 +247,9 @@ const faqsData = [
 
 export default function HeatingPlumbing() {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   useSeo({

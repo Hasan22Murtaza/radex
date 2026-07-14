@@ -229,23 +229,49 @@ export function SeoAccordionSection({ title = 'Weitere Informationen', intro, ac
 }
 
 export function SeoTocSection({ title = 'Weitere Informationen', intro, sections, showAllContent = false }) {
-  const [activeId, setActiveId] = useState(() => sections[0]?.id ?? null);
+  const localSections = sections.filter((item) => !(item.href || item.to));
+  const [activeId, setActiveId] = useState(() => localSections[0]?.id ?? sections[0]?.id ?? null);
+  const [isOpen, setIsOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.slice(1);
+      if (hash && sections.some((s) => s.id === hash || s.hash === hash)) return true;
+    }
+    // Hub-style TOC starts collapsed; full knowledge pages start open
+    return showAllContent;
+  });
   const contentRef = useRef(null);
 
   useEffect(() => {
     const hash = window.location.hash.slice(1);
-    if (hash && sections.some((s) => s.id === hash)) {
-      setActiveId(hash);
-      if (showAllContent) {
-        requestAnimationFrame(() => {
-          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      } else {
-        requestAnimationFrame(() => {
-          contentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+    if (!hash) return;
+
+    const match = sections.find((s) => s.id === hash || s.hash === hash);
+    if (!match) return;
+
+    // Linked TOC entries live on another page — nothing to activate locally
+    if (match.href || match.to) return;
+
+    setIsOpen(true);
+    setActiveId(match.id);
+
+    const scrollToTarget = () => {
+      const el = document.getElementById(hash) || (showAllContent ? null : contentRef.current);
+      if (!el) return;
+      const headerOffset = 160;
+      const top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+
+    // Retry so this runs after page layout (destination "bottom content")
+    let attempts = 0;
+    const tryScroll = () => {
+      if (document.getElementById(hash) || contentRef.current) {
+        scrollToTarget();
+        return;
       }
-    }
+      if (attempts++ < 40) setTimeout(tryScroll, 50);
+    };
+    setTimeout(tryScroll, 80);
   }, [sections, showAllContent]);
 
   const scrollToContent = useCallback(() => {
@@ -268,63 +294,91 @@ export function SeoTocSection({ title = 'Weitere Informationen', intro, sections
     [scrollToContent, showAllContent],
   );
 
+  const buildDestination = (item) => {
+    const base = item.href || item.to;
+    if (!base) return null;
+    if (base.includes('#')) return base;
+    const hash = item.hash || item.id;
+    return `${base}#${hash}`;
+  };
+
+  // Linked TOC items open another page — their content lives there, not under this TOC
+  const contentItems = localSections;
+
   return (
     <section className="br-section br-bg-light br-seo-toc-section">
       <div className="container br-seo-toc-container">
         <div className="text-center mb-12">
-          <h2 className="br-section-title">{title}</h2>
-          {intro && <div className="br-section-subtitle br-seo-toc-intro">{intro}</div>}
+          <button
+            type="button"
+            className={`br-seo-toc-toggle${isOpen ? ' is-open' : ''}`}
+            aria-expanded={isOpen}
+            aria-controls="br-seo-toc-panel"
+            onClick={() => setIsOpen((open) => !open)}
+          >
+            <h2 className="br-section-title">{title}</h2>
+            <ChevronDown size={28} className="br-seo-toc-toggle-icon" aria-hidden="true" />
+          </button>
+          {intro && isOpen && <div className="br-section-subtitle br-seo-toc-intro">{intro}</div>}
         </div>
 
-        <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
-          <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
-          <ol className="br-seo-toc-list">
-            {sections.map((item) => {
-              const destination = item.href || item.to;
-              const isActive = activeId === item.id;
-              const linkClassName = isActive ? 'is-active' : undefined;
+        <div
+          id="br-seo-toc-panel"
+          className={`br-seo-toc-panel${isOpen ? ' is-open' : ''}`}
+          hidden={!isOpen}
+        >
+          <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
+            <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
+            <ol className="br-seo-toc-list">
+              {sections.map((item) => {
+                const destination = buildDestination(item);
+                const isActive = activeId === item.id;
+                const linkClassName = isActive ? 'is-active' : undefined;
 
-              if (destination) {
+                if (destination) {
+                  return (
+                    <li key={item.id}>
+                      <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
+                        {item.title}
+                      </Link>
+                    </li>
+                  );
+                }
+
                 return (
                   <li key={item.id}>
-                    <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
+                    <a
+                      href={`#${item.id}`}
+                      className={linkClassName}
+                      aria-current={isActive ? 'true' : undefined}
+                      onClick={(e) => handleTocClick(e, item.id)}
+                    >
                       {item.title}
-                    </Link>
+                    </a>
                   </li>
                 );
-              }
+              })}
+            </ol>
+          </nav>
 
-              return (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className={linkClassName}
-                    aria-current={isActive ? 'true' : undefined}
-                    onClick={(e) => handleTocClick(e, item.id)}
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              );
-            })}
-          </ol>
-        </nav>
-
-        <div
-          className={`br-seo-toc-content${showAllContent ? ' br-seo-toc-content--all' : ''}`}
-          ref={contentRef}
-        >
-          {sections.map((item) => (
-            <article
-              key={item.id}
-              id={item.id}
-              className="br-seo-toc-article"
-              hidden={!showAllContent && activeId !== item.id}
+          {contentItems.length > 0 && (
+            <div
+              className={`br-seo-toc-content${showAllContent ? ' br-seo-toc-content--all' : ''}`}
+              ref={contentRef}
             >
-              <h3 className="br-seo-toc-article-title">{item.title}</h3>
-              <div className="br-seo-toc-article-body">{item.content}</div>
-            </article>
-          ))}
+              {contentItems.map((item) => (
+                <article
+                  key={item.id}
+                  id={item.id}
+                  className="br-seo-toc-article"
+                  hidden={!showAllContent && activeId !== item.id}
+                >
+                  <h3 className="br-seo-toc-article-title">{item.title}</h3>
+                  <div className="br-seo-toc-article-body">{item.content}</div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -17,25 +17,35 @@ export function BrowserRouter({ children, initialPath }) {
   }, []);
 
   const scrollToHash = (hash) => {
-    if (typeof window === 'undefined') return;
-    setTimeout(() => {
+    if (typeof window === 'undefined' || !hash) return;
+    let attempts = 0;
+    const tryScroll = () => {
       const el = document.getElementById(hash);
       if (el) {
         const headerOffset = 160;
         const elementPosition = el.getBoundingClientRect().top;
         window.scrollTo({ top: elementPosition + window.pageYOffset - headerOffset, behavior: 'smooth' });
+        return;
       }
-    }, 100);
+      if (attempts++ < 40) {
+        setTimeout(tryScroll, 50);
+      }
+    };
+    // Wait past page mount effects that reset scroll to top
+    setTimeout(tryScroll, 120);
   };
 
   const navigate = (to) => {
     if (to.includes('#')) {
       const [routePath, hash] = to.split('#');
-      const targetPath = routePath || '/';
+      const targetPath = routePath || path || '/';
+      const fullUrl = `${targetPath}#${hash}`;
 
       if (path !== targetPath) {
-        window.history.pushState({}, '', targetPath);
+        window.history.pushState({}, '', fullUrl);
         setPath(targetPath);
+      } else {
+        window.history.pushState({}, '', fullUrl);
       }
 
       scrollToHash(hash);
@@ -82,7 +92,7 @@ export function Redirect({ to }) {
   useEffect(() => {
     const [routePath, hash] = to.split('#');
     const targetPath = routePath || '/';
-    window.history.replaceState({}, '', to.includes('#') ? targetPath : to);
+    window.history.replaceState({}, '', hash ? `${targetPath}#${hash}` : to);
     setPath(targetPath);
     if (hash) scrollToHash(hash);
   }, [to]);

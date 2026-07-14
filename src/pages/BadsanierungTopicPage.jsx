@@ -839,7 +839,9 @@ export default function BadsanierungTopicPage({ topicId }) {
   const topic = badsanierungTopics[topicId];
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, [topicId]);
 
   useSeo(

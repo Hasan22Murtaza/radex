@@ -21,6 +21,38 @@ import {
 import { sanierungSeoIntro, sanierungSeoSections } from '../data/sanierungSeoContent';
 import { RADEX_LIVE_URL } from '../constants/brand';
 
+/** Hub TOC entries that open dedicated pages (bottom content via #hash). */
+const SANIERUNG_TOC_DESTINATIONS = {
+  wohnungssanierung: { href: '/sanierung/wohnungssanierung', hash: 'was-bedeutet-wohnungssanierung' },
+  haussanierung: { href: '/sanierung/haussanierung', hash: 'was-bedeutet-haussanierung' },
+  altbausanierung: { href: '/sanierung/altbausanierung', hash: 'was-ist-altbausanierung' },
+  komplettsanierung: { href: '/komplettsanierung-rhein-main', hash: 'was-ist-komplettsanierung' },
+  kernsanierung: { href: '/komplettsanierung-rhein-main', hash: 'komplett-vs-kern' },
+  generalunternehmer: { href: '/generalunternehmer-rhein-main', hash: 'was-ist-ein-generalunternehmer' },
+  sanierungsplanung: { href: '/sanierung-ablauf-rhein-main', hash: 'planung' },
+  sanierungsablauf: { href: '/sanierung-ablauf-rhein-main', hash: 'warum-strukturierter-ablauf' },
+  sanierungskosten: { href: '/sanierungskosten-rhein-main', hash: 'zusammensetzung-sanierungskosten' },
+  foerdermoeglichkeiten: { href: '/energetische-sanierung-rhein-main', hash: 'foerderung' },
+  'energetische-sanierung': { href: '/energetische-sanierung-rhein-main', hash: 'gesamtsystem' },
+  'heizung-sanitaer': { href: '/heizung-sanitaer-rhein-main', hash: 'shk-meisterbetrieb' },
+  elektrotechnik: { href: '/elektroinstallation-rhein-main', hash: 'elektrokoordination' },
+  'innenausbau-trockenbau': { href: '/innenausbau-umbau-rhein-main', hash: 'bestandswissen' },
+  'schimmel-schadstoffsanierung': { href: '/schimmelsanierung-rhein-main', hash: 'ursache-folge' },
+  asbestsanierung: { href: '/asbestsanierung-rhein-main', hash: 'trgs-519' },
+  'sanierung-aus-einer-hand': { href: '/generalunternehmer-rhein-main', hash: 'sanierung-aus-einer-hand' },
+};
+
+const linkedSanierungSections = sanierungSeoSections.map((section) => {
+  const dest = SANIERUNG_TOC_DESTINATIONS[section.id];
+  if (!dest) return section;
+  return {
+    id: section.id,
+    title: section.title,
+    href: dest.href,
+    hash: dest.hash,
+  };
+});
+
 const HERO_IMAGE = '/img/sanierung-hero.png';
 
 const trustCards = [
@@ -317,7 +349,7 @@ export default function SanierungHub() {
       <SeoTocSection
         title="Alles, was Sie über eine Sanierung wissen sollten"
         intro={sanierungSeoIntro}
-        sections={sanierungSeoSections}
+        sections={linkedSanierungSections}
       />
     </main>
   );

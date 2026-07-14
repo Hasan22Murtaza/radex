@@ -257,7 +257,9 @@ const faqsData = [
 
 export default function BathroomRenovation() {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   useSeo({

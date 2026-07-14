@@ -137,107 +137,56 @@ const seoSections = [
     id: 'komplettbadsanierung',
     title: 'Komplettbadsanierung',
     href: '/badsanierung/badezimmer-sanieren',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Bei einer Komplettbadsanierung wird das Bad vollständig entkernt und neu aufgebaut – von der Rohinstallation über Abdichtung und Fliesen bis zur schlüsselfertigen Übergabe. Richtig, wenn Leitungen, Abdichtung und Grundsubstanz erneuert werden müssen.</p>
-        <p className="text-gray-600">Radex plant und koordiniert <Link to="/komplettbadsanierung-rhein-main">Komplettbadsanierungen</Link> im gesamten Rhein-Main-Gebiet als SHK-Meisterbetrieb und <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link>.</p>
-      </>
-    ),
   },
   {
     id: 'badmodernisierung',
     title: 'Badmodernisierung',
     href: '/badsanierung/badezimmer-sanieren',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Badmodernisierung bedeutet mehr Komfort, bessere Optik und neue Funktionen mit weniger Bauaufwand – neue Armaturen, moderne Beleuchtung oder eine zeitgemäße Dusche. Sinnvoll, wenn die Grundsubstanz noch in Ordnung ist.</p>
-        <p className="text-gray-600">Erfahren Sie mehr über <Link to="/dusche-statt-badewanne-rhein-main">Dusche statt Badewanne</Link> und <Link to="/barrierefreies-bad-rhein-main">barrierefreie Bäder</Link>.</p>
-      </>
-    ),
   },
   {
     id: 'badplanung',
     title: 'Badplanung',
     href: '/badplanung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Vor dem ersten Handgriff steht die Planung: Bedarf, Grundriss, Materialwünsche und Budget. Eine gute Planung ist die Grundlage für eine verlässliche Kostenaussage und einen reibungslosen Ablauf.</p>
-        <p className="text-gray-600">Details zum Ablauf finden Sie auf der Seite <Link to="/badsanierung-ablauf-rhein-main">Badsanierung Planung & Ablauf</Link>.</p>
-      </>
-    ),
+    hash: 'warum-planung',
   },
   {
     id: 'sanitaerinstallation',
     title: 'Sanitärinstallation',
     href: '/heizung-sanitaer-rhein-main',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Neue Wasserleitungen, Anschluss von Dusche, Wanne, WC und Waschtisch, Erneuerung der Entwässerung und Integration von Heizkörpern – als SHK-Meisterbetrieb führen wir Sanitärarbeiten selbst aus.</p>
-        <p className="text-gray-600">Mehr zu <Link to="/heizung-sanitaer-rhein-main">Heizung & Sanitär</Link> im Rhein-Main-Gebiet.</p>
-      </>
-    ),
   },
   {
     id: 'fliesen-oberflaechen',
     title: 'Fliesen & Oberflächen',
-    content: (
-      <p className="text-gray-600">Großformatige Bodenfliesen, Wandfliesen im Wunschformat oder Mosaik – durch routinierte Fliesenleger, die mit modernen Abdichtungssystemen vertraut sind. Radex koordiniert Fliesenarbeiten als Teil der Gesamtplanung.</p>
-    ),
+    href: '/badsanierung/badezimmer-sanieren',
   },
   {
     id: 'dusche-statt-badewanne',
     title: 'Dusche statt Badewanne',
     href: '/dusche-statt-badewanne',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Der Umbau von Wanne zu Dusche – aus Komfort-, Platz- oder Altersgründen. Entwässerung, Abdichtung und Installationsführung werden sorgfältig geplant.</p>
-        <p className="text-gray-600"><Link to="/dusche-statt-badewanne-rhein-main">Dusche statt Badewanne</Link> – individuell geplant und professionell umgesetzt.</p>
-      </>
-    ),
+    hash: 'warum-dusche',
   },
   {
     id: 'barrierefreies-bad',
     title: 'Barrierefreies Bad',
     href: '/barrierefreies-bad',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Bodengleiche Duschen, Haltegriffe und gut geplante Bewegungsflächen – mehr Komfort für alle und die langfristig sichere Nutzung der eigenen Wohnung.</p>
-        <p className="text-gray-600"><Link to="/barrierefreies-bad-rhein-main">Barrierefreies Bad planen</Link> mit Radex.</p>
-      </>
-    ),
+    hash: 'was-bedeutet',
   },
   {
     id: 'gaeste-wc',
     title: 'Gäste-WC',
     href: '/gaeste-wc',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Auf kleiner Fläche ein funktionales, helles Bad schaffen – Radex kennt die typischen Grundrisse im Rhein-Main-Gebiet und entwickelt passende Lösungen für Gäste-WCs.</p>
-        <p className="text-gray-600"><Link to="/gaeste-wc-sanieren-rhein-main">Gäste-WC modernisieren</Link>.</p>
-      </>
-    ),
+    hash: 'kleine-raeume',
   },
   {
     id: 'kosten-badsanierung',
     title: 'Kosten einer Badsanierung',
     href: '/badsanierung-kosten',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Die Kosten hängen von Badgröße, Umfang der Arbeiten, Zustand der Leitungen und gewählter Ausstattung ab. Nutzen Sie unseren <Link to="/badsanierung-kosten">Badsanierung Kosten-Rechner</Link> für eine erste Orientierung zu typischen Einstiegspreisen.</p>
-        <p className="text-gray-600">Typische Preisbereiche: Basis ab ca. 8.000 €, Komfort 15.000–25.000 €, Premium 25.000–45.000 €+.</p>
-      </>
-    ),
   },
   {
     id: 'foerdermoeglichkeiten',
     title: 'Fördermöglichkeiten',
     href: '/energetische-sanierung-rhein-main',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">Bei energetischen Maßnahmen im Zusammenhang mit einer Sanierung können Fördermittel (KfW/BAFA) relevant sein – etwa bei Heizungstausch oder energetischer Modernisierung.</p>
-        <p className="text-gray-600">Mehr zu <Link to="/energetische-sanierung-rhein-main">energetischer Sanierung & Förderung</Link>.</p>
-      </>
-    ),
+    hash: 'foerderung',
   },
 ];
 

@@ -30,28 +30,57 @@ export const badezimmerSanierenSeoIntro = (
 
 export const badezimmerSanierenSeoSections = [
   {
-    id: 'aus-einer-hand',
-    title: 'Badsanierung aus einer Hand – was das wirklich bedeutet',
+    id: 'komplettbadsanierung',
+    title: 'Komplettbadsanierung',
     content: (
       <>
         <p className={p}>
-          Wer für eine Badsanierung selbst Handwerker koordiniert – Klempner, Elektriker, Fliesenleger, Trockenbauer –
-          übernimmt de facto die Aufgabe eines Bauleiters. Terminkollisionen, Schnittstellen zwischen Gewerken und
-          fehlende Zuarbeit sind die häufigsten Gründe, warum Badsanierungen länger dauern oder teurer werden als
-          geplant.
+          Bei einer Komplettbadsanierung wird das Bad vollständig entkernt und neu aufgebaut – von der Rohinstallation
+          über Abdichtung und Fliesen bis zur schlüsselfertigen Übergabe. Richtig, wenn Leitungen, Abdichtung und
+          Grundsubstanz erneuert werden müssen.
         </p>
         <p className={p}>
-          Radex übernimmt diese Koordination vollständig. Als{' '}
-          <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link> schließen Sie mit uns einen Vertrag – und
-          wir stellen sicher, dass alle Beteiligten zum richtigen Zeitpunkt am richtigen Ort sind. Das gilt für unsere
-          eigenen Sanitär- und Heizungsarbeiten als SHK-Meisterbetrieb ebenso wie für die koordinierten Fachbetriebe.
-        </p>
-        <p className={p}>
-          Was Sie davon haben: einen einzigen Ansprechpartner für alle Fragen, eine abgestimmte Planung und die
-          Gewissheit, dass kein Gewerk auf das andere warten muss, weil die Koordination fehlt.
+          Radex plant und koordiniert Komplettbadsanierungen im gesamten Rhein-Main-Gebiet als SHK-Meisterbetrieb und{' '}
+          <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link>. Den Überblick finden Sie auf der{' '}
+          <Link to="/badsanierung-rhein-main">Badsanierung-Hubseite</Link>.
         </p>
       </>
     ),
+  },
+  {
+    id: 'badmodernisierung',
+    title: 'Badmodernisierung',
+    content: (
+      <>
+        <p className={p}>
+          Badmodernisierung bedeutet mehr Komfort, bessere Optik und neue Funktionen mit weniger Bauaufwand – neue
+          Armaturen, moderne Beleuchtung oder eine zeitgemäße Dusche. Sinnvoll, wenn die Grundsubstanz noch in
+          Ordnung ist.
+        </p>
+        <p className={p}>
+          Erfahren Sie mehr über <Link to="/dusche-statt-badewanne">Dusche statt Badewanne</Link> und{' '}
+          <Link to="/barrierefreies-bad">barrierefreie Bäder</Link>.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'fliesen-oberflaechen',
+    title: 'Fliesen & Oberflächen',
+    content: (
+      <>
+        <p className={p}>
+          Großformatige Bodenfliesen, Wandfliesen im Wunschformat oder Mosaik – durch routinierte Fliesenleger, die mit
+          modernen Abdichtungssystemen vertraut sind. Radex koordiniert Fliesenarbeiten als Teil der Gesamtplanung der{' '}
+          <Link to="/badsanierung-rhein-main">Badsanierung</Link>.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'aus-einer-hand',
+    title: 'Badsanierung aus einer Hand – was das wirklich bedeutet',
+    href: '/generalunternehmer-rhein-main',
   },
   {
     id: 'komplett-vs-modernisierung',

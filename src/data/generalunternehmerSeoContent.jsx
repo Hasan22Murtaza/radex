@@ -22,6 +22,55 @@ export const generalunternehmerSeoIntro = (
 
 export const generalunternehmerSeoSections = [
   {
+    id: 'aus-einer-hand',
+    title: 'Badsanierung aus einer Hand – was das wirklich bedeutet',
+    content: (
+      <>
+        <p className={p}>
+          Wer für eine Badsanierung selbst Handwerker koordiniert – Klempner, Elektriker, Fliesenleger, Trockenbauer –
+          übernimmt de facto die Aufgabe eines Bauleiters. Terminkollisionen, Schnittstellen zwischen Gewerken und
+          fehlende Zuarbeit sind die häufigsten Gründe, warum Badsanierungen länger dauern oder teurer werden als
+          geplant.
+        </p>
+        <p className={p}>
+          Radex übernimmt diese Koordination vollständig. Als Generalunternehmer schließen Sie mit uns einen Vertrag –
+          und wir stellen sicher, dass alle Beteiligten zum richtigen Zeitpunkt am richtigen Ort sind. Das gilt für
+          unsere eigenen Sanitär- und Heizungsarbeiten als SHK-Meisterbetrieb ebenso wie für die koordinierten
+          Fachbetriebe.
+        </p>
+        <p className={p}>
+          Was Sie davon haben: einen einzigen Ansprechpartner für alle Fragen, eine abgestimmte Planung und die
+          Gewissheit, dass kein Gewerk auf das andere warten muss, weil die Koordination fehlt. Mehr zur{' '}
+          <Link to="/badsanierung/badezimmer-sanieren">Badezimmer-Sanierung</Link> und zur{' '}
+          <Link to="/badsanierung-rhein-main">Badsanierung im Rhein-Main-Gebiet</Link>.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'sanierung-aus-einer-hand',
+    title: 'Sanierung aus einer Hand – Die Vorteile eines Generalunternehmers',
+    content: (
+      <>
+        <p className={p}>
+          Bei einer umfangreichen Sanierung arbeiten häufig zahlreiche Gewerke gleichzeitig an einer Immobilie.
+          Sanitärinstallateure, Elektriker, Trockenbauer, Fliesenleger, Maler und Bodenleger müssen ihre Arbeiten
+          exakt aufeinander abstimmen.
+        </p>
+        <p className={p}>Zu den wichtigsten Vorteilen eines Generalunternehmers gehören:</p>
+        <ul className={ul}>
+          <li>Ein Ansprechpartner und koordinierte Bauabläufe</li>
+          <li>Weniger organisatorischer Aufwand und transparente Kommunikation</li>
+          <li>Bessere Terminplanung, abgestimmte Gewerke und kontinuierliche Qualitätskontrolle</li>
+          <li>Höhere Planungssicherheit</li>
+        </ul>
+        <p className={p}>
+          Mehr zur <Link to="/sanierung-rhein-main">Sanierung im Rhein-Main-Gebiet</Link>.
+        </p>
+      </>
+    ),
+  },
+  {
     id: 'was-ist-ein-generalunternehmer',
     title: 'Was ist ein Generalunternehmer bei einer Sanierung?',
     content: (
