@@ -294,11 +294,14 @@
 
 /* Linked image cards – generous photo area */
 .br-image-card-grid .br-nav-card-img {
+  width: 100%;
+  align-self: stretch;
   height: 168px;
   border-radius: 8px;
   margin-bottom: 16px;
   background-size: cover;
   background-position: center;
+  flex: 0 0 auto;
 }
 
 .br-image-card-grid a.br-decision-card {

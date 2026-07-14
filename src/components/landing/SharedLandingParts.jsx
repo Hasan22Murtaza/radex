@@ -279,18 +279,34 @@ export function SeoTocSection({ title = 'Weitere Informationen', intro, sections
         <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
           <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
           <ol className="br-seo-toc-list">
-            {sections.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className={activeId === item.id ? 'is-active' : undefined}
-                  aria-current={activeId === item.id ? 'true' : undefined}
-                  onClick={(e) => handleTocClick(e, item.id)}
-                >
-                  {item.title}
-                </a>
-              </li>
-            ))}
+            {sections.map((item) => {
+              const destination = item.href || item.to;
+              const isActive = activeId === item.id;
+              const linkClassName = isActive ? 'is-active' : undefined;
+
+              if (destination) {
+                return (
+                  <li key={item.id}>
+                    <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              }
+
+              return (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className={linkClassName}
+                    aria-current={isActive ? 'true' : undefined}
+                    onClick={(e) => handleTocClick(e, item.id)}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              );
+            })}
           </ol>
         </nav>
 
