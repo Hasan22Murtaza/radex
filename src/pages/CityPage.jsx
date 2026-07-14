@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link } from '../router';
 import {
   Camera, MessageSquare, Phone, CheckCircle2, ArrowRight, Award, Users, ShieldCheck,
-  ChevronDown, ChevronRight, AlertTriangle, Wrench, Bath, Building2, Home, Landmark, Flame, Zap,
+  ChevronDown, AlertTriangle, Wrench, Bath, Building2, Home, Landmark, Flame, Zap,
   Briefcase, Calculator, FileText, Hammer, MapPin, Mail
 } from 'lucide-react';
 import '../badsanierung.css';
@@ -44,14 +44,6 @@ const processSteps = [
 ];
 
 
-
-function splitIntoColumns(items, columnCount = 3) {
-  const columns = Array.from({ length: columnCount }, () => []);
-  items.forEach((item, index) => {
-    columns[index % columnCount].push(item);
-  });
-  return columns;
-}
 
 function SeoSectionBody({ section }) {
   return (
@@ -145,8 +137,6 @@ export default function CityPage({ cityId }) {
     });
   }
   seoGridItems.push({ type: 'faq-link', title: 'FAQ' });
-
-  const seoColumns = splitIntoColumns(seoGridItems, 3);
 
   const SharedCTABlock = ({ isHero = false, centered = false }) => (
     <div
@@ -516,30 +506,26 @@ export default function CityPage({ cityId }) {
             </h2>
 
             <div className={`br-seo-grid ${seoOpen ? 'open' : 'collapsed'}`}>
-              {seoColumns.map((column, colIdx) => (
-                <div key={colIdx} className="br-seo-grid-col">
-                  {column.map((item, idx) => {
-                    if (item.type === 'faq-link') {
-                      return (
-                        <a key={idx} href="#faq" className="br-seo-grid-link">
-                          <span>{item.title}</span>
-                          <ChevronRight size={16} />
-                        </a>
-                      );
-                    }
+              {seoGridItems.map((item, idx) => {
+                if (item.type === 'faq-link') {
+                  return (
+                    <a key={idx} href="#faq" className="br-seo-grid-link">
+                      <span>{item.title}</span>
+                      <ChevronDown size={20} />
+                    </a>
+                  );
+                }
 
-                    return (
-                      <details key={idx} className="br-seo-grid-item">
-                        <summary>
-                          <span>{item.title}</span>
-                          <ChevronRight size={16} />
-                        </summary>
-                        <SeoSectionBody section={item} />
-                      </details>
-                    );
-                  })}
-                </div>
-              ))}
+                return (
+                  <details key={idx} className="br-seo-grid-item">
+                    <summary>
+                      <span>{item.title}</span>
+                      <ChevronDown size={20} />
+                    </summary>
+                    <SeoSectionBody section={item} />
+                  </details>
+                );
+              })}
             </div>
           </div>
         </section>
