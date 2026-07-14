@@ -230,7 +230,7 @@ export function SeoAccordionSection({ title = 'Weitere Informationen', intro, ac
 
 export function SeoTocSection({ title = 'Weitere Informationen', intro, sections, showAllContent = false }) {
   const localSections = sections.filter((item) => !(item.href || item.to));
-  const [activeId, setActiveId] = useState(() => localSections[0]?.id ?? sections[0]?.id ?? null);
+  const [activeId, setActiveId] = useState(() => localSections[0]?.id ?? null);
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.slice(1);

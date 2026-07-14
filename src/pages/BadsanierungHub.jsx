@@ -136,57 +136,52 @@ const seoSections = [
   {
     id: 'komplettbadsanierung',
     title: 'Komplettbadsanierung',
-    href: '/badsanierung/badezimmer-sanieren',
+    href: '/badsanierung/badezimmer-sanieren#komplettbadsanierung',
   },
   {
     id: 'badmodernisierung',
     title: 'Badmodernisierung',
-    href: '/badsanierung/badezimmer-sanieren',
+    href: '/badsanierung/badezimmer-sanieren#badmodernisierung',
   },
   {
     id: 'badplanung',
     title: 'Badplanung',
-    href: '/badplanung',
-    hash: 'warum-planung',
+    href: '/badplanung#warum-planung',
   },
   {
     id: 'sanitaerinstallation',
     title: 'Sanitärinstallation',
-    href: '/heizung-sanitaer-rhein-main',
+    href: '/heizung-sanitaer-rhein-main#sanitaerinstallation',
   },
   {
     id: 'fliesen-oberflaechen',
     title: 'Fliesen & Oberflächen',
-    href: '/badsanierung/badezimmer-sanieren',
+    href: '/badsanierung/badezimmer-sanieren#fliesen-oberflaechen',
   },
   {
     id: 'dusche-statt-badewanne',
     title: 'Dusche statt Badewanne',
-    href: '/dusche-statt-badewanne',
-    hash: 'warum-dusche',
+    href: '/dusche-statt-badewanne#warum-dusche',
   },
   {
     id: 'barrierefreies-bad',
     title: 'Barrierefreies Bad',
-    href: '/barrierefreies-bad',
-    hash: 'was-bedeutet',
+    href: '/barrierefreies-bad#was-bedeutet',
   },
   {
     id: 'gaeste-wc',
     title: 'Gäste-WC',
-    href: '/gaeste-wc',
-    hash: 'kleine-raeume',
+    href: '/gaeste-wc#kleine-raeume',
   },
   {
     id: 'kosten-badsanierung',
     title: 'Kosten einer Badsanierung',
-    href: '/badsanierung-kosten',
+    href: '/sanierungskosten-rhein-main#kosten-badsanierung',
   },
   {
     id: 'foerdermoeglichkeiten',
     title: 'Fördermöglichkeiten',
-    href: '/energetische-sanierung-rhein-main',
-    hash: 'foerderung',
+    href: '/energetische-sanierung-rhein-main#foerderung',
   },
 ];
 

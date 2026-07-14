@@ -21,35 +21,33 @@ import {
 import { sanierungSeoIntro, sanierungSeoSections } from '../data/sanierungSeoContent';
 import { RADEX_LIVE_URL } from '../constants/brand';
 
-/** Hub TOC entries that open dedicated pages (bottom content via #hash). */
 const SANIERUNG_TOC_DESTINATIONS = {
-  wohnungssanierung: { href: '/sanierung/wohnungssanierung', hash: 'was-bedeutet-wohnungssanierung' },
-  haussanierung: { href: '/sanierung/haussanierung', hash: 'was-bedeutet-haussanierung' },
-  altbausanierung: { href: '/sanierung/altbausanierung', hash: 'was-ist-altbausanierung' },
-  komplettsanierung: { href: '/komplettsanierung-rhein-main', hash: 'was-ist-komplettsanierung' },
-  kernsanierung: { href: '/komplettsanierung-rhein-main', hash: 'komplett-vs-kern' },
-  generalunternehmer: { href: '/generalunternehmer-rhein-main', hash: 'was-ist-ein-generalunternehmer' },
-  sanierungsplanung: { href: '/sanierung-ablauf-rhein-main', hash: 'planung' },
-  sanierungsablauf: { href: '/sanierung-ablauf-rhein-main', hash: 'warum-strukturierter-ablauf' },
-  sanierungskosten: { href: '/sanierungskosten-rhein-main', hash: 'zusammensetzung-sanierungskosten' },
-  foerdermoeglichkeiten: { href: '/energetische-sanierung-rhein-main', hash: 'foerderung' },
-  'energetische-sanierung': { href: '/energetische-sanierung-rhein-main', hash: 'gesamtsystem' },
-  'heizung-sanitaer': { href: '/heizung-sanitaer-rhein-main', hash: 'shk-meisterbetrieb' },
-  elektrotechnik: { href: '/elektroinstallation-rhein-main', hash: 'elektrokoordination' },
-  'innenausbau-trockenbau': { href: '/innenausbau-umbau-rhein-main', hash: 'bestandswissen' },
-  'schimmel-schadstoffsanierung': { href: '/schimmelsanierung-rhein-main', hash: 'ursache-folge' },
-  asbestsanierung: { href: '/asbestsanierung-rhein-main', hash: 'trgs-519' },
-  'sanierung-aus-einer-hand': { href: '/generalunternehmer-rhein-main', hash: 'sanierung-aus-einer-hand' },
+  wohnungssanierung: '/sanierung/wohnungssanierung#was-bedeutet-wohnungssanierung',
+  haussanierung: '/sanierung/haussanierung#was-bedeutet-haussanierung',
+  altbausanierung: '/sanierung/altbausanierung#was-ist-altbausanierung',
+  komplettsanierung: '/komplettsanierung-rhein-main#was-ist-komplettsanierung',
+  kernsanierung: '/komplettsanierung-rhein-main#komplett-vs-kern',
+  generalunternehmer: '/generalunternehmer-rhein-main#was-ist-ein-generalunternehmer',
+  sanierungsplanung: '/sanierung-ablauf-rhein-main#planung',
+  sanierungsablauf: '/sanierung-ablauf-rhein-main#warum-strukturierter-ablauf',
+  sanierungskosten: '/sanierungskosten-rhein-main#zusammensetzung-sanierungskosten',
+  foerdermoeglichkeiten: '/energetische-sanierung-rhein-main#foerderung',
+  'energetische-sanierung': '/energetische-sanierung-rhein-main#gesamtsystem',
+  'heizung-sanitaer': '/heizung-sanitaer-rhein-main#shk-meisterbetrieb',
+  elektrotechnik: '/elektroinstallation-rhein-main#elektrokoordination',
+  'innenausbau-trockenbau': '/innenausbau-umbau-rhein-main#bestandswissen',
+  'schimmel-schadstoffsanierung': '/schimmelsanierung-rhein-main#ursache-folge',
+  asbestsanierung: '/asbestsanierung-rhein-main#trgs-519',
+  'sanierung-aus-einer-hand': '/generalunternehmer-rhein-main#sanierung-aus-einer-hand',
 };
 
 const linkedSanierungSections = sanierungSeoSections.map((section) => {
-  const dest = SANIERUNG_TOC_DESTINATIONS[section.id];
-  if (!dest) return section;
+  const href = SANIERUNG_TOC_DESTINATIONS[section.id];
+  if (!href) return section;
   return {
     id: section.id,
     title: section.title,
-    href: dest.href,
-    hash: dest.hash,
+    href,
   };
 });
 
