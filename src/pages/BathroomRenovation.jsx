@@ -1,109 +1,482 @@
-import ServicePageTemplate from '../components/ServicePageTemplate';
+import { useEffect } from 'react';
+import {
+  Camera,
+  Award,
+  ShieldCheck,
+  Users,
+  MapPin,
+  UserCheck,
+  Bath,
+} from 'lucide-react';
+import '../badsanierung.css';
+import '../badsanierung-polish.css';
+import '../sanierung-polish.css';
+import '../home.css';
+import useSeo, { buildFaqSchema, buildServiceSchema } from '../useSeo';
+import ContactForm from '../components/ContactForm';
+import {
+  SharedCTABlock,
+  PremiumIconCards,
+  FaqAccordion,
+  SeoTocSection,
+  RadexLiveSection,
+  ProcessSteps,
+  SectionTransition,
+  ImageCardGrid,
+} from '../components/landing/SharedLandingParts';
+import {
+  badezimmerSanierenSeoIntro,
+  badezimmerSanierenSeoSections,
+} from '../data/badezimmerSanierenSeoContent';
+
+const HERO_IMAGE = '/img/badsanierung-hero.png';
+
+const audienceCards = [
+  {
+    title: 'Komplettbadsanierung',
+    desc: 'Das Bad wird vollständig entkernt und neu aufgebaut – von der Rohinstallation bis zur schlüsselfertigen Übergabe.',
+    image: '/img/badsanierung-thema-komplett.png',
+    imageAlt: 'Komplett saniertes modernes Badezimmer',
+    to: '/badsanierung-rhein-main',
+  },
+  {
+    title: 'Dusche statt Badewanne',
+    desc: 'Umbau von Wanne zu Dusche aus Komfort-, Platz- oder Altersgründen – inkl. Entwässerung und Abdichtung.',
+    image: '/img/badsanierung-thema-dusche.png',
+    imageAlt: 'Walk-in-Dusche nach Umbau statt Badewanne',
+    to: '/dusche-statt-badewanne',
+  },
+  {
+    title: 'Barrierefreies Bad',
+    desc: 'Bodengleiche Duschen, Haltegriffe und gut geplante Bewegungsflächen für sichere, langfristige Nutzung.',
+    image: '/img/badsanierung-thema-barrierefrei.png',
+    imageAlt: 'Barrierefreies Bad mit bodengleicher Dusche',
+    to: '/barrierefreies-bad',
+  },
+  {
+    title: 'Gäste-WC & kleines Bad',
+    desc: 'Auf kleiner Fläche ein funktionales, helles Bad schaffen – typische Rhein-Main-Grundrisse inklusive.',
+    image: '/img/badsanierung-thema-gaestewc.png',
+    imageAlt: 'Modernisiertes Gäste-WC auf kleiner Fläche',
+    to: '/gaeste-wc',
+  },
+];
+
+const serviceCards = [
+  {
+    title: 'Badplanung',
+    desc: 'Bedarf, Grundriss, Materialien und Budget vor dem ersten Handgriff – Grundlage für verlässliche Kosten.',
+    image: '/img/badsanierung-thema-ablauf.png',
+    imageAlt: 'Badplanung und Aufmaß vor der Sanierung',
+    to: '/badplanung',
+  },
+  {
+    title: 'Dusche statt Badewanne',
+    desc: 'Walk-in oder barrierearm – Entwässerung, Gefälle und Abdichtung fachgerecht geplant und umgesetzt.',
+    image: '/img/badsanierung-thema-dusche.png',
+    imageAlt: 'Umbau zur modernen Dusche',
+    to: '/dusche-statt-badewanne',
+  },
+  {
+    title: 'Barrierefreies Bad',
+    desc: 'Schwellenlose Einstiege, Bewegungsflächen und sichere Armaturen – zukunftssicher geplant.',
+    image: '/img/badsanierung-thema-barrierefrei.png',
+    imageAlt: 'Barrierefreies Wohlfühlbad',
+    to: '/barrierefreies-bad',
+  },
+  {
+    title: 'Gäste-WC modernisieren',
+    desc: 'Kompakte Sanitärobjekte, helle Oberflächen und saubere Installation auf kleinem Grundriss.',
+    image: '/img/badsanierung-thema-gaestewc.png',
+    imageAlt: 'Frisch modernisiertes Gäste-WC',
+    to: '/gaeste-wc',
+  },
+];
+
+const whyRadexCards = [
+  {
+    title: 'SHK-Meisterbetrieb',
+    desc: 'Sanitär und Heizung unter Meisterverantwortung von Bernd Knoop.',
+    icon: Award,
+  },
+  {
+    title: 'Alles aus einer Hand',
+    desc: 'Sanitär, Elektro, Trockenbau und Fliesen koordiniert – ein Ansprechpartner.',
+    icon: Users,
+  },
+  {
+    title: 'Festpreis nach Begehung',
+    desc: 'Transparente Angebote ohne versteckte Kosten oder unklare Nachforderungen.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Fachgerechte Abdichtung',
+    desc: 'Nassbereiche und Gefälle werden normgerecht geplant und ausgeführt.',
+    icon: Bath,
+  },
+  {
+    title: 'Regional im Rhein-Main-Gebiet',
+    desc: 'Über 60 Städte – kurze Wege und Erfahrung mit Bestandsbädern.',
+    icon: MapPin,
+  },
+  {
+    title: 'Fester Ansprechpartner',
+    desc: 'Von der Planung bis zur Übergabe begleitet Sie ein festes Team.',
+    icon: UserCheck,
+  },
+];
+
+const processSteps = [
+  {
+    title: 'Kostenlose Erstberatung',
+    desc: 'Wir besprechen Ihre Ziele – Komplettbad, Modernisierung oder gezielte Teilmaßnahme.',
+  },
+  {
+    title: 'Besichtigung & Bestandsaufnahme',
+    desc: 'Vor Ort prüfen wir Leitungen, Abdichtung, Entwässerung und den Zustand des Bads.',
+  },
+  {
+    title: 'Planung & Materialauswahl',
+    desc: 'Grundriss, Ausstattung und Materialien werden abgestimmt – Grundlage fürs Angebot.',
+  },
+  {
+    title: 'Verbindliches Festpreisangebot',
+    desc: 'Sie erhalten ein nachvollziehbares Angebot ohne versteckte Positionen.',
+  },
+  {
+    title: 'Koordinierte Ausführung',
+    desc: 'Rückbau, Rohinstallation, Abdichtung, Elektro, Fliesen und Montage – abgestimmt umgesetzt.',
+  },
+  {
+    title: 'Schlüsselfertige Übergabe',
+    desc: 'Fertiges Bad, geprüft und einsatzbereit – mit Dokumentation und Einweisung.',
+  },
+];
+
+const costCards = [
+  {
+    title: 'Gäste-WC',
+    price: 'ab €7.500',
+    desc: 'Kompakte Modernisierung mit neuen Sanitärobjekten und Oberflächen – Ideal für kleinere Räume.',
+    image: '/img/badsanierung-thema-gaestewc.png',
+    to: '/badsanierung-kosten',
+  },
+  {
+    title: 'Komfortbad',
+    price: 'ab €17.500',
+    desc: 'Die häufigste Wahl – ausgewogene Qualität, moderne Dusche und solide Ausstattung.',
+    image: '/img/badsanierung-thema-komplett.png',
+    to: '/badsanierung-kosten',
+  },
+  {
+    title: 'Premium-Wellnessbad',
+    price: 'ab €28.000',
+    desc: 'Hochwertige Materialien, großformatige Fliesen und individuelle Gestaltung.',
+    image: '/img/badsanierung-ref-2.png',
+    to: '/badsanierung-kosten',
+  },
+];
+
+const radexLiveProjects = [
+  {
+    image: '/img/badsanierung-ref-1.png',
+    badge: 'LIVE',
+    title: 'Komplettbadsanierung',
+    location: 'Frankfurt am Main',
+    desc: 'Entkernung, neue Sanitärinstallation und bodengleiche Dusche – laufende Baustelleneinblicke.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/badsanierung-thema-dusche.png',
+    badge: 'LIVE',
+    title: 'Dusche statt Badewanne',
+    location: 'Darmstadt',
+    desc: 'Wanne raus, Walk-in-Dusche rein – Abdichtung und Fliesen im Blick.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/badsanierung-thema-barrierefrei.png',
+    badge: 'Vorher & Nachher',
+    title: 'Barrierefreies Bad',
+    location: 'Rodgau',
+    desc: 'Aus einem veralteten Bad wurde ein schwellenarmes Wohlfühlbad.',
+    cta: 'Vorher & Nachher ansehen',
+  },
+  {
+    image: '/img/badsanierung-thema-gaestewc.png',
+    badge: 'Abgeschlossen',
+    title: 'Gäste-WC modernisiert',
+    location: 'Dreieich',
+    desc: 'Kompakt, hell und funktional – neue Sanitärobjekte auf kleiner Fläche.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/badsanierung-process.png',
+    badge: 'Video',
+    title: 'Baustelleneinblick Bad',
+    location: 'Neu-Isenburg',
+    desc: 'Authentische Einblicke von Rückbau und Rohinstallation bis zur Übergabe.',
+    cta: 'Video ansehen',
+  },
+  {
+    image: '/img/badsanierung-ref-2.png',
+    badge: 'Abgeschlossen',
+    title: 'Premium-Badsanierung',
+    location: 'Rödermark',
+    desc: 'Walk-in-Dusche, großformatige Fliesen und hochwertige Ausstattung.',
+    cta: 'Projekt ansehen',
+  },
+];
+
+const faqsData = [
+  {
+    q: 'Was gehört zu einer Badsanierung?',
+    a: 'Der Umfang hängt vom Ausgangszustand und Ihren Wünschen ab. Bei einer Komplettbadsanierung umfasst das typischerweise: Rückbau des Bestandsbades, Erneuerung oder Verlegung von Wasser- und Abwasserleitungen, Abdichtung aller Nass- und Spritzwasserbereiche, Trockenbau- und Vorwandinstallation, Elektroarbeiten (Licht, Steckdosen, Lüftung), Fliesenarbeiten sowie die abschließende Montage von Sanitärobjekten, Armaturen und Badmöbeln. Bei einer Badmodernisierung oder gezielten Badrenovierung kann der Umfang deutlich kleiner sein.',
+  },
+  {
+    q: 'Wie läuft eine Badsanierung mit Radex ab?',
+    a: 'Am Anfang steht ein kostenloser Beratungstermin bei Ihnen vor Ort. Wir schauen uns das Bad an, klären Ihre Wünsche und die technische Ausgangslage. Danach erstellen wir ein konkretes Angebot. Nach Auftragserteilung koordiniert Radex alle Gewerke – von Rückbau und Rohinstallation bis zu Fliesen, Elektro und Ausbau – in einer abgestimmten Reihenfolge. Sie haben während der gesamten Badsanierung einen festen Ansprechpartner bei Radex.',
+  },
+  {
+    q: 'Ist Radex ein SHK-Meisterbetrieb?',
+    a: 'Ja. Radex Objektmanagement GmbH ist ein eingetragener SHK-Meisterbetrieb. Betriebsleiter und eingetragener Meister ist Bernd Knoop – zugelassen für die Gewerke Sanitär, Heizung, Klimatechnik und Gebäudetechnik. Alle Sanitär- und Heizungsarbeiten führen wir als Meisterbetrieb selbst aus. Für weitere Gewerke – Elektro, Trockenbau, Fliesen, Innenausbau – koordinieren wir eingespielte Fachbetriebe, für deren Arbeit wir die Verantwortung tragen.',
+  },
+  {
+    q: 'Was kostet eine Badsanierung im Rhein-Main-Gebiet?',
+    a: 'Die Kosten hängen von mehreren Faktoren ab: Badgröße, Umfang der Arbeiten (Komplettbadsanierung oder Teilmaßnahme), Zustand der vorhandenen Leitungen und Abdichtung, gewählte Materialien und Ausstattung sowie Aufwand für Rückbau und ggf. Grundrissänderungen. Pauschale Preisangaben ohne Bestandsaufnahme sind wenig verlässlich – Radex erstellt nach einem Ortstermin ein verbindliches Angebot auf Basis Ihrer konkreten Situation.',
+  },
+  {
+    q: 'Kann Radex auch nur einzelne Teile des Bades sanieren?',
+    a: 'Ja. Nicht jede Badsanierung muss ein kompletter Neustart sein. Wenn der Grundzustand des Bades noch in Ordnung ist, können gezielte Teilmaßnahmen sinnvoller sein: eine neue bodengleiche Dusche anstelle der Badewanne, ein modernes Waschtischunterschrank, neue Armaturen oder eine zeitgemäße Beleuchtung. Radex berät Sie ehrlich, welche Maßnahmen in Ihrer Situation tatsächlich sinnvoll sind.',
+  },
+  {
+    q: 'In welchen Städten bietet Radex Badsanierung an?',
+    a: 'Radex bietet Badsanierungen in über 60 Städten und Gemeinden im Rhein-Main-Gebiet an. Regelmäßig sind wir unter anderem in Rödermark, Frankfurt am Main, Offenbach am Main, Darmstadt, Hanau, Dreieich, Rodgau, Neu-Isenburg, Dietzenbach und Heusenstamm tätig – sowie in vielen weiteren Städten im Landkreis Offenbach, im Main-Kinzig-Kreis, im Wetteraukreis und im Raum Aschaffenburg.',
+  },
+];
 
 export default function BathroomRenovation() {
-  const heroData = {
-    title: "Badsanierung im",
-    titleSpan: "Rhein-Main-Gebiet",
-    subtitle: "Bad sanieren mit Radex – SHK-Meisterbetrieb mit Erfahrung in Badplanung, Sanitärinstallation und Generalunternehmerschaft.",
-    text: "Radex plant und koordiniert Ihre Badsanierung im gesamten Rhein-Main-Gebiet – von der ersten Beratung über die Badplanung bis zur schlüsselfertigen Übergabe. Sanitär und Heizungstechnik führen wir als Meisterbetrieb selbst aus, weitere Gewerke werden durch eingespielte Fachbetriebe realisiert, die wir koordinieren und verantworten.",
-    image: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=1600"
-  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  const whoIsForData = {
-    title: "Was möchten Sie sanieren?",
-    subtitle: "Badsanierung ist kein einheitliches Projekt – diese Vorhaben begleiten wir.",
-    list: [
-      { title: "Komplettbadsanierung", desc: "Das Bad wird vollständig entkernt und neu aufgebaut – von der Rohinstallation bis zur schlüsselfertigen Übergabe. Richtig, wenn Leitungen, Abdichtung und Grundsubstanz erneuert werden müssen." },
-      { title: "Badmodernisierung", desc: "Mehr Komfort, bessere Optik und neue Funktionen mit weniger Bauaufwand – neue Armaturen, moderne Beleuchtung oder eine zeitgemäße Dusche." },
-      { title: "Badrenovierung", desc: "Oberflächen erneuern, Sanitärobjekte ersetzen, Licht verbessern – ohne das Bad vollständig aufzureißen. Sinnvoll, wenn die Grundsubstanz noch in Ordnung ist." },
-      { title: "Barrierefreies Bad", desc: "Bodengleiche Duschen, Haltegriffe und gut geplante Bewegungsflächen – mehr Komfort für alle und die langfristig sichere Nutzung der eigenen Wohnung." },
-      { title: "Kleines Bad & Gäste-WC", desc: "Auf kleiner Fläche ein funktionales, helles Bad schaffen – Radex kennt die typischen Grundrisse im Rhein-Main-Gebiet und entwickelt passende Lösungen." },
-      { title: "Dusche statt Badewanne", desc: "Der Umbau von Wanne zu Dusche – aus Komfort-, Platz- oder Altersgründen. Entwässerung, Abdichtung und Installationsführung werden sorgfältig geplant." }
-    ]
-  };
-
-  const typicalProjectsData = {
-    title: "Leistungsumfang: Was gehört zu einer Badsanierung?",
-    subtitle: "Sanitär und Heizung führen wir als SHK-Meisterbetrieb selbst aus, die übrigen Gewerke koordinieren wir.",
-    projects: [
-      { title: "Sanitär & Heizungstechnik", desc: "Neue Wasserleitungen, Anschluss von Dusche, Wanne, WC und Waschtisch, Erneuerung der Entwässerung und Integration von Heizkörpern – als SHK-Meisterbetrieb selbst ausgeführt.", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800" },
-      { title: "Rückbau & Abdichtung", desc: "Kontrollierter Rückbau von Fliesen und Sanitärobjekten, anschließend die Abdichtung aller Nass- und Spritzwasserbereiche – Grundvoraussetzung für ein dauerhaft dichtes Bad.", img: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=800" },
-      { title: "Elektro & Trockenbau", desc: "Beleuchtung, Schalter, Steckdosen, Lüftung und Vorwandinstallationen – koordiniert, damit keine Schnittstelle offen bleibt.", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=800" },
-      { title: "Fliesen & Oberflächen", desc: "Großformatige Bodenfliesen, Wandfliesen im Wunschformat oder Mosaik – durch routinierte Fliesenleger, die mit modernen Abdichtungssystemen vertraut sind.", img: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?auto=format&fit=crop&q=80&w=800" },
-      { title: "Ausbau & Einrichtung", desc: "Montage von Badmöbeln, Armaturen, Spiegel, Accessoires und Beleuchtung – das Bad wird vollständig fertiggestellt übergeben.", img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=800" },
-      { title: "Badplanung & Beratung", desc: "Vor dem ersten Handgriff steht die Planung: Bedarf, Grundriss, Materialwünsche und Budget – mit einem Angebot, das auf Ihrer konkreten Situation basiert.", img: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&q=80&w=800" }
-    ]
-  };
-
-  const costsData = {
-    title: "Wie viel kostet eine Badsanierung?",
-    subtitle: "Die tatsächlichen Kosten hängen von Größe, Zustand und gewünschter Ausstattung ab. Die folgenden Beispiele geben eine erste Preisorientierung.",
-    items: [
-      { title: "Gäste-WC", price: "€7.500", img: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=800" },
-      { title: "Komfortbad", price: "€17.500", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800" },
-      { title: "Premium-Wellnessbad", price: "€28.000", img: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=800" }
-    ]
-  };
-
-  const faqsData = [
-    { q: "Was gehört zu einer Badsanierung?", a: "Der Umfang hängt vom Ausgangszustand und Ihren Wünschen ab. Bei einer Komplettbadsanierung umfasst das typischerweise: Rückbau des Bestandsbades, Erneuerung oder Verlegung von Wasser- und Abwasserleitungen, Abdichtung aller Nass- und Spritzwasserbereiche, Trockenbau- und Vorwandinstallation, Elektroarbeiten (Licht, Steckdosen, Lüftung), Fliesenarbeiten sowie die abschließende Montage von Sanitärobjekten, Armaturen und Badmöbeln. Bei einer Badmodernisierung oder gezielten Badrenovierung kann der Umfang deutlich kleiner sein." },
-    { q: "Wie läuft eine Badsanierung mit Radex ab?", a: "Am Anfang steht ein kostenloser Beratungstermin bei Ihnen vor Ort. Wir schauen uns das Bad an, klären Ihre Wünsche und die technische Ausgangslage. Danach erstellen wir ein konkretes Angebot. Nach Auftragserteilung koordiniert Radex alle Gewerke – von Rückbau und Rohinstallation bis zu Fliesen, Elektro und Ausbau – in einer abgestimmten Reihenfolge. Sie haben während der gesamten Badsanierung einen festen Ansprechpartner bei Radex." },
-    { q: "Ist Radex ein SHK-Meisterbetrieb?", a: "Ja. Radex Objektmanagement GmbH ist ein eingetragener SHK-Meisterbetrieb. Betriebsleiter und eingetragener Meister ist Bernd Knoop – zugelassen für die Gewerke Sanitär, Heizung, Klimatechnik und Gebäudetechnik. Alle Sanitär- und Heizungsarbeiten führen wir als Meisterbetrieb selbst aus. Für weitere Gewerke – Elektro, Trockenbau, Fliesen, Innenausbau – koordinieren wir eingespielte Fachbetriebe, für deren Arbeit wir die Verantwortung tragen." },
-    { q: "Was kostet eine Badsanierung im Rhein-Main-Gebiet?", a: "Die Kosten hängen von mehreren Faktoren ab: Badgröße, Umfang der Arbeiten (Komplettbadsanierung oder Teilmaßnahme), Zustand der vorhandenen Leitungen und Abdichtung, gewählte Materialien und Ausstattung sowie Aufwand für Rückbau und ggf. Grundrissänderungen. Pauschale Preisangaben ohne Bestandsaufnahme sind wenig verlässlich – Radex erstellt nach einem Ortstermin ein verbindliches Angebot auf Basis Ihrer konkreten Situation." },
-    { q: "Kann Radex auch nur einzelne Teile des Bades sanieren?", a: "Ja. Nicht jede Badsanierung muss ein kompletter Neustart sein. Wenn der Grundzustand des Bades noch in Ordnung ist, können gezielte Teilmaßnahmen sinnvoller sein: eine neue bodengleiche Dusche anstelle der Badewanne, ein modernes Waschtischunterschrank, neue Armaturen oder eine zeitgemäße Beleuchtung. Radex berät Sie ehrlich, welche Maßnahmen in Ihrer Situation tatsächlich sinnvoll sind." },
-    { q: "In welchen Städten bietet Radex Badsanierung an?", a: "Radex bietet Badsanierungen in über 60 Städten und Gemeinden im Rhein-Main-Gebiet an. Regelmäßig sind wir unter anderem in Rödermark, Frankfurt am Main, Offenbach am Main, Darmstadt, Hanau, Dreieich, Rodgau, Neu-Isenburg, Dietzenbach und Heusenstamm tätig – sowie in vielen weiteren Städten im Landkreis Offenbach, im Main-Kinzig-Kreis, im Wetteraukreis und im Raum Aschaffenburg." }
-  ];
-
-  const seoContent = (
-    <>
-      <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Ein neues Bad – mehr als nur neue Fliesen</h3>
-        <p className="mb-4 text-gray-600">Wenn Menschen über eine Badsanierung nachdenken, stellen sie sich meist zuerst das fertige Ergebnis vor: eine bodengleiche Dusche, helle Fliesen, vielleicht einen frei stehenden Waschtischunterschrank. Was dazwischen liegt – Planung, Koordination, Technik, Logistik – ist weniger sichtbar, aber entscheidend dafür, ob eine Badsanierung reibungslos verläuft oder zur Belastungsprobe wird.</p>
-        <p className="mb-4 text-gray-600">Radex Objektmanagement GmbH übernimmt genau diesen Teil. Als Generalunternehmer und SHK-Meisterbetrieb mit Sitz in Rödermark koordinieren wir Badsanierungen im gesamten Rhein-Main-Gebiet – von der ersten Beratung über die Badplanung bis zur schlüsselfertigen Übergabe. Sanitär und Heizungstechnik führen wir als Meisterbetrieb selbst aus. Weitere Gewerke wie Elektro, Trockenbau, Fliesen und Innenausbau werden durch eingespielte Fachbetriebe realisiert, die wir koordinieren und verantworten.</p>
-        <p className="text-gray-600">Ob Sie ein komplettes Bestandsbad entkernen und neu aufbauen möchten, Ihre Badmodernisierung gezielt auf mehr Komfort ausrichten wollen oder ein barrierefreies Bad für die nächste Lebensphase planen – Radex begleitet Ihr Projekt von Anfang bis Ende.</p>
-      </div>
-
-      <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Badsanierung aus einer Hand – was das wirklich bedeutet</h3>
-        <p className="mb-4 text-gray-600">Wer für eine Badsanierung selbst Handwerker koordiniert – Klempner, Elektriker, Fliesenleger, Trockenbauer – übernimmt de facto die Aufgabe eines Bauleiters. Terminkollisionen, Schnittstellen zwischen Gewerken und fehlende Zuarbeit sind die häufigsten Gründe, warum Badsanierungen länger dauern oder teurer werden als geplant.</p>
-        <p className="mb-4 text-gray-600">Radex übernimmt diese Koordination vollständig. Als Generalunternehmer schließen Sie mit uns einen Vertrag – und wir stellen sicher, dass alle Beteiligten zum richtigen Zeitpunkt am richtigen Ort sind. Das gilt für unsere eigenen Sanitär- und Heizungsarbeiten als SHK-Meisterbetrieb ebenso wie für die koordinierten Fachbetriebe für Elektro, Trockenbau, Fliesen und Oberflächen.</p>
-        <p className="text-gray-600">Was Sie davon haben: einen einzigen Ansprechpartner für alle Fragen, eine abgestimmte Planung und die Gewissheit, dass kein Gewerk auf das andere warten muss, weil die Koordination fehlt.</p>
-      </div>
-
-      <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Von der Idee zum fertigen Bad – so arbeitet Radex</h3>
-        <p className="mb-4 text-gray-600"><strong>1. Kostenlose Beratung & Bestandsaufnahme:</strong> Wir kommen zu Ihnen und schauen uns das Bad gemeinsam an. Dabei klären wir: Welche Leitungen liegen wo? Wie ist der Zustand von Abdichtung, Fliesen und Sanitärobjekten? Was möchten Sie verändern? Dieser Termin ist kostenlos und unverbindlich.</p>
-        <p className="mb-4 text-gray-600"><strong>2. Planung & Materialauswahl:</strong> Auf Basis der Bestandsaufnahme entwickeln wir gemeinsam ein Konzept: Grundriss, Ausstattung, Materialien, Lichtführung. Eine gute Planung ist die Grundlage für eine verlässliche Kostenaussage.</p>
-        <p className="mb-4 text-gray-600"><strong>3. Verbindliches Angebot:</strong> Sie erhalten ein konkretes, nachvollziehbares Angebot – aufgeschlüsselt nach Leistungsbereichen, ohne versteckte Positionen.</p>
-        <p className="mb-4 text-gray-600"><strong>4. Ausführung & Koordination:</strong> Nach Auftragserteilung übernimmt Radex die komplette Steuerung. Rückbau, Rohinstallation, Abdichtung, Trockenbau, Elektro, Fliesen, Ausbau – alle Schritte werden in abgestimmter Reihenfolge ausgeführt.</p>
-        <p className="text-gray-600"><strong>5. Übergabe:</strong> Das Bad wird vollständig fertiggestellt übergeben – sauber, geprüft, mit allen Anschlüssen in Betrieb. Wir stehen auch danach als Ansprechpartner zur Verfügung.</p>
-      </div>
-
-      <div className="br-seo-text-block mb-8">
-        <h3 className="mb-4 text-xl font-bold">Badsanierung im Rhein-Main-Gebiet – wo Radex tätig ist</h3>
-        <p className="mb-4 text-gray-600">Radex bietet Badsanierungen in über 60 Städten und Gemeinden im Rhein-Main-Gebiet an. Der Ausgangspunkt ist Rödermark im südlichen Hessen – von dort aus sind wir regelmäßig in der gesamten Rhein-Main-Region aktiv, ohne lange Anfahrtszeiten und ohne Aufschläge für die Entfernung.</p>
-        <p className="text-gray-600">Zu unseren typischen Einsatzgebieten gehören Frankfurt am Main, Offenbach am Main, Darmstadt und Hanau, aber auch die mittelgroßen Städte und Gemeinden im direkten Umland: Dreieich, Rodgau, Neu-Isenburg, Dietzenbach und Heusenstamm. Viele unserer Kunden kommen aus dem Landkreis Offenbach und den angrenzenden Landkreisen Darmstadt-Dieburg und Main-Kinzig. Wir sind aber auch regelmäßig im Wetteraukreis, im Rheingau-Taunus-Kreis und im Aschaffenburger Raum tätig.</p>
-      </div>
-    </>
-  );
-
-  const seo = {
-    title: "Badsanierung Rhein-Main | Komplettbad zum Festpreis | Radex",
-    description: "Badsanierung im Rhein-Main-Gebiet vom SHK-Meisterbetrieb: Komplettbäder, Badmodernisierung & barrierefreie Bäder aus einer Hand. Jetzt Festpreis-Beratung sichern!",
-    path: "/badsanierung/badezimmer-sanieren",
-    serviceName: "Badsanierung"
-  };
+  useSeo({
+    title: 'Badsanierung Rhein-Main | Komplettbad zum Festpreis | Radex',
+    description:
+      'Badsanierung im Rhein-Main-Gebiet vom SHK-Meisterbetrieb: Komplettbäder, Badmodernisierung & barrierefreie Bäder aus einer Hand. Jetzt Festpreis-Beratung sichern!',
+    path: '/badsanierung/badezimmer-sanieren',
+    image: HERO_IMAGE,
+    jsonLd: [
+      buildServiceSchema({
+        name: 'Badsanierung',
+        description:
+          'Badsanierung im Rhein-Main-Gebiet: Komplettbad, Badmodernisierung, Dusche statt Badewanne und barrierefreie Bäder vom SHK-Meisterbetrieb.',
+        path: '/badsanierung/badezimmer-sanieren',
+      }),
+      buildFaqSchema(faqsData),
+    ],
+  });
 
   return (
-    <ServicePageTemplate
-      seo={seo}
-      heroData={heroData}
-      whoIsForData={whoIsForData}
-      typicalProjectsData={typicalProjectsData}
-      costsData={costsData}
-      faqsData={faqsData}
-      calculatorType="bad"
-      seoContent={seoContent}
-    />
+    <main className="badsanierung-page">
+      <section className="br-hero-split">
+        <div className="br-hero-left">
+          <div className="br-hero-content">
+            <p className="br-hero-kicker">
+              SHK-Meisterbetrieb · Badsanierung · Rhein-Main-Gebiet
+            </p>
+            <h1 className="br-hero-title">
+              Badsanierung im<br />
+              <span>Rhein-Main-Gebiet</span>
+            </h1>
+            <p className="br-hero-lead">
+              Bad sanieren mit Radex – Planung, Sanitär und Koordination aus einer Hand.
+            </p>
+            <p className="br-hero-text">
+              Radex plant und koordiniert Ihre Badsanierung im gesamten Rhein-Main-Gebiet – von der ersten Beratung über
+              die Badplanung bis zur schlüsselfertigen Übergabe. Sanitär und Heizungstechnik führen wir als Meisterbetrieb
+              mit Bernd Knoop selbst aus, weitere Gewerke werden durch eingespielte Fachbetriebe realisiert, die wir
+              koordinieren und verantworten.
+            </p>
+            <ul className="br-hero-highlights" aria-label="Ihre Vorteile auf einen Blick">
+              <li>SHK-Meisterbetrieb</li>
+              <li>Alles aus einer Hand</li>
+              <li>Festpreis nach Begehung</li>
+              <li>Rhein-Main-Gebiet</li>
+            </ul>
+            <SharedCTABlock isHero />
+            <p className="br-hero-micro">
+              <Camera size={14} /> Fotos vom Bad senden. Erste Einschätzung erhalten.
+            </p>
+          </div>
+        </div>
+        <div
+          className="br-hero-right"
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          role="img"
+          aria-label="Modernes Badezimmer nach einer Badsanierung im Rhein-Main-Gebiet durch Radex Objektmanagement"
+          title="Badsanierung Rhein-Main | Radex Objektmanagement"
+        />
+      </section>
+
+      <section className="br-section br-bg-light">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Was möchten Sie sanieren?</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Badsanierung ist kein einheitliches Projekt. Wählen Sie das Vorhaben, das zu Ihnen passt – oder starten Sie
+              mit dem Überblick auf der{' '}
+              <a href="/badsanierung-rhein-main">Badsanierung-Hubseite</a>.
+            </p>
+          </div>
+          <ImageCardGrid cards={audienceCards} linked />
+        </div>
+      </section>
+
+      <SectionTransition>
+        Ganz gleich, ob Komplettbad, Dusche statt Wanne oder Gäste-WC: Erfolgreiche Badsanierung beginnt mit der richtigen
+        Leistungswahl. Im nächsten Abschnitt finden Sie die wichtigsten Themen mit direkten Links.
+      </SectionTransition>
+
+      <section className="br-section">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Unsere Badsanierungs-Themen</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Planung, Umbau und Speziallösungen – von der{' '}
+              <a href="/badplanung">Badplanung</a> über{' '}
+              <a href="/dusche-statt-badewanne">Dusche statt Badewanne</a> bis zum{' '}
+              <a href="/barrierefreies-bad">barrierefreien Bad</a> und{' '}
+              <a href="/gaeste-wc">Gäste-WC</a>.
+            </p>
+          </div>
+          <div className="br-projects-grid">
+            {serviceCards.map((service) => {
+              const Inner = (
+                <>
+                  <div
+                    className="br-project-img"
+                    style={{ backgroundImage: `url(${service.image})` }}
+                    role="img"
+                    aria-label={service.imageAlt || service.title}
+                  />
+                  <div className="br-project-info">
+                    <h4>{service.title}</h4>
+                    <p className="br-project-desc">{service.desc}</p>
+                  </div>
+                </>
+              );
+              return service.to ? (
+                <a key={service.title} href={service.to} className="br-service-card">
+                  {Inner}
+                </a>
+              ) : (
+                <div key={service.title} className="br-service-card">
+                  {Inner}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <SectionTransition>
+        Gute Idee allein reicht nicht – entscheidend ist, wer plant, ausführt und alle Gewerke verantwortet. Deshalb setzen
+        Eigentümer im Rhein-Main-Gebiet auf Radex als SHK-Meisterbetrieb.
+      </SectionTransition>
+
+      <section className="br-section br-bg-light">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Warum Eigentümer Radex für die Badsanierung wählen</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Meisterverantwortung, klare Festpreise und Koordination aller Gewerke – damit Technik und Oberflächen sauber
+              ineinandergreifen.
+            </p>
+          </div>
+          <PremiumIconCards cards={whyRadexCards} />
+        </div>
+      </section>
+
+      <SectionTransition>
+        Von der ersten Einschätzung bis zur Übergabe begleiten wir Ihre Badsanierung Schritt für Schritt. So wissen Sie
+        jederzeit, welche Phase als Nächstes folgt.
+      </SectionTransition>
+
+      <ProcessSteps
+        title="So läuft Ihre Badsanierung mit Radex ab"
+        intro="Ein strukturierter Ablauf ist entscheidend für ein reibungsloses Badprojekt. Von der Erstberatung bis zur schlüsselfertigen Übergabe haben Sie einen festen Ansprechpartner."
+        steps={processSteps}
+        image="/img/badsanierung-process.png"
+      />
+
+      <SectionTransition>
+        Nach dem Ablauf stellt sich oft die wichtigste Frage: Mit welchen Kosten müssen Sie rechnen? Die folgenden
+        Richtwerte geben eine erste Orientierung – das konkrete Angebot folgt nach der Bestandsaufnahme.
+      </SectionTransition>
+
+      <section className="br-section">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Kosten einer Badsanierung</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Preise sind Richtwerte und abhängig von Größe, Zustand und Ausstattung – nach Bestandsaufnahme erstellen wir
+              ein konkretes Angebot. Mehr im{' '}
+              <a href="/badsanierung-kosten">Badsanierung Kostenrechner</a>.
+            </p>
+          </div>
+          <div className="br-costs-grid br-costs-grid--three">
+            {costCards.map((card) => (
+              <a key={card.title} href={card.to} className="br-cost-card">
+                <div className="br-cost-category-img" style={{ backgroundImage: `url(${card.image})` }} />
+                <div className="br-cost-header">
+                  <h3>{card.title}</h3>
+                  <p className="br-cost-price">
+                    <span>{card.price}</span>
+                  </p>
+                </div>
+                <p className="br-cost-desc">{card.desc}</p>
+                <span className="br-btn-orange br-cost-cta">Kostenrechner öffnen &rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionTransition>
+        Richtwerte helfen bei der Orientierung – echte Baustellen zeigen, wie wir arbeiten. Deshalb geben wir Ihnen
+        authentische Einblicke in laufende und abgeschlossene Badsanierungen.
+      </SectionTransition>
+
+      <RadexLiveSection
+        title="Schauen Sie uns bei der Arbeit über die Schulter."
+        intro="Hochglanzbilder zeigen fertige Bäder. Wir zeigen Ihnen den Weg dorthin. Mit Radex Live erhalten Sie authentische Einblicke in Komplettbadsanierungen, Dusche-statt-Wanne-Umbauten und barrierefreie Bäder aus dem Rhein-Main-Gebiet – vom Rückbau bis zur Übergabe."
+        showWelcomeVideo
+        berndIntroText="Mit über 30 Jahren Berufserfahrung begleitet Bernd Knoop Ihre Badsanierung als SHK-Meister & Betriebsleiter – persönlich, transparent und fachlich verantwortlich."
+        projects={radexLiveProjects}
+      />
+
+      <SectionTransition>
+        Offen beantwortet: Umfang, Ablauf, Kosten und Einsatzgebiet – damit Sie den nächsten Schritt mit ruhigem Gefühl
+        gehen können.
+      </SectionTransition>
+
+      <FaqAccordion faqs={faqsData} title="Häufig gestellte Fragen zur Badsanierung" />
+
+      <ContactForm
+        kicker="Badsanierung anfragen"
+        title="Jetzt unverbindlich beraten lassen"
+        intro="Sie planen eine Badsanierung, Badmodernisierung oder ein barrierefreies Bad im Rhein-Main-Gebiet? Senden Sie uns Fotos Ihres Badezimmers bequem per WhatsApp oder vereinbaren Sie einen persönlichen Beratungstermin."
+        photoTip="Senden Sie uns Bilder Ihres Badezimmers bequem per WhatsApp – für eine erste fachliche Einschätzung."
+        placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Komplettbad, Dusche statt Wanne, barrierefrei, Gäste-WC)..."
+      />
+
+      <SeoTocSection
+        title="Alles, was Sie über Badsanierung wissen sollten"
+        intro={badezimmerSanierenSeoIntro}
+        sections={badezimmerSanierenSeoSections}
+        showAllContent
+      />
+    </main>
   );
 }
