@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+﻿import { useState, useEffect, useRef, useCallback } from 'react';
 import { ArrowRight, Camera, ChevronDown, MessageSquare, Phone } from 'lucide-react';
 import { Link } from '../../router';
 import { RADEX_LIVE_URL } from '../../constants/brand';
@@ -65,9 +65,12 @@ export function SharedCTABlock({ isHero = false, centered = false }) {
   );
 }
 
-export function PremiumIconCards({ cards, linked = false }) {
+export function PremiumIconCards({ cards, linked = false, compactIcons = false, largeIcons = false }) {
+  const iconSize = compactIcons ? 20 : largeIcons ? 36 : 28;
   return (
-    <div className="br-nav-landing-grid">
+    <div
+      className={`br-nav-landing-grid${compactIcons ? ' br-nav-landing-grid--compact' : ''}${largeIcons ? ' br-nav-landing-grid--large-icons' : ''}`}
+    >
       {cards.map((card) => {
         const Icon = card.icon;
         const content = (
@@ -84,8 +87,8 @@ export function PremiumIconCards({ cards, linked = false }) {
               />
             )}
             {Icon && (
-              <div className="br-decision-icon br-decision-icon--small">
-                <Icon size={28} strokeWidth={1.5} />
+              <div className={`br-decision-icon${largeIcons ? ' br-decision-icon--large' : ' br-decision-icon--small'}`}>
+                <Icon size={iconSize} strokeWidth={1.5} />
               </div>
             )}
             <h3>{card.title}</h3>
@@ -353,31 +356,51 @@ export function BerndKnoopWelcome({
   );
 }
 
-export function ImageCardGrid({ cards }) {
+export function ImageCardGrid({ cards, linked = false }) {
   return (
     <div className="br-nav-landing-grid br-image-card-grid">
-      {cards.map((card) => (
-        <div key={card.title} className="br-decision-card br-decision-card--static">
-          {card.image && (
-            <div
-              className="br-cost-img br-nav-card-img"
-              style={{ backgroundImage: `url(${card.image})` }}
-              role="img"
-              aria-label={card.imageAlt || card.title}
-            />
-          )}
-          <h3>{card.title}</h3>
-          {card.desc && <p>{card.desc}</p>}
-        </div>
-      ))}
+      {cards.map((card) => {
+        const content = (
+          <>
+            {card.image && (
+              <div
+                className="br-cost-img br-nav-card-img"
+                style={{ backgroundImage: `url(${card.image})` }}
+                role="img"
+                aria-label={card.imageAlt || card.title}
+              />
+            )}
+            <h3>{card.title}</h3>
+            {card.desc && <p>{card.desc}</p>}
+            {linked && card.to && (
+              <span className="br-btn-orange">{card.cta || 'Mehr erfahren'} &rarr;</span>
+            )}
+          </>
+        );
+
+        if (linked && card.to) {
+          return (
+            <Link key={card.title} to={card.to} className="br-decision-card">
+              {content}
+            </Link>
+          );
+        }
+
+        return (
+          <div key={card.title} className="br-decision-card br-decision-card--static">
+            {content}
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-export function SectionTransition({ children }) {
+export function SectionTransition({ title, children }) {
   return (
     <div className="br-section-transition">
       <div className="container">
+        {title && <h2 className="br-section-transition-title">{title}</h2>}
         <p className="br-section-transition-text">{children}</p>
       </div>
     </div>
@@ -505,6 +528,61 @@ export function ProcessSteps({ title, intro, steps, image }) {
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+export function PremiumTimeline({ title, intro, image, imageAlt, steps }) {
+  return (
+    <section className="br-section br-premium-timeline-section">
+      <div className="container">
+        <div className="text-center mb-12">
+          <h2 className="br-section-title">{title}</h2>
+          {intro && (
+            <p className="br-section-subtitle br-section-subtitle--wide">{intro}</p>
+          )}
+        </div>
+        {image && (
+          <div
+            className="br-project-img br-premium-timeline-hero mb-12"
+            style={{ backgroundImage: `url(${image})` }}
+            role="img"
+            aria-label={imageAlt || 'Projektplanung und Ablauf einer Sanierung'}
+          />
+        )}
+        <ol className="br-premium-timeline">
+          {steps.map((step, idx) => {
+            const Icon = step.icon;
+            return (
+              <li key={step.title} className="br-premium-timeline-item">
+                <div className="br-premium-timeline-marker" aria-hidden="true">
+                  <span className="br-premium-timeline-number">{idx + 1}</span>
+                </div>
+                <article className="br-premium-timeline-card">
+                  {step.image && (
+                    <div
+                      className="br-premium-timeline-img"
+                      style={{ backgroundImage: `url(${step.image})` }}
+                      role="img"
+                      aria-label={step.imageAlt || step.title}
+                    />
+                  )}
+                  <div className="br-premium-timeline-body">
+                    {Icon && (
+                      <div className="br-premium-timeline-icon">
+                        <Icon size={26} strokeWidth={1.5} />
+                      </div>
+                    )}
+                    <p className="br-premium-timeline-step-label">Schritt {idx + 1}</p>
+                    <h3>{step.title}</h3>
+                    <p>{step.desc}</p>
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );

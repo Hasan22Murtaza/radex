@@ -61,15 +61,15 @@ const calculators = {
     resultTitle: 'Geschätzte Kosten Ihrer Altbausanierung',
     areaLabel: 'Wohnfläche',
     areaUnit: 'm²',
-    min: 20,
-    max: 1000,
-    defaultArea: 120,
+    min: 40,
+    max: 800,
+    defaultArea: 100,
     mode: 'sqm',
     seoText: 'Altbausanierung Kosten',
     prices: {
-      basis: { label: 'Basis', min: 500, avg: 700, max: 900 },
-      komfort: { label: 'Komfort', min: 900, avg: 1200, max: 1500 },
-      premium: { label: 'Premium', min: 1500, avg: 2000, max: 2500 },
+      basis: { label: 'Leichte Modernisierung', min: 300, avg: 400, max: 500 },
+      komfort: { label: 'Standard Altbausanierung', min: 800, avg: 1150, max: 1500 },
+      premium: { label: 'Umfassende Kernsanierung', min: 1500, avg: 2250, max: 3000 },
     },
   },
 };
@@ -99,6 +99,7 @@ export default function SanierungskostenRechner({
   sanierungOnly = false,
   wohnungOnly = false,
   hausOnly = false,
+  altbauOnly = false,
   id = 'sanierungskosten-rechner'
 }) {
   const availableTypes = badOnly
@@ -107,9 +108,11 @@ export default function SanierungskostenRechner({
       ? ['wohnung']
       : hausOnly
         ? ['haus']
-        : sanierungOnly
-          ? sanierungTypes
-          : Object.keys(calculators);
+        : altbauOnly
+          ? ['altbau']
+          : sanierungOnly
+            ? sanierungTypes
+            : Object.keys(calculators);
   const fallbackType = availableTypes.includes(defaultType) ? defaultType : availableTypes[0];
   const [activeType, setActiveType] = useState(fallbackType);
   const [quality, setQuality] = useState('komfort');
@@ -185,9 +188,11 @@ export default function SanierungskostenRechner({
                   ? 'Wohnungssanierung Kosten-Rechner'
                   : hausOnly
                     ? 'Haussanierung Kosten-Rechner'
-                    : sanierungOnly
-                      ? 'Sanierungskosten-Rechner'
-                      : 'Sanierungskosten Rechner'}
+                    : altbauOnly
+                      ? 'Altbausanierung Calculator'
+                      : sanierungOnly
+                        ? 'Sanierungskosten-Rechner'
+                        : 'Sanierungskosten Rechner'}
             </span>
             <h2>
               {badOnly
@@ -196,7 +201,9 @@ export default function SanierungskostenRechner({
                   ? 'Was kostet Ihre Wohnungssanierung?'
                   : hausOnly
                     ? 'Was kostet Ihre Haussanierung?'
-                    : 'Was kostet Ihr Sanierungsprojekt?'}
+                    : altbauOnly
+                      ? 'Was kostet Ihre Altbausanierung?'
+                      : 'Was kostet Ihr Sanierungsprojekt?'}
             </h2>
             <p>
               {badOnly
@@ -205,15 +212,17 @@ export default function SanierungskostenRechner({
                   ? 'Jede Wohnungssanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Qualitätsstufe und Wohnfläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
                   : hausOnly
                     ? 'Jede Haussanierung ist anders – Sanierungsstau, Wohnfläche und Ausstattungswünsche bestimmen den Preis. Wählen Sie Sanierungsumfang und Wohnfläche, um typische Orientierungswerte zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
-                    : sanierungOnly
-                      ? 'Jede Sanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Projekttyp, Qualitätsstufe und Fläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
-                      : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
+                    : altbauOnly
+                      ? 'Jeder Altbau ist einzigartig – Substanz, Sanierungsstau und Ausstattungswünsche bestimmen den Preis. Wählen Sie Sanierungsumfang und Wohnfläche, um typische Orientierungswerte für Ihre Altbausanierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer sorgfältigen Bestandsaufnahme vor Ort.'
+                      : sanierungOnly
+                        ? 'Jede Sanierung ist anders – Umfang, Bausubstanz und Ausstattungswünsche bestimmen den Preis. Wählen Sie Projekttyp, Qualitätsstufe und Fläche, um typische Einstiegspreise als erste Orientierung zu erhalten. Das verbindliche Festpreisangebot folgt nach einer Vor-Ort-Besichtigung.'
+                        : 'Sie haben den Ablauf kennengelernt – jetzt die Kosten einschätzen. Wählen Sie Projekttyp, Qualitätsstufe und Größe, um einen realistischen Orientierungswert zu erhalten. Anschließend können Sie Ihre Eckdaten direkt an Radex senden – für eine kostenlose Ersteinschätzung im Rhein-Main-Gebiet.'}
             </p>
           </div>
         )}
 
         <div className="sk-rechner-card">
-          {!badOnly && !wohnungOnly && !hausOnly && (
+          {!badOnly && !wohnungOnly && !hausOnly && !altbauOnly && (
           <div className="sk-rechner-tabs" role="tablist" aria-label="Rechnertyp auswählen">
             {availableTypes.map((key) => {
               const item = calculators[key];
@@ -343,7 +352,7 @@ export default function SanierungskostenRechner({
 
                 <div className="sk-rechner-result-highlight">
                   <span className="sk-rechner-result-highlight-label">
-                    {badOnly || sanierungOnly || wohnungOnly || hausOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
+                    {badOnly || sanierungOnly || wohnungOnly || hausOnly || altbauOnly ? 'Typische Einstiegspreise' : 'Typischer Kostenbereich'}
                   </span>
                   <strong className="sk-rechner-result-highlight-value">{formatEuro(result.avg)}</strong>
                 </div>
@@ -374,9 +383,11 @@ export default function SanierungskostenRechner({
                       ? 'Alle angezeigten Beträge sind typische Einstiegspreise für Wohnungssanierungen zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Wohnfläche, Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
                       : hausOnly
                         ? 'Alle angezeigten Beträge sind typische Orientierungswerte für Haussanierungen – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Wohnfläche, Sanierungsstau, Bausubstanz, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
-                        : sanierungOnly
-                          ? 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
-                          : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
+                        : altbauOnly
+                          ? 'Alle angezeigten Beträge sind typische Orientierungswerte für Altbausanierungen – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Baujahr, Bausubstanz, Sanierungsstau, Schadstoffsituation, Materialwahl und baulichen Besonderheiten ab. Nach einer sorgfältigen Bestandsaufnahme vor Ort erstellen wir Ihr individuelles Festpreisangebot.'
+                          : sanierungOnly
+                            ? 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Orientierung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt von Bausubstanz, Sanierungsumfang, Materialwahl und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erstellen wir Ihr individuelles Festpreisangebot.'
+                            : 'Alle angezeigten Beträge sind typische Einstiegspreise zur ersten Planung – kein verbindliches Angebot. Der tatsächliche Festpreis hängt vom Bausubstanz-Zustand, Materialwahl, Gewerkeumfang und baulichen Besonderheiten ab. Nach einer Vor-Ort-Besichtigung erhalten Sie ein transparentes Festpreisangebot von Radex.'}
                 </p>
               </div>
             </div>
@@ -441,6 +452,13 @@ export default function SanierungskostenRechner({
                 <Link to="/sanierung/haussanierung">Haussanierung Rhein-Main</Link>
                 <span>Haus sanieren Kosten</span>
                 <span>Haussanierung Frankfurt</span>
+              </>
+            ) : altbauOnly ? (
+              <>
+                <Link to="/altbausanierung-kosten">Altbausanierung Kosten</Link>
+                <Link to="/sanierung/altbausanierung">Altbausanierung Rhein-Main</Link>
+                <span>Altbau sanieren Kosten</span>
+                <span>Kernsanierung Altbau</span>
               </>
             ) : (
               <>

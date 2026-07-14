@@ -90,7 +90,7 @@ export const sanierungCards = [
     desc: 'Ein Ansprechpartner für Planung, Koordination und die komplette Umsetzung Ihrer Sanierung.',
     cta: 'Mehr erfahren',
     icon: Handshake,
-    image: '/img/sanierung-thema-generalunternehmer.png',
+    image: '/img/gu-hero.png',
   },
   {
     to: '/sanierungskosten-rhein-main',
@@ -98,7 +98,7 @@ export const sanierungCards = [
     desc: 'Nutzen Sie unseren Sanierungskosten-Rechner und erhalten Sie eine erste Orientierung für Ihr Projekt.',
     cta: 'Mehr erfahren',
     icon: Calculator,
-    image: '/img/sanierung-thema-kosten.png',
+    image: '/img/kosten-hero.png',
   },
   {
     to: '/sanierung-ablauf-rhein-main',
@@ -106,7 +106,7 @@ export const sanierungCards = [
     desc: 'Erfahren Sie Schritt für Schritt, wie Ihre Sanierung mit Radex geplant und umgesetzt wird.',
     cta: 'Mehr erfahren',
     icon: ListOrdered,
-    image: '/img/sanierung-thema-ablauf.png',
+    image: '/img/ablauf-hero.png',
   },
 ];
 
