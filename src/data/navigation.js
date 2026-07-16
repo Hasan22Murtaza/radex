@@ -2,7 +2,7 @@ import {
   Bath, ShowerHead, Accessibility, DoorOpen, Calculator, ListOrdered,
   Building2, Home, Landmark, Handshake, Flame, Zap, Hammer, Leaf,
   AlertTriangle, Zap as ExpressIcon,   Briefcase, MapPin, Users, Video, Wrench, Shield, FileText, Thermometer, Droplets,
-  LayoutGrid, Trash2, Clock, Building, Sofa
+  LayoutGrid, Trash2, Clock, Building, Sofa, Sparkles
 } from 'lucide-react';
 
 const RADEX_LIVE_URL = 'https://www.radex-objektmanagement.de/radex-live/ger';
@@ -32,6 +32,14 @@ export const badsanierungCards = [
     cta: 'Mehr erfahren',
     icon: Bath,
     image: '/img/badewanne-austauschen-hero.png',
+  },
+  {
+    to: '/badmodernisierung',
+    title: 'Badmodernisierung',
+    desc: 'Bestehendes Badezimmer gezielt modernisieren – mehr Komfort, zeitgemäßes Design und hochwertige Ausstattung ohne vollständige Entkernung.',
+    cta: 'Mehr erfahren',
+    icon: Sparkles,
+    image: '/img/badmodernisierung-hero.png',
   },
   {
     to: '/barrierefreies-bad-rhein-main',

@@ -141,7 +141,7 @@ const seoSections = [
   {
     id: 'badmodernisierung',
     title: 'Badmodernisierung',
-    href: '/badsanierung/badezimmer-sanieren#badmodernisierung',
+    href: '/badmodernisierung',
   },
   {
     id: 'badplanung',
