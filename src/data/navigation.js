@@ -50,7 +50,7 @@ export const badsanierungCards = [
     image: '/img/badsanierung-thema-kosten.png',
   },
   {
-    to: '/badsanierung-ablauf-rhein-main',
+    to: '/ablauf-badsanierung',
     title: 'Planung & Ablauf',
     desc: 'Von der Erstberatung bis zur schlüsselfertigen Übergabe – erfahren Sie Schritt für Schritt, wie Ihre Badsanierung mit Radex abläuft.',
     cta: 'Mehr erfahren',

@@ -119,7 +119,7 @@
     },
     {
       "source": "/badsanierung/ablauf-badsanierung",
-      "destination": "/badplanung",
+      "destination": "/ablauf-badsanierung",
       "permanent": true
     },
     {
@@ -239,7 +239,7 @@
     },
     {
       "source": "/badsanierung-ablauf-rhein-main",
-      "destination": "/badplanung",
+      "destination": "/ablauf-badsanierung",
       "permanent": true
     },
     {

@@ -65,6 +65,38 @@ export function SharedCTABlock({ isHero = false, centered = false }) {
   );
 }
 
+/** Ablaufs-page CTA set: Primary / Secondary / optional Third */
+export function AblaufCTABlock({
+  isHero = false,
+  centered = false,
+  showThird = false,
+  primaryHref = '#projektphasen',
+}) {
+  return (
+    <div
+      className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
+    >
+      <a href={primaryHref} className="btn br-btn-orange">
+        Ablauf kennenlernen
+      </a>
+      <a
+        href="https://wa.me/496074960620"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn br-btn-whatsapp br-btn-whatsapp--primary"
+      >
+        <MessageSquare size={20} />
+        Fotos senden. Erste Einschätzung erhalten.
+      </a>
+      {showThird && (
+        <a href="tel:+496074960620" className="btn br-btn-phone">
+          <Phone size={18} /> Jetzt anrufen
+        </a>
+      )}
+    </div>
+  );
+}
+
 export function PremiumIconCards({ cards, linked = false, compactIcons = false, largeIcons = false }) {
   const iconSize = compactIcons ? 20 : largeIcons ? 36 : 28;
   return (
@@ -129,7 +161,7 @@ export function TrustStatCards({ cards }) {
   );
 }
 
-export function FaqAccordion({ faqs, title = 'Häufig gestellte Fragen' }) {
+export function FaqAccordion({ faqs, title = 'Häufig gestellte Fragen', intro }) {
   const [openFaq, setOpenFaq] = useState(null);
 
   return (
@@ -137,6 +169,7 @@ export function FaqAccordion({ faqs, title = 'Häufig gestellte Fragen' }) {
       <div className="container" style={{ maxWidth: '900px' }}>
         <div className="text-center mb-12">
           <h2 className="br-section-title">{title}</h2>
+          {intro && <p className="br-section-subtitle br-section-subtitle--wide">{intro}</p>}
         </div>
         <div className="br-faq-grid">
           {faqs.map((faq, i) => (
@@ -228,7 +261,13 @@ export function SeoAccordionSection({ title = 'Weitere Informationen', intro, ac
   );
 }
 
-export function SeoTocSection({ title = 'Weitere Informationen', intro, sections, showAllContent = false }) {
+export function SeoTocSection({
+  title = 'Weitere Informationen',
+  intro,
+  sections,
+  showAllContent = false,
+  hideToc = false,
+}) {
   const localSections = sections.filter((item) => !(item.href || item.to));
   const [activeId, setActiveId] = useState(() => localSections[0]?.id ?? null);
   const [isOpen, setIsOpen] = useState(() => {
@@ -327,43 +366,45 @@ export function SeoTocSection({ title = 'Weitere Informationen', intro, sections
           className={`br-seo-toc-panel${isOpen ? ' is-open' : ''}`}
           hidden={!isOpen}
         >
-          <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
-            <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
-            <ol className="br-seo-toc-list">
-              {sections.map((item) => {
-                const destination = buildDestination(item);
-                const isActive = activeId === item.id;
-                const linkClassName = isActive ? 'is-active' : undefined;
+          {!hideToc && (
+            <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
+              <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
+              <ol className="br-seo-toc-list">
+                {sections.map((item) => {
+                  const destination = buildDestination(item);
+                  const isActive = activeId === item.id;
+                  const linkClassName = isActive ? 'is-active' : undefined;
 
-                if (destination) {
+                  if (destination) {
+                    return (
+                      <li key={item.id}>
+                        <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
+                          {item.title}
+                        </Link>
+                      </li>
+                    );
+                  }
+
                   return (
                     <li key={item.id}>
-                      <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
+                      <a
+                        href={`#${item.id}`}
+                        className={linkClassName}
+                        aria-current={isActive ? 'true' : undefined}
+                        onClick={(e) => handleTocClick(e, item.id)}
+                      >
                         {item.title}
-                      </Link>
+                      </a>
                     </li>
                   );
-                }
-
-                return (
-                  <li key={item.id}>
-                    <a
-                      href={`#${item.id}`}
-                      className={linkClassName}
-                      aria-current={isActive ? 'true' : undefined}
-                      onClick={(e) => handleTocClick(e, item.id)}
-                    >
-                      {item.title}
-                    </a>
-                  </li>
-                );
-              })}
-            </ol>
-          </nav>
+                })}
+              </ol>
+            </nav>
+          )}
 
           {contentItems.length > 0 && (
             <div
-              className={`br-seo-toc-content${showAllContent ? ' br-seo-toc-content--all' : ''}`}
+              className={`br-seo-toc-content${showAllContent || hideToc ? ' br-seo-toc-content--all' : ''}`}
               ref={contentRef}
             >
               {contentItems.map((item) => (
@@ -371,7 +412,7 @@ export function SeoTocSection({ title = 'Weitere Informationen', intro, sections
                   key={item.id}
                   id={item.id}
                   className="br-seo-toc-article"
-                  hidden={!showAllContent && activeId !== item.id}
+                  hidden={!showAllContent && !hideToc && activeId !== item.id}
                 >
                   <h3 className="br-seo-toc-article-title">{item.title}</h3>
                   <div className="br-seo-toc-article-body">{item.content}</div>
@@ -652,6 +693,65 @@ export function PremiumTimeline({ title, intro, image, imageAlt, steps }) {
               </li>
             );
           })}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+/** Horizontal (desktop) / vertical (mobile) process timeline */
+export function HorizontalProcessTimeline({ title, intro, steps }) {
+  return (
+    <section id="projektablauf" className="br-section br-horizontal-timeline-section">
+      <div className="container">
+        <div className="text-center mb-12">
+          <h2 className="br-section-title">{title}</h2>
+          {intro && <p className="br-section-subtitle br-section-subtitle--wide">{intro}</p>}
+        </div>
+        <ol className="br-horizontal-timeline">
+          {steps.map((step, idx) => {
+            const Icon = step.icon;
+            return (
+              <li key={step.title} className="br-horizontal-timeline-item">
+                <div className="br-horizontal-timeline-node">
+                  <div className="br-horizontal-timeline-icon" aria-hidden="true">
+                    {Icon ? <Icon size={22} strokeWidth={1.5} /> : <span>{idx + 1}</span>}
+                  </div>
+                  {idx < steps.length - 1 && <span className="br-horizontal-timeline-line" aria-hidden="true" />}
+                </div>
+                <div className="br-horizontal-timeline-card">
+                  <span className="br-horizontal-timeline-step">Schritt {idx + 1}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.desc}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+/** Visual project status progress checklist */
+export function ProjectStatusTrack({ title, intro, statuses }) {
+  return (
+    <section className="br-section br-bg-light br-project-status-section">
+      <div className="container">
+        {(title || intro) && (
+          <div className="text-center mb-12">
+            {title && <h2 className="br-section-title">{title}</h2>}
+            {intro && <p className="br-section-subtitle br-section-subtitle--wide">{intro}</p>}
+          </div>
+        )}
+        <ol className="br-project-status-track" aria-label="Projektstatus">
+          {statuses.map((status, idx) => (
+            <li key={status} className="br-project-status-item">
+              <span className="br-project-status-check" aria-hidden="true">✓</span>
+              <span className="br-project-status-label">{status}</span>
+              {idx < statuses.length - 1 && <span className="br-project-status-connector" aria-hidden="true" />}
+            </li>
+          ))}
         </ol>
       </div>
     </section>

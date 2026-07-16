@@ -525,3 +525,540 @@
     height: 220px;
   }
 }
+
+/* ===== Ablauf Badsanierung page ===== */
+.ablauf-badsanierung-page .br-ablauf-phases-section .br-image-card-grid,
+.ablauf-badsanierung-page .br-ablauf-benefits .br-nav-landing-grid,
+.ablauf-badsanierung-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+}
+
+.ablauf-badsanierung-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.ablauf-badsanierung-page .br-ablauf-phases-section .br-decision-card,
+.ablauf-badsanierung-page .br-ablauf-benefits .br-decision-card,
+.ablauf-badsanierung-page .br-ablauf-why-grid .br-decision-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+}
+
+.ablauf-badsanierung-page .br-ablauf-cta-wrap {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-node {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--navy, #1e3a8a);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-line {
+  flex: 1;
+  height: 3px;
+  margin-left: 4px;
+  background: linear-gradient(90deg, #f97316, #1e3a8a);
+  border-radius: 999px;
+  transform-origin: left center;
+  animation: br-ablauf-line-grow 1.2s ease forwards;
+}
+
+@keyframes br-ablauf-line-grow {
+  from { transform: scaleX(0); opacity: 0.4; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px 16px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  height: 100%;
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-step {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f97316;
+  margin-bottom: 6px;
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-card h3 {
+  margin: 0 0 8px;
+  font-size: 17px;
+  color: var(--navy, #1e3a8a);
+}
+
+.ablauf-badsanierung-page .br-horizontal-timeline-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4b5563;
+}
+
+.ablauf-badsanierung-page .br-project-status-track {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.ablauf-badsanierung-page .br-project-status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  padding: 10px 14px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+}
+
+.ablauf-badsanierung-page .br-project-status-check {
+  color: #f97316;
+  font-weight: 800;
+}
+
+.ablauf-badsanierung-page .br-project-status-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy, #1e3a8a);
+  white-space: nowrap;
+}
+
+.ablauf-badsanierung-page .br-project-status-connector {
+  display: none;
+}
+
+.ablauf-badsanierung-page .br-ablauf-cta-box {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 40px 28px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+}
+
+.ablauf-badsanierung-page .br-ablauf-examples-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-example-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.ablauf-badsanierung-page .br-ablauf-example-img {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.ablauf-badsanierung-page .br-ablauf-symbolbild {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(15, 23, 42, 0.75);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-example-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.ablauf-badsanierung-page .br-ablauf-example-body h3 {
+  margin: 0;
+  color: var(--navy, #1e3a8a);
+  font-size: 18px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-example-body p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-container {
+  max-width: 920px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0f172a;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.18);
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-frame video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-trust {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 20px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-trust li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--navy, #1e3a8a);
+  font-size: 15px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-transcript {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-transcript h3 {
+  margin: 0 0 16px;
+  color: var(--navy, #1e3a8a);
+  font-size: 20px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-video-transcript p {
+  margin: 0 0 14px;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 28px 22px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(30, 58, 138, 0.08);
+  color: var(--navy, #1e3a8a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-icon--wa {
+  background: rgba(37, 211, 102, 0.12);
+  color: #25d366;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-card h3 {
+  margin: 0;
+  color: var(--navy, #1e3a8a);
+  font-size: 18px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-card p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-number {
+  color: var(--navy, #1e3a8a);
+  font-weight: 700;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-card .btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-form-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 36px 28px;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-form .br-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-form .br-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-form .br-input-group span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-form input,
+.ablauf-badsanierung-page .br-ablauf-contact-form select,
+.ablauf-badsanierung-page .br-ablauf-contact-form textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.ablauf-badsanierung-page .br-ablauf-contact-form small {
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.ablauf-badsanierung-page .br-ablauf-submit {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-form-success {
+  margin-top: 14px;
+  color: #059669;
+  font-size: 14px;
+}
+
+.ablauf-badsanierung-page .br-ablauf-privacy {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.ablauf-badsanierung-page .br-hero-actions .btn {
+  text-decoration: none;
+}
+
+@media (max-width: 1024px) {
+  .ablauf-badsanierung-page .br-ablauf-phases-section .br-image-card-grid,
+  .ablauf-badsanierung-page .br-ablauf-benefits .br-nav-landing-grid,
+  .ablauf-badsanierung-page .br-ablauf-examples-grid,
+  .ablauf-badsanierung-page .br-ablauf-contact-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ablauf-badsanierung-page .br-horizontal-timeline {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .ablauf-badsanierung-page .br-ablauf-phases-section .br-image-card-grid,
+  .ablauf-badsanierung-page .br-ablauf-benefits .br-nav-landing-grid,
+  .ablauf-badsanierung-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .ablauf-badsanierung-page .br-ablauf-examples-grid,
+  .ablauf-badsanierung-page .br-ablauf-contact-cards,
+  .ablauf-badsanierung-page .br-horizontal-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .ablauf-badsanierung-page .br-horizontal-timeline-item {
+    flex-direction: row;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .ablauf-badsanierung-page .br-horizontal-timeline-node {
+    flex-direction: column;
+    width: 48px;
+    flex-shrink: 0;
+  }
+
+  .ablauf-badsanierung-page .br-horizontal-timeline-line {
+    width: 3px;
+    height: auto;
+    flex: 1;
+    margin: 8px 0 0;
+    margin-left: 22px;
+    background: linear-gradient(180deg, #f97316, #1e3a8a);
+    animation: none;
+  }
+
+  .ablauf-badsanierung-page .br-horizontal-timeline-card {
+    flex: 1;
+  }
+
+  .ablauf-badsanierung-page .br-project-status-track {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ablauf-badsanierung-page .br-project-status-item {
+    border-radius: 12px;
+    justify-content: flex-start;
+  }
+
+  .ablauf-badsanierung-page .br-ablauf-video-trust {
+    grid-template-columns: 1fr;
+  }
+
+  .ablauf-badsanierung-page .br-ablauf-contact-form .br-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ablauf-badsanierung-page .br-hero-actions,
+  .ablauf-badsanierung-page .br-ablauf-cta-wrap .br-hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ablauf-badsanierung-page .br-hero-actions .btn {
+    width: 100%;
+  }
+
+  .ablauf-badsanierung-page .br-ablauf-contact-form-wrap {
+    padding: 24px 16px;
+  }
+}
+
+/* Ablauf SEO side drawer content */
+.ablauf-badsanierung-page .br-ablauf-seo-panel {
+  width: min(640px, 100%);
+}
+
+.ablauf-badsanierung-page .br-ablauf-seo-intro p,
+.ablauf-badsanierung-page .br-ablauf-seo-article-body p {
+  margin: 0 0 12px;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.ablauf-badsanierung-page .br-ablauf-seo-article-body .br-seo-subheading {
+  margin: 20px 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy, #1e3a8a);
+}
+
+.ablauf-badsanierung-page .br-ablauf-seo-article-body .br-seo-list {
+  margin: 0 0 16px;
+  padding-left: 1.2rem;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.ablauf-badsanierung-page .br-ablauf-seo-article-body a {
+  color: var(--navy, #1e3a8a);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
