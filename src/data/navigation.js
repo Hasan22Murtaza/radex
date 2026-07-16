@@ -2,7 +2,7 @@ import {
   Bath, ShowerHead, Accessibility, DoorOpen, Calculator, ListOrdered,
   Building2, Home, Landmark, Handshake, Flame, Zap, Hammer, Leaf,
   AlertTriangle, Zap as ExpressIcon,   Briefcase, MapPin, Users, Video, Wrench, Shield, FileText, Thermometer, Droplets,
-  LayoutGrid, Trash2, Clock, Building, Sofa, Sparkles
+  LayoutGrid, Trash2, Clock, Building, Sofa, Sparkles, Paintbrush
 } from 'lucide-react';
 
 const RADEX_LIVE_URL = 'https://www.radex-objektmanagement.de/radex-live/ger';
@@ -40,6 +40,14 @@ export const badsanierungCards = [
     cta: 'Mehr erfahren',
     icon: Sparkles,
     image: '/img/badmodernisierung-hero.png',
+  },
+  {
+    to: '/badrenovierung',
+    title: 'Badrenovierung',
+    desc: 'Bestehendes Badezimmer optisch und funktional erneuern – neue Fliesen, Sanitärkeramik und Materialien ohne komplette Badsanierung.',
+    cta: 'Mehr erfahren',
+    icon: Paintbrush,
+    image: '/img/badrenovierung-rhein-main-radex.webp',
   },
   {
     to: '/barrierefreies-bad-rhein-main',

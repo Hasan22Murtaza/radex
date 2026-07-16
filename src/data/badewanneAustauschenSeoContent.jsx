@@ -145,7 +145,7 @@ export const badewanneAustauschenSeoSections = [
           Der Wannentausch ist eine typische Badteilrenovierung: Eine Einzelmaßnahme mit klarem Umfang und
           überschaubarer Bauzeit. Sie erneuern, was erneuerungsbedürftig ist – und lassen den Rest des Bades
           unberührt. Mehr zu Möglichkeiten und Abgrenzung lesen Sie auf der Seite{' '}
-          <Link to="/badsanierung/badezimmer-sanieren">Badrenovierung</Link>.
+          <Link to="/badrenovierung">Badrenovierung</Link>.
         </p>
         <h4 className={h4}>Einbau der neuen Badewanne</h4>
         <p className={p}>
@@ -387,7 +387,7 @@ export const badewanneAustauschenSeoSections = [
           WC, neue Oberflächen. Das spart einen zweiten Handwerkereinsatz und ergibt ein stimmigeres Gesamtbild. Ob
           das sinnvoll ist, hängt vom Zustand des restlichen Bades ab. Radex zeigt Ihnen auf der Grundlage der
           Bestandsaufnahme, was im Rahmen einer{' '}
-          <Link to="/badsanierung/badezimmer-sanieren">Badrenovierung</Link> gebündelt werden kann und was das
+          <Link to="/badrenovierung">Badrenovierung</Link> gebündelt werden kann und was das
           bedeutet.
         </p>
       </>
@@ -470,7 +470,7 @@ export const badewanneAustauschenSeoSections = [
           Wannenrand, die sauber geschlossen werden müssen. Radex koordiniert diese Fliesenarbeiten direkt im
           Rahmen des Wannentauschs. Einen Überblick über den Unterschied zwischen Teilrenovierung und vollständiger
           Badrenovierung finden Sie auf der Seite{' '}
-          <Link to="/badsanierung/badezimmer-sanieren">Badrenovierung</Link>.
+          <Link to="/badrenovierung">Badrenovierung</Link>.
         </p>
         <h4 className={h4}>Welche Anschlüsse müssen beim Wannentausch geprüft werden?</h4>
         <p className={p}>

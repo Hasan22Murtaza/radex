@@ -449,7 +449,7 @@ export const badmodernisierungSeoSections = [
         <p className={p}>
           Radex berät, welche Kombination von Maßnahmen das beste Preis-Leistungs-Verhältnis ergibt und was technisch mit
           dem vorhandenen Bad vereinbar ist. Weitere Themen wie{' '}
-          <Link to="/badsanierung/badezimmer-sanieren">Badrenovierung</Link>,{' '}
+          <Link to="/badrenovierung">Badrenovierung</Link>,{' '}
           <Link to="/kleines-bad-sanieren-rhein-main">kleines Bad sanieren</Link> und der{' '}
           <Link to="/badsanierung-kosten">Budgetrechner</Link> helfen bei der Einordnung.
         </p>

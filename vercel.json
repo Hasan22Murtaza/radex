@@ -69,7 +69,12 @@
     },
     {
       "source": "/badrenovierung-rhein-main",
-      "destination": "/badsanierung/badezimmer-sanieren",
+      "destination": "/badrenovierung",
+      "permanent": true
+    },
+    {
+      "source": "/badsanierung/badrenovierung",
+      "destination": "/badrenovierung",
       "permanent": true
     },
     {
