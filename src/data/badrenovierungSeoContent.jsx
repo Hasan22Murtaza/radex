@@ -77,10 +77,13 @@ export const badrenovierungSeoSections = [
         <h4 className={h4}>Welche Maßnahme ist die richtige für Ihr Bad?</h4>
         <p className={p}>
           Das lässt sich nicht pauschal beantworten – es hängt vom Zustand des Bestandsbades ab. Radex schaut sich Ihr
-          Bad an und sagt Ihnen ehrlich, was sinnvoll ist: Badrenovierung, weitergehende{' '}
+          Bad an und sagt Ihnen ehrlich, was sinnvoll ist:           Badrenovierung, weitergehende{' '}
           <Link to="/badmodernisierung">Modernisierung</Link> oder eine umfassendere{' '}
-          <Link to="/komplettbadsanierung-rhein-main">Sanierung</Link>. Einen Überblick über alle Möglichkeiten finden
-          Sie auf der Seite <Link to="/badsanierung-rhein-main">Badsanierung im Rhein-Main-Gebiet</Link>.
+          <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link>. Einen Überblick über alle
+          Möglichkeiten finden Sie auf der Seite{' '}
+          <Link to="/badsanierung-rhein-main">Badsanierung im Rhein-Main-Gebiet</Link>. Wer die Badewanne gezielt
+          erneuern möchte, findet Infos unter <Link to="/badewanne-austauschen">Badewanne austauschen</Link>; für den
+          Umbau auf eine Dusche siehe <Link to="/dusche-statt-badewanne">Dusche statt Badewanne</Link>.
         </p>
       </>
     ),
@@ -325,8 +328,46 @@ export const badrenovierungSeoSections = [
         </p>
         <p className={p}>
           Bei grundlegenden Fragen zur Substanz – Leitungen, Abdichtung, Grundriss – ist wiederum die{' '}
-          <Link to="/komplettbadsanierung-rhein-main">Komplettbadsanierung</Link> der richtige Ansatz. Das
+          <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link> der richtige Ansatz. Das
           Beratungsgespräch bringt Klarheit.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'badrenovierung-planung-tipps',
+    title: 'Planungstipps, Materialien und praktische Hinweise zur Badrenovierung',
+    content: (
+      <>
+        <p className={p}>
+          Eine gute Badrenovierung beginnt mit klaren Prioritäten: Was stört Sie im Alltag am meisten – Optik, Komfort
+          oder Funktion? Welche Bereiche sollen erneuert werden, und was kann sinnvoll erhalten bleiben? Je genauer Sie
+          diese Fragen vor der Bestandsaufnahme klären, desto gezielter lässt sich der Umfang planen.
+        </p>
+        <h4 className={h4}>Planung und Materialauswahl</h4>
+        <p className={p}>
+          Fliesenformat, Farbe, Oberflächenstruktur und die Auswahl von Sanitärobjekten und Armaturen bestimmen nicht nur
+          die Optik, sondern auch den Aufwand. Großformatige Fliesen brauchen einen besonders ebenen Untergrund.
+          Hochwertige Markenprodukte kosten mehr in der Anschaffung, halten aber länger und wirken hochwertiger.
+          Gemeinsam stimmen wir Materialien auf Stil, Nutzung und Budget ab. Für eine strukturierte Planung nutzen Sie
+          gerne unsere Seite <Link to="/badplanung">Badplanung</Link>.
+        </p>
+        <h4 className={h4}>Praktische Tipps aus der Praxis</h4>
+        <ul className={ul}>
+          <li>Fotos Ihres Badezimmers vorab senden – das beschleunigt die erste Einschätzung.</li>
+          <li>Priorisieren Sie Maßnahmen mit dem größten sichtbaren oder funktionalen Effekt.</li>
+          <li>Prüfen Sie, ob mehrere Arbeiten gebündelt werden sollten, damit das Ergebnis stimmig bleibt.</li>
+          <li>Planen Sie Puffer für Bestandsüberraschungen – besonders in älteren Gebäuden.</li>
+          <li>Klären Sie früh, ob das Bad während der Arbeiten eingeschränkt nutzbar bleiben muss.</li>
+        </ul>
+        <h4 className={h4}>Ablauf und weiterführende Seiten</h4>
+        <p className={p}>
+          Den allgemeinen Ablauf einer Badmaßnahme beschreiben wir auf der Seite{' '}
+          <Link to="/ablauf-badsanierung">Ablauf einer Badsanierung</Link>. Zu Kostenfaktoren und Preisorientierung
+          siehe <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>. Spezielle Umbauten finden Sie unter{' '}
+          <Link to="/dusche-statt-badewanne">Dusche statt Badewanne</Link> und{' '}
+          <Link to="/badewanne-austauschen">Badewanne austauschen</Link>. Alle Einsatzorte:{' '}
+          <Link to="/einsatzgebiete-rhein-main">Einsatzgebiete Rhein-Main</Link>.
         </p>
       </>
     ),
@@ -454,10 +495,14 @@ export const badrenovierungSeoSections = [
           das mit Ihnen, bevor die Arbeiten beginnen.
         </p>
         <p className={p}>
-          Projektbeispiele finden Sie unter <Link to="/badsanierung-rhein-main">Projekte</Link>. Für Fragen zu kleinen
-          Bädern siehe auch <Link to="/gaeste-wc">Gäste-WC sanieren</Link> und{' '}
-          <Link to="/barrierefreies-bad">barrierefreies Bad</Link>. Für eine persönliche Beratung erreichen Sie uns über{' '}
-          <Link to="/#kontakt">Kontakt</Link> oder den <Link to="/ratgeber">Ratgeber</Link>.
+          Projektbeispiele finden Sie unter <Link to="/badsanierung-rhein-main">Badsanierung Rhein-Main</Link> sowie auf{' '}
+          <a href="https://www.radex-objektmanagement.de/radex-live/ger" target="_blank" rel="noopener noreferrer">
+            Radex Live
+          </a>
+          . Für Fragen zu kleinen Bädern siehe auch <Link to="/gaeste-wc">Gäste-WC sanieren</Link> und{' '}
+          <Link to="/barrierefreies-bad">barrierefreies Bad</Link>. Zur Planung: <Link to="/badplanung">Badplanung</Link>
+          . Für eine persönliche Beratung erreichen Sie uns über <Link to="/#kontakt">Kontakt</Link> oder den{' '}
+          <Link to="/ratgeber">Ratgeber</Link>.
         </p>
       </>
     ),

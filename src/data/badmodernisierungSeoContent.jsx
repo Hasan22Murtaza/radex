@@ -63,9 +63,11 @@ export const badmodernisierungSeoSections = [
         </p>
         <p className={p}>
           Das macht die Badmodernisierung zu einer deutlich schlankeren Maßnahme als eine{' '}
-          <Link to="/komplettbadsanierung-rhein-main">Komplettbadsanierung</Link>. Kein Rückbau auf den Rohbau. Kein
+          <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link>. Kein Rückbau auf den Rohbau. Kein
           wochenlanger Komplettausfall des Bades. Und deutlich weniger Aufwand in Planung, Koordination und Ausführung —
-          bei einem Ergebnis, das im Alltag einen echten Unterschied macht.
+          bei einem Ergebnis, das im Alltag einen echten Unterschied macht. Eine optische Auffrischung einzelner Bereiche
+          ohne technische Eingriffe beschreibt eher die{' '}
+          <Link to="/badrenovierung">Badrenovierung</Link>.
         </p>
         <p className={p}>
           Die Entscheidung, ob eine Modernisierung ausreicht oder ob tiefere Eingriffe notwendig sind, trifft Radex erst
@@ -351,7 +353,9 @@ export const badmodernisierungSeoSections = [
         </p>
         <p className={p}>
           Fragen zu Kosten? Mehr dazu auf der Seite <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>. Den
-          detaillierten Projektablauf finden Sie unter <Link to="/ablauf-badsanierung">Ablauf Badsanierung</Link>.
+          detaillierten Projektablauf finden Sie unter <Link to="/ablauf-badsanierung">Ablauf Badsanierung</Link>. Für
+          die gemeinsame Auswahl von Fliesen, Armaturen und Badmöbeln hilft die Seite{' '}
+          <Link to="/badplanung">Badplanung</Link>.
         </p>
         <h4 className={h4}>SHK Meisterbetrieb</h4>
         <p className={p}>
@@ -367,6 +371,70 @@ export const badmodernisierungSeoSections = [
         <p className={p}>
           Radex empfiehlt keine Maßnahmen, die nicht gebraucht werden. Wenn eine gezielte Modernisierung ausreicht, sagen
           wir das — auch wenn eine größere Maßnahme mehr Umsatz brächte.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'vorteile-badmodernisierung',
+    title: 'Ihre Vorteile einer Badmodernisierung',
+    content: (
+      <>
+        <p className={p}>
+          Mit einer Badmodernisierung lassen sich Komfort, Design und Funktion deutlich verbessern — oft ohne komplette
+          Entkernung. Moderne Materialien, neue Sanitärkeramik und zeitgemäße Technik schaffen ein Badezimmer, das Ihren
+          heutigen Ansprüchen gerecht wird.
+        </p>
+        <h4 className={h4}>Modernes Design</h4>
+        <p className={p}>
+          Neue Materialien und zeitlose Gestaltung verleihen Ihrem Badezimmer eine hochwertige Optik — von der Dusche bis
+          zu Badmöbeln und Armaturen.
+        </p>
+        <h4 className={h4}>Mehr Komfort</h4>
+        <p className={p}>
+          Moderne Armaturen, eine neue Dusche und funktionale Stauraumlösungen erhöhen den täglichen Komfort spürbar.
+        </p>
+        <h4 className={h4}>Technik erneuern</h4>
+        <p className={p}>
+          Sanitärinstallationen und Ausstattung werden auf den aktuellen Stand gebracht — unter Meisterverantwortung und
+          mit Gewährleistung.
+        </p>
+        <h4 className={h4}>Immobilie aufwerten</h4>
+        <p className={p}>
+          Ein modernisiertes Badezimmer steigert Wohnqualität und den Wert Ihrer Immobilie — für den Eigenbedarf ebenso
+          wie vor einer Vermietung oder dem Verkauf.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'kosten-badmodernisierung',
+    title: 'Was kostet eine Badmodernisierung?',
+    content: (
+      <>
+        <p className={p}>
+          Die Kosten einer Badmodernisierung richten sich nach dem Umfang der Arbeiten, der Raumgröße und der gewünschten
+          Ausstattung. Zur ersten Orientierung:
+        </p>
+        <ul className={ul}>
+          <li>
+            <strong>Basis ab ca. 8.000 €</strong> – funktionale Modernisierungen mit neuer Sanitärkeramik und zeitgemäßer
+            Ausstattung
+          </li>
+          <li>
+            <strong>Komfort ab ca. 15.000 €</strong> – neue Dusche, hochwertige Fliesen, moderne Beleuchtung und
+            individuelle Gestaltung
+          </li>
+          <li>
+            <strong>Premium ab ca. 25.000 €</strong> – umfangreiche Badmodernisierung mit hochwertiger Ausstattung und
+            exklusiven Materialien
+          </li>
+        </ul>
+        <p className={p}>
+          Die genannten Preise dienen als Orientierung. Nach einer Besichtigung erhalten Sie ein individuelles
+          Festpreisangebot. Mehr zur Einordnung finden Sie unter{' '}
+          <Link to="/badsanierung-kosten">Badsanierung Kosten</Link> und zum Ablauf unter{' '}
+          <Link to="/ablauf-badsanierung">Ablauf einer Badsanierung</Link>.
         </p>
       </>
     ),
@@ -450,7 +518,7 @@ export const badmodernisierungSeoSections = [
           Radex berät, welche Kombination von Maßnahmen das beste Preis-Leistungs-Verhältnis ergibt und was technisch mit
           dem vorhandenen Bad vereinbar ist. Weitere Themen wie{' '}
           <Link to="/badrenovierung">Badrenovierung</Link>,{' '}
-          <Link to="/kleines-bad-sanieren-rhein-main">kleines Bad sanieren</Link> und der{' '}
+          <Link to="/gaeste-wc">kleines Bad / Gäste-WC</Link> und der{' '}
           <Link to="/badsanierung-kosten">Budgetrechner</Link> helfen bei der Einordnung.
         </p>
         <h4 className={h4}>Kann eine neue Dusche ohne komplette Sanierung eingebaut werden?</h4>
@@ -491,9 +559,12 @@ export const badmodernisierungSeoSections = [
           um, was Sie brauchen.
         </p>
         <p className={p}>
-          Projektbeispiele finden Sie unter <Link to="/badsanierung-rhein-main">Projekte</Link>. Für eine persönliche
-          Beratung erreichen Sie uns über <Link to="/#kontakt">Kontakt</Link> oder den{' '}
-          <Link to="/ratgeber">Ratgeber</Link>.
+          Projektbeispiele finden Sie unter{' '}
+          <a href="https://www.radex-objektmanagement.de/radex-live/ger" target="_blank" rel="noopener noreferrer">
+            Alle Badprojekte
+          </a>
+          . Für eine persönliche Beratung erreichen Sie uns über das{' '}
+          <a href="#kontakt-form">Kontaktformular</a> oder den <Link to="/ratgeber">Ratgeber</Link>.
         </p>
       </>
     ),

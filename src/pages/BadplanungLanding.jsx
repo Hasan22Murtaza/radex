@@ -1,23 +1,25 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Award,
-  CheckCircle2,
   ChevronDown,
-  ClipboardCheck,
+  ChevronLeft,
+  ChevronRight,
   ClipboardList,
-  FolderOpen,
-  Home,
+  Euro,
+  Hammer,
+  LayoutTemplate,
   Lightbulb,
   Mail,
   MessageSquare,
-  Palette,
+  Package,
   Phone,
-  Ruler,
   Send,
   UserCheck,
+  Wrench,
   X,
 } from 'lucide-react';
 import { Link } from '../router';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import '../badsanierung.css';
 import '../badsanierung-polish.css';
 import '../sanierung-polish.css';
@@ -25,17 +27,16 @@ import '../home.css';
 import useSeo, { buildFaqSchema, buildServiceSchema } from '../useSeo';
 import {
   FaqAccordion,
-  ImageCardGrid,
+  HorizontalProcessTimeline,
   PremiumIconCards,
-  SectionTransition,
 } from '../components/landing/SharedLandingParts';
-import testVideo from '../assets/test.mp4';
 import {
   badplanungSeoIntro,
   badplanungSeoSections,
 } from '../data/badplanungSeoContent';
 
 const HERO_IMAGE = '/img/badplanung-hero.png';
+const PLANNING_IMAGE = '/img/badplanung-planungstisch.png';
 const VIDEO_POSTER = '/img/ablauf-bad-consultation.png';
 const WHATSAPP_URL = 'https://wa.me/496074960620';
 const PHONE_TEL = 'tel:+496074960620';
@@ -44,469 +45,530 @@ const META_TITLE = 'Badplanung Rhein-Main | Neues Bad richtig planen';
 const META_DESCRIPTION =
   'Badplanung im Rhein-Main-Gebiet: Radex plant Badezimmer mit Grundriss, Dusche, Sanitärtechnik, Licht, Materialien und klarer Umsetzung.';
 
-function BadplanungCTA({ isHero = false, centered = false, showThird = false, primaryHref = '#kontakt' }) {
+function BadplanungCTA({ isHero = false, centered = false, primaryHref = '#badplaner' }) {
   return (
     <div
       className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
     >
       <a href={primaryHref} className="btn br-btn-orange">
-        Bad planen
+        Badplanung starten
       </a>
       <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp br-btn-whatsapp--primary">
         <MessageSquare size={20} />
         Fotos senden. Erste Einschätzung erhalten.
       </a>
-      {showThird && (
-        <a href={PHONE_TEL} className="btn br-btn-phone">
-          <Phone size={18} /> Jetzt anrufen
-        </a>
-      )}
     </div>
   );
 }
 
 const trustCards = [
   {
+    title: 'SHK-Meisterbetrieb',
+    desc: 'Fachgerechte Planung und Sanitärtechnik unter meisterlicher Leitung.',
+    icon: Award,
+  },
+  {
     title: 'Individuelle Planung',
-    desc: 'Jedes Badezimmer wird auf Ihre Wünsche und Ihre Immobilie abgestimmt.',
+    desc: 'Jedes Badkonzept wird auf Ihre Wünsche und Ihre Immobilie abgestimmt.',
+    icon: LayoutTemplate,
+  },
+  {
+    title: 'Alles aus einer Hand',
+    desc: 'Planung, Sanitär und Gewerkekoordination aus einer Hand.',
     icon: ClipboardList,
   },
   {
-    title: 'Materialberatung',
-    desc: 'Fliesen, Armaturen und Badmöbel werden gemeinsam ausgewählt.',
-    icon: Palette,
-  },
-  {
-    title: 'Optimale Raumnutzung',
-    desc: 'Jeder Quadratmeter wird sinnvoll geplant und genutzt.',
-    icon: Ruler,
-  },
-  {
-    title: 'SHK-Meisterbetrieb',
-    desc: 'Fachgerechte Planung und Umsetzung aus einer Hand.',
-    icon: Award,
-  },
-  {
-    title: 'Über 500 Projekte',
-    desc: 'Langjährige Erfahrung in der Badplanung und Badsanierung.',
-    icon: FolderOpen,
-  },
-  {
-    title: 'Durchdachte Lösungen',
-    desc: 'Technik, Komfort und Design werden optimal kombiniert.',
-    icon: Lightbulb,
-  },
-];
-
-const bestandteilCards = [
-  {
-    title: 'Raumaufteilung',
-    desc: 'Dusche, Badewanne, Waschtisch und WC werden optimal im vorhandenen Grundriss angeordnet.',
-    image: '/img/badplanung-raumaufteilung.png',
-    imageAlt: 'Symbolbild: Badgrundriss und Raumaufteilung auf dem Planungstisch',
-  },
-  {
-    title: 'Materialauswahl',
-    desc: 'Gemeinsam wählen wir Fliesen, Armaturen, Badmöbel und Oberflächen passend zu Ihrem Stil aus.',
-    image: '/img/badplanung-materialauswahl.png',
-    imageAlt: 'Symbolbild: Materialberatung mit Fliesen- und Armaturenmustern',
-  },
-  {
-    title: 'Lichtkonzept',
-    desc: 'Die richtige Kombination aus Tageslicht, Spiegelbeleuchtung und indirektem Licht sorgt für eine angenehme Atmosphäre.',
-    image: '/img/badplanung-lichtkonzept.png',
-    imageAlt: 'Symbolbild: modernes Badezimmer mit beleuchtetem Spiegel und indirektem Licht',
-  },
-  {
-    title: 'Sanitärtechnik',
-    desc: 'Leitungen, Anschlüsse und technische Details werden bereits in der Planungsphase berücksichtigt.',
-    image: '/img/badplanung-sanitaertechnik.png',
-    imageAlt: 'Symbolbild: Sanitärfachkraft prüft Installationsplan',
-  },
-  {
-    title: 'Stauraum',
-    desc: 'Badmöbel und Schränke werden so geplant, dass ausreichend Stauraum entsteht, ohne den Raum zu überladen.',
-    image: '/img/badplanung-stauraum.png',
-    imageAlt: 'Symbolbild: moderne Badmöbel mit schwebendem Waschtisch und Hochschrank',
-  },
-  {
-    title: 'Komfort & Ergonomie',
-    desc: 'Bewegungsflächen, Bedienkomfort und Alltagstauglichkeit stehen bei jeder Planung im Mittelpunkt.',
-    image: '/img/badplanung-komfort.png',
-    imageAlt: 'Symbolbild: großzügiges Badkonzept mit bodengleicher Dusche',
-  },
-];
-
-const planningPhaseCards = [
-  {
-    title: 'Beratung',
-    desc: 'Gemeinsame Analyse Ihrer Wünsche und Anforderungen.',
-    icon: Phone,
-  },
-  {
-    title: 'Entwurf',
-    desc: 'Erstellung eines individuellen Badkonzeptes.',
-    icon: ClipboardList,
-  },
-  {
-    title: 'Materialauswahl',
-    desc: 'Auswahl aller Produkte, Farben und Oberflächen.',
-    icon: Palette,
-  },
-  {
-    title: 'Ausführungsplanung',
-    desc: 'Vorbereitung aller technischen und handwerklichen Arbeiten.',
-    icon: Ruler,
-  },
-];
-
-const whyRadexCards = [
-  {
-    title: 'Individuelles Badkonzept',
-    desc: 'Jedes Badezimmer wird exakt auf Ihre Wünsche und die vorhandene Raumsituation abgestimmt.',
-    icon: ClipboardList,
-  },
-  {
-    title: 'Material- und Designberatung',
-    desc: 'Gemeinsam wählen wir Fliesen, Armaturen, Farben und Badmöbel passend zu Ihrem Stil aus.',
-    icon: Palette,
-  },
-  {
-    title: 'SHK-Meisterbetrieb',
-    desc: 'Technische Planung und Ausführung erfolgen unter fachlicher Leitung eines SHK-Meisters.',
-    icon: Award,
-  },
-  {
-    title: 'Ein Ansprechpartner',
-    desc: 'Von der ersten Idee bis zur fertigen Umsetzung begleitet Sie ein fester Ansprechpartner.',
+    title: 'Persönlicher Ansprechpartner',
+    desc: 'Ein fester Kontakt von der ersten Idee bis zur Umsetzung.',
     icon: UserCheck,
   },
 ];
 
 const processSteps = [
   {
-    title: 'Erstberatung',
-    desc: 'Sie schildern uns Ihre Vorstellungen und Ziele für Ihr neues Badezimmer.',
+    title: 'Beratung',
+    desc: 'Wir lernen Ihre Wünsche kennen.',
     icon: Phone,
   },
   {
-    title: 'Aufmaß vor Ort',
-    desc: 'Wir erfassen alle Maße, Anschlüsse und technischen Gegebenheiten Ihres Badezimmers.',
-    icon: Home,
+    title: 'Planung',
+    desc: 'Gemeinsam entwickeln wir Ihr neues Badezimmer.',
+    icon: LayoutTemplate,
   },
   {
-    title: 'Badkonzept',
-    desc: 'Wir entwickeln eine individuelle Raumaufteilung inklusive Sanitärtechnik und Ausstattung.',
+    title: 'Material & Ausstattung',
+    desc: 'Fliesen, Armaturen, Möbel und Ausstattung werden abgestimmt.',
+    icon: Package,
+  },
+  {
+    title: 'Umsetzung',
+    desc: 'Nach der Planung beginnt die koordinierte Ausführung.',
+    icon: Hammer,
+  },
+];
+
+const considerCards = [
+  {
+    title: 'Grundriss',
+    desc: 'Optimale Anordnung von Dusche, WC, Waschtisch und Bewegungsflächen.',
+    icon: LayoutTemplate,
+  },
+  {
+    title: 'Sanitärtechnik',
+    desc: 'Leitungen, Anschlüsse und Vorinstallation werden früh mitgedacht.',
+    icon: Wrench,
+  },
+  {
+    title: 'Stauraum',
+    desc: 'Badmöbel und Nischen für einen aufgeräumten Alltag.',
+    icon: Package,
+  },
+  {
+    title: 'Beleuchtung',
+    desc: 'Allgemein-, Spiegel- und Akzentlicht für Funktion und Atmosphäre.',
+    icon: Lightbulb,
+  },
+  {
+    title: 'Materialien',
+    desc: 'Fliesen, Armaturen und Oberflächen passend zu Raum und Nutzung.',
     icon: ClipboardList,
   },
   {
-    title: 'Materialauswahl',
-    desc: 'Fliesen, Armaturen, Badmöbel und Farben werden gemeinsam abgestimmt.',
-    icon: Palette,
-  },
-  {
-    title: 'Ausführungsplanung',
-    desc: 'Alle Details werden dokumentiert und dienen als Grundlage für die spätere Umsetzung.',
-    icon: ClipboardCheck,
-  },
-  {
-    title: 'Projektfreigabe',
-    desc: 'Nach Ihrer Freigabe beginnen Terminplanung und Vorbereitung der Badsanierung.',
-    icon: CheckCircle2,
+    title: 'Budget',
+    desc: 'Klare Prioritäten, damit Qualität und Kosten zusammenpassen.',
+    icon: Euro,
   },
 ];
 
 const projectExamples = [
   {
-    title: 'Kleines Stadbad',
-    subtitle: '5 m²',
-    desc: 'Optimierte Raumaufteilung mit bodengleicher Dusche, wandhängendem WC und maßgefertigtem Waschtisch.',
-    image: '/img/badplanung-projekt-stadbad.png',
-    imageAlt: 'Symbolbild: kleines Stadbad mit optimierter Raumaufteilung',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung-rhein-main',
+    title: 'Frankfurt am Main',
+    size: '8 m²',
+    desc: 'Durchdachte Badplanung mit Walk-in-Dusche, großformatigen Fliesen und klarer Raumaufteilung.',
+    image: '/img/bad1.webp',
+    imageAlt: 'Geplantes und umgesetztes Badezimmer in Frankfurt am Main',
+    to: RADEX_LIVE_URL,
   },
   {
-    title: 'Familienbad',
-    subtitle: '8 m²',
-    desc: 'Großzügiges Badkonzept mit Doppelwaschtisch, Walk-in-Dusche und zusätzlichem Stauraum.',
-    image: '/img/badplanung-projekt-familienbad.png',
-    imageAlt: 'Symbolbild: Familienbad mit Doppelwaschtisch und Walk-in-Dusche',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung-rhein-main',
+    title: 'Darmstadt',
+    size: '7 m²',
+    desc: 'Familienbad mit effizienter Planung, neuer Ausstattung und alltagstauglichem Stauraum.',
+    image: '/img/fertiges-bad-nach-badsanierung-radex.webp',
+    imageAlt: 'Geplantes Familienbad in Darmstadt',
+    to: RADEX_LIVE_URL,
   },
   {
-    title: 'Komfortbad',
-    subtitle: '12 m²',
-    desc: 'Individuelle Planung mit Designmöbeln, freistehender Badewanne und hochwertigem Lichtkonzept.',
-    image: '/img/badplanung-projekt-komfortbad.png',
-    imageAlt: 'Symbolbild: Komfortbad mit freistehender Badewanne und Lichtkonzept',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung-rhein-main',
+    title: 'Offenbach am Main',
+    size: '9 m²',
+    desc: 'Komfortorientierte Planung mit neuer Dusche, Waschtisch und abgestimmtem Lichtkonzept.',
+    image: '/img/Komplettbadsanierung.webp',
+    imageAlt: 'Geplantes Badezimmer in Offenbach am Main',
+    to: RADEX_LIVE_URL,
   },
 ];
 
 const faqsData = [
   {
-    q: 'Warum ist eine professionelle Badplanung sinnvoll?',
-    a: 'Eine gute Planung verhindert spätere Änderungen während der Bauphase und sorgt dafür, dass Raumaufteilung, Technik, Materialien und Budget optimal aufeinander abgestimmt werden.',
+    q: 'Warum ist eine Badplanung wichtig?',
+    a: 'Eine gute Badplanung legt Raumaufteilung, Technik, Materialien und Budget fest, bevor die Bauarbeiten beginnen. So vermeiden Sie teure Änderungen auf der Baustelle und erhalten ein Bad, das im Alltag wirklich funktioniert.',
   },
   {
-    q: 'Kann ich meine eigenen Ideen einbringen?',
-    a: 'Selbstverständlich. Ihre Wünsche und Vorstellungen bilden die Grundlage der gesamten Planung. Gemeinsam entwickeln wir daraus ein individuelles Badkonzept.',
+    q: 'Wann sollte ich mit der Planung beginnen?',
+    a: 'Idealerweise mehrere Wochen vor dem gewünschten Baubeginn. So bleibt genug Zeit für Beratung, Aufmaß, Materialentscheidungen und eine belastbare Terminplanung.',
   },
   {
-    q: 'Wann beginnt die eigentliche Badplanung?',
-    a: 'Bereits nach dem ersten Beratungsgespräch und einer Besichtigung beginnen wir mit der Analyse Ihres Badezimmers und der Entwicklung eines individuellen Planungskonzeptes.',
+    q: 'Kann ich eigene Ideen einbringen?',
+    a: 'Selbstverständlich. Ihre Wünsche und Vorstellungen bilden die Grundlage der gesamten Planung. Gemeinsam entwickeln wir daraus ein realistisches und individuelles Badkonzept.',
   },
   {
-    q: 'Werden auch Materialien gemeinsam ausgewählt?',
-    a: 'Ja. Fliesen, Armaturen, Badmöbel, Farben und weitere Ausstattungsdetails werden gemeinsam abgestimmt, damit ein harmonisches Gesamtkonzept entsteht.',
+    q: 'Unterstützt Radex bei der Materialauswahl?',
+    a: 'Ja. Fliesen, Armaturen, Badmöbel und weitere Ausstattungsdetails werden gemeinsam abgestimmt – passend zu Stil, Nutzung und Budget.',
   },
   {
-    q: 'Kann auch ein kleines Badezimmer optimal geplant werden?',
-    a: 'Ja. Gerade kleine Badezimmer profitieren besonders von einer durchdachten Raumplanung und intelligenten Stauraumlösungen.',
+    q: 'Wie lange dauert die Planung?',
+    a: 'Je nach Umfang oft zwei bis drei Wochen für klar definierte Projekte. Umfangreichere Umbauten mit Grundrissänderung oder individueller Ausstattung brauchen mehr Zeit für fundierte Entscheidungen.',
   },
   {
-    q: 'In welchen Regionen bietet Radex Badplanungen an?',
-    a: 'Von Rödermark aus begleitet Radex private Eigentümer im gesamten Rhein-Main-Gebiet – von der ersten Planung bis zur fertigen Badsanierung.',
+    q: 'Was kostet eine Badplanung?',
+    a: 'Beratung und Konzepterstellung im Rahmen einer geplanten Badsanierung sind bei Radex kostenlos. Eine erste Orientierung zu Gesamtkosten finden Sie unter Badsanierung Kosten.',
   },
 ];
 
-const videoTranscript = [
-  'Mein Name ist Bernd Knoop. Ich bin SHK-Meister und Betriebsleiter der Radex Objektmanagement GmbH.',
-  'Eine professionelle Badplanung ist die Grundlage jeder erfolgreichen Badsanierung. Bereits vor Beginn der Arbeiten legen wir gemeinsam fest, wie Ihr neues Badezimmer aussehen und funktionieren soll.',
-  'Dabei berücksichtigen wir die vorhandene Raumgröße, die technischen Voraussetzungen, Ihre persönlichen Wünsche sowie eine sinnvolle Auswahl an Materialien und Ausstattung. So entsteht ein Badezimmer, das langfristig Freude bereitet und optimal zu Ihrem Alltag passt.',
-  'Senden Sie uns gerne Fotos Ihres Badezimmers oder vereinbaren Sie einen persönlichen Beratungstermin. Gemeinsam entwickeln wir ein individuelles Badkonzept für Ihr Zuhause.',
+const BAD_TYPE_OPTIONS = ['Gäste-WC', 'Familienbad', 'Hauptbad', 'Neubau'];
+const SIZE_OPTIONS = ['bis 5 m²', '5–8 m²', '8–12 m²', 'größer als 12 m²'];
+const MODERNISIEREN_OPTIONS = [
+  'Dusche',
+  'Badewanne',
+  'Dusche statt Badewanne',
+  'WC',
+  'Waschbecken',
+  'Fliesen',
+  'Badmöbel',
+  'Beleuchtung',
+  'Komplettmodernisierung',
 ];
+const AUSSTATTUNG_OPTIONS = ['Basis', 'Komfort', 'Premium'];
+const START_OPTIONS = ['sofort', 'innerhalb von 3 Monaten', 'innerhalb von 6 Monaten', 'ich informiere mich zunächst'];
 
-const videoTrustPoints = [
-  'Individuelle Badplanung',
-  'Optimale Raumnutzung',
-  'SHK-Meisterbetrieb',
-  'Persönliche Beratung',
-];
+function ProjectCard({ project }) {
+  const isExternal = project.to.startsWith('http');
+  const body = (
+    <>
+      <div
+        className="br-ablauf-example-img"
+        style={{ backgroundImage: `url(${project.image})` }}
+        role="img"
+        aria-label={project.imageAlt}
+      />
+      <div className="br-ablauf-example-body">
+        <h3>{project.title}</h3>
+        <p className="br-bw-project-subtitle">{project.size}</p>
+        <p>{project.desc}</p>
+        <span className="br-btn-orange">Projekt ansehen →</span>
+      </div>
+    </>
+  );
 
-const roomSizeOptions = [
-  { id: 'bis5', label: 'Bis 5 m²' },
-  { id: '6bis8', label: '6 bis 8 m²' },
-  { id: '9bis12', label: '9 bis 12 m²' },
-  { id: 'ueber12', label: 'Über 12 m²' },
-];
+  if (isExternal) {
+    return (
+      <a
+        href={project.to}
+        className="br-ablauf-example-card"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        {body}
+      </a>
+    );
+  }
 
-const ausstattungOptions = [
-  { id: 'dusche', label: 'Dusche' },
-  { id: 'wanne', label: 'Badewanne' },
-  { id: 'dusche-wanne', label: 'Dusche & Badewanne' },
-  { id: 'doppel', label: 'Doppelwaschtisch' },
-  { id: 'gaeste', label: 'Gäste-WC' },
-  { id: 'bodengleich', label: 'Bodengleiche Dusche' },
-];
+  return (
+    <Link to={project.to} className="br-ablauf-example-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+      {body}
+    </Link>
+  );
+}
 
-const stilOptions = [
-  { id: 'modern', label: 'Modern' },
-  { id: 'zeitlos', label: 'Zeitlos' },
-  { id: 'minimal', label: 'Minimalistisch' },
-  { id: 'natuerlich', label: 'Natürlich' },
-  { id: 'klassisch', label: 'Klassisch' },
-  { id: 'design', label: 'Design' },
-];
+function DigitalerBadplaner() {
+  const [step, setStep] = useState(0);
+  const [sent, setSent] = useState(false);
+  const [badType, setBadType] = useState('');
+  const [size, setSize] = useState('');
+  const [modernisieren, setModernisieren] = useState([]);
+  const [ausstattung, setAusstattung] = useState('');
+  const [start, setStart] = useState('');
+  const [photos, setPhotos] = useState([]);
+  const [name, setName] = useState('');
+  const [telefon, setTelefon] = useState('');
+  const [email, setEmail] = useState('');
 
-const prioritaetOptions = [
-  { id: 'design', label: 'Design' },
-  { id: 'komfort', label: 'Komfort' },
-  { id: 'barrierefrei', label: 'Barrierefreiheit' },
-  { id: 'familie', label: 'Familienbad' },
-  { id: 'budget', label: 'Budget' },
-];
+  const totalSteps = 7;
+  const progress = ((step + 1) / totalSteps) * 100;
 
-const planungOptions = [
-  'Komplettbadsanierung',
-  'Badmodernisierung',
-  'Gäste-WC',
-  'Barrierefreies Bad',
-  'Kleines Badezimmer',
-  'Ich bin noch unsicher',
-];
-
-const startOptions = ['Sofort', 'Innerhalb von 3 Monaten', 'Innerhalb von 6 Monaten', 'Termin noch offen'];
-
-function Badplaner() {
-  const [roomSize, setRoomSize] = useState('6bis8');
-  const [ausstattung, setAusstattung] = useState(['dusche']);
-  const [stil, setStil] = useState('modern');
-  const [prioritaet, setPrioritaet] = useState('komfort');
-
-  const toggleAusstattung = (id) => {
-    setAusstattung((prev) => {
-      if (prev.includes(id)) {
-        return prev.length === 1 ? prev : prev.filter((item) => item !== id);
-      }
-      return [...prev, id];
-    });
+  const toggleModernisieren = (label) => {
+    setModernisieren((prev) =>
+      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label],
+    );
   };
 
-  const recommendation = useMemo(() => {
-    const sizeLabel = roomSizeOptions.find((o) => o.id === roomSize)?.label || '';
-    const stilLabel = stilOptions.find((o) => o.id === stil)?.label || '';
-    const prioLabel = prioritaetOptions.find((o) => o.id === prioritaet)?.label || '';
-    const selectedFit = ausstattung
-      .map((id) => ausstattungOptions.find((o) => o.id === id)?.label)
-      .filter(Boolean);
+  const canContinue = () => {
+    if (step === 0) return Boolean(badType);
+    if (step === 1) return Boolean(size);
+    if (step === 2) return modernisieren.length > 0;
+    if (step === 3) return Boolean(ausstattung);
+    if (step === 4) return Boolean(start);
+    if (step === 5) return true;
+    if (step === 6) return Boolean(name.trim() && telefon.trim() && email.trim());
+    return false;
+  };
 
-    let raumaufteilung = 'Kompakte, klar zonierte Anordnung mit Fokus auf Bewegungsflächen.';
-    if (roomSize === 'bis5') {
-      raumaufteilung = 'Optimierte Kleinstbad-Planung: bodengleiche Dusche, wandhängendes WC und platzsparender Waschtisch.';
-    } else if (roomSize === '6bis8') {
-      raumaufteilung = 'Effiziente Raumaufteilung mit klar getrennten Funktionszonen für Dusche, Waschtisch und WC.';
-    } else if (roomSize === '9bis12') {
-      raumaufteilung = 'Großzügige Zonierung mit ausreichend Bewegungsfläche und optionalem Doppelwaschtisch.';
-    } else if (roomSize === 'ueber12') {
-      raumaufteilung = 'Komfortorientierte Raumaufteilung mit großzügigen Bewegungsflächen und Designspielraum.';
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!canContinue()) return;
 
-    if (prioritaet === 'barrierefrei') {
-      raumaufteilung =
-        'Barrierearme Planung mit bodengleichem Zugang, ausreichend Bewegungsfläche und klarer Bedienhöhe.';
-    } else if (prioritaet === 'familie') {
-      raumaufteilung = 'Familiengeeignete Raumaufteilung mit paralleler Nutzung und zusätzlichem Stauraum.';
-    }
+    const subject = `Digitale Badplanung Anfrage von ${name.trim()}`;
+    const body = [
+      'Digitale Badplanung – Anfrage',
+      '',
+      `Name: ${name.trim()}`,
+      `Telefon: ${telefon.trim()}`,
+      `E-Mail: ${email.trim()}`,
+      '',
+      `Badezimmertyp: ${badType}`,
+      `Badgröße: ${size}`,
+      `Gewünschte Leistungen: ${modernisieren.join(', ') || '–'}`,
+      `Ausstattung: ${ausstattung}`,
+      `Projektstart: ${start}`,
+      photos.length
+        ? `Hochgeladene Fotos: ${photos.length} Datei(en) – bitte zusätzlich per WhatsApp oder E-Mail senden (${Array.from(photos)
+            .map((f) => f.name)
+            .join(', ')})`
+        : 'Hochgeladene Fotos: keine',
+    ].join('\n');
 
-    return {
-      raumaufteilung,
-      ausstattung: selectedFit.length ? selectedFit.join(', ') : 'Noch keine Ausstattung gewählt',
-      stil: `${stilLabel} mit Fokus auf ${prioLabel.toLowerCase()}`,
-      sizeLabel,
-    };
-  }, [roomSize, ausstattung, stil, prioritaet]);
+    window.location.href = `mailto:info@radex-objektmanagement.de?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+  };
+
+  if (sent) {
+    return (
+      <div className="br-bw-calculator br-badplaner">
+        <div className="br-badplaner-header">
+          <h3>Vielen Dank für Ihre Angaben</h3>
+          <p>Ihre Planungshinweise wurden vorbereitet und an die Anfrage angehängt.</p>
+        </div>
+        <div className="br-bw-calc-result br-badplaner-result">
+          <p className="br-bw-form-success-title">Anfrage vorbereitet</p>
+          <p>
+            Ihr E-Mail-Programm wurde geöffnet. Sobald Sie die Nachricht absenden, kann sich Radex optimal auf das erste
+            Gespräch vorbereiten. Alternativ erreichen Sie uns unter <a href={PHONE_TEL}>06074 960620</a> oder per{' '}
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              WhatsApp
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="br-bw-calculator br-badplaner">
       <div className="br-badplaner-header">
-        <h3>Online-Badplaner</h3>
-        <p>Erste Orientierung für Raumaufteilung, Ausstattung und Stil – live und unverbindlich.</p>
-      </div>
-
-      <div className="br-bw-calc-question">
-        <h3>Wie groß ist Ihr Badezimmer?</h3>
-        <div className="br-bw-calc-options">
-          {roomSizeOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${roomSize === opt.id ? ' is-active' : ''}`}
-              onClick={() => setRoomSize(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="br-bw-calc-question">
-        <h3>Welche Ausstattung wünschen Sie?</h3>
-        <div className="br-bw-calc-options">
-          {ausstattungOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${ausstattung.includes(opt.id) ? ' is-active' : ''}`}
-              onClick={() => toggleAusstattung(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="br-bw-calc-question">
-        <h3>Welcher Stil gefällt Ihnen?</h3>
-        <div className="br-bw-calc-options">
-          {stilOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${stil === opt.id ? ' is-active' : ''}`}
-              onClick={() => setStil(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="br-bw-calc-question">
-        <h3>Welche Priorität hat Ihr Projekt?</h3>
-        <div className="br-bw-calc-options">
-          {prioritaetOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${prioritaet === opt.id ? ' is-active' : ''}`}
-              onClick={() => setPrioritaet(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="br-bw-calc-result br-badplaner-result">
-        <h3>Ihre persönliche Planungsempfehlung</h3>
-        <ul className="br-badplaner-result-list">
-          <li>
-            <strong>Empfohlene Raumaufteilung:</strong> {recommendation.raumaufteilung}
-          </li>
-          <li>
-            <strong>Empfohlene Ausstattung:</strong> {recommendation.ausstattung}
-          </li>
-          <li>
-            <strong>Passende Stilrichtung:</strong> {recommendation.stil}
-          </li>
-          <li>
-            <strong>Hinweis:</strong> Für {recommendation.sizeLabel} empfehlen wir eine persönliche Beratung vor Ort.
-          </li>
-        </ul>
-        <p className="br-bw-calc-note">
-          Diese Planung dient als erste Orientierung. Im persönlichen Beratungsgespräch entwickeln wir gemeinsam ein
-          individuelles Badkonzept, das exakt zu Ihrer Immobilie und Ihren Anforderungen passt.
+        <h3>Planen Sie Ihr Badezimmer Schritt für Schritt</h3>
+        <p>
+          Mit unserem digitalen Badplaner können Sie Ihr Projekt in wenigen Minuten beschreiben. So kennen wir Ihre
+          Wünsche bereits vor dem ersten Beratungsgespräch und können uns optimal auf Ihre Anfrage vorbereiten.
         </p>
-        <div className="br-ablauf-cta-wrap" style={{ marginTop: '20px' }}>
-          <a href="#kontakt" className="btn br-btn-orange">
-            Bad planen
-          </a>
+        <div className="br-badplaner-progress" aria-hidden="true">
+          <div className="br-badplaner-progress-bar" style={{ width: `${progress}%` }} />
         </div>
+        <p className="br-badplaner-step-label">
+          Schritt {step + 1} von {totalSteps}
+        </p>
       </div>
+
+      <form onSubmit={handleSubmit}>
+        {step === 0 && (
+          <div className="br-bw-calc-question">
+            <h3>Welches Badezimmer möchten Sie planen?</h3>
+            <div className="br-bw-calc-options">
+              {BAD_TYPE_OPTIONS.map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`br-bw-calc-btn${badType === opt ? ' is-active' : ''}`}
+                  onClick={() => setBadType(opt)}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 1 && (
+          <div className="br-bw-calc-question">
+            <h3>Wie groß ist Ihr Badezimmer?</h3>
+            <div className="br-bw-calc-options">
+              {SIZE_OPTIONS.map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`br-bw-calc-btn${size === opt ? ' is-active' : ''}`}
+                  onClick={() => setSize(opt)}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="br-bw-calc-question">
+            <h3>Was möchten Sie modernisieren?</h3>
+            <p className="br-badplaner-hint">Mehrfachauswahl möglich</p>
+            <div className="br-bw-calc-options">
+              {MODERNISIEREN_OPTIONS.map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`br-bw-calc-btn${modernisieren.includes(opt) ? ' is-active' : ''}`}
+                  onClick={() => toggleModernisieren(opt)}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="br-bw-calc-question">
+            <h3>Welche Ausstattung wünschen Sie?</h3>
+            <div className="br-bw-calc-options">
+              {AUSSTATTUNG_OPTIONS.map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`br-bw-calc-btn${ausstattung === opt ? ' is-active' : ''}`}
+                  onClick={() => setAusstattung(opt)}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div className="br-bw-calc-question">
+            <h3>Wann soll das Projekt beginnen?</h3>
+            <div className="br-bw-calc-options">
+              {START_OPTIONS.map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  className={`br-bw-calc-btn${start === opt ? ' is-active' : ''}`}
+                  onClick={() => setStart(opt)}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 5 && (
+          <div className="br-bw-calc-question">
+            <h3>Fotos hochladen</h3>
+            <p className="br-badplaner-hint">
+              Laden Sie Bilder Ihres aktuellen Badezimmers hoch – auch direkt vom Smartphone.
+            </p>
+            <label className="br-input-group br-bw-photo-upload">
+              <span>Fotos auswählen</span>
+              <input
+                type="file"
+                accept="image/*"
+                capture="environment"
+                multiple
+                onChange={(e) => setPhotos(Array.from(e.target.files || []))}
+              />
+              <small>
+                {photos.length > 0
+                  ? `${photos.length} Datei(en) ausgewählt.`
+                  : 'Optional, aber hilfreich für eine erste Einschätzung.'}
+              </small>
+            </label>
+          </div>
+        )}
+
+        {step === 6 && (
+          <div className="br-bw-calc-question">
+            <h3>Kontaktdaten</h3>
+            <div className="br-badplaner-summary">
+              <p>
+                <strong>Badgröße:</strong> {size}
+              </p>
+              <p>
+                <strong>Gewünschte Leistungen:</strong> {modernisieren.join(', ')}
+              </p>
+              <p>
+                <strong>Ausstattung:</strong> {ausstattung}
+              </p>
+              <p>
+                <strong>Projektstart:</strong> {start}
+              </p>
+              <p>
+                <strong>Hochgeladene Fotos:</strong>{' '}
+                {photos.length ? `${photos.length} Datei(en)` : 'keine'}
+              </p>
+            </div>
+            <label className="br-input-group">
+              <span>Name *</span>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                autoComplete="name"
+              />
+            </label>
+            <label className="br-input-group">
+              <span>Telefonnummer *</span>
+              <input
+                type="tel"
+                value={telefon}
+                onChange={(e) => setTelefon(e.target.value)}
+                required
+                autoComplete="tel"
+                inputMode="tel"
+              />
+            </label>
+            <label className="br-input-group">
+              <span>E-Mail *</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                inputMode="email"
+              />
+            </label>
+          </div>
+        )}
+
+        <div className="br-badplaner-nav">
+          {step > 0 ? (
+            <button type="button" className="btn br-btn-phone" onClick={() => setStep((s) => s - 1)}>
+              <ChevronLeft size={18} /> Zurück
+            </button>
+          ) : (
+            <span />
+          )}
+          {step < totalSteps - 1 ? (
+            <button
+              type="button"
+              className="btn br-btn-orange"
+              disabled={!canContinue()}
+              onClick={() => canContinue() && setStep((s) => s + 1)}
+            >
+              Weiter <ChevronRight size={18} />
+            </button>
+          ) : (
+            <button type="submit" className="btn br-btn-orange" disabled={!canContinue()}>
+              Anfrage senden <Send size={18} />
+            </button>
+          )}
+        </div>
+      </form>
     </div>
   );
 }
 
 function BadplanungContactSection() {
   const [sent, setSent] = useState(false);
+  const [photoCount, setPhotoCount] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
-    const vorname = form.vorname.value.trim();
-    const nachname = form.nachname.value.trim();
+    const name = form.name.value.trim();
     const telefon = form.telefon.value.trim();
     const email = form.email.value.trim();
-    const plzOrt = form.plzOrt.value.trim();
-    const planung = form.planung.value;
-    const start = form.start.value;
     const nachricht = form.nachricht.value.trim();
     const files = form.fotos?.files;
 
-    const subject = `Badplanung Anfrage von ${vorname} ${nachname}`;
+    const subject = `Badplanung Anfrage von ${name}`;
     const body = [
-      `Name: ${vorname} ${nachname}`,
+      `Name: ${name}`,
       `Telefon: ${telefon}`,
       `E-Mail: ${email}`,
-      `PLZ / Ort: ${plzOrt}`,
-      `Welche Planung wünschen Sie?: ${planung}`,
-      `Wann soll Ihr Projekt beginnen?: ${start}`,
       '',
-      'Projektbeschreibung:',
+      'Nachricht:',
       nachricht,
       files?.length ? `\nAnhänge: ${files.length} Datei(en) – bitte zusätzlich per WhatsApp oder E-Mail senden.` : '',
     ].join('\n');
@@ -523,8 +585,8 @@ function BadplanungContactSection() {
             <div className="br-ablauf-contact-icon">
               <Phone size={24} strokeWidth={1.5} />
             </div>
-            <h3>Telefonische Beratung</h3>
-            <p>Sprechen Sie direkt mit unserem Team über Ihre zukünftige Badplanung.</p>
+            <h3>Telefon</h3>
+            <p>Sie möchten Ihre Badplanung persönlich besprechen?</p>
             <a href={PHONE_TEL} className="br-ablauf-contact-number">
               06074 960620
             </a>
@@ -537,8 +599,8 @@ function BadplanungContactSection() {
             <div className="br-ablauf-contact-icon br-ablauf-contact-icon--wa">
               <MessageSquare size={24} strokeWidth={1.5} />
             </div>
-            <h3>Fotos per WhatsApp</h3>
-            <p>Senden Sie uns Fotos oder Grundrisse Ihres Badezimmers und erhalten Sie eine erste Planungseinschätzung.</p>
+            <h3>WhatsApp</h3>
+            <p>Senden Sie uns Fotos Ihres Badezimmers und erhalten Sie eine erste Einschätzung.</p>
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
               Fotos senden. Erste Einschätzung erhalten.
             </a>
@@ -548,109 +610,83 @@ function BadplanungContactSection() {
             <div className="br-ablauf-contact-icon">
               <Mail size={24} strokeWidth={1.5} />
             </div>
-            <h3>E-Mail-Anfrage</h3>
-            <p>Übermitteln Sie uns Ihre Ideen und Wünsche bequem per E-Mail.</p>
-            <a href="mailto:info@radex-objektmanagement.de" className="br-ablauf-contact-number">
-              info@radex-objektmanagement.de
-            </a>
-            <a href="mailto:info@radex-objektmanagement.de" className="btn br-btn-orange">
-              E-Mail schreiben
+            <h3>Anfrageformular</h3>
+            <p>Beschreiben Sie Ihr Projekt und laden Sie bei Bedarf Fotos hoch.</p>
+            <a href="#kontakt-form" className="btn br-btn-orange">
+              Badplanung starten
             </a>
           </div>
         </div>
 
-        <div id="kontakt-form" className="br-ablauf-contact-form-wrap">
+        <div id="kontakt-form" className="br-ablauf-contact-form-wrap br-bw-form-wrap">
           <div className="text-center mb-10">
             <h2 className="br-section-title">Badplanung anfragen</h2>
             <p className="br-section-subtitle br-section-subtitle--wide">
-              Beschreiben Sie Ihr Projekt möglichst genau. Gemeinsam entwickeln wir ein individuelles Badkonzept und
-              begleiten Sie bis zur fertigen Umsetzung.
+              Beschreiben Sie Ihr Projekt. Wir melden uns zeitnah und bereiten das erste Beratungsgespräch vor.
             </p>
           </div>
 
-          <form className="br-ablauf-contact-form" onSubmit={handleSubmit}>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Vorname *</span>
-                <input type="text" name="vorname" required autoComplete="given-name" />
-              </label>
-              <label className="br-input-group">
-                <span>Nachname *</span>
-                <input type="text" name="nachname" required autoComplete="family-name" />
-              </label>
-            </div>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Telefonnummer *</span>
-                <input type="tel" name="telefon" required autoComplete="tel" />
-              </label>
-              <label className="br-input-group">
-                <span>E-Mail-Adresse *</span>
-                <input type="email" name="email" required autoComplete="email" />
-              </label>
-            </div>
-            <label className="br-input-group">
-              <span>PLZ / Ort *</span>
-              <input type="text" name="plzOrt" required autoComplete="postal-code" />
-            </label>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Welche Planung wünschen Sie?</span>
-                <select name="planung" required defaultValue="">
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  {planungOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="br-input-group">
-                <span>Wann soll Ihr Projekt beginnen?</span>
-                <select name="start" required defaultValue="">
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  {startOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <label className="br-input-group">
-              <span>Projektbeschreibung *</span>
-              <textarea
-                name="nachricht"
-                rows={5}
-                required
-                placeholder="Beschreiben Sie Ihr Badezimmer, Ihre Wünsche und Ihre Vorstellungen möglichst genau."
-              />
-            </label>
-            <label className="br-input-group">
-              <span>Fotos oder Grundrisse hochladen</span>
-              <input type="file" name="fotos" accept="image/*,.pdf" multiple />
-              <small>
-                Laden Sie Fotos oder Grundrisse Ihres Badezimmers hoch. Dadurch können wir Ihre Planung bereits im
-                Vorfeld besser vorbereiten.
-              </small>
-            </label>
-            <button type="submit" className="btn br-btn-orange br-ablauf-submit">
-              Badplanung starten <Send size={18} />
-            </button>
-            {sent && (
-              <p className="br-ablauf-form-success" role="status">
-                Vielen Dank! Ihr E-Mail-Programm wurde geöffnet. Alternativ erreichen Sie uns unter 06074 960620.
+          {sent ? (
+            <div className="br-bw-form-success" role="status">
+              <p className="br-bw-form-success-title">Vielen Dank für Ihre Anfrage.</p>
+              <p>
+                Ihr E-Mail-Programm wurde geöffnet. Sobald Sie die Nachricht absenden, melden wir uns zeitnah bei Ihnen.
+                Alternativ erreichen Sie uns unter <a href={PHONE_TEL}>06074 960620</a> oder per{' '}
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+                .
               </p>
-            )}
-            <p className="br-ablauf-privacy">
-              Mit dem Absenden erklären Sie sich mit unserer <Link to="/datenschutz">Datenschutzerklärung</Link>{' '}
-              einverstanden.
-            </p>
-          </form>
+            </div>
+          ) : (
+            <form className="br-ablauf-contact-form br-bw-contact-form" onSubmit={handleSubmit}>
+              <label className="br-input-group">
+                <span>Name *</span>
+                <input type="text" name="name" required autoComplete="name" />
+              </label>
+              <div className="br-form-row">
+                <label className="br-input-group">
+                  <span>Telefonnummer *</span>
+                  <input type="tel" name="telefon" required autoComplete="tel" inputMode="tel" />
+                </label>
+                <label className="br-input-group">
+                  <span>E-Mail-Adresse *</span>
+                  <input type="email" name="email" required autoComplete="email" inputMode="email" />
+                </label>
+              </div>
+              <label className="br-input-group">
+                <span>Ihre Nachricht *</span>
+                <textarea
+                  name="nachricht"
+                  rows={5}
+                  required
+                  placeholder="Beschreiben Sie kurz Ihr Badezimmer und Ihre Wünsche."
+                />
+              </label>
+              <label className="br-input-group br-bw-photo-upload">
+                <span>Fotos hochladen</span>
+                <input
+                  type="file"
+                  name="fotos"
+                  accept="image/*"
+                  capture="environment"
+                  multiple
+                  onChange={(e) => setPhotoCount(e.target.files?.length || 0)}
+                />
+                <small>
+                  Laden Sie Fotos Ihres Badezimmers hoch – auch direkt vom Smartphone.
+                  {photoCount > 0 ? ` ${photoCount} Datei(en) ausgewählt.` : ''}
+                </small>
+              </label>
+              <button type="submit" className="btn br-btn-orange br-ablauf-submit">
+                Badplanung starten <Send size={18} />
+              </button>
+              <p className="br-ablauf-privacy">
+                Mit dem Absenden erklären Sie sich mit unserer <Link to="/datenschutz">Datenschutzerklärung</Link>{' '}
+                einverstanden.
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </section>
@@ -715,253 +751,200 @@ export default function BadplanungLanding() {
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
+              <Link to="/">Startseite</Link>
+              <span aria-hidden="true">↓</span>
+              <Link to="/badsanierung-rhein-main">Badsanierung</Link>
+              <span aria-hidden="true">↓</span>
+              <span>Badplanung</span>
+            </nav>
             <p className="br-hero-kicker">Badplanung</p>
             <h1 className="br-hero-title">
               Professionelle Badplanung im
               <br />
               <span>Rhein-Main-Gebiet</span>
             </h1>
-            <p className="br-hero-lead">Planung. Sicherheit. Individuelle Lösungen. Perfekte Vorbereitung.</p>
+            <p className="br-hero-lead">Planung. Sicherheit. Individuelle Lösungen.</p>
             <p className="br-hero-text">
-              Eine gute Badplanung bildet die Grundlage für eine erfolgreiche Badsanierung. Raumaufteilung, Technik,
-              Materialien und Design werden bereits vor Beginn der Arbeiten sorgfältig aufeinander abgestimmt. So
-              entstehen Badezimmer, die funktional, langlebig und perfekt auf Ihre Wünsche abgestimmt sind.
+              Jede erfolgreiche Badsanierung beginnt mit einer klaren Planung. Radex entwickelt mit Ihnen ein
+              individuelles Badkonzept – bevor die ersten Arbeiten starten.
             </p>
-            <BadplanungCTA isHero showThird primaryHref="#kontakt" />
+            <BadplanungCTA isHero />
           </div>
         </div>
         <div
           className="br-hero-right"
           style={{ backgroundImage: `url(${HERO_IMAGE})` }}
           role="img"
-          aria-label="Professionelle Badplanung mit Grundriss und Materialberatung"
+          aria-label="Professionelle Badplanung: Beratung mit Grundriss und Materialproben"
           title="Badplanung | Radex Objektmanagement"
         />
       </section>
 
-      {/* 2 Trust Bar */}
+      {/* 2 Trust */}
       <section className="br-section br-trust-usp-section">
         <div className="container">
           <PremiumIconCards cards={trustCards} largeIcons />
         </div>
       </section>
 
-      <SectionTransition title="Warum ist eine professionelle Badplanung so wichtig?">
-        Eine sorgfältige Planung verhindert spätere Änderungen auf der Baustelle, verbessert den Bauablauf und sorgt
-        dafür, dass Design, Funktion und Budget optimal zusammenpassen. Bereits vor dem ersten Handgriff werden alle
-        wichtigen Entscheidungen getroffen, damit die spätere Umsetzung reibungslos erfolgen kann.
-      </SectionTransition>
-
-      {/* 3 Planungsbestandteile */}
-      <section id="bestandteile" className="br-section br-bg-light br-bw-vorteile-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Die wichtigsten Bestandteile einer professionellen Badplanung</h2>
-            <p className="br-section-subtitle br-section-subtitle--wide">
-              Eine durchdachte Badplanung berücksichtigt nicht nur die Optik, sondern auch Funktionalität,
-              Bewegungsfreiheit, technische Voraussetzungen und die spätere Nutzung. Je besser die Planung, desto
-              reibungsloser verläuft die spätere Umsetzung.
+      {/* 3 Introduction */}
+      <section id="intro" className="br-section br-bg-light">
+        <div className="container" style={{ maxWidth: '820px' }}>
+          <div className="text-center">
+            <h2 className="br-section-title">Badplanung im Rhein-Main-Gebiet</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: 0 }}>
+              Eine gute Badplanung entscheidet darüber, wie funktional, komfortabel und langlebig Ihr neues Badezimmer
+              wird. Gemeinsam entwickeln wir ein individuelles Konzept, das Ihre Wünsche, die räumlichen Gegebenheiten
+              und Ihr Budget berücksichtigt. So entsteht bereits vor Beginn der Arbeiten ein durchdachter Plan für Ihre
+              spätere Badsanierung.
             </p>
           </div>
-          <ImageCardGrid cards={bestandteilCards} />
         </div>
       </section>
 
-      <SectionTransition title="Von der Idee zum fertigen Badezimmer">
-        Eine gute Badplanung verbindet Ihre Wünsche mit den technischen Möglichkeiten Ihrer Immobilie. Bereits vor
-        Baubeginn entsteht ein klares Konzept, das später als Grundlage für die gesamte Umsetzung dient.
-      </SectionTransition>
+      {/* 4 Process timeline */}
+      <HorizontalProcessTimeline
+        title="Wie läuft eine Badplanung ab?"
+        intro="Vier klare Schritte – von der ersten Beratung bis zur koordinierten Umsetzung."
+        steps={processSteps}
+      />
 
-      {/* 4 Planungsphasen */}
-      <section id="planungsphasen" className="br-section br-bw-options-section br-badplanung-phases">
-        <div className="container">
-          <PremiumIconCards cards={planningPhaseCards} largeIcons />
-          <div className="br-ablauf-cta-wrap">
-            <BadplanungCTA centered primaryHref="#kontakt" />
-          </div>
-        </div>
-      </section>
-
-      <SectionTransition title="Warum Eigentümer ihre Badplanung Radex anvertrauen">
-        Im nächsten Abschnitt erfahren Sie, warum eine professionelle Badplanung durch einen erfahrenen SHK-Meisterbetrieb
-        den Grundstein für eine erfolgreiche und langlebige Badsanierung legt.
-      </SectionTransition>
-
-      {/* 5 Warum Radex */}
-      <section id="warum-radex" className="br-section br-ablauf-why-section">
+      {/* 5 What is considered */}
+      <section id="beruecksichtigt" className="br-section br-bg-light br-bw-process-section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Warum Radex bei der Badplanung überzeugt</h2>
+            <h2 className="br-section-title">Was wird bei einer Badplanung berücksichtigt?</h2>
             <p className="br-section-subtitle br-section-subtitle--wide">
-              Eine gute Badplanung berücksichtigt weit mehr als die spätere Optik. Raumaufteilung, Sanitärtechnik,
-              Materialien, Licht und Alltagstauglichkeit müssen perfekt aufeinander abgestimmt werden. Als
-              SHK-Meisterbetrieb entwickelt Radex individuelle Badkonzepte, die Funktion, Design und Budget sinnvoll
-              miteinander verbinden.
+              Technik, Raum und Alltag müssen zusammenpassen – diese sechs Punkte bilden die Grundlage.
             </p>
           </div>
-          <div className="br-ablauf-why-grid">
-            <PremiumIconCards cards={whyRadexCards} largeIcons />
-          </div>
+          <div
+            className="br-premium-timeline-hero mb-12"
+            style={{ backgroundImage: `url(${PLANNING_IMAGE})` }}
+            role="img"
+            aria-label="Badplanung mit Grundriss, Fliesenmustern, Materialproben und Tablet"
+          />
+          <PremiumIconCards cards={considerCards} largeIcons />
         </div>
       </section>
 
-      <SectionTransition title="Persönlich erklärt von Bernd Knoop">
-        Bernd Knoop, SHK-Meister und Betriebsleiter der Radex Objektmanagement GmbH, erklärt im Video, warum eine
-        professionelle Badplanung Zeit, Kosten und spätere Änderungen auf der Baustelle vermeiden kann.
-      </SectionTransition>
-
-      {/* 6 Video */}
-      <section id="video" className="br-section br-ablauf-video-section">
-        <div className="container br-ablauf-video-container">
-          <div className="br-ablauf-video-frame">
-            <video
-              src={testVideo}
-              controls
-              playsInline
-              preload="none"
-              poster={VIDEO_POSTER}
-              title="Bernd Knoop – Badplanung"
-            />
-          </div>
-
-          <ul className="br-ablauf-video-trust">
-            {videoTrustPoints.map((point) => (
-              <li key={point}>
-                <CheckCircle2 size={18} color="#f97316" aria-hidden="true" />
-                {point}
-              </li>
-            ))}
-          </ul>
-
-          <div className="br-ablauf-cta-wrap">
-            <BadplanungCTA centered primaryHref="#kontakt" />
-          </div>
-
-          <div className="br-ablauf-video-transcript">
-            <h3>Video-Transkript</h3>
-            {videoTranscript.map((para) => (
-              <p key={para.slice(0, 48)}>{para}</p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <SectionTransition title="So entsteht Ihre individuelle Badplanung">
-        Von der ersten Idee bis zur fertigen Ausführungsplanung begleiten wir Sie Schritt für Schritt. Dadurch entsteht
-        ein durchdachtes Gesamtkonzept, das als Grundlage für eine reibungslose Umsetzung dient.
-      </SectionTransition>
-
-      {/* 7 Planungsablauf */}
-      <section id="ablauf" className="br-section br-bg-light br-bw-process-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">So entsteht Ihre individuelle Badplanung</h2>
-            <p className="br-section-subtitle br-section-subtitle--wide">
-              Eine erfolgreiche Badplanung beginnt mit einer gründlichen Analyse Ihrer Wünsche und der vorhandenen
-              Raumsituation. Anschließend entwickeln wir ein individuelles Konzept, das Funktionalität, Design und
-              Technik optimal miteinander verbindet.
-            </p>
-          </div>
-          <PremiumIconCards cards={processSteps} largeIcons />
-        </div>
-      </section>
-
-      <SectionTransition title="Planen Sie Ihr Badezimmer online">
-        Mit unserem Badplaner erhalten Sie eine erste Orientierung für Raumaufteilung, Ausstattung und mögliche
-        Gestaltungsvarianten. Die digitale Planung ersetzt keine persönliche Beratung, erleichtert jedoch die
-        Vorbereitung Ihres Projekts.
-      </SectionTransition>
-
-      {/* 8 Badplaner */}
+      {/* 6 Digitaler Badplaner */}
       <section id="badplaner" className="br-section">
         <div className="container" style={{ maxWidth: '920px' }}>
-          <Badplaner />
-
-          <div className="br-ablauf-cta-box br-bw-cta-box">
-            <h2 className="br-section-title">Lassen Sie Ihr Badezimmer professionell planen</h2>
-            <p className="br-section-subtitle">
-              Senden Sie uns Fotos oder Grundrisse Ihres Badezimmers. Gemeinsam entwickeln wir ein individuelles Konzept
-              für Ihre zukünftige Badsanierung.
+          <div className="text-center mb-10">
+            <h2 className="br-section-title">Digitaler Badplaner</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Qualifizieren Sie Ihre Anfrage in wenigen Minuten – wir bereiten uns auf das erste Gespräch vor.
             </p>
-            <BadplanungCTA centered showThird primaryHref="#kontakt" />
+          </div>
+          <DigitalerBadplaner />
+        </div>
+      </section>
+
+      {/* 7 Bernd Knoop Video Placeholder */}
+      <section id="video" className="br-section br-bg-light br-ablauf-video-section">
+        <div className="container br-ablauf-video-container">
+          <div className="text-center mb-10">
+            <h2 className="br-section-title">Fachlich erklärt vom SHK-Meister</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Bernd Knoop erklärt, warum eine professionelle Badplanung der wichtigste Schritt vor jeder Badsanierung
+              ist.
+            </p>
+          </div>
+          <div
+            className="br-ablauf-video-frame br-bw-video-placeholder"
+            style={{ backgroundImage: `url(${VIDEO_POSTER})` }}
+            role="img"
+            aria-label="Videoplatzhalter: Bernd Knoop, SHK-Meister"
+          >
+            <div className="br-bw-video-placeholder-overlay">
+              <span className="br-bw-video-placeholder-play" aria-hidden="true" />
+              <p>Video folgt in Kürze</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <SectionTransition title="Planungsbeispiele aus dem Rhein-Main-Gebiet">
-        Die folgenden Beispiele zeigen unterschiedliche Badkonzepte, die gemeinsam mit Eigentümern geplant und
-        anschließend umgesetzt wurden. Sie dienen als Inspiration für Ihre eigene Badplanung.
-      </SectionTransition>
-
-      {/* 9 Planungsbeispiele */}
-      <section id="beispiele" className="br-section br-ablauf-examples-section">
+      {/* 8 Projekte */}
+      <section id="projekte" className="br-section br-ablauf-examples-section">
         <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Einblicke in unsere Arbeit</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Unsere Teams planen und modernisieren täglich Badezimmer im gesamten Rhein-Main-Gebiet. Begleiten Sie
+              unsere Projekte vom ersten Planungsgespräch bis zur fertigen Umsetzung.
+            </p>
+            <p className="br-bw-project-slogan">Schauen Sie unseren Teams bei der Arbeit über die Schulter.</p>
+          </div>
           <div className="br-ablauf-examples-grid">
             {projectExamples.map((project) => (
-              <article key={project.title} className="br-ablauf-example-card">
-                <div
-                  className="br-ablauf-example-img"
-                  style={{ backgroundImage: `url(${project.image})` }}
-                  role="img"
-                  aria-label={project.imageAlt}
-                >
-                  <span className="br-ablauf-symbolbild">Symbolbild</span>
-                </div>
-                <div className="br-ablauf-example-body">
-                  <h3>{project.title}</h3>
-                  <p className="br-bw-project-subtitle">{project.subtitle}</p>
-                  <p>{project.desc}</p>
-                  <Link to={project.to} className="br-btn-orange">
-                    {project.cta}
-                  </Link>
-                </div>
-              </article>
+              <ProjectCard key={project.title} project={project} />
             ))}
           </div>
           <div className="text-center mt-10">
-            <a href="#kontakt" className="btn br-btn-orange">
-              Jetzt persönliche Badplanung starten
+            <a href={RADEX_LIVE_URL} className="btn br-btn-orange" target="_blank" rel="noopener noreferrer">
+              Alle Badprojekte ansehen
             </a>
           </div>
         </div>
       </section>
 
-      <SectionTransition title="Häufige Fragen zur Badplanung">
-        Im nächsten Abschnitt beantworten wir häufig gestellte Fragen rund um Planung, Raumaufteilung, Materialien,
-        Ablauf und Vorbereitung einer professionellen Badplanung.
-      </SectionTransition>
-
-      {/* 10 FAQ */}
+      {/* 9 FAQ */}
       <FaqAccordion
         faqs={faqsData}
         title="Häufige Fragen zur Badplanung"
-        intro="Eine professionelle Badplanung wirft häufig Fragen auf. Hier beantworten wir die wichtigsten Themen rund um Raumaufteilung, Materialien, Planungsschritte und die Vorbereitung Ihrer zukünftigen Badsanierung."
+        intro="Kurze Antworten auf die wichtigsten Fragen rund um Ihre Badplanung."
       />
 
-      <SectionTransition title="Lassen Sie uns Ihr neues Badezimmer gemeinsam planen">
-        Jede erfolgreiche Badsanierung beginnt mit einer guten Planung. Gemeinsam entwickeln wir ein individuelles
-        Konzept, das perfekt zu Ihrer Immobilie, Ihren Wünschen und Ihrem Budget passt.
-      </SectionTransition>
-
-      {/* 11 Kontakt */}
+      {/* 10 + 11 Contact + Form */}
       <BadplanungContactSection />
 
       {/* 12 Weitere Informationen */}
       <section id="seo-informationen" className="br-section br-bg-light">
         <div className="container">
-          <div className="text-center mb-6">
-            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: '20px' }}>
-              Im folgenden Bereich finden Sie ausführliche Informationen rund um Grundrissplanung, Raumaufteilung,
-              Materialien, Technik, Lichtkonzepte, Stauraum, Design und weitere Themen einer professionellen Badplanung.
+          <div className="br-bw-regional-teaser">
+            <p>
+              Radex plant Badezimmer im gesamten Rhein-Main-Gebiet – unter anderem in Frankfurt, Offenbach, Hanau,
+              Darmstadt, Dreieich, Rodgau, Rödermark, Neu-Isenburg, Dietzenbach und vielen weiteren Städten der Region.
             </p>
+            <Link to="/einsatzgebiete-rhein-main" className="btn br-btn-orange">
+              Alle Einsatzgebiete ansehen
+            </Link>
+            <p className="br-bw-internal-links">
+              Weiterführend:{' '}
+              <Link to="/badmodernisierung">Badmodernisierung</Link>
+              {' · '}
+              <Link to="/badrenovierung">Badrenovierung</Link>
+              {' · '}
+              <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link>
+              {' · '}
+              <Link to="/dusche-statt-badewanne">Dusche statt Badewanne</Link>
+              {' · '}
+              <Link to="/badewanne-austauschen">Badewanne austauschen</Link>
+              {' · '}
+              <Link to="/ablauf-badsanierung">Ablauf einer Badsanierung</Link>
+              {' · '}
+              <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>
+              {' · '}
+              <a href={RADEX_LIVE_URL} target="_blank" rel="noopener noreferrer">
+                Alle Badprojekte
+              </a>
+            </p>
+          </div>
+
+          <div className="text-center" style={{ marginTop: '48px' }}>
             <button
               type="button"
               className={`br-seo-toc-toggle${seoPanelOpen ? ' is-open' : ''}`}
               onClick={() => setSeoPanelOpen(true)}
               aria-haspopup="dialog"
               aria-expanded={seoPanelOpen}
+              aria-controls="bp-seo-panel"
             >
-              <h2 className="br-section-title">Weitere Informationen zur Badplanung</h2>
+              <h2 id="bp-seo-heading" className="br-section-title">
+                Weitere Informationen
+              </h2>
               <ChevronDown size={28} className="br-seo-toc-toggle-icon" aria-hidden="true" />
             </button>
           </div>
@@ -976,13 +959,14 @@ export default function BadplanungLanding() {
             onClick={() => setSeoPanelOpen(false)}
           />
           <aside
+            id="bp-seo-panel"
             className="br-city-seo-panel br-ablauf-seo-panel"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="bp-seo-panel-title"
+            aria-labelledby="bp-seo-heading"
           >
             <div className="br-city-seo-panel-header">
-              <h2 id="bp-seo-panel-title">Weitere Informationen zur Badplanung</h2>
+              <p className="br-bw-seo-panel-label">Weitere Informationen</p>
               <button
                 type="button"
                 className="br-city-seo-panel-close"
@@ -993,14 +977,7 @@ export default function BadplanungLanding() {
               </button>
             </div>
             <div className="br-city-seo-panel-body">
-              <div className="br-city-seo-panel-block br-ablauf-seo-intro">
-                <p className="mb-4 text-gray-600">
-                  Hier finden Sie ausführliche Informationen rund um die professionelle Badplanung. Erfahren Sie mehr
-                  über Grundrissplanung, Raumaufteilung, Materialauswahl, Lichtkonzepte, Sanitärtechnik, Stauraumlösungen,
-                  Design, Komfort sowie alle wichtigen Schritte einer erfolgreichen Badplanung im Rhein-Main-Gebiet.
-                </p>
-                {badplanungSeoIntro}
-              </div>
+              <div className="br-city-seo-panel-block br-ablauf-seo-intro">{badplanungSeoIntro}</div>
 
               {badplanungSeoSections.map((section) => (
                 <article key={section.id} id={section.id} className="br-city-seo-panel-block">
@@ -1009,7 +986,7 @@ export default function BadplanungLanding() {
                 </article>
               ))}
 
-              <a href="#kontakt" className="br-city-seo-panel-faq" onClick={() => setSeoPanelOpen(false)}>
+              <a href="#badplaner" className="br-city-seo-panel-faq" onClick={() => setSeoPanelOpen(false)}>
                 Badplanung starten
               </a>
             </div>

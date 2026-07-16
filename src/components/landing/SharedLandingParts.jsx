@@ -118,10 +118,18 @@ export function PremiumIconCards({ cards, linked = false, compactIcons = false, 
                 }}
               />
             )}
-            {Icon && (
-              <div className={`br-decision-icon${largeIcons ? ' br-decision-icon--large' : ' br-decision-icon--small'}`}>
-                <Icon size={iconSize} strokeWidth={1.5} />
+            {card.iconSrc ? (
+              <div
+                className={`br-decision-icon br-decision-icon--brand${largeIcons ? ' br-decision-icon--large' : ' br-decision-icon--small'}`}
+              >
+                <img src={card.iconSrc} alt="" width={iconSize + 12} height={iconSize + 12} />
               </div>
+            ) : (
+              Icon && (
+                <div className={`br-decision-icon${largeIcons ? ' br-decision-icon--large' : ' br-decision-icon--small'}`}>
+                  <Icon size={iconSize} strokeWidth={1.5} />
+                </div>
+              )
             )}
             <h3>{card.title}</h3>
             <p>{card.desc}</p>

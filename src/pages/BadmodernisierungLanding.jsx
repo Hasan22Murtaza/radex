@@ -1,41 +1,28 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Award,
+  Bath,
   CheckCircle2,
   ChevronDown,
   ClipboardList,
-  FileText,
-  FolderOpen,
-  Gem,
   Hammer,
-  LayoutGrid,
-  Lightbulb,
+  LayoutTemplate,
   Mail,
-  MapPin,
   MessageSquare,
-  Palette,
   Phone,
-  Ruler,
   Send,
   ShowerHead,
-  Toilet,
   UserCheck,
-  Wrench,
   X,
 } from 'lucide-react';
 import { Link } from '../router';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import '../badsanierung.css';
 import '../badsanierung-polish.css';
 import '../sanierung-polish.css';
 import '../home.css';
 import useSeo, { buildFaqSchema, buildServiceSchema } from '../useSeo';
-import {
-  FaqAccordion,
-  ImageCardGrid,
-  PremiumIconCards,
-  SectionTransition,
-} from '../components/landing/SharedLandingParts';
-import testVideo from '../assets/test.mp4';
+import { FaqAccordion, PremiumIconCards } from '../components/landing/SharedLandingParts';
 import {
   badmodernisierungSeoIntro,
   badmodernisierungSeoSections,
@@ -50,7 +37,7 @@ const META_TITLE = 'Badmodernisierung Rhein-Main | Badezimmer modernisieren';
 const META_DESCRIPTION =
   'Badmodernisierung im Rhein-Main-Gebiet: Radex modernisiert Badezimmer mit neuer Dusche, Sanitärtechnik, Beleuchtung und hochwertiger Ausstattung.';
 
-function BadmodernisierungCTA({ isHero = false, centered = false, showThird = false, primaryHref = '#kontakt' }) {
+function BadmodernisierungCTA({ isHero = false, centered = false, primaryHref = '#kontakt-form' }) {
   return (
     <div
       className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
@@ -62,410 +49,251 @@ function BadmodernisierungCTA({ isHero = false, centered = false, showThird = fa
         <MessageSquare size={20} />
         Fotos senden. Erste Einschätzung erhalten.
       </a>
-      {showThird && (
-        <a href={PHONE_TEL} className="btn br-btn-phone">
-          <Phone size={18} /> Jetzt anrufen
-        </a>
-      )}
     </div>
   );
 }
 
 const trustCards = [
   {
-    title: 'Modernes Design',
-    desc: 'Zeitgemäße Materialien und hochwertige Ausstattung.',
-    icon: ShowerHead,
-  },
-  {
     title: 'SHK-Meisterbetrieb',
     desc: 'Sanitärarbeiten unter meisterlicher Leitung.',
     icon: Award,
   },
   {
-    title: 'Individuelle Gestaltung',
-    desc: 'Passend zu Ihrem Stil und Ihren Anforderungen.',
-    icon: Palette,
-  },
-  {
-    title: 'Festpreis nach Besichtigung',
-    desc: 'Transparente Planung ohne Überraschungen.',
-    icon: FileText,
-  },
-  {
-    title: 'Über 500 Projekte',
-    desc: 'Erfahrung aus zahlreichen Modernisierungen im Rhein-Main-Gebiet.',
-    icon: FolderOpen,
-  },
-  {
-    title: 'Im gesamten Rhein-Main-Gebiet',
-    desc: 'Von Rödermark aus täglich im Einsatz.',
-    icon: MapPin,
-  },
-];
-
-const vorteilCards = [
-  {
-    title: 'Modernes Design',
-    desc: 'Neue Materialien und zeitlose Gestaltung verleihen Ihrem Badezimmer eine hochwertige Optik.',
-    image: '/img/badmodernisierung-vorteil-design.png',
-    imageAlt: 'Modernes Badezimmer mit schwebendem Waschtisch und beleuchtetem Spiegel',
-  },
-  {
-    title: 'Mehr Komfort',
-    desc: 'Moderne Armaturen, neue Dusche und funktionale Lösungen erhöhen den täglichen Komfort.',
-    image: '/img/badmodernisierung-vorteil-komfort.png',
-    imageAlt: 'Walk-in-Dusche mit modernen Armaturen in einem deutschen Badezimmer',
-  },
-  {
-    title: 'Technik erneuern',
-    desc: 'Sanitärinstallationen und Ausstattung werden auf den aktuellen Stand gebracht.',
-    image: '/img/badmodernisierung-vorteil-technik.png',
-    imageAlt: 'Fachkraft beim fachgerechten Einbau eines Waschtischs',
-  },
-  {
-    title: 'Immobilie aufwerten',
-    desc: 'Ein modernisiertes Badezimmer steigert Wohnqualität und den Wert Ihrer Immobilie.',
-    image: '/img/badmodernisierung-vorteil-wert.png',
-    imageAlt: 'Fertig modernisiertes Badezimmer in einem deutschen Wohnhaus',
-  },
-];
-
-const serviceCards = [
-  {
-    title: 'Dusche modernisieren',
-    desc: 'Neue Duschen mit zeitgemäßem Komfort und moderner Optik.',
-    icon: ShowerHead,
-  },
-  {
-    title: 'Waschtisch erneuern',
-    desc: 'Moderne Waschtische und hochwertige Armaturen.',
-    icon: Wrench,
-  },
-  {
-    title: 'Sanitärkeramik austauschen',
-    desc: 'WC und Bidet modern und platzsparend erneuern.',
-    icon: Toilet,
-  },
-  {
-    title: 'Fliesen erneuern',
-    desc: 'Neue Wand- und Bodenfliesen für eine zeitlose Gestaltung.',
-    icon: LayoutGrid,
-  },
-  {
-    title: 'Beleuchtung modernisieren',
-    desc: 'Effiziente Lichtkonzepte für mehr Atmosphäre und Komfort.',
-    icon: Lightbulb,
-  },
-  {
-    title: 'Komplette Modernisierung',
-    desc: 'Alle Arbeiten professionell aus einer Hand koordiniert.',
-    icon: Hammer,
-  },
-];
-
-const whyRadexCards = [
-  {
-    title: 'SHK-Meisterbetrieb',
-    desc: 'Sanitärarbeiten werden fachgerecht unter meisterlicher Leitung ausgeführt.',
-    icon: Award,
-  },
-  {
-    title: 'Individuelle Planung',
-    desc: 'Jedes Badezimmer wird passend zu Ihren Wünschen und Ihrem Budget modernisiert.',
-    icon: ClipboardList,
-  },
-  {
-    title: 'Hochwertige Materialien',
-    desc: 'Langlebige Produkte und moderne Oberflächen für dauerhafte Qualität.',
-    icon: Gem,
-  },
-  {
-    title: 'Ein Ansprechpartner',
-    desc: 'Von der Beratung bis zur fertigen Übergabe begleiten wir Ihr Projekt persönlich.',
+    title: 'Persönlicher Ansprechpartner',
+    desc: 'Ein fester Kontakt von der Beratung bis zur Übergabe.',
     icon: UserCheck,
   },
-];
-
-const processSteps = [
   {
-    title: 'Beratung',
-    desc: 'Wir besprechen Ihre Wünsche und die Möglichkeiten der Badmodernisierung.',
-    icon: Phone,
+    title: 'Individuelle Badmodernisierung',
+    desc: 'Maßgeschneiderte Lösungen für Ihr Badezimmer.',
+    icon: LayoutTemplate,
   },
   {
-    title: 'Besichtigung',
-    desc: 'Vor Ort prüfen wir den Zustand Ihres Badezimmers und beraten Sie zu den passenden Modernisierungsmöglichkeiten.',
-    icon: Ruler,
-  },
-  {
-    title: 'Planung',
-    desc: 'Materialien, Ausstattung und Gestaltung werden gemeinsam abgestimmt.',
+    title: 'Alles aus einer Hand',
+    desc: 'Planung, Sanitär und Koordination aus einer Hand.',
     icon: ClipboardList,
   },
+];
+
+const modernisierenCards = [
   {
-    title: 'Festpreisangebot',
-    desc: 'Sie erhalten ein transparentes Angebot mit allen vereinbarten Leistungen.',
-    icon: FileText,
+    title: 'Neue Dusche',
+    desc: 'Moderne Duschlösungen für mehr Komfort und Barrierefreiheit.',
+    icon: ShowerHead,
+    to: '/dusche-statt-badewanne',
+    cta: 'Mehr erfahren',
   },
   {
-    title: 'Modernisierung',
-    desc: 'Alle Arbeiten werden fachgerecht und sauber durch unsere Teams umgesetzt.',
+    title: 'Neue Badewanne',
+    desc: 'Veraltete oder beschädigte Badewannen fachgerecht austauschen.',
+    icon: Bath,
+    to: '/badewanne-austauschen',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Badmöbel & Armaturen',
+    desc: 'Neue Möbel, moderne Armaturen und mehr Stauraum für Ihr Badezimmer.',
+    icon: LayoutTemplate,
+    to: '/badplanung',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Komplettes Badezimmer modernisieren',
+    desc: 'Wenn mehrere Bereiche gleichzeitig erneuert werden sollen.',
     icon: Hammer,
+    to: '#kontakt-form',
+    cta: 'Mehr erfahren',
+  },
+];
+
+const comparisonCards = [
+  {
+    title: 'Badmodernisierung',
+    points: ['vorhandene Substanz bleibt erhalten', 'gezielte Modernisierung', 'kürzere Bauzeit'],
+    to: '#intro',
   },
   {
-    title: 'Übergabe',
-    desc: 'Nach Abschluss aller Arbeiten prüfen wir gemeinsam Ihr modernisiertes Badezimmer.',
-    icon: CheckCircle2,
+    title: 'Badrenovierung',
+    points: ['optische Auffrischung', 'einzelne Bereiche erneuern', 'geringer Aufwand'],
+    to: '/badrenovierung',
+  },
+  {
+    title: 'Komplettbadsanierung',
+    points: ['vollständige Neuplanung', 'Technik kann erneuert werden', 'neues Badezimmer von Grund auf'],
+    to: '/badsanierung/badezimmer-sanieren',
   },
 ];
 
 const projectExamples = [
   {
     title: 'Frankfurt am Main',
-    subtitle: 'Badmodernisierung · 8 m²',
-    desc: 'Modernisierung eines Badezimmers mit neuer Walk-in-Dusche, großformatigen Fliesen und hochwertiger Sanitärkeramik.',
-    image: '/img/badmodernisierung-projekt-frankfurt.png',
-    imageAlt: 'Symbolbild: modernisiertes Badezimmer in Frankfurt',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung-rhein-main',
+    size: '8 m²',
+    desc: 'Badmodernisierung mit neuer Walk-in-Dusche, großformatigen Fliesen und hochwertiger Sanitärkeramik.',
+    image: '/img/bad1.webp',
+    imageAlt: 'Modernisiertes Badezimmer in Frankfurt am Main',
+    to: RADEX_LIVE_URL,
   },
   {
     title: 'Darmstadt',
-    subtitle: 'Modernes Familienbad',
-    desc: 'Bestehendes Badezimmer technisch und optisch vollständig modernisiert – mit neuer Ausstattung und zeitlosem Design.',
-    image: '/img/badmodernisierung-projekt-darmstadt.png',
-    imageAlt: 'Symbolbild: modernes Familienbad in Darmstadt',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung-rhein-main',
+    size: '7 m²',
+    desc: 'Bestehendes Familienbad technisch und optisch modernisiert – mit neuer Ausstattung und zeitlosem Design.',
+    image: '/img/fertiges-bad-nach-badsanierung-radex.webp',
+    imageAlt: 'Modernisiertes Familienbad in Darmstadt',
+    to: RADEX_LIVE_URL,
   },
   {
     title: 'Offenbach am Main',
-    subtitle: 'Badezimmer modernisiert',
-    desc: 'Neue Fliesen, moderne Dusche, hochwertiger Waschtisch und energieeffiziente Beleuchtung sorgen für ein komplett neues Raumgefühl.',
-    image: '/img/badmodernisierung-projekt-offenbach.png',
-    imageAlt: 'Symbolbild: renoviertes Badezimmer in Offenbach',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung-rhein-main',
-  },
-];
-
-const priceCards = [
-  {
-    title: 'Basis',
-    price: 'ab 8.000 €',
-    desc: 'Für funktionale Modernisierungen mit neuer Sanitärkeramik und zeitgemäßer Ausstattung.',
-  },
-  {
-    title: 'Komfort',
-    price: 'ab 15.000 €',
-    desc: 'Mit neuer Dusche, hochwertigen Fliesen, moderner Beleuchtung und individueller Gestaltung.',
-  },
-  {
-    title: 'Premium',
-    price: 'ab 25.000 €',
-    desc: 'Umfangreiche Badmodernisierung mit hochwertiger Ausstattung und exklusiven Materialien.',
+    size: '9 m²',
+    desc: 'Gezielte Modernisierung mit neuer Dusche, Waschtisch und energieeffizienter Beleuchtung.',
+    image: '/img/Komplettbadsanierung.webp',
+    imageAlt: 'Modernisiertes Badezimmer in Offenbach am Main',
+    to: RADEX_LIVE_URL,
   },
 ];
 
 const faqsData = [
   {
-    q: 'Was ist der Unterschied zwischen einer Badmodernisierung und einer Komplettbadsanierung?',
-    a: 'Bei einer Badmodernisierung werden gezielt einzelne Bereiche oder Ausstattungen erneuert. Eine Komplettbadsanierung umfasst dagegen die vollständige Erneuerung des Badezimmers inklusive Technik und Leitungen.',
+    q: 'Was gehört zu einer Badmodernisierung?',
+    a: 'Typisch sind neue Duschen oder Armaturen, moderne Badmöbel, aktuelle Beleuchtung sowie der Austausch von Sanitärobjekten. Die Grundsubstanz – Abdichtung, Leitungen und Grundriss – bleibt erhalten, sofern sie technisch in Ordnung ist.',
   },
   {
-    q: 'Lohnt sich eine Badmodernisierung?',
-    a: 'Ja. Moderne Sanitärkeramik, neue Fliesen und eine zeitgemäße Ausstattung steigern Komfort, Wohnqualität und den Wert Ihrer Immobilie.',
+    q: 'Wann reicht eine Modernisierung aus?',
+    a: 'Wenn Abdichtung, Leitungen und Grundriss noch funktionieren und keine baulichen Mängel vorliegen, reicht oft eine gezielte Modernisierung. Typische Anlässe: veraltete Armaturen, zu wenig Komfort in der Dusche oder eine überholte Optik.',
+  },
+  {
+    q: 'Muss das komplette Badezimmer erneuert werden?',
+    a: 'Nein. Viele Bäder lassen sich bereichsweise modernisieren. Ob einzelne Maßnahmen ausreichen oder eine umfassendere Sanierung sinnvoller ist, klären wir nach einer Bestandsaufnahme vor Ort.',
   },
   {
     q: 'Wie lange dauert eine Badmodernisierung?',
-    a: 'Je nach Umfang der Arbeiten dauert eine Badmodernisierung in der Regel zwischen einer und drei Wochen.',
+    a: 'Je nach Umfang zwischen wenigen Tagen und etwa ein bis drei Wochen. Ein Armaturentausch kann an einem Tag erledigt sein; größere Pakete mit Dusche, Licht und Ausstattung dauern länger.',
   },
   {
-    q: 'Kann ich mein Badezimmer teilweise modernisieren?',
-    a: 'Ja. Je nach Zustand können einzelne Bereiche wie Dusche, Waschtisch, WC oder Fliesen unabhängig voneinander modernisiert werden.',
+    q: 'Kann die Modernisierung in mehreren Schritten erfolgen?',
+    a: 'Ja. Einzelne Maßnahmen lassen sich oft nacheinander umsetzen. In der Beratung zeigen wir, welche Schritte sinnvoll kombiniert werden und welche Reihenfolge technisch und wirtschaftlich passt.',
   },
   {
-    q: 'Erhalte ich ein Festpreisangebot?',
-    a: 'Nach einer persönlichen Besichtigung erstellen wir ein transparentes Festpreisangebot mit allen abgestimmten Leistungen.',
+    q: 'Was kostet eine Badmodernisierung?',
+    a: 'Die Kosten hängen vom Umfang, der Raumgröße und der gewünschten Ausstattung ab. Nach einer Besichtigung erhalten Sie ein individuelles Festpreisangebot. Eine erste Orientierung finden Sie auch unter Badsanierung Kosten.',
   },
-  {
-    q: 'In welchen Städten modernisiert Radex Badezimmer?',
-    a: 'Von Rödermark aus betreut Radex Kunden im gesamten Rhein-Main-Gebiet.',
-  },
-];
-
-const videoTranscript = [
-  'Mein Name ist Bernd Knoop. Ich bin SHK-Meister und Betriebsleiter bei der Radex Objektmanagement GmbH.',
-  'Mit einer Badmodernisierung bringen wir Ihr Badezimmer technisch und optisch auf den neuesten Stand. Nicht immer ist eine komplette Badsanierung notwendig – oft lassen sich bereits mit gezielten Modernisierungen Komfort, Funktion und Design deutlich verbessern.',
-  'Gemeinsam planen wir die passende Lösung für Ihr Badezimmer und koordinieren alle Arbeiten – von der Sanitärtechnik über Fliesen bis zur fertigen Übergabe.',
-  'So entsteht ein modernes Badezimmer, das zu Ihren Wünschen passt und Ihnen viele Jahre Freude bereitet.',
-  'Senden Sie uns einfach Fotos Ihres Badezimmers per WhatsApp oder vereinbaren Sie einen persönlichen Beratungstermin. Wir beraten Sie gerne.',
-];
-
-const videoTrustPoints = [
-  'SHK-Meisterbetrieb',
-  'Individuelle Planung',
-  'Hochwertige Materialien',
-  'Ein Ansprechpartner',
-];
-
-const roomSizeOptions = [
-  { id: 'bis5', label: 'Bis 5 m²', factor: 1 },
-  { id: '6bis8', label: '6 bis 8 m²', factor: 1.1 },
-  { id: '9bis12', label: '9 bis 12 m²', factor: 1.2 },
-  { id: 'ueber12', label: 'Über 12 m²', factor: 1.35 },
-];
-
-const scopeOptions = [
-  { id: 'teil', label: 'Teilmodernisierung', price: 0 },
-  { id: 'bad', label: 'Badmodernisierung', price: 3000 },
-  { id: 'fast', label: 'Fast komplette Modernisierung', price: 7000 },
-];
-
-const finishOptions = [
-  { id: 'basis', label: 'Basis', price: 0 },
-  { id: 'komfort', label: 'Komfort', price: 7000 },
-  { id: 'premium', label: 'Premium', price: 17000 },
-];
-
-const extrasOptions = [
-  { id: 'fliesen', label: 'Neue Fliesen', price: 2000 },
-  { id: 'dusche', label: 'Neue Dusche', price: 2500 },
-  { id: 'sanitaer', label: 'Neue Sanitärkeramik', price: 2000 },
-  { id: 'licht', label: 'Neue Beleuchtung', price: 600 },
-  { id: 'keine', label: 'Keine Zusatzleistungen', price: 0 },
 ];
 
 const modernisierenOptions = [
   'Komplettes Badezimmer',
   'Dusche',
   'Badewanne',
-  'Waschtisch',
-  'Fliesen',
+  'Waschtisch / Badmöbel',
+  'Armaturen',
   'Ich bin noch unsicher',
 ];
 
 const groesseOptions = ['Bis 5 m²', '6 bis 8 m²', '9 bis 12 m²', 'Über 12 m²'];
 
-function formatEuro(value) {
-  return `${Math.round(value).toLocaleString('de-DE')} €`;
-}
+function ProjectCard({ project }) {
+  const isExternal = project.to.startsWith('http');
+  const body = (
+    <>
+      <div
+        className="br-ablauf-example-img"
+        style={{ backgroundImage: `url(${project.image})` }}
+        role="img"
+        aria-label={project.imageAlt}
+      />
+      <div className="br-ablauf-example-body">
+        <h3>{project.title}</h3>
+        <p className="br-bw-project-subtitle">{project.size}</p>
+        <p>{project.desc}</p>
+        <span className="br-btn-orange">Projekt ansehen →</span>
+      </div>
+    </>
+  );
 
-function BadmodernisierungCalculator() {
-  const [roomSize, setRoomSize] = useState('bis5');
-  const [scope, setScope] = useState('teil');
-  const [finish, setFinish] = useState('basis');
-  const [extras, setExtras] = useState([]);
-
-  const toggleExtra = (id) => {
-    if (id === 'keine') {
-      setExtras(['keine']);
-      return;
-    }
-    setExtras((prev) => {
-      const withoutKeine = prev.filter((item) => item !== 'keine');
-      if (withoutKeine.includes(id)) {
-        return withoutKeine.filter((item) => item !== id);
-      }
-      return [...withoutKeine, id];
-    });
-  };
-
-  const { min, max } = useMemo(() => {
-    const base = 8000;
-    const sizeFactor = roomSizeOptions.find((o) => o.id === roomSize)?.factor || 1;
-    const scopePrice = scopeOptions.find((o) => o.id === scope)?.price || 0;
-    const finishPrice = finishOptions.find((o) => o.id === finish)?.price || 0;
-    const extrasPrice = extras
-      .filter((id) => id !== 'keine')
-      .reduce((sum, id) => sum + (extrasOptions.find((o) => o.id === id)?.price || 0), 0);
-    const total = (base + finishPrice) * sizeFactor + scopePrice + extrasPrice;
-    return { min: total, max: Math.round(total * 1.2) };
-  }, [roomSize, scope, finish, extras]);
+  if (isExternal) {
+    return (
+      <a
+        href={project.to}
+        className="br-ablauf-example-card"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        {body}
+      </a>
+    );
+  }
 
   return (
-    <div className="br-bw-calculator">
-      <div className="br-bw-calc-question">
-        <h3>Wie groß ist Ihr Badezimmer?</h3>
-        <div className="br-bw-calc-options">
-          {roomSizeOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${roomSize === opt.id ? ' is-active' : ''}`}
-              onClick={() => setRoomSize(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
+    <Link to={project.to} className="br-ablauf-example-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+      {body}
+    </Link>
+  );
+}
 
-      <div className="br-bw-calc-question">
-        <h3>Was möchten Sie modernisieren?</h3>
-        <div className="br-bw-calc-options">
-          {scopeOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${scope === opt.id ? ' is-active' : ''}`}
-              onClick={() => setScope(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
+function NavServiceCard({ card }) {
+  const Icon = card.icon;
+  const isHash = card.to.startsWith('#');
+  const content = (
+    <>
+      <div className="br-decision-icon br-decision-icon--large">
+        <Icon size={36} strokeWidth={1.5} />
       </div>
+      <h3>{card.title}</h3>
+      <p>{card.desc}</p>
+      <span className="br-btn-orange">{card.cta} →</span>
+    </>
+  );
 
-      <div className="br-bw-calc-question">
-        <h3>Welche Ausstattung wünschen Sie?</h3>
-        <div className="br-bw-calc-options">
-          {finishOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${finish === opt.id ? ' is-active' : ''}`}
-              onClick={() => setFinish(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
+  if (isHash) {
+    return (
+      <a href={card.to} className="br-decision-card">
+        {content}
+      </a>
+    );
+  }
 
-      <div className="br-bw-calc-question">
-        <h3>Welche zusätzlichen Arbeiten sind geplant?</h3>
-        <div className="br-bw-calc-options">
-          {extrasOptions.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={`br-bw-calc-btn${extras.includes(opt.id) ? ' is-active' : ''}`}
-              onClick={() => toggleExtra(opt.id)}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      </div>
+  return (
+    <Link to={card.to} className="br-decision-card">
+      {content}
+    </Link>
+  );
+}
 
-      <div className="br-bw-calc-result">
-        <h3>Ihre erste Kosteneinschätzung</h3>
-        <p className="br-bw-calc-range">
-          ca. {formatEuro(min)} bis {formatEuro(max)}
-        </p>
-        <p className="br-bw-calc-note">
-          Diese Berechnung dient als erste Orientierung. Nach einer Besichtigung kann der tatsächliche Preis je nach
-          Zustand des Badezimmers und gewünschter Ausstattung niedriger oder höher ausfallen.
-        </p>
-      </div>
-    </div>
+function ComparisonCard({ card }) {
+  const isHash = card.to.startsWith('#');
+  const content = (
+    <>
+      <h3>{card.title}</h3>
+      <ul className="br-bm-compare-list">
+        {card.points.map((point) => (
+          <li key={point}>
+            <CheckCircle2 size={18} color="#f97316" aria-hidden="true" />
+            <span>{point}</span>
+          </li>
+        ))}
+      </ul>
+      <span className="br-btn-orange">Mehr erfahren →</span>
+    </>
+  );
+
+  if (isHash) {
+    return (
+      <a href={card.to} className="br-decision-card br-bm-compare-card">
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={card.to} className="br-decision-card br-bm-compare-card">
+      {content}
+    </Link>
   );
 }
 
 function BadmodernisierungContactSection() {
   const [sent, setSent] = useState(false);
+  const [photoCount, setPhotoCount] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -531,18 +359,15 @@ function BadmodernisierungContactSection() {
             <div className="br-ablauf-contact-icon">
               <Mail size={24} strokeWidth={1.5} />
             </div>
-            <h3>E-Mail</h3>
-            <p>Schicken Sie uns Ihre Anfrage bequem per E-Mail.</p>
-            <a href="mailto:info@radex-objektmanagement.de" className="br-ablauf-contact-number">
-              info@radex-objektmanagement.de
-            </a>
-            <a href="mailto:info@radex-objektmanagement.de" className="btn br-btn-orange">
-              E-Mail schreiben
+            <h3>Anfrageformular</h3>
+            <p>Beschreiben Sie Ihr Projekt und laden Sie bei Bedarf Fotos hoch.</p>
+            <a href="#kontakt-form" className="btn br-btn-orange">
+              Badmodernisierung anfragen
             </a>
           </div>
         </div>
 
-        <div id="kontakt-form" className="br-ablauf-contact-form-wrap">
+        <div id="kontakt-form" className="br-ablauf-contact-form-wrap br-bw-form-wrap">
           <div className="text-center mb-10">
             <h2 className="br-section-title">Badmodernisierung anfragen</h2>
             <p className="br-section-subtitle br-section-subtitle--wide">
@@ -551,86 +376,105 @@ function BadmodernisierungContactSection() {
             </p>
           </div>
 
-          <form className="br-ablauf-contact-form" onSubmit={handleSubmit}>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Vorname *</span>
-                <input type="text" name="vorname" required autoComplete="given-name" />
-              </label>
-              <label className="br-input-group">
-                <span>Nachname *</span>
-                <input type="text" name="nachname" required autoComplete="family-name" />
-              </label>
-            </div>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Telefonnummer *</span>
-                <input type="tel" name="telefon" required autoComplete="tel" />
-              </label>
-              <label className="br-input-group">
-                <span>E-Mail-Adresse *</span>
-                <input type="email" name="email" required autoComplete="email" />
-              </label>
-            </div>
-            <label className="br-input-group">
-              <span>PLZ / Ort *</span>
-              <input type="text" name="plzOrt" required autoComplete="postal-code" />
-            </label>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Was möchten Sie modernisieren?</span>
-                <select name="modernisieren" required defaultValue="">
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  {modernisierenOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="br-input-group">
-                <span>Wie groß ist Ihr Badezimmer?</span>
-                <select name="groesse" required defaultValue="">
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  {groesseOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <label className="br-input-group">
-              <span>Projektbeschreibung *</span>
-              <textarea
-                name="nachricht"
-                rows={5}
-                required
-                placeholder="Beschreiben Sie kurz Ihr Badezimmer und Ihre Wünsche."
-              />
-            </label>
-            <label className="br-input-group">
-              <span>Fotos hochladen</span>
-              <input type="file" name="fotos" accept="image/*" multiple />
-              <small>Laden Sie auf Wunsch Fotos Ihres Badezimmers hoch.</small>
-            </label>
-            <button type="submit" className="btn br-btn-orange br-ablauf-submit">
-              Badmodernisierung anfragen <Send size={18} />
-            </button>
-            {sent && (
-              <p className="br-ablauf-form-success" role="status">
-                Vielen Dank! Ihr E-Mail-Programm wurde geöffnet. Alternativ erreichen Sie uns unter 06074 960620.
+          {sent ? (
+            <div className="br-bw-form-success" role="status">
+              <p className="br-bw-form-success-title">Vielen Dank für Ihre Anfrage.</p>
+              <p>
+                Ihr E-Mail-Programm wurde geöffnet. Sobald Sie die Nachricht absenden, melden wir uns zeitnah bei
+                Ihnen. Alternativ erreichen Sie uns unter <a href={PHONE_TEL}>06074 960620</a> oder per{' '}
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+                .
               </p>
-            )}
-            <p className="br-ablauf-privacy">
-              Mit dem Absenden erklären Sie sich mit unserer <Link to="/datenschutz">Datenschutzerklärung</Link>{' '}
-              einverstanden.
-            </p>
-          </form>
+            </div>
+          ) : (
+            <form className="br-ablauf-contact-form br-bw-contact-form" onSubmit={handleSubmit}>
+              <div className="br-form-row">
+                <label className="br-input-group">
+                  <span>Vorname *</span>
+                  <input type="text" name="vorname" required autoComplete="given-name" />
+                </label>
+                <label className="br-input-group">
+                  <span>Nachname *</span>
+                  <input type="text" name="nachname" required autoComplete="family-name" />
+                </label>
+              </div>
+              <div className="br-form-row">
+                <label className="br-input-group">
+                  <span>Telefonnummer *</span>
+                  <input type="tel" name="telefon" required autoComplete="tel" inputMode="tel" />
+                </label>
+                <label className="br-input-group">
+                  <span>E-Mail-Adresse *</span>
+                  <input type="email" name="email" required autoComplete="email" inputMode="email" />
+                </label>
+              </div>
+              <label className="br-input-group">
+                <span>PLZ / Ort *</span>
+                <input type="text" name="plzOrt" required autoComplete="postal-code" />
+              </label>
+              <div className="br-form-row">
+                <label className="br-input-group">
+                  <span>Was möchten Sie modernisieren?</span>
+                  <select name="modernisieren" required defaultValue="">
+                    <option value="" disabled>
+                      Bitte wählen
+                    </option>
+                    {modernisierenOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="br-input-group">
+                  <span>Wie groß ist Ihr Badezimmer?</span>
+                  <select name="groesse" required defaultValue="">
+                    <option value="" disabled>
+                      Bitte wählen
+                    </option>
+                    {groesseOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <label className="br-input-group">
+                <span>Projektbeschreibung *</span>
+                <textarea
+                  name="nachricht"
+                  rows={5}
+                  required
+                  placeholder="Beschreiben Sie kurz Ihr Badezimmer und Ihre Wünsche."
+                />
+              </label>
+              <label className="br-input-group br-bw-photo-upload">
+                <span>Fotos hochladen</span>
+                <input
+                  type="file"
+                  name="fotos"
+                  accept="image/*"
+                  capture="environment"
+                  multiple
+                  onChange={(e) => setPhotoCount(e.target.files?.length || 0)}
+                />
+                <small>
+                  Laden Sie Fotos Ihres Badezimmers hoch – auch direkt vom Smartphone.
+                  {photoCount > 0 ? ` ${photoCount} Datei(en) ausgewählt.` : ''}
+                </small>
+              </label>
+              <button type="submit" className="btn br-btn-orange br-ablauf-submit">
+                Badmodernisierung anfragen <Send size={18} />
+              </button>
+              <p className="br-ablauf-privacy">
+                Mit dem Absenden erklären Sie sich mit unserer <Link to="/datenschutz">Datenschutzerklärung</Link>{' '}
+                einverstanden.
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </section>
@@ -695,6 +539,13 @@ export default function BadmodernisierungLanding() {
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
+              <Link to="/">Startseite</Link>
+              <span aria-hidden="true">↓</span>
+              <Link to="/badsanierung-rhein-main">Badsanierung</Link>
+              <span aria-hidden="true">↓</span>
+              <span>Badmodernisierung</span>
+            </nav>
             <p className="br-hero-kicker">Badmodernisierung</p>
             <h1 className="br-hero-title">
               Badmodernisierung im
@@ -707,7 +558,7 @@ export default function BadmodernisierungLanding() {
               eine komplette Entkernung notwendig ist. Radex modernisiert Badezimmer mit durchdachter Planung,
               hochwertigen Materialien und sauberer Ausführung im gesamten Rhein-Main-Gebiet.
             </p>
-            <BadmodernisierungCTA isHero showThird primaryHref="#kontakt" />
+            <BadmodernisierungCTA isHero />
           </div>
         </div>
         <div
@@ -719,294 +570,141 @@ export default function BadmodernisierungLanding() {
         />
       </section>
 
-      {/* 2 Trust Bar */}
+      {/* 2 Trust */}
       <section className="br-section br-trust-usp-section">
         <div className="container">
           <PremiumIconCards cards={trustCards} largeIcons />
         </div>
       </section>
 
-      <SectionTransition title="Wann lohnt sich eine Badmodernisierung?">
-        Nicht jedes Badezimmer muss vollständig entkernt werden. Oft reichen gezielte Modernisierungen aus, um Komfort,
-        Design und Funktion deutlich zu verbessern. Neue Sanitärkeramik, moderne Fliesen und eine zeitgemäße Ausstattung
-        schaffen ein Badezimmer, das wieder viele Jahre Freude bereitet.
-      </SectionTransition>
-
-      {/* 3 Vorteile */}
-      <section id="vorteile" className="br-section br-bg-light br-bw-vorteile-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Ihre Vorteile einer Badmodernisierung</h2>
-            <p className="br-section-subtitle br-section-subtitle--wide">
-              Mit einer Badmodernisierung lassen sich Komfort, Design und Funktion deutlich verbessern. Moderne
-              Materialien, neue Sanitärkeramik und zeitgemäße Technik schaffen ein Badezimmer, das Ihren heutigen
-              Ansprüchen gerecht wird.
+      {/* 3 Introduction */}
+      <section id="intro" className="br-section br-bg-light">
+        <div className="container" style={{ maxWidth: '820px' }}>
+          <div className="text-center">
+            <h2 className="br-section-title">Badmodernisierung im Rhein-Main-Gebiet</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: 0 }}>
+              Nicht jedes Badezimmer muss komplett saniert werden. Oft reichen gezielte Modernisierungsmaßnahmen aus, um
+              Komfort, Funktion und Design deutlich zu verbessern. Ob neue Dusche, moderne Badmöbel, hochwertige
+              Armaturen oder eine vollständige optische Neugestaltung – Radex entwickelt gemeinsam mit Ihnen die passende
+              Lösung für Ihr Badezimmer.
             </p>
           </div>
-          <ImageCardGrid cards={vorteilCards} />
         </div>
       </section>
 
-      <SectionTransition title="Welche Arbeiten gehören zu einer Badmodernisierung?">
-        Je nach Zustand Ihres Badezimmers können einzelne Bereiche modernisiert oder mehrere Arbeiten miteinander
-        kombiniert werden. Radex übernimmt die komplette Planung und Koordination aller Gewerke.
-      </SectionTransition>
-
-      {/* 4 Leistungen */}
-      <section id="leistungen" className="br-section br-bw-options-section">
-        <div className="container">
-          <PremiumIconCards cards={serviceCards} largeIcons />
-        </div>
-      </section>
-
-      <SectionTransition title="Vorher und Nachher">
-        Mit einer durchdachten Badmodernisierung entsteht aus einem in die Jahre gekommenen Badezimmer ein moderner
-        Wohlfühlraum mit neuer Technik und hochwertigem Design.
-      </SectionTransition>
-
-      {/* 5 Vorher / Nachher */}
-      <section id="vorher-nachher" className="br-section br-bg-light br-bw-before-after-section">
-        <div className="container">
-          <div className="br-bw-before-after-grid">
-            <figure className="br-bw-before-after-card">
-              <span className="br-bw-before-after-label">Vorher</span>
-              <img
-                src="/img/badmodernisierung-vorher.png"
-                alt="Altes Badezimmer vor der Modernisierung"
-                loading="lazy"
-                width={800}
-                height={600}
-              />
-            </figure>
-            <figure className="br-bw-before-after-card">
-              <span className="br-bw-before-after-label">Nachher</span>
-              <img
-                src="/img/badmodernisierung-nachher.png"
-                alt="Modernisiertes Badezimmer mit Walk-in-Dusche"
-                loading="lazy"
-                width={800}
-                height={600}
-              />
-            </figure>
-          </div>
-          <div className="br-ablauf-cta-wrap">
-            <BadmodernisierungCTA centered primaryHref="#kontakt" />
-          </div>
-        </div>
-      </section>
-
-      <SectionTransition title="Warum Radex?">
-        Eine erfolgreiche Badmodernisierung beginnt mit einer guten Planung und einer fachgerechten Umsetzung. Erfahren
-        Sie, warum Eigentümer im gesamten Rhein-Main-Gebiet auf Radex vertrauen.
-      </SectionTransition>
-
-      {/* 6 Warum Radex */}
-      <section id="warum-radex" className="br-section br-ablauf-why-section">
+      {/* 4 Was möchten Sie modernisieren? */}
+      <section id="modernisieren" className="br-section br-bm-nav-section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Warum Radex für Ihre Badmodernisierung?</h2>
-            <p className="br-section-subtitle br-section-subtitle--wide">
-              Eine Badmodernisierung erfordert Erfahrung, eine durchdachte Planung und eine saubere Ausführung. Ob neue
-              Dusche, moderne Fliesen oder hochwertige Sanitärkeramik – als SHK-Meisterbetrieb begleitet Radex Ihr
-              Projekt von der ersten Beratung bis zur fertigen Übergabe.
-            </p>
+            <h2 className="br-section-title">Was möchten Sie modernisieren?</h2>
           </div>
-          <div className="br-ablauf-why-grid">
-            <PremiumIconCards cards={whyRadexCards} largeIcons />
+          <div className="br-nav-landing-grid br-nav-landing-grid--large-icons">
+            {modernisierenCards.map((card) => (
+              <NavServiceCard key={card.title} card={card} />
+            ))}
           </div>
         </div>
       </section>
 
-      <SectionTransition title="Persönlich erklärt von Bernd Knoop">
-        Bernd Knoop, SHK-Meister und Betriebsleiter der Radex Objektmanagement GmbH, erklärt im Video, worauf es bei
-        einer erfolgreichen Badmodernisierung ankommt und wie aus einem bestehenden Badezimmer wieder ein moderner
-        Wohlfühlraum entsteht.
-      </SectionTransition>
+      {/* 5 Comparison */}
+      <section id="loesungen" className="br-section br-bg-light br-bm-compare-section">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Welche Lösung passt am besten zu Ihrem Badezimmer?</h2>
+          </div>
+          <div className="br-nav-landing-grid br-nav-landing-grid--large-icons">
+            {comparisonCards.map((card) => (
+              <ComparisonCard key={card.title} card={card} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* 7 Video */}
+      {/* 6 Bernd Knoop Video Placeholder */}
       <section id="video" className="br-section br-ablauf-video-section">
         <div className="container br-ablauf-video-container">
-          <div className="br-ablauf-video-frame">
-            <video
-              src={testVideo}
-              controls
-              playsInline
-              preload="none"
-              poster={VIDEO_POSTER}
-              title="Bernd Knoop – Badmodernisierung"
-            />
-          </div>
-
-          <ul className="br-ablauf-video-trust">
-            {videoTrustPoints.map((point) => (
-              <li key={point}>
-                <CheckCircle2 size={18} color="#f97316" aria-hidden="true" />
-                {point}
-              </li>
-            ))}
-          </ul>
-
-          <div className="br-ablauf-cta-wrap">
-            <BadmodernisierungCTA centered primaryHref="#kontakt" />
-          </div>
-
-          <div className="br-ablauf-video-transcript">
-            <h3>Video-Transkript</h3>
-            {videoTranscript.map((para) => (
-              <p key={para.slice(0, 48)}>{para}</p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <SectionTransition title="So modernisieren wir Ihr Badezimmer">
-        Von der ersten Beratung bis zur fertigen Übergabe koordinieren wir alle Arbeiten und sorgen für eine saubere und
-        zuverlässige Umsetzung Ihrer Badmodernisierung.
-      </SectionTransition>
-
-      {/* 8 Ablauf */}
-      <section id="ablauf" className="br-section br-bg-light br-bw-process-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">So modernisieren wir Ihr Badezimmer</h2>
+          <div className="text-center mb-10">
+            <h2 className="br-section-title">Fachlich erklärt vom SHK-Meister</h2>
             <p className="br-section-subtitle br-section-subtitle--wide">
-              Eine erfolgreiche Badmodernisierung beginnt mit einer sorgfältigen Planung. Gemeinsam entwickeln wir eine
-              Lösung, die zu Ihrem Badezimmer, Ihren Wünschen und Ihrem Budget passt. Anschließend koordinieren wir
-              sämtliche Arbeiten bis zur fertigen Übergabe.
+              Bernd Knoop erklärt, welche Möglichkeiten eine professionelle Badmodernisierung bietet und wann sich
+              welche Lösung empfiehlt.
             </p>
           </div>
-          <PremiumIconCards cards={processSteps} largeIcons />
+          <div
+            className="br-ablauf-video-frame br-bw-video-placeholder"
+            style={{ backgroundImage: `url(${VIDEO_POSTER})` }}
+            role="img"
+            aria-label="Videoplatzhalter: Bernd Knoop, SHK-Meister"
+          >
+            <div className="br-bw-video-placeholder-overlay">
+              <span className="br-bw-video-placeholder-play" aria-hidden="true" />
+              <p>Video folgt in Kürze</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <SectionTransition title="Einblicke in unsere Arbeit">
-        Unsere Teams modernisieren Badezimmer täglich im gesamten Rhein-Main-Gebiet. Hier sehen Sie eine Auswahl
-        aktueller Modernisierungsprojekte.
-      </SectionTransition>
-
-      {/* 9 Projekte */}
-      <section id="projekte" className="br-section br-ablauf-examples-section">
+      {/* 7 Projekte */}
+      <section id="projekte" className="br-section br-bg-light br-ablauf-examples-section">
         <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Einblicke in unsere Arbeit</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Unsere Teams modernisieren täglich Badezimmer im gesamten Rhein-Main-Gebiet. Begleiten Sie unsere Projekte
+              vom ersten Beratungsgespräch bis zur fertigen Übergabe und erleben Sie, wie moderne Badezimmer Schritt für
+              Schritt entstehen.
+            </p>
+            <p className="br-bw-project-slogan">Schauen Sie unseren Teams bei der Arbeit über die Schulter.</p>
+          </div>
           <div className="br-ablauf-examples-grid">
             {projectExamples.map((project) => (
-              <article key={project.title} className="br-ablauf-example-card">
-                <div
-                  className="br-ablauf-example-img"
-                  style={{ backgroundImage: `url(${project.image})` }}
-                  role="img"
-                  aria-label={project.imageAlt}
-                >
-                  <span className="br-ablauf-symbolbild">Symbolbild</span>
-                </div>
-                <div className="br-ablauf-example-body">
-                  <h3>{project.title}</h3>
-                  <p className="br-bw-project-subtitle">{project.subtitle}</p>
-                  <p>{project.desc}</p>
-                  <Link to={project.to} className="br-btn-orange">
-                    {project.cta}
-                  </Link>
-                </div>
-              </article>
+              <ProjectCard key={project.title} project={project} />
             ))}
           </div>
           <div className="text-center mt-10">
-            <Link to="/badsanierung-rhein-main" className="btn br-btn-orange">
+            <a href={RADEX_LIVE_URL} className="btn br-btn-orange" target="_blank" rel="noopener noreferrer">
               Alle Badprojekte ansehen
-            </Link>
+            </a>
           </div>
         </div>
       </section>
 
-      <SectionTransition title="Was kostet eine Badmodernisierung?">
-        Die Kosten einer Badmodernisierung richten sich nach dem Umfang der Arbeiten, der Raumgröße und der gewünschten
-        Ausstattung. Mit den folgenden Preisbeispielen erhalten Sie eine erste Orientierung.
-      </SectionTransition>
-
-      {/* 10 Preise */}
-      <section id="preise" className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Was kostet eine Badmodernisierung?</h2>
-            <p className="br-section-subtitle br-section-subtitle--wide">
-              Die Kosten einer Badmodernisierung hängen vom Umfang der Arbeiten, der Raumgröße und der gewünschten
-              Ausstattung ab. Mit den folgenden Preisbeispielen erhalten Sie eine erste Orientierung für Ihr Projekt.
-            </p>
-          </div>
-          <div className="br-costs-grid br-costs-grid--three">
-            {priceCards.map((card) => (
-              <div key={card.title} className="br-cost-card" style={{ cursor: 'default' }}>
-                <div className="br-cost-header">
-                  <h3>{card.title}</h3>
-                  <p className="br-cost-price">
-                    <span>{card.price}</span>
-                  </p>
-                </div>
-                <p className="br-cost-desc">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-          <p className="br-bw-price-note">
-            Die genannten Preise dienen als erste Orientierung. Nach einer Besichtigung erhalten Sie ein individuelles
-            Festpreisangebot.
-          </p>
-        </div>
-      </section>
-
-      <SectionTransition title="Ermitteln Sie Ihre erste Kosteneinschätzung">
-        Mit wenigen Angaben erhalten Sie eine unverbindliche Kosteneinschätzung für Ihre Badmodernisierung.
-      </SectionTransition>
-
-      {/* 11 Kostenrechner */}
-      <section id="kostenrechner" className="br-section">
-        <div className="container" style={{ maxWidth: '920px' }}>
-          <BadmodernisierungCalculator />
-
-          <div className="br-ablauf-cta-box br-bw-cta-box">
-            <h2 className="br-section-title">Sie möchten Ihr Badezimmer modernisieren?</h2>
-            <p className="br-section-subtitle">
-              Senden Sie uns Fotos Ihres Badezimmers per WhatsApp oder vereinbaren Sie einen persönlichen
-              Beratungstermin. Gemeinsam finden wir die passende Lösung für Ihre Badmodernisierung.
-            </p>
-            <BadmodernisierungCTA centered showThird primaryHref="#kontakt" />
-          </div>
-        </div>
-      </section>
-
-      <SectionTransition title="Häufige Fragen zur Badmodernisierung">
-        Hier beantworten wir häufige Fragen rund um Planung, Kosten, Materialien und den Ablauf einer Badmodernisierung.
-      </SectionTransition>
-
-      {/* 12 FAQ */}
+      {/* 8 FAQ */}
       <FaqAccordion
         faqs={faqsData}
         title="Häufige Fragen zur Badmodernisierung"
-        intro="Eine Badmodernisierung wirft viele Fragen auf – von den Kosten über die Dauer bis zur richtigen Ausstattung. Hier finden Sie Antworten auf häufig gestellte Fragen."
+        intro="Kurze Antworten auf die wichtigsten Fragen rund um Ihre Badmodernisierung."
       />
 
-      <SectionTransition title="Lassen Sie uns Ihr Badezimmer gemeinsam modernisieren">
-        Ob kleine Veränderungen oder eine umfangreiche Modernisierung – wir beraten Sie persönlich und entwickeln
-        gemeinsam die passende Lösung für Ihr Badezimmer.
-      </SectionTransition>
-
-      {/* 13 Kontakt */}
+      {/* 9 + 10 Contact + Form */}
       <BadmodernisierungContactSection />
 
-      {/* 14 Weitere Informationen – city-style side drawer */}
+      {/* 11 Weitere Informationen (+ compact regional note) */}
       <section id="seo-informationen" className="br-section br-bg-light">
         <div className="container">
-          <div className="text-center mb-6">
-            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: '20px' }}>
-              Im folgenden Bereich finden Sie ausführliche Informationen rund um die Badmodernisierung, Planung,
-              Materialien, Kosten, Ablauf und Modernisierungsmöglichkeiten.
+          <div className="br-bw-regional-teaser">
+            <p>
+              Radex modernisiert Badezimmer im gesamten Rhein-Main-Gebiet – unter anderem in Frankfurt, Offenbach,
+              Hanau, Darmstadt, Dreieich, Rodgau, Rödermark, Neu-Isenburg, Dietzenbach und vielen weiteren Städten der
+              Region.
             </p>
+            <Link to="/einsatzgebiete-rhein-main" className="btn br-btn-orange">
+              Alle Einsatzgebiete ansehen
+            </Link>
+          </div>
+
+          <div className="text-center" style={{ marginTop: '48px' }}>
             <button
               type="button"
               className={`br-seo-toc-toggle${seoPanelOpen ? ' is-open' : ''}`}
               onClick={() => setSeoPanelOpen(true)}
               aria-haspopup="dialog"
               aria-expanded={seoPanelOpen}
+              aria-controls="bm-seo-panel"
             >
-              <h2 className="br-section-title">Weitere Informationen zur Badmodernisierung</h2>
+              <h2 id="bm-seo-heading" className="br-section-title">
+                Weitere Informationen
+              </h2>
               <ChevronDown size={28} className="br-seo-toc-toggle-icon" aria-hidden="true" />
             </button>
           </div>
@@ -1021,13 +719,14 @@ export default function BadmodernisierungLanding() {
             onClick={() => setSeoPanelOpen(false)}
           />
           <aside
+            id="bm-seo-panel"
             className="br-city-seo-panel br-ablauf-seo-panel"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="bm-seo-panel-title"
+            aria-labelledby="bm-seo-heading"
           >
             <div className="br-city-seo-panel-header">
-              <h2 id="bm-seo-panel-title">Weitere Informationen zur Badmodernisierung</h2>
+              <p className="br-bw-seo-panel-label">Weitere Informationen</p>
               <button
                 type="button"
                 className="br-city-seo-panel-close"
@@ -1038,14 +737,7 @@ export default function BadmodernisierungLanding() {
               </button>
             </div>
             <div className="br-city-seo-panel-body">
-              <div className="br-city-seo-panel-block br-ablauf-seo-intro">
-                <p className="mb-4 text-gray-600">
-                  Hier finden Sie ausführliche Informationen rund um die Badmodernisierung, moderne
-                  Gestaltungsmöglichkeiten, Materialien, Planung, Kosten und den Ablauf einer erfolgreichen
-                  Modernisierung Ihres Badezimmers.
-                </p>
-                {badmodernisierungSeoIntro}
-              </div>
+              <div className="br-city-seo-panel-block br-ablauf-seo-intro">{badmodernisierungSeoIntro}</div>
 
               {badmodernisierungSeoSections.map((section) => (
                 <article key={section.id} id={section.id} className="br-city-seo-panel-block">
@@ -1054,7 +746,7 @@ export default function BadmodernisierungLanding() {
                 </article>
               ))}
 
-              <a href="#kontakt" className="br-city-seo-panel-faq" onClick={() => setSeoPanelOpen(false)}>
+              <a href="#kontakt-form" className="br-city-seo-panel-faq" onClick={() => setSeoPanelOpen(false)}>
                 Badmodernisierung anfragen
               </a>
             </div>

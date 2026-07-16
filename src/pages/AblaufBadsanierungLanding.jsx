@@ -2,43 +2,32 @@ import { useEffect, useState } from 'react';
 import {
   Award,
   Calendar,
-  Camera,
-  CheckCircle2,
-  ChevronDown,
   ClipboardCheck,
-  Clock,
+  ClipboardList,
   FileText,
-  Handshake,
   Home,
-  KeyRound,
   Mail,
   MessageSquare,
   Phone,
   SearchCheck,
   Send,
-  ShieldCheck,
   UserCheck,
-  Workflow,
   Wrench,
   X,
+  ChevronDown,
 } from 'lucide-react';
 import { Link } from '../router';
+import { RADEX_LIVE_URL } from '../constants/brand';
 import '../badsanierung.css';
 import '../badsanierung-polish.css';
 import '../sanierung-polish.css';
 import '../home.css';
 import useSeo, { buildFaqSchema, buildServiceSchema } from '../useSeo';
 import {
-  AblaufCTABlock,
   FaqAccordion,
   HorizontalProcessTimeline,
-  ImageCardGrid,
   PremiumIconCards,
-  ProjectStatusTrack,
-  SectionTransition,
-  TrustUspCards,
 } from '../components/landing/SharedLandingParts';
-import testVideo from '../assets/test.mp4';
 import {
   ablaufBadsanierungSeoIntro,
   ablaufBadsanierungSeoSections,
@@ -46,213 +35,134 @@ import {
 
 const HERO_IMAGE = '/img/ablauf-badsanierung-hero.png';
 const VIDEO_POSTER = '/img/ablauf-bad-consultation.png';
+const WHATSAPP_URL = 'https://wa.me/496074960620';
+const PHONE_TEL = 'tel:+496074960620';
+const HANDSHAKE_ICON = '/img/radex-icon-handshake.png';
+const HOUSE_HANDSHAKE_ICON = '/img/radex-icon-house-handshake.png';
+
+const META_TITLE = 'Ablauf Badsanierung | Schritt für Schritt zum neuen Bad';
+const META_DESCRIPTION =
+  'Wer eine Badsanierung plant, stellt sich früh eine ganz konkrete Frage: Was passiert eigentlich wann – und in welcher Reihenfolge? Radex erklärt alle Schritte – von Beratung und Planung bis Abnahme und Übergabe.';
+
+function AblaufCTA({ isHero = false, centered = false, primaryHref = '#kontakt-form' }) {
+  return (
+    <div
+      className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
+    >
+      <a href={primaryHref} className="btn br-btn-orange">
+        Badsanierung anfragen
+      </a>
+      <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp br-btn-whatsapp--primary">
+        <MessageSquare size={20} />
+        Fotos senden. Erste Einschätzung erhalten.
+      </a>
+    </div>
+  );
+}
 
 const trustCards = [
   {
-    title: 'Strukturierter Projektablauf',
-    image: '/img/badsanierung-usp-generalunternehmer.png',
-    icon: Workflow,
-    imageAlt: 'Projektplanung und Koordination einer Badsanierung',
-  },
-  {
-    title: 'Transparente Bauphasen',
-    image: '/img/badsanierung-usp-festpreis.png',
-    icon: ClipboardCheck,
-    imageAlt: 'Transparente Planung und Bauphasen',
-  },
-  {
     title: 'SHK-Meisterbetrieb',
-    image: '/img/badsanierung-usp-shk.png',
+    desc: 'Fachliche Leitung und Sanitärkompetenz aus dem Meisterbetrieb.',
     icon: Award,
-    imageAlt: 'SHK-Meisterbetrieb Radex',
   },
   {
     title: 'Persönlicher Ansprechpartner',
-    image: '/img/badsanierung-usp-projekte.png',
-    icon: UserCheck,
-    imageAlt: 'Persönliche Betreuung während der Badsanierung',
-  },
-  {
-    title: 'Festpreisangebote',
-    image: '/img/ablauf-step-angebot.png',
-    icon: ShieldCheck,
-    imageAlt: 'Transparentes Festpreisangebot für die Badsanierung',
-  },
-  {
-    title: 'Rhein-Main-Gebiet',
-    image: '/img/badsanierung-usp-rheinmain.png',
-    icon: Home,
-    imageAlt: 'Badsanierungen im Rhein-Main-Gebiet',
-  },
-];
-
-const phaseCards = [
-  {
-    title: 'Erstberatung',
-    desc: 'Wir besprechen Ihre Wünsche, beantworten offene Fragen und verschaffen uns einen ersten Überblick über Ihr Projekt.',
-    image: '/img/ablauf-bad-phase-erstberatung.png',
-    imageAlt: 'Erstberatung zur Badsanierung mit Projektmanager und Badplänen',
-  },
-  {
-    title: 'Besichtigung & Aufmaß',
-    desc: 'Vor Ort erfassen wir alle Maße, technischen Voraussetzungen und Besonderheiten Ihres Badezimmers.',
-    image: '/img/ablauf-bad-phase-besichtigung.png',
-    imageAlt: 'Aufmaß im Badezimmer mit Laser-Messgerät',
-  },
-  {
-    title: 'Planung & Angebot',
-    desc: 'Auf Basis der Besichtigung erstellen wir ein individuelles Badkonzept und ein transparentes Festpreisangebot.',
-    image: '/img/ablauf-bad-phase-planung.png',
-    imageAlt: 'Badplanung mit Grundrissen, Angebot und Materialmustern',
-  },
-  {
-    title: 'Vorbereitung',
-    desc: 'Materialien werden bestellt und alle beteiligten Gewerke terminlich aufeinander abgestimmt.',
-    image: '/img/ablauf-bad-phase-vorbereitung.png',
-    imageAlt: 'Materialbestellung und Bauzeitplan für die Badsanierung',
-  },
-  {
-    title: 'Ausführung',
-    desc: 'Die Badsanierung erfolgt Schritt für Schritt nach dem abgestimmten Bauablauf durch koordinierte Fachbetriebe.',
-    image: '/img/ablauf-bad-phase-ausfuehrung.png',
-    imageAlt: 'Sanitär, Fliesen und Elektro bei der Badsanierung',
-  },
-  {
-    title: 'Abnahme & Übergabe',
-    desc: 'Nach Abschluss aller Arbeiten erfolgt die gemeinsame Qualitätskontrolle und die schlüsselfertige Übergabe Ihres neuen Badezimmers.',
-    image: '/img/ablauf-bad-phase-abnahme.png',
-    imageAlt: 'Schlüsselfertige Übergabe des fertigen Badezimmers',
-  },
-];
-
-const benefitCards = [
-  {
-    title: 'Klare Termine',
-    desc: 'Alle Projektphasen werden frühzeitig geplant.',
-    icon: Calendar,
-  },
-  {
-    title: 'Koordinierte Gewerke',
-    desc: 'Alle Arbeiten greifen optimal ineinander.',
-    icon: Workflow,
-  },
-  {
-    title: 'Mehr Sicherheit',
-    desc: 'Klare Abläufe reduzieren Planungsrisiken.',
-    icon: ShieldCheck,
-  },
-  {
-    title: 'Weniger Wartezeiten',
-    desc: 'Durch gute Vorbereitung entstehen effizientere Bauabläufe.',
-    icon: Clock,
-  },
-  {
-    title: 'Qualitätskontrolle',
-    desc: 'Jede Bauphase wird sorgfältig überprüft.',
-    icon: ClipboardCheck,
-  },
-  {
-    title: 'Persönliche Betreuung',
-    desc: 'Ein Ansprechpartner begleitet Ihr Projekt von Anfang bis Ende.',
-    icon: Handshake,
-  },
-];
-
-const whyRadexCards = [
-  {
-    title: 'Klare Projektstruktur',
-    desc: 'Alle Bauphasen werden vor Beginn der Arbeiten detailliert geplant und zeitlich aufeinander abgestimmt.',
-    icon: Workflow,
-  },
-  {
-    title: 'Ein fester Ansprechpartner',
-    desc: 'Während des gesamten Projekts steht Ihnen eine zentrale Ansprechperson für alle Fragen zur Verfügung.',
+    desc: 'Ein fester Kontakt von der Beratung bis zur Übergabe.',
     icon: UserCheck,
   },
   {
-    title: 'SHK-Meisterbetrieb',
-    desc: 'Technische Planung und Baukoordination erfolgen unter fachlicher Leitung eines SHK-Meisters.',
-    icon: Award,
+    title: 'Zentrale Koordination aller Gewerke',
+    desc: 'Alle Arbeiten greifen terminlich und fachlich ineinander.',
+    icon: ClipboardList,
   },
   {
-    title: 'Kontinuierliche Qualitätskontrolle',
-    desc: 'Jede Bauphase wird kontrolliert, dokumentiert und gemeinsam mit Ihnen abgestimmt.',
+    title: 'Transparente Planung',
+    desc: 'Klare Schritte, nachvollziehbare Termine, offene Kommunikation.',
     icon: ClipboardCheck,
   },
 ];
 
-const journeySteps = [
+const processSteps = [
   {
-    title: 'Anfrage',
-    desc: 'Sie kontaktieren uns telefonisch, über das Kontaktformular oder per WhatsApp.',
+    title: 'Anfrage & Erstberatung',
+    desc: 'Sie schildern Ihr Projekt – wir klären Wünsche, Rahmen und nächste Schritte.',
     icon: Phone,
   },
   {
-    title: 'Besichtigung',
-    desc: 'Wir besichtigen Ihr Badezimmer, nehmen Aufmaß und besprechen Ihre Wünsche persönlich vor Ort.',
+    title: 'Besichtigung & Aufmaß',
+    desc: 'Vor Ort erfassen wir Maße, Technik und bauliche Besonderheiten.',
     icon: Home,
   },
   {
     title: 'Planung & Angebot',
-    desc: 'Sie erhalten ein individuelles Badkonzept und ein transparentes Festpreisangebot.',
+    desc: 'Sie erhalten ein abgestimmtes Konzept und ein transparentes Festpreisangebot.',
     icon: FileText,
   },
   {
-    title: 'Ausführung',
-    desc: 'Unsere Fachbetriebe setzen Ihr Projekt nach einem abgestimmten Zeitplan um.',
+    title: 'Terminplanung & Vorbereitung',
+    desc: 'Materialien, Gewerke und Bauzeiten werden verbindlich koordiniert.',
+    icon: Calendar,
+  },
+  {
+    title: 'Ausführung & Qualitätskontrolle',
+    desc: 'Die Arbeiten folgen dem Plan – mit laufender Prüfung wichtiger Bauabschnitte.',
     icon: Wrench,
   },
   {
-    title: 'Qualitätskontrolle',
-    desc: 'Alle Arbeiten werden sorgfältig geprüft und gemeinsam mit Ihnen kontrolliert.',
+    title: 'Übergabe & Abnahme',
+    desc: 'Gemeinsame Endkontrolle und schlüsselfertige Übergabe Ihres neuen Bads.',
     icon: SearchCheck,
-  },
-  {
-    title: 'Übergabe',
-    desc: 'Ihr neues Badezimmer wird schlüsselfertig übergeben und gemeinsam abgenommen.',
-    icon: KeyRound,
   },
 ];
 
-const projectStatuses = [
-  'Anfrage',
-  'Besichtigung',
-  'Planung',
-  'Angebot',
-  'Materialbestellung',
-  'Baustart',
-  'Sanitär',
-  'Elektro',
-  'Fliesen',
-  'Montage',
-  'Qualitätskontrolle',
-  'Übergabe',
+const coordinationCards = [
+  {
+    title: 'Abgestimmte Termine',
+    desc: 'Alle Arbeiten werden sinnvoll aufeinander abgestimmt.',
+    iconSrc: HANDSHAKE_ICON,
+  },
+  {
+    title: 'Klare Zuständigkeiten',
+    desc: 'Ein Ansprechpartner begleitet das gesamte Projekt.',
+    iconSrc: HANDSHAKE_ICON,
+  },
+  {
+    title: 'Kontrollierte Arbeitsschritte',
+    desc: 'Jeder Bauabschnitt wird während der Umsetzung geprüft.',
+    iconSrc: HOUSE_HANDSHAKE_ICON,
+  },
+  {
+    title: 'Alles aus einer Hand',
+    desc: 'Planung, Koordination und Ausführung greifen nahtlos ineinander.',
+    iconSrc: HOUSE_HANDSHAKE_ICON,
+  },
 ];
 
 const projectExamples = [
   {
-    title: '5 m² Badezimmer',
-    desc: 'Projektlaufzeit: ca. 8 Arbeitstage. Komplette Modernisierung mit neuer Dusche, Fliesen und Sanitärkeramik.',
-    image: '/img/badsanierung-ref-1.png',
-    imageAlt: 'Symbolbild: modernisiertes kleines Badezimmer',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung-rhein-main',
+    title: 'Frankfurt am Main',
+    size: '8 m²',
+    desc: 'Komplettbadsanierung mit neuer Sanitärinstallation, bodengleicher Dusche und großformatigen Fliesen.',
+    image: '/img/bad1.webp',
+    imageAlt: 'Fertiggestellte Badsanierung in Frankfurt am Main',
+    to: RADEX_LIVE_URL,
   },
   {
-    title: '8 m² Familienbad',
-    desc: 'Projektlaufzeit: ca. 14 Arbeitstage. Komplettsanierung inklusive neuer Leitungen, Elektroinstallation und bodengleicher Dusche.',
-    image: '/img/badsanierung-thema-komplett.png',
-    imageAlt: 'Symbolbild: Komplettsanierung Familienbad',
-    cta: 'Projekt ansehen →',
-    to: '/badsanierung/badezimmer-sanieren',
+    title: 'Darmstadt',
+    size: '7 m²',
+    desc: 'Strukturierte Badmodernisierung mit neuer Ausstattung, abgestimmten Gewerken und sauberer Übergabe.',
+    image: '/img/fertiges-bad-nach-badsanierung-radex.webp',
+    imageAlt: 'Modernisiertes Badezimmer nach Badsanierung in Darmstadt',
+    to: RADEX_LIVE_URL,
   },
   {
-    title: '12 m² Designbad',
-    desc: 'Projektlaufzeit: ca. 20 Arbeitstage. Individuelle Planung mit Designmöbeln, Maßanfertigungen und hochwertiger Ausstattung.',
-    image: '/img/badsanierung-ref-2.png',
-    imageAlt: 'Symbolbild: hochwertiges Designbad',
-    cta: 'Projekt ansehen →',
-    to: '/badplanung',
+    title: 'Offenbach am Main',
+    size: '9 m²',
+    desc: 'Koordinierte Komplettsanierung – von Rückbau und Installation bis zur schlüsselfertigen Übergabe.',
+    image: '/img/Komplettbadsanierung.webp',
+    imageAlt: 'Komplettbadsanierung in Offenbach am Main',
+    to: RADEX_LIVE_URL,
   },
 ];
 
@@ -283,20 +193,6 @@ const faqsData = [
   },
 ];
 
-const videoTranscript = [
-  'Mein Name ist Bernd Knoop. Ich bin SHK-Meister und Betriebsleiter der Radex Objektmanagement GmbH.',
-  'Viele Eigentümer möchten vor Beginn einer Badsanierung genau wissen, was sie erwartet. Deshalb legen wir großen Wert auf einen klar strukturierten Ablauf. Bereits vor dem ersten Arbeitstag werden alle Termine, Materialien und beteiligten Gewerke sorgfältig geplant und aufeinander abgestimmt.',
-  'Während der gesamten Bauphase begleiten wir Ihr Projekt persönlich, koordinieren die einzelnen Arbeitsschritte und stehen Ihnen als Ansprechpartner jederzeit zur Verfügung. Dadurch entsteht ein transparenter Ablauf mit kurzen Entscheidungswegen und hoher Planungssicherheit.',
-  'Wenn Sie Ihr Badezimmer modernisieren möchten, beraten wir Sie gerne persönlich. Senden Sie uns einfach Fotos Ihres Badezimmers oder vereinbaren Sie einen Termin mit unserem Team. Gemeinsam besprechen wir den optimalen Ablauf für Ihr Projekt.',
-];
-
-const videoTrustPoints = [
-  'Klare Projektstruktur',
-  'Transparente Bauphasen',
-  'SHK-Meisterbetrieb',
-  'Persönlicher Ansprechpartner',
-];
-
 const massnahmeOptions = [
   'Komplettbadsanierung',
   'Badmodernisierung',
@@ -308,8 +204,49 @@ const massnahmeOptions = [
 
 const startOptions = ['Sofort', 'Innerhalb von 3 Monaten', 'Innerhalb von 6 Monaten', 'Termin noch offen'];
 
+function ProjectCard({ project }) {
+  const isExternal = project.to.startsWith('http');
+  const body = (
+    <>
+      <div
+        className="br-ablauf-example-img"
+        style={{ backgroundImage: `url(${project.image})` }}
+        role="img"
+        aria-label={project.imageAlt}
+      />
+      <div className="br-ablauf-example-body">
+        <h3>{project.title}</h3>
+        <p className="br-bw-project-subtitle">{project.size}</p>
+        <p>{project.desc}</p>
+        <span className="br-btn-orange">Projekt ansehen →</span>
+      </div>
+    </>
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={project.to}
+        className="br-ablauf-example-card"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        {body}
+      </a>
+    );
+  }
+
+  return (
+    <Link to={project.to} className="br-ablauf-example-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+      {body}
+    </Link>
+  );
+}
+
 function AblaufContactSection() {
   const [sent, setSent] = useState(false);
+  const [photoCount, setPhotoCount] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -350,12 +287,12 @@ function AblaufContactSection() {
             <div className="br-ablauf-contact-icon">
               <Phone size={24} strokeWidth={1.5} />
             </div>
-            <h3>Telefonische Beratung</h3>
+            <h3>Telefon</h3>
             <p>Besprechen Sie den Ablauf Ihrer Badsanierung direkt mit unserem Team.</p>
-            <a href="tel:+496074960620" className="br-ablauf-contact-number">
+            <a href={PHONE_TEL} className="br-ablauf-contact-number">
               06074 960620
             </a>
-            <a href="tel:+496074960620" className="btn br-btn-orange">
+            <a href={PHONE_TEL} className="btn br-btn-orange">
               Jetzt anrufen
             </a>
           </div>
@@ -364,14 +301,9 @@ function AblaufContactSection() {
             <div className="br-ablauf-contact-icon br-ablauf-contact-icon--wa">
               <MessageSquare size={24} strokeWidth={1.5} />
             </div>
-            <h3>Fotos per WhatsApp</h3>
-            <p>Senden Sie uns Fotos Ihres Badezimmers und erhalten Sie eine erste Einschätzung zum Projektablauf.</p>
-            <a
-              href="https://wa.me/496074960620"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn br-btn-whatsapp"
-            >
+            <h3>WhatsApp</h3>
+            <p>Senden Sie uns Fotos Ihres Badezimmers und erhalten Sie eine erste Einschätzung.</p>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
               Fotos senden. Erste Einschätzung erhalten.
             </a>
           </div>
@@ -380,109 +312,121 @@ function AblaufContactSection() {
             <div className="br-ablauf-contact-icon">
               <Mail size={24} strokeWidth={1.5} />
             </div>
-            <h3>E-Mail-Anfrage</h3>
-            <p>Schicken Sie uns Ihre Projektinformationen bequem per E-Mail.</p>
-            <a href="mailto:info@radex-objektmanagement.de" className="br-ablauf-contact-number">
-              info@radex-objektmanagement.de
-            </a>
-            <a href="mailto:info@radex-objektmanagement.de" className="btn br-btn-orange">
-              E-Mail schreiben
+            <h3>Anfrageformular</h3>
+            <p>Beschreiben Sie Ihr Projekt und laden Sie bei Bedarf Fotos hoch.</p>
+            <a href="#kontakt-form" className="btn br-btn-orange">
+              Badsanierung anfragen
             </a>
           </div>
         </div>
 
-        <div id="kontakt-form" className="br-ablauf-contact-form-wrap">
+        <div id="kontakt-form" className="br-ablauf-contact-form-wrap br-bw-form-wrap">
           <div className="text-center mb-10">
             <h2 className="br-section-title">Badsanierung anfragen</h2>
             <p className="br-section-subtitle br-section-subtitle--wide">
-              Beschreiben Sie Ihr Projekt möglichst genau. Gemeinsam planen wir den optimalen Ablauf Ihrer Badsanierung
-              und begleiten Sie bis zur fertigen Übergabe.
+              Beschreiben Sie Ihr Projekt. Wir melden uns schnellstmöglich mit einer ersten Einschätzung.
             </p>
           </div>
 
-          <form className="br-ablauf-contact-form" onSubmit={handleSubmit}>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Vorname *</span>
-                <input type="text" name="vorname" required autoComplete="given-name" />
-              </label>
-              <label className="br-input-group">
-                <span>Nachname *</span>
-                <input type="text" name="nachname" required autoComplete="family-name" />
-              </label>
-            </div>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Telefonnummer *</span>
-                <input type="tel" name="telefon" required autoComplete="tel" />
-              </label>
-              <label className="br-input-group">
-                <span>E-Mail-Adresse *</span>
-                <input type="email" name="email" required autoComplete="email" />
-              </label>
-            </div>
-            <label className="br-input-group">
-              <span>PLZ / Ort *</span>
-              <input type="text" name="plzOrt" required autoComplete="postal-code" />
-            </label>
-            <div className="br-form-row">
-              <label className="br-input-group">
-                <span>Welche Maßnahme planen Sie?</span>
-                <select name="massnahme" required defaultValue="">
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  {massnahmeOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="br-input-group">
-                <span>Wann möchten Sie starten?</span>
-                <select name="start" required defaultValue="">
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  {startOptions.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-            <label className="br-input-group">
-              <span>Projektbeschreibung *</span>
-              <textarea
-                name="nachricht"
-                rows={5}
-                required
-                placeholder="Beschreiben Sie Ihr Badezimmer und Ihre Wünsche möglichst genau."
-              />
-            </label>
-            <label className="br-input-group">
-              <span>Fotos hochladen</span>
-              <input type="file" name="fotos" accept="image/*" multiple />
-              <small>
-                Laden Sie Fotos Ihres Badezimmers hoch. Dadurch können wir den Projektumfang und den Ablauf besser
-                einschätzen.
-              </small>
-            </label>
-            <button type="submit" className="btn br-btn-orange br-ablauf-submit">
-              Badsanierung anfragen <Send size={18} />
-            </button>
-            {sent && (
-              <p className="br-ablauf-form-success" role="status">
-                Vielen Dank! Ihr E-Mail-Programm wurde geöffnet. Alternativ erreichen Sie uns unter 06074 960620.
+          {sent ? (
+            <div className="br-bw-form-success" role="status">
+              <p className="br-bw-form-success-title">Vielen Dank für Ihre Anfrage.</p>
+              <p>
+                Ihr E-Mail-Programm wurde geöffnet. Sobald Sie die Nachricht absenden, melden wir uns zeitnah bei
+                Ihnen. Alternativ erreichen Sie uns unter <a href={PHONE_TEL}>06074 960620</a> oder per{' '}
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                </a>
+                .
               </p>
-            )}
-            <p className="br-ablauf-privacy">
-              Mit dem Absenden erklären Sie sich mit unserer <Link to="/datenschutz">Datenschutzerklärung</Link>{' '}
-              einverstanden.
-            </p>
-          </form>
+            </div>
+          ) : (
+            <form className="br-ablauf-contact-form br-bw-contact-form" onSubmit={handleSubmit}>
+              <div className="br-form-row">
+                <label className="br-input-group">
+                  <span>Vorname *</span>
+                  <input type="text" name="vorname" required autoComplete="given-name" />
+                </label>
+                <label className="br-input-group">
+                  <span>Nachname *</span>
+                  <input type="text" name="nachname" required autoComplete="family-name" />
+                </label>
+              </div>
+              <div className="br-form-row">
+                <label className="br-input-group">
+                  <span>Telefonnummer *</span>
+                  <input type="tel" name="telefon" required autoComplete="tel" inputMode="tel" />
+                </label>
+                <label className="br-input-group">
+                  <span>E-Mail-Adresse *</span>
+                  <input type="email" name="email" required autoComplete="email" inputMode="email" />
+                </label>
+              </div>
+              <label className="br-input-group">
+                <span>PLZ / Ort *</span>
+                <input type="text" name="plzOrt" required autoComplete="postal-code" />
+              </label>
+              <div className="br-form-row">
+                <label className="br-input-group">
+                  <span>Welche Maßnahme planen Sie?</span>
+                  <select name="massnahme" required defaultValue="">
+                    <option value="" disabled>
+                      Bitte wählen
+                    </option>
+                    {massnahmeOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="br-input-group">
+                  <span>Wann möchten Sie starten?</span>
+                  <select name="start" required defaultValue="">
+                    <option value="" disabled>
+                      Bitte wählen
+                    </option>
+                    {startOptions.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <label className="br-input-group">
+                <span>Projektbeschreibung *</span>
+                <textarea
+                  name="nachricht"
+                  rows={5}
+                  required
+                  placeholder="Beschreiben Sie Ihr Badezimmer und Ihre Wünsche möglichst genau."
+                />
+              </label>
+              <label className="br-input-group br-bw-photo-upload">
+                <span>Fotos hochladen</span>
+                <input
+                  type="file"
+                  name="fotos"
+                  accept="image/*"
+                  capture="environment"
+                  multiple
+                  onChange={(e) => setPhotoCount(e.target.files?.length || 0)}
+                />
+                <small>
+                  Laden Sie Fotos Ihres Badezimmers hoch – auch direkt vom Smartphone.
+                  {photoCount > 0 ? ` ${photoCount} Datei(en) ausgewählt.` : ''}
+                </small>
+              </label>
+              <button type="submit" className="btn br-btn-orange br-ablauf-submit">
+                Badsanierung anfragen <Send size={18} />
+              </button>
+              <p className="br-ablauf-privacy">
+                Mit dem Absenden erklären Sie sich mit unserer <Link to="/datenschutz">Datenschutzerklärung</Link>{' '}
+                einverstanden.
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </section>
@@ -527,9 +471,8 @@ export default function AblaufBadsanierungLanding() {
   }, [seoPanelOpen]);
 
   useSeo({
-    title: 'Ablauf Badsanierung | Schritt für Schritt zum neuen Bad',
-    description:
-      'Wer eine Badsanierung plant, stellt sich früh eine ganz konkrete Frage: Was passiert eigentlich wann – und in welcher Reihenfolge? Radex erklärt alle Schritte – von Beratung und Planung bis Abnahme und Übergabe.',
+    title: META_TITLE,
+    description: META_DESCRIPTION,
     path: '/ablauf-badsanierung',
     image: HERO_IMAGE,
     jsonLd: [
@@ -549,6 +492,13 @@ export default function AblaufBadsanierungLanding() {
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
+              <Link to="/">Startseite</Link>
+              <span aria-hidden="true">↓</span>
+              <Link to="/badsanierung-rhein-main">Badsanierung</Link>
+              <span aria-hidden="true">↓</span>
+              <span>Ablauf einer Badsanierung</span>
+            </nav>
             <p className="br-hero-kicker">SHK-Meisterbetrieb · Projektablauf · Rhein-Main-Gebiet</p>
             <h1 className="br-hero-title">
               Ablauf einer Badsanierung
@@ -563,10 +513,7 @@ export default function AblaufBadsanierungLanding() {
               Ihrer Badsanierung im Rhein-Main-Gebiet – klar strukturiert, transparent begleitet und unter fachlicher
               Leitung eines SHK-Meisterbetriebs.
             </p>
-            <AblaufCTABlock isHero primaryHref="#projektphasen" />
-            <p className="br-hero-micro">
-              <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
-            </p>
+            <AblaufCTA isHero />
           </div>
         </div>
         <div
@@ -578,222 +525,129 @@ export default function AblaufBadsanierungLanding() {
         />
       </section>
 
-      {/* 2 Trust Bar */}
+      {/* 2 Trust */}
       <section className="br-section br-trust-usp-section">
         <div className="container">
-          <TrustUspCards cards={trustCards} />
+          <PremiumIconCards cards={trustCards} largeIcons />
         </div>
       </section>
 
-      {/* 3 Projektphasen */}
-      <section id="projektphasen" className="br-section br-bg-light br-ablauf-phases-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Die einzelnen Projektphasen Ihrer Badsanierung</h2>
-            <p className="br-section-subtitle br-section-subtitle--wide">
-              Jede Badsanierung folgt einem strukturierten Ablauf. Bereits vor Beginn der Arbeiten werden alle Gewerke,
-              Materialien und Termine sorgfältig geplant. Dadurch entsteht ein koordinierter Bauablauf, der unnötige
-              Wartezeiten reduziert und für Transparenz während des gesamten Projekts sorgt.
-            </p>
-          </div>
-          <ImageCardGrid cards={phaseCards} />
-        </div>
-      </section>
-
-      {/* 4 Vorteile strukturierter Ablauf */}
-      <SectionTransition title="Warum ein strukturierter Ablauf so wichtig ist">
-        Eine professionelle Organisation reduziert Verzögerungen, erleichtert die Zusammenarbeit aller Gewerke und
-        schafft für Sie maximale Planungssicherheit. Jeder Arbeitsschritt baut auf dem vorherigen auf und wird
-        sorgfältig koordiniert.
-      </SectionTransition>
-
-      <section className="br-section br-ablauf-benefits">
-        <div className="container">
-          <PremiumIconCards cards={benefitCards} largeIcons />
-          <div className="br-ablauf-cta-wrap">
-            <AblaufCTABlock centered primaryHref="#projektablauf" />
-          </div>
-        </div>
-      </section>
-
-      <SectionTransition title="Warum Eigentümer ihre Badsanierung Radex anvertrauen">
-        Im nächsten Abschnitt erfahren Sie, warum eine strukturierte Projektorganisation und die langjährige Erfahrung
-        von Radex entscheidend für eine erfolgreiche Badsanierung im Rhein-Main-Gebiet sind.
-      </SectionTransition>
-
-      {/* 5 Warum Radex */}
-      <section className="br-section br-bg-light br-ablauf-why-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Warum Radex auf einen strukturierten Projektablauf setzt</h2>
-            <p className="br-section-subtitle br-section-subtitle--wide">
-              Eine erfolgreiche Badsanierung beginnt nicht mit dem ersten Handwerkertermin, sondern mit einer
-              professionellen Organisation. Jeder Arbeitsschritt wird vorbereitet, alle beteiligten Gewerke werden
-              aufeinander abgestimmt und der gesamte Ablauf wird zentral koordiniert. Dadurch entstehen transparente
-              Prozesse, kurze Entscheidungswege und ein reibungsloser Projektverlauf.
-            </p>
-          </div>
-          <div className="br-ablauf-why-grid">
-            <PremiumIconCards cards={whyRadexCards} largeIcons />
-          </div>
-        </div>
-      </section>
-
-      {/* 6 Bernd Knoop Video */}
-      <SectionTransition title="Persönlich erklärt von Bernd Knoop">
-        Bernd Knoop, SHK-Meister und Betriebsleiter der Radex Objektmanagement GmbH, erklärt im Video, wie eine
-        professionelle Projektorganisation den Ablauf einer Badsanierung vereinfacht und warum eine gute Vorbereitung
-        für ein erfolgreiches Ergebnis entscheidend ist.
-      </SectionTransition>
-
-      <section id="video" className="br-section br-ablauf-video-section">
-        <div className="container br-ablauf-video-container">
-          <div className="br-ablauf-video-frame">
-            <video
-              src={testVideo}
-              controls
-              playsInline
-              preload="none"
-              poster={VIDEO_POSTER}
-              title="Bernd Knoop – Ablauf einer Badsanierung"
-            />
-          </div>
-
-          <ul className="br-ablauf-video-trust">
-            {videoTrustPoints.map((point) => (
-              <li key={point}>
-                <CheckCircle2 size={18} color="#f97316" aria-hidden="true" />
-                {point}
-              </li>
-            ))}
-          </ul>
-
-          <div className="br-ablauf-cta-wrap">
-            <AblaufCTABlock centered primaryHref="#projektablauf" />
-          </div>
-
-          <div className="br-ablauf-video-transcript">
-            <h3>Video-Transkript</h3>
-            {videoTranscript.map((para) => (
-              <p key={para.slice(0, 40)}>{para}</p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <SectionTransition title="So läuft Ihr Projekt Schritt für Schritt ab">
-        Von der ersten Anfrage bis zur fertigen Übergabe begleiten wir Sie durch jede einzelne Projektphase. So
-        behalten Sie jederzeit den Überblick und wissen genau, welche Schritte als Nächstes folgen.
-      </SectionTransition>
-
-      {/* 7 Projektablauf Timeline */}
+      {/* 3 Six-step process */}
       <HorizontalProcessTimeline
-        title="Ihr Weg zum neuen Badezimmer"
-        intro="Jede Badsanierung folgt einem klaren Ablauf. Bereits vor dem ersten Arbeitstag werden alle Termine, Materialien und beteiligten Gewerke sorgfältig vorbereitet. So wissen Sie jederzeit, welche Projektphase gerade ansteht und was als Nächstes passiert."
-        steps={journeySteps}
+        title="Die sechs Schritte Ihrer Badsanierung"
+        intro="Jede Badsanierung folgt einem klaren Ablauf. Bereits vor dem ersten Arbeitstag werden Termine, Materialien und Gewerke abgestimmt – damit Sie jederzeit wissen, was als Nächstes kommt."
+        steps={processSteps}
       />
 
-      {/* 8 Project Status */}
-      <SectionTransition title="Projektstatus jederzeit nachvollziehbar">
-        Während der gesamten Bauphase behalten Sie den Überblick. Durch die strukturierte Projektorganisation wissen
-        Sie jederzeit, welche Arbeiten bereits abgeschlossen wurden und welche Schritte als Nächstes folgen.
-      </SectionTransition>
-
-      <ProjectStatusTrack statuses={projectStatuses} />
-
-      <section className="br-section br-ablauf-cta-box-section">
+      {/* 4 Warum Koordination */}
+      <section id="koordination" className="br-section br-bg-light br-bw-why-section">
         <div className="container">
-          <div className="br-ablauf-cta-box">
-            <h2 className="br-section-title">Sie möchten wissen, wie Ihr Projekt abläuft?</h2>
-            <p className="br-section-subtitle">
-              Wir erklären Ihnen jeden Schritt persönlich und begleiten Sie von der ersten Beratung bis zur fertigen
-              Übergabe Ihres Badezimmers.
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Warum die Koordination entscheidend ist</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Bei einer Badsanierung greifen Sanitär, Elektro, Trockenbau, Abdichtung, Fliesenarbeiten und Montage
+              direkt ineinander. Werden einzelne Arbeitsschritte nicht optimal koordiniert, entstehen schnell
+              Wartezeiten, unnötige Nacharbeiten oder zusätzliche Kosten. Radex koordiniert sämtliche Gewerke zentral
+              und begleitet das Projekt von der ersten Planung bis zur Übergabe mit einem festen Ansprechpartner.
             </p>
-            <AblaufCTABlock centered showThird primaryHref="#kontakt" />
+          </div>
+          <PremiumIconCards cards={coordinationCards} largeIcons />
+        </div>
+      </section>
+
+      {/* 5 Bernd Knoop Video Placeholder */}
+      <section id="video" className="br-section br-ablauf-video-section">
+        <div className="container br-ablauf-video-container">
+          <div className="text-center mb-10">
+            <h2 className="br-section-title">Fachlich erklärt vom SHK-Meister</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Bernd Knoop erklärt den Ablauf einer professionellen Badsanierung.
+            </p>
+          </div>
+          <div
+            className="br-ablauf-video-frame br-bw-video-placeholder"
+            style={{ backgroundImage: `url(${VIDEO_POSTER})` }}
+            role="img"
+            aria-label="Videoplatzhalter: Bernd Knoop, SHK-Meister"
+          >
+            <div className="br-bw-video-placeholder-overlay">
+              <span className="br-bw-video-placeholder-play" aria-hidden="true" />
+              <p>Video folgt in Kürze</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 9 Praxisbeispiele */}
-      <SectionTransition title="Projektbeispiele aus dem Rhein-Main-Gebiet">
-        Die folgenden Beispiele zeigen typische Badsanierungen mit unterschiedlichem Umfang. Sie vermitteln einen
-        realistischen Eindruck davon, wie strukturierte Projektabläufe in der Praxis umgesetzt werden.
-      </SectionTransition>
-
-      <section className="br-section br-bg-light br-ablauf-examples-section">
+      {/* 6 Projekte */}
+      <section id="projekte" className="br-section br-ablauf-examples-section">
         <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Einblicke in unsere Arbeit</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Unsere Teams sind täglich im gesamten Rhein-Main-Gebiet im Einsatz. Begleiten Sie uns auf ausgewählten
+              Baustellen und verschaffen Sie sich einen Eindruck davon, wie professionelle Badsanierungen in der Praxis
+              entstehen.
+            </p>
+            <p className="br-bw-project-slogan">Schauen Sie unseren Teams bei der Arbeit über die Schulter.</p>
+          </div>
           <div className="br-ablauf-examples-grid">
-            {projectExamples.map((example) => (
-              <article key={example.title} className="br-ablauf-example-card">
-                <div
-                  className="br-ablauf-example-img"
-                  style={{ backgroundImage: `url(${example.image})` }}
-                  role="img"
-                  aria-label={example.imageAlt}
-                >
-                  <span className="br-ablauf-symbolbild">Symbolbild</span>
-                </div>
-                <div className="br-ablauf-example-body">
-                  <h3>{example.title}</h3>
-                  <p>{example.desc}</p>
-                  <Link to={example.to} className="br-btn-orange">
-                    {example.cta}
-                  </Link>
-                </div>
-              </article>
+            {projectExamples.map((project) => (
+              <ProjectCard key={project.title} project={project} />
             ))}
           </div>
           <div className="text-center mt-10">
-            <a href="#kontakt" className="btn br-btn-orange">
-              Jetzt Projekt besprechen
+            <a href={RADEX_LIVE_URL} className="btn br-btn-orange" target="_blank" rel="noopener noreferrer">
+              Alle Badprojekte ansehen
             </a>
           </div>
         </div>
       </section>
 
-      <SectionTransition title="Häufige Fragen zum Ablauf einer Badsanierung">
-        Im nächsten Abschnitt beantworten wir häufig gestellte Fragen rund um Projektablauf, Organisation, Bauphasen und
-        die Zusammenarbeit während einer Badsanierung.
-      </SectionTransition>
-
-      {/* 10 FAQ */}
+      {/* 7 FAQ */}
       <FaqAccordion
         faqs={faqsData}
         title="Häufige Fragen zum Ablauf einer Badsanierung"
-        intro="Vor Beginn einer Badsanierung möchten viele Eigentümer wissen, welche Schritte auf sie zukommen und wie das Projekt organisiert wird. Hier beantworten wir die häufigsten Fragen rund um den Ablauf einer professionellen Badsanierung."
+        intro="Kurze Antworten auf die wichtigsten Fragen rund um Projektablauf, Organisation und Zusammenarbeit."
       />
 
-      <SectionTransition title="Starten Sie Ihre Badsanierung mit einem klaren Plan">
-        Ein strukturierter Ablauf schafft Sicherheit und sorgt für einen reibungslosen Projektverlauf. Gerne begleiten
-        wir Sie Schritt für Schritt – von der ersten Beratung bis zu Ihrem fertigen Badezimmer.
-      </SectionTransition>
-
-      {/* 11 Kontakt */}
+      {/* 8 + 9 Contact + Form */}
       <AblaufContactSection />
 
-      {/* 12 Weitere Informationen – city-style side drawer */}
+      {/* 10 Weitere Informationen (+ regional) */}
       <section id="seo-informationen" className="br-section br-bg-light">
         <div className="container">
-          <div className="text-center">
+          <div className="br-bw-regional-teaser">
+            <p>
+              Radex begleitet Badsanierungen im gesamten Rhein-Main-Gebiet – unter anderem in Frankfurt, Offenbach,
+              Hanau, Darmstadt, Dreieich, Rodgau, Rödermark, Neu-Isenburg, Dietzenbach und vielen weiteren Städten der
+              Region.
+            </p>
+            <Link to="/einsatzgebiete-rhein-main" className="btn br-btn-orange">
+              Alle Einsatzgebiete ansehen
+            </Link>
+          </div>
+
+          <div className="text-center" style={{ marginTop: '48px' }}>
+            <p className="br-section-subtitle" style={{ marginBottom: '16px' }}>
+              Ausführliche Informationen zu Planung, Bauphasen, Gewerken und Übergabe finden Sie hier.
+            </p>
             <button
               type="button"
               className={`br-seo-toc-toggle${seoPanelOpen ? ' is-open' : ''}`}
               onClick={() => setSeoPanelOpen(true)}
               aria-haspopup="dialog"
               aria-expanded={seoPanelOpen}
+              aria-controls="ablauf-seo-panel"
             >
-              <h2 className="br-section-title">
-                Weitere Informationen zum Ablauf einer Badsanierung
+              <h2 id="ablauf-seo-heading" className="br-section-title">
+                Weitere Informationen
               </h2>
               <ChevronDown size={28} className="br-seo-toc-toggle-icon" aria-hidden="true" />
             </button>
           </div>
         </div>
 
-        <div
-          className={`br-city-seo-panel-root ${seoPanelOpen ? 'open' : ''}`}
-          aria-hidden={!seoPanelOpen}
-        >
+        <div className={`br-city-seo-panel-root ${seoPanelOpen ? 'open' : ''}`} aria-hidden={!seoPanelOpen}>
           <button
             type="button"
             className="br-city-seo-panel-backdrop"
@@ -802,13 +656,14 @@ export default function AblaufBadsanierungLanding() {
             onClick={() => setSeoPanelOpen(false)}
           />
           <aside
+            id="ablauf-seo-panel"
             className="br-city-seo-panel br-ablauf-seo-panel"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="ablauf-seo-panel-title"
+            aria-labelledby="ablauf-seo-heading"
           >
             <div className="br-city-seo-panel-header">
-              <h2 id="ablauf-seo-panel-title">Weitere Informationen zum Ablauf einer Badsanierung</h2>
+              <p className="br-bw-seo-panel-label">Weitere Informationen</p>
               <button
                 type="button"
                 className="br-city-seo-panel-close"
@@ -819,9 +674,7 @@ export default function AblaufBadsanierungLanding() {
               </button>
             </div>
             <div className="br-city-seo-panel-body">
-              <div className="br-city-seo-panel-block br-ablauf-seo-intro">
-                {ablaufBadsanierungSeoIntro}
-              </div>
+              <div className="br-city-seo-panel-block br-ablauf-seo-intro">{ablaufBadsanierungSeoIntro}</div>
 
               {ablaufBadsanierungSeoSections.map((section) => (
                 <article key={section.id} id={section.id} className="br-city-seo-panel-block">
@@ -830,11 +683,7 @@ export default function AblaufBadsanierungLanding() {
                 </article>
               ))}
 
-              <a
-                href="#kontakt"
-                className="br-city-seo-article-cta"
-                onClick={() => setSeoPanelOpen(false)}
-              >
+              <a href="#kontakt-form" className="br-city-seo-article-cta" onClick={() => setSeoPanelOpen(false)}>
                 Ablauf besprechen – Beratung anfragen
               </a>
             </div>

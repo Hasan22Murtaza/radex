@@ -7,7 +7,7 @@ const h4 = 'br-seo-subheading';
 export const badplanungSeoIntro = (
   <>
     <img
-      src="/img/badplanung-hero-radex.webp"
+      src="/img/badplanung-hero.png"
       alt="Badplanung im Rhein-Main-Gebiet – durchdachte Planung von Grundriss, Sanitärtechnik, Licht und Materialien durch Radex"
       className="w-full rounded-xl mb-6"
       loading="lazy"
@@ -31,7 +31,11 @@ export const badplanungSeoIntro = (
       Ob Sie ein Komplettbad neu gestalten, ein kleines Bad funktional optimieren oder ein bestehendes Badezimmer
       behutsam modernisieren möchten: Die Planung entscheidet darüber, wie gut das Ergebnis am Ende wirklich ist. Wir
       helfen Ihnen dabei, diese Entscheidungen strukturiert und informiert zu treffen – ohne Druck, ohne Produktverkauf,
-      mit echtem Sachverstand aus dem Handwerk.
+      mit echtem Sachverstand aus dem Handwerk. Eine{' '}
+      <Link to="/badmodernisierung">Badmodernisierung</Link>, eine{' '}
+      <Link to="/badrenovierung">Badrenovierung</Link> oder eine{' '}
+      <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link> beginnt bei Radex immer mit einer klaren
+      Planung.
     </p>
   </>
 );
@@ -43,7 +47,7 @@ export const badplanungSeoSections = [
     content: (
       <>
         <img
-          src="/img/badplanung-intro-radex.webp"
+          src="/img/badplanung-planungstisch.png"
           alt="Gute Badplanung beginnt mit den richtigen Fragen – Beratung und Bestandsaufnahme durch den SHK Meisterbetrieb Radex"
           className="w-full rounded-xl mb-6"
           loading="lazy"
@@ -552,9 +556,13 @@ export const badplanungSeoSections = [
         <p className={p}>
           Weiterführende Informationen finden Sie auch auf unserer Übersichtsseite zur{' '}
           <Link to="/badsanierung-rhein-main">Badsanierung</Link> im Rhein-Main-Gebiet und auf den Seiten zu{' '}
-          <Link to="/komplettbadsanierung-rhein-main">Komplettbadsanierung</Link>,{' '}
-          <Link to="/badsanierung-rhein-main">kleines Bad sanieren</Link> und{' '}
-          <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>.
+          <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link>,{' '}
+          <Link to="/badmodernisierung">Badmodernisierung</Link>, <Link to="/badrenovierung">Badrenovierung</Link>,{' '}
+          <Link to="/dusche-statt-badewanne">Dusche statt Badewanne</Link>,{' '}
+          <Link to="/badewanne-austauschen">Badewanne austauschen</Link>,{' '}
+          <Link to="/ablauf-badsanierung">Ablauf einer Badsanierung</Link> und{' '}
+          <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>. Einen Überblick über alle Orte finden Sie unter{' '}
+          <Link to="/einsatzgebiete-rhein-main">Alle Einsatzgebiete</Link>.
         </p>
         <h4 className={h4}>Unsere Einsatzorte für Badplanungen</h4>
         <ul className={ul}>

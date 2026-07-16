@@ -399,42 +399,13 @@ export const badewanneAustauschenSeoSections = [
     content: (
       <>
         <p className={p}>
-          Radex bietet Badsanierungen in über 60 Städten und Gemeinden im Rhein-Main-Gebiet an. Wannentausch-Aufträge
-          kommen häufig aus dem nördlichen und östlichen Rhein-Main-Raum – aus Städten und Gemeinden entlang des
-          Mains, in denen viele Wohngebäude aus den 1970er und 1980er Jahren stehen, deren Badewannen inzwischen
-          erneuerungsbedürftig sind.
+          Radex tauscht Badewannen im gesamten Rhein-Main-Gebiet aus. Dazu gehören unter anderem Frankfurt, Offenbach,
+          Hanau, Darmstadt, Dreieich, Rodgau, Rödermark, Neu-Isenburg sowie viele weitere Städte der Region.
         </p>
         <p className={p}>
-          In Mühlheim am Main und Seligenstadt führen wir regelmäßig Wannentausch-Maßnahmen durch – in
-          Einfamilienhäusern und Eigentumswohnungen, in denen die alten Stahlemaillewannen durch neue Acrylwannen
-          ersetzt werden. In Hainburg und Mainhausen sind wir für Privatkunden tätig, die ihr Bad gezielt
-          teilrenovieren lassen möchten, ohne den gesamten Raum anzutasten.
-        </p>
-        <p className={p}>
-          In Hanau und den umliegenden Gemeinden wie Großkrotzenburg, Langenselbold und Rodenbach führt Radex
-          Wannentausch-Aufträge als Badteilrenovierung durch. Das Badewanne austauschen ist dabei oft der Einstieg
-          in eine größere Auffrischung des Bades, die dann schrittweise fortgesetzt wird – je nach Budget und
-          Dringlichkeit.
-        </p>
-        <p className={p}>
-          Die vollständige Übersicht aller Einsatzorte finden Sie auf der Seite{' '}
-          <Link to="/einsatzgebiete-rhein-main">Einsatzgebiete</Link>.
-        </p>
-        <h4 className={h4}>Unsere Einsatzorte für Wannentausch</h4>
-        <ul className={ul}>
-          <li>Mühlheim am Main</li>
-          <li>Seligenstadt</li>
-          <li>Hainburg</li>
-          <li>Mainhausen</li>
-          <li>Hanau</li>
-          <li>Großkrotzenburg</li>
-          <li>Langenselbold</li>
-          <li>Rodenbach</li>
-          <li>Rödermark</li>
-          <li>Rhein-Main-Gebiet</li>
-        </ul>
-        <p className={p}>
-          <Link to="/einsatzgebiete-rhein-main">Alle Orte im Überblick →</Link>
+          <Link to="/einsatzgebiete-rhein-main" className="btn br-btn-orange" style={{ display: 'inline-block' }}>
+            Alle Einsatzgebiete ansehen
+          </Link>
         </p>
       </>
     ),

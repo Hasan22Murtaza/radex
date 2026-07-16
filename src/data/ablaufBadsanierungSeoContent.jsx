@@ -50,12 +50,11 @@ export const ablaufBadsanierungSeoSections = [
       <>
         <h4 className={h4}>Erstgespräch und Beratung</h4>
         <p className={p}>
-          Am Anfang jeder Badsanierung steht das persönliche Gespräch vor Ort. Radex kommt zu Ihnen – nach
-          Gelnhausen, Langenselbold, Büdingen, Hasselroth oder in eine der anderen Städte und Gemeinden im
-          Rhein-Main-Gebiet –, sieht sich das Bad an und hört Ihnen zu. Welche Anforderungen haben Sie? Soll das Bad
-          vollständig erneuert oder gezielte Bereiche verbessert werden? Gibt es{' '}
-          <Link to="/barrierefreies-bad">Barrierefreiheits-Anforderungen</Link>, Platzprobleme oder bauliche
-          Besonderheiten, die berücksichtigt werden müssen?
+          Am Anfang jeder Badsanierung steht das persönliche Gespräch vor Ort. Radex kommt zu Ihnen – in Frankfurt,
+          Offenbach, Darmstadt oder in eine der anderen Städte und Gemeinden im Rhein-Main-Gebiet –, sieht sich das Bad
+          an und hört Ihnen zu. Welche Anforderungen haben Sie? Soll das Bad vollständig erneuert oder gezielte
+          Bereiche verbessert werden? Gibt es <Link to="/barrierefreies-bad">Barrierefreiheits-Anforderungen</Link>,
+          Platzprobleme oder bauliche Besonderheiten, die berücksichtigt werden müssen?
         </p>
         <p className={p}>
           Das Erstgespräch hat zwei Ziele: Radex versteht Ihren konkreten Bedarf, und Sie erhalten ein realistisches
@@ -272,7 +271,7 @@ export const ablaufBadsanierungSeoSections = [
           Wände, frisch verlegte Fliesen, lose Rohre – wird jetzt zu einem fertig ausgestatteten Raum. Alle
           Elektroarbeiten werden in dieser Phase abgeschlossen: Leuchten werden angeschlossen, Schalter und
           Steckdosen montiert, Ventilatoren eingesetzt und – sofern geplant – Fußbodenheizungsregler gesetzt. Wer
-          eine <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link> beauftragt hat, erlebt in
+          eine <Link to="/komplettbadsanierung-rhein-main">Komplettbadsanierung</Link> beauftragt hat, erlebt in
           dieser Phase, wie sich Planung und handwerkliche Ausführung zu einem fertigen Ergebnis zusammenfügen.
         </p>
         <p className={p}>
@@ -420,23 +419,21 @@ export const ablaufBadsanierungSeoSections = [
         </p>
         <h4 className={h4}>Planung schützt vor Überraschungen</h4>
         <p className={p}>
-          Ob Einfamilienhaus in Gelnhausen, Eigentumswohnung in Büdingen oder Mehrfamilienhaus in Langenselbold –
-          Radex bespricht die Wohnsituation während der Bauphase verbindlich beim Erstgespräch. Kein Auftraggeber
-          sollte erst auf der Baustelle herausfinden, wie lange er ohne Bad ist.
+          Ob Einfamilienhaus, Eigentumswohnung oder Mehrfamilienhaus – Radex bespricht die Wohnsituation während der
+          Bauphase verbindlich beim Erstgespräch. Kein Auftraggeber sollte erst auf der Baustelle herausfinden, wie
+          lange er ohne Bad ist.
         </p>
       </>
     ),
   },
   {
     id: 'einsatzgebiet',
-    title: 'Badsanierungen im östlichen Rhein-Main-Gebiet: Gelnhausen, Büdingen, Langenselbold und Umgebung',
+    title: 'Badsanierungen im gesamten Rhein-Main-Gebiet',
     content: (
       <>
         <p className={p}>
-          Radex bietet Badsanierungen in über 60 Städten und Gemeinden im Rhein-Main-Gebiet an. Dazu gehören
-          insbesondere die Städte und Gemeinden im östlichen Teil des Gebiets, die von unserem Standort in Rödermark
-          gut erreichbar sind: Gelnhausen, Gründau, Freigericht, Hasselroth, Hammersbach, Neuberg, Büdingen und
-          Langenselbold.
+          Radex begleitet Badsanierungen im gesamten Rhein-Main-Gebiet – unter anderem in Frankfurt, Offenbach, Hanau,
+          Darmstadt, Dreieich, Rodgau, Rödermark, Neu-Isenburg, Dietzenbach und vielen weiteren Städten der Region.
         </p>
         <p className={p}>
           In diesen Kommunen sanieren wir Bäder in Einfamilienhäusern, Reihenhäusern, Eigentumswohnungen und
@@ -448,26 +445,9 @@ export const ablaufBadsanierungSeoSections = [
         </p>
         <p className={p}>
           Als Generalunternehmer koordinieren wir alle Gewerke direkt – Sanitär als eigene Meisterleistung, Elektro,
-          Trockenbau, Fliesen und Abdichtung über eingespielte Fachbetriebe. Auftraggeber in Gelnhausen oder
-          Büdingen haben denselben strukturierten Ablauf und denselben Ansprechpartner wie Auftraggeber in Rödermark
-          selbst. Wenn Sie wissen möchten, ob Ihre Gemeinde zu unserem Einzugsgebiet gehört, finden Sie alle
-          Informationen auf der Seite <Link to="/badsanierung-rhein-main">Badsanierung Rhein-Main</Link>.
-        </p>
-        <h4 className={h4}>Unsere Einsatzorte (östliches Rhein-Main-Gebiet)</h4>
-        <ul className={ul}>
-          <li>Rödermark</li>
-          <li>Gelnhausen</li>
-          <li>Gründau</li>
-          <li>Freigericht</li>
-          <li>Hasselroth</li>
-          <li>Hammersbach</li>
-          <li>Neuberg</li>
-          <li>Büdingen</li>
-          <li>Langenselbold</li>
-          <li>Rhein-Main-Gebiet</li>
-        </ul>
-        <p className={p}>
-          <Link to="/badsanierung-rhein-main">Alle Orte im Überblick →</Link>
+          Trockenbau, Fliesen und Abdichtung über eingespielte Fachbetriebe. Ausführliche Ortsinformationen gehören auf
+          die jeweiligen Stadtseiten. Einen Überblick finden Sie unter{' '}
+          <Link to="/einsatzgebiete-rhein-main">Alle Einsatzgebiete ansehen</Link>.
         </p>
       </>
     ),
@@ -484,7 +464,7 @@ export const ablaufBadsanierungSeoSections = [
           Trockenbau und Vorwandinstallation, Fliesenarbeiten, Sanitärfertigstellung und abschließende Abnahme mit
           Übergabe. Bei einer Teilsanierung oder einem Badumbau Schritt für Schritt kann es sein, dass einzelne
           Phasen entfallen oder deutlich kürzer ausfallen – das hängt davon ab, was konkret erneuert wird. Bei einer{' '}
-          <Link to="/badsanierung/badezimmer-sanieren">Komplettbadsanierung</Link> sind in der Regel alle genannten
+          <Link to="/komplettbadsanierung-rhein-main">Komplettbadsanierung</Link> sind in der Regel alle genannten
           Phasen vollständig enthalten.
         </p>
         <h4 className={h4}>Was passiert zuerst bei einer Badsanierung?</h4>
