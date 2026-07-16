@@ -45,7 +45,7 @@ const whyRadexCards = [
 
 const serviceCards = [
   { to: '/komplettbadsanierung-rhein-main', title: 'Komplettbadsanierung', desc: 'Das Bad vollständig entkernen und neu aufbauen – aus einer Hand.', icon: Bath },
-  { to: '/badplanung-rhein-main', title: 'Badplanung', desc: 'Grundriss, Materialien und Ausstattung professionell planen.', icon: FileText },
+  { to: '/badplanung', title: 'Badplanung', desc: 'Grundriss, Materialien und Ausstattung professionell planen.', icon: FileText },
   { to: '/sanitaerinstallation-rhein-main', title: 'Sanitärinstallation', desc: 'Wasser, Abwasser und Sanitärobjekte fachgerecht installieren.', icon: Droplets },
   { to: '/barrierefreies-bad-rhein-main', title: 'Barrierefreies Bad', desc: 'Bodengleiche Dusche und sichere Bewegungsflächen planen.', icon: Accessibility },
 ];
@@ -167,7 +167,7 @@ const seoAccordions = [
         <li><strong>Elektro & Trockenbau:</strong> Beleuchtung, Schalter, Steckdosen, Lüftung und Vorwandinstallationen – koordiniert, damit keine Schnittstelle offen bleibt.</li>
         <li><strong>Fliesen & Oberflächen:</strong> Großformatige Bodenfliesen, Wandfliesen im Wunschformat oder Mosaik – durch routinierte Fliesenleger.</li>
         <li><strong>Ausbau & Einrichtung:</strong> Montage von Badmöbeln, Armaturen, Spiegel, Accessoires und Beleuchtung.</li>
-        <li><strong>Badplanung & Beratung:</strong> Vor dem ersten Handgriff steht die Planung: Bedarf, Grundriss, Materialwünsche und Budget. <a href="/badplanung-rhein-main">Badplanung</a>.</li>
+        <li><strong>Badplanung & Beratung:</strong> Vor dem ersten Handgriff steht die Planung: Bedarf, Grundriss, Materialwünsche und Budget. <a href="/badplanung">Badplanung</a>.</li>
       </ul>
     ),
   },

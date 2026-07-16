@@ -63,7 +63,7 @@ export default function Footer() {
             <ul className="footer-links">
               <li><a href="/badsanierung-rhein-main" className="footer-link">Badsanierung</a></li>
               <li><a href="/badsanierung-rhein-main" className="footer-link">Barrierefreies Bad</a></li>
-              <li><a href="/badsanierung-rhein-main" className="footer-link">Badplanung</a></li>
+              <li><a href="/badplanung" className="footer-link">Badplanung</a></li>
               <li><a href={RADEX_LIVE_URL} className="footer-link">Aktuelle Badprojekte</a></li>
               <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
             </ul>

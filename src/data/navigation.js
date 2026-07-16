@@ -66,6 +66,14 @@ export const badsanierungCards = [
     image: '/img/badsanierung-thema-kosten.png',
   },
   {
+    to: '/badplanung',
+    title: 'Badplanung',
+    desc: 'Professionelle Badplanung im Rhein-Main-Gebiet – Raumaufteilung, Technik, Materialien und Design vor Baubeginn abstimmen.',
+    cta: 'Mehr erfahren',
+    icon: FileText,
+    image: '/img/badplanung-hero.png',
+  },
+  {
     to: '/ablauf-badsanierung',
     title: 'Planung & Ablauf',
     desc: 'Von der Erstberatung bis zur schlüsselfertigen Übergabe – erfahren Sie Schritt für Schritt, wie Ihre Badsanierung mit Radex abläuft.',

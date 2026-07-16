@@ -128,6 +128,11 @@
       "permanent": true
     },
     {
+      "source": "/badsanierung/badplanung",
+      "destination": "/badplanung",
+      "permanent": true
+    },
+    {
       "source": "/badsanierung/ablauf-badsanierung",
       "destination": "/ablauf-badsanierung",
       "permanent": true
