@@ -1062,3 +1062,207 @@
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
+/* ===== Badewanne austauschen money page ===== */
+.badewanne-austauschen-page .br-bw-vorteile-section .br-image-card-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.badewanne-austauschen-page .br-bw-vorteile-section .br-decision-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+}
+
+.badewanne-austauschen-page .br-bw-vorteile-section .br-nav-card-img {
+  height: 220px;
+  border-radius: 12px 12px 0 0;
+  margin: -24px -24px 16px;
+  background-size: cover;
+  background-position: center;
+}
+
+.badewanne-austauschen-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.badewanne-austauschen-page .br-bw-options-section .br-nav-landing-grid,
+.badewanne-austauschen-page .br-trust-usp-section .br-nav-landing-grid,
+.badewanne-austauschen-page .br-bw-process-section .br-nav-landing-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.badewanne-austauschen-page .br-bw-before-after-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.badewanne-austauschen-page .br-bw-before-after-card {
+  position: relative;
+  margin: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+
+.badewanne-austauschen-page .br-bw-before-after-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.badewanne-austauschen-page .br-bw-before-after-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  background: rgba(30, 58, 138, 0.92);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.badewanne-austauschen-page .br-bw-project-subtitle {
+  margin: 0 0 8px !important;
+  color: var(--orange, #f97316) !important;
+  font-weight: 600;
+  font-size: 14px !important;
+}
+
+.badewanne-austauschen-page .br-bw-price-note {
+  margin: 28px auto 0;
+  max-width: 720px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.badewanne-austauschen-page .br-bw-calculator {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px 28px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+  margin-bottom: 40px;
+}
+
+.badewanne-austauschen-page .br-bw-calc-question {
+  margin-bottom: 28px;
+}
+
+.badewanne-austauschen-page .br-bw-calc-question h3 {
+  margin: 0 0 14px;
+  color: var(--navy, #1e3a8a);
+  font-size: 18px;
+}
+
+.badewanne-austauschen-page .br-bw-calc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badewanne-austauschen-page .br-bw-calc-btn {
+  appearance: none;
+  border: 1.5px solid #d1d5db;
+  background: #f9fafb;
+  color: #1f2937;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 48px;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badewanne-austauschen-page .br-bw-calc-btn:hover {
+  border-color: var(--navy, #1e3a8a);
+  background: #fff;
+}
+
+.badewanne-austauschen-page .br-bw-calc-btn.is-active {
+  border-color: var(--navy, #1e3a8a);
+  background: rgba(30, 58, 138, 0.08);
+  color: var(--navy, #1e3a8a);
+  box-shadow: 0 0 0 1px var(--navy, #1e3a8a);
+}
+
+.badewanne-austauschen-page .br-bw-calc-result {
+  margin-top: 8px;
+  padding: 24px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.badewanne-austauschen-page .br-bw-calc-result h3 {
+  margin: 0 0 10px;
+  color: var(--navy, #1e3a8a);
+  font-size: 20px;
+}
+
+.badewanne-austauschen-page .br-bw-calc-range {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--navy, #1e3a8a);
+  letter-spacing: -0.02em;
+}
+
+.badewanne-austauschen-page .br-bw-calc-note {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.badewanne-austauschen-page .br-bw-cta-box {
+  margin-top: 8px;
+}
+
+@media (max-width: 1024px) {
+  .badewanne-austauschen-page .br-bw-vorteile-section .br-image-card-grid,
+  .badewanne-austauschen-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badewanne-austauschen-page .br-bw-options-section .br-nav-landing-grid,
+  .badewanne-austauschen-page .br-trust-usp-section .br-nav-landing-grid,
+  .badewanne-austauschen-page .br-bw-process-section .br-nav-landing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .badewanne-austauschen-page .br-bw-vorteile-section .br-image-card-grid,
+  .badewanne-austauschen-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badewanne-austauschen-page .br-bw-options-section .br-nav-landing-grid,
+  .badewanne-austauschen-page .br-trust-usp-section .br-nav-landing-grid,
+  .badewanne-austauschen-page .br-bw-process-section .br-nav-landing-grid,
+  .badewanne-austauschen-page .br-bw-before-after-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .badewanne-austauschen-page .br-bw-calculator {
+    padding: 24px 16px;
+  }
+
+  .badewanne-austauschen-page .br-bw-calc-btn {
+    width: 100%;
+  }
+
+  .badewanne-austauschen-page .br-bw-calc-range {
+    font-size: 22px;
+  }
+}

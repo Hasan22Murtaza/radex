@@ -18,12 +18,20 @@ export const badsanierungCards = [
     image: '/img/badsanierung-thema-komplett.png',
   },
   {
-    to: '/dusche-statt-badewanne-rhein-main',
+    to: '/dusche-statt-badewanne',
     title: 'Dusche statt Badewanne',
     desc: 'Mehr Komfort und Bewegungsfreiheit mit einer modernen Walk-in-Dusche – fachgerecht geplant, abgedichtet und als Festpreisangebot umgesetzt.',
     cta: 'Mehr erfahren',
     icon: ShowerHead,
     image: '/img/badsanierung-thema-dusche.png',
+  },
+  {
+    to: '/badewanne-austauschen',
+    title: 'Badewanne austauschen',
+    desc: 'Alte Badewanne fachgerecht ersetzen – moderne Modelle, geprüfte Anschlüsse und saubere Ausführung vom SHK-Meisterbetrieb im Rhein-Main-Gebiet.',
+    cta: 'Mehr erfahren',
+    icon: Bath,
+    image: '/img/badewanne-austauschen-hero.png',
   },
   {
     to: '/barrierefreies-bad-rhein-main',

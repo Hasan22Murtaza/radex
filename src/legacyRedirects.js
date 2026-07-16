@@ -32,7 +32,8 @@ const exactRedirects = {
 const keywordRedirects = [
   // Bathroom renovation long-tail variants
   // Bathroom renovation topic pages
-  { test: (p) => p.startsWith('/dusche-statt-badewanne') || p.startsWith('/badewanne-austauschen'), to: '/dusche-statt-badewanne' },
+  { test: (p) => p.startsWith('/dusche-statt-badewanne'), to: '/dusche-statt-badewanne' },
+  { test: (p) => p.startsWith('/badewanne-austauschen') || p.startsWith('/badsanierung/badewanne-austauschen'), to: '/badewanne-austauschen' },
   { test: (p) => p.startsWith('/barrierefreies-bad'), to: '/barrierefreies-bad' },
   { test: (p) => p.startsWith('/gaeste-wc') || p.startsWith('/kleines-bad'), to: '/gaeste-wc' },
   { test: (p) => p.startsWith('/badplanung'), to: '/badplanung' },

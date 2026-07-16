@@ -89,7 +89,12 @@
     },
     {
       "source": "/badewanne-austauschen-rhein-main",
-      "destination": "/dusche-statt-badewanne",
+      "destination": "/badewanne-austauschen",
+      "permanent": true
+    },
+    {
+      "source": "/badsanierung/badewanne-austauschen",
+      "destination": "/badewanne-austauschen",
       "permanent": true
     },
     {

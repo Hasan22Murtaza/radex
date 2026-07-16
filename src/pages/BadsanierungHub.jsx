@@ -164,6 +164,11 @@ const seoSections = [
     href: '/dusche-statt-badewanne#warum-dusche',
   },
   {
+    id: 'badewanne-austauschen',
+    title: 'Badewanne austauschen',
+    href: '/badewanne-austauschen',
+  },
+  {
     id: 'barrierefreies-bad',
     title: 'Barrierefreies Bad',
     href: '/barrierefreies-bad#was-bedeutet',

@@ -55,6 +55,7 @@ import BathroomRenovation from './pages/BathroomRenovation';
 import SanierungskostenRechnerPage from './pages/SanierungskostenRechnerPage';
 import SanierungAblaufLanding from './pages/SanierungAblaufLanding';
 import AblaufBadsanierungLanding from './pages/AblaufBadsanierungLanding';
+import BadewanneAustauschenLanding from './pages/BadewanneAustauschenLanding';
 import SanierungskostenLanding from './pages/SanierungskostenLanding';
 import RadexLiveRedirect from './pages/RadexLiveRedirect';
 
@@ -142,6 +143,7 @@ export default function App({ location }) {
           <Route path="/badsanierung-rhein-main" element={<BadsanierungHub />} />
           <Route path="/badsanierung/badezimmer-sanieren" element={<BathroomRenovation />} />
           <Route path="/dusche-statt-badewanne" element={<BadsanierungTopicPage topicId="dusche-statt-badewanne" />} />
+          <Route path="/badewanne-austauschen" element={<BadewanneAustauschenLanding />} />
           <Route path="/barrierefreies-bad" element={<BadsanierungTopicPage topicId="barrierefreies-bad" />} />
           <Route path="/gaeste-wc" element={<BadsanierungTopicPage topicId="gaeste-wc" />} />
           <Route path="/badplanung" element={<BadsanierungTopicPage topicId="badplanung" />} />
