@@ -40,6 +40,7 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/gaeste-wc') || p.startsWith('/kleines-bad'), to: '/gaeste-wc' },
   { test: (p) => p.startsWith('/badplanung'), to: '/badplanung' },
   { test: (p) => p === '/badsanierung/ablauf-badsanierung', to: '/ablauf-badsanierung' },
+  { test: (p) => p === '/badsanierung/badsanierung-dauer' || p.startsWith('/badsanierung-dauer'), to: '/badsanierung-dauer' },
   { test: (p) => p.startsWith('/badsanierung/badezimmer-sanieren') || p.startsWith('/komplettbadsanierung'), to: '/badsanierung/badezimmer-sanieren' },
   { test: (p) => p.startsWith('/schnelle-badsanierung') && !p.startsWith('/schnelle-badsanierung-rhein-main'), to: '/schnelle-badsanierung-rhein-main' },
   { test: (p) => p.startsWith('/bad-soforthilfe'), to: '/badsanierung/badezimmer-sanieren' },

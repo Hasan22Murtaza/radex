@@ -89,6 +89,14 @@ export const badsanierungCards = [
     icon: ListOrdered,
     image: '/img/badsanierung-thema-ablauf.png',
   },
+  {
+    to: '/badsanierung-dauer',
+    title: 'Badsanierung Dauer',
+    desc: 'Wie lange dauert eine Badsanierung? Realistische Bauzeiten, Bauphasen und Terminplanung für Ihr Projekt im Rhein-Main-Gebiet.',
+    cta: 'Mehr erfahren',
+    icon: Clock,
+    image: '/img/badsanierung-dauer-zeitplan-radex.webp',
+  },
 ];
 
 export const sanierungCards = [

@@ -212,7 +212,7 @@ export const badrenovierungSeoSections = [
         <p className={p}>
           Eine Badrenovierung ist oft kürzer im Vorlauf als eine Komplettbadsanierung – weil weniger Planung notwendig
           ist, wenn die Grundstruktur des Bades erhalten bleibt. Zu zeitlichen Abläufen und Bauzeiten finden Sie
-          Informationen auf der Seite <Link to="/ablauf-badsanierung">Badsanierung Dauer</Link>.
+          Informationen auf der Seite <Link to="/badsanierung-dauer">Badsanierung Dauer</Link>.
         </p>
         <h4 className={h4}>Schritt 3: Ausführung und Koordination</h4>
         <p className={p}>
@@ -438,7 +438,7 @@ export const badrenovierungSeoSections = [
           Da bei einer Badrenovierung die Grundsubstanz erhalten bleibt, entfällt der Rückbauaufwand einer
           Komplettbadsanierung. Das macht die Bauzeit in der Regel kürzer und die Belastung für den laufenden Haushalt
           geringer. Zu zeitlichen Aspekten bei Bad-Maßnahmen lesen Sie mehr auf der Seite{' '}
-          <Link to="/ablauf-badsanierung">Badsanierung Dauer</Link>.
+          <Link to="/badsanierung-dauer">Badsanierung Dauer</Link>.
         </p>
         <h4 className={h4}>Kann man ein Bestandsbad renovieren, ohne alle Fliesen zu entfernen?</h4>
         <p className={p}>

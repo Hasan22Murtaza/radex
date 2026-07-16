@@ -114,9 +114,15 @@
     },
     {
       "source": "/badsanierung-dauer-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badsanierung-dauer",
       "permanent": true
     },
+    {
+      "source": "/badsanierung/badsanierung-dauer",
+      "destination": "/badsanierung-dauer",
+      "permanent": true
+    },
+
     {
       "source": "/badsanierung-festpreis-rhein-main",
       "destination": "/badsanierung-rhein-main",

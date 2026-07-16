@@ -35,7 +35,7 @@ export const ablaufBadsanierungSeoIntro = (
     <p className={p}>
       Diese Seite erklärt den Badsanierung Ablauf Schritt für Schritt. Wie lange die einzelnen Phasen dauern, hängt
       vom Umfang des Projekts, dem baulichen Zustand und der Ausstattungswahl ab – ausführliche Informationen dazu
-      finden Sie auf unserer Seite zur <Link to="/badsanierung-rhein-main">Badsanierung Dauer</Link>. Hier geht es
+      finden Sie auf unserer Seite zur <Link to="/badsanierung-dauer">Badsanierung Dauer</Link>. Hier geht es
       zunächst um die Reihenfolge: was passiert wann, warum es in dieser Abfolge passiert, und worauf Sie als
       Auftraggeber achten sollten.
     </p>
@@ -100,7 +100,7 @@ export const ablaufBadsanierungSeoSections = [
           Schritt stattfindet. Sie erhalten einen Zeitplan, damit Sie wissen, wann das Bad nicht nutzbar ist, wann mit
           lauten Arbeiten zu rechnen ist und wann Sie mit dem Abschluss rechnen können – genauere Angaben zur
           Gesamtdauer finden Sie auf der Seite{' '}
-          <Link to="/badsanierung-rhein-main">Badsanierung Dauer</Link>.
+          <Link to="/badsanierung-dauer">Badsanierung Dauer</Link>.
         </p>
         <p className={p}>
           In dieser Phase wird auch die Baustelle selbst vorbereitet: Schutzmaßnahmen für Flure, Treppenhäuser und
@@ -416,7 +416,7 @@ export const ablaufBadsanierungSeoSections = [
           früh genug darüber nachdenkt. Wer erst auf der Baustelle feststellt, dass er zwei Wochen ohne Bad ist, hat
           den richtigen Moment für diese Überlegung verpasst. Wie lange eine Badsanierung typischerweise dauert und
           was die Nutzungsdauer beeinflusst, erfahren Sie ausführlich auf unserer Seite zur{' '}
-          <Link to="/badsanierung-rhein-main">Badsanierung Dauer</Link>.
+          <Link to="/badsanierung-dauer">Badsanierung Dauer</Link>.
         </p>
         <h4 className={h4}>Planung schützt vor Überraschungen</h4>
         <p className={p}>
@@ -502,14 +502,14 @@ export const ablaufBadsanierungSeoSections = [
           unmittelbarer zeitlicher Abfolge, damit keine Leerzeiten entstehen. Diese Abstimmung ist einer der
           praktischen Vorteile, wenn ein Generalunternehmer den Ablauf koordiniert: Gewerke warten nicht aufeinander,
           sondern sind zum richtigen Zeitpunkt eingeplant. Wie lange die Rohinstallationsphase dauert, erfahren Sie
-          auf der Seite <Link to="/badsanierung-rhein-main">Badsanierung Dauer</Link>.
+          auf der Seite <Link to="/badsanierung-dauer">Badsanierung Dauer</Link>.
         </p>
         <h4 className={h4}>Wie lange ist das Bad während der Sanierung nicht nutzbar?</h4>
         <p className={p}>
           Das hängt vom Umfang der Arbeiten ab. Bei einem reinen Objekt- und Armaturentausch ohne Fliesenarbeiten und
           Rohinstallation kann das Bad wenige Tage nicht nutzbar sein. Bei einer Komplettbadsanierung ist in der
           Regel über mehrere Wochen kein Betrieb möglich – genaue Informationen und typische Richtwerte finden Sie
-          auf der Seite <Link to="/badsanierung-rhein-main">Badsanierung Dauer</Link>. Radex bespricht diesen Punkt
+          auf der Seite <Link to="/badsanierung-dauer">Badsanierung Dauer</Link>. Radex bespricht diesen Punkt
           verbindlich im Erstgespräch und berücksichtigt die Situation der Bewohner bei der Terminplanung. Wenn in
           einem Gebäude nur ein einziges Bad vorhanden ist, besprechen wir gemeinsam, wie sich die Bauphase so
           organisieren lässt, dass die Einschränkungen so gering wie möglich bleiben.
