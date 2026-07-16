@@ -74,6 +74,14 @@ export const badsanierungCards = [
     image: '/img/badsanierung-thema-kosten.png',
   },
   {
+    to: '/badsanierung-festpreis',
+    title: 'Badsanierung Festpreis',
+    desc: 'Transparentes Festpreisangebot nach Besichtigung – klare Leistungen, nachvollziehbare Kalkulation und Planungssicherheit.',
+    cta: 'Mehr erfahren',
+    icon: FileText,
+    image: '/img/badsanierung-festpreis-hero.webp',
+  },
+  {
     to: '/badplanung',
     title: 'Badplanung',
     desc: 'Professionelle Badplanung im Rhein-Main-Gebiet – Raumaufteilung, Technik, Materialien und Design vor Baubeginn abstimmen.',

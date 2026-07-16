@@ -122,10 +122,14 @@
       "destination": "/badsanierung-dauer",
       "permanent": true
     },
-
     {
       "source": "/badsanierung-festpreis-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/badsanierung-festpreis",
+      "permanent": true
+    },
+    {
+      "source": "/badsanierung/badsanierung-festpreis",
+      "destination": "/badsanierung-festpreis",
       "permanent": true
     },
     {

@@ -1862,3 +1862,79 @@
     justify-content: center;
   }
 }
+
+/* ===== Badsanierung Festpreis page ===== */
+.badsanierung-festpreis-page .br-bw-vorteile-section .br-nav-card-img {
+  height: 220px;
+  border-radius: 12px 12px 0 0;
+  margin: -24px -24px 16px;
+  background-size: cover;
+  background-position: center;
+}
+
+.badsanierung-festpreis-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.badsanierung-festpreis-page .br-bw-vorteile-section .br-nav-landing-grid,
+.badsanierung-festpreis-page .br-trust-usp-section .br-nav-landing-grid,
+.badsanierung-festpreis-page .br-bw-process-section .br-nav-landing-grid,
+.badsanierung-festpreis-page #vorteile .br-nav-landing-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.badsanierung-festpreis-page .br-bw-project-subtitle {
+  margin: 0 0 8px !important;
+  color: var(--orange, #f97316) !important;
+  font-weight: 600;
+  font-size: 14px !important;
+}
+
+.badsanierung-festpreis-page .br-bw-price-note {
+  margin: 28px auto 0;
+  max-width: 720px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.badsanierung-festpreis-page .br-festpreis-calc-note {
+  margin: 20px auto 0;
+  max-width: 720px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.badsanierung-festpreis-page .sk-rechner {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+}
+
+@media (max-width: 900px) {
+  .badsanierung-festpreis-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badsanierung-festpreis-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .badsanierung-festpreis-page .br-trust-usp-section .br-nav-landing-grid,
+  .badsanierung-festpreis-page .br-bw-process-section .br-nav-landing-grid,
+  .badsanierung-festpreis-page #vorteile .br-nav-landing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .badsanierung-festpreis-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badsanierung-festpreis-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .badsanierung-festpreis-page .br-trust-usp-section .br-nav-landing-grid,
+  .badsanierung-festpreis-page .br-bw-process-section .br-nav-landing-grid,
+  .badsanierung-festpreis-page #vorteile .br-nav-landing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .badsanierung-festpreis-page .br-hero-actions--hero .btn,
+  .badsanierung-festpreis-page .br-hero-actions--centered .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
