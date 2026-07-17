@@ -60,6 +60,7 @@ import BadmodernisierungLanding from './pages/BadmodernisierungLanding';
 import BadrenovierungLanding from './pages/BadrenovierungLanding';
 import BadsanierungDauerLanding from './pages/BadsanierungDauerLanding';
 import BadsanierungFestpreisLanding from './pages/BadsanierungFestpreisLanding';
+import BadsanierungKostenLanding from './pages/BadsanierungKostenLanding';
 import BadplanungLanding from './pages/BadplanungLanding';
 import SanierungskostenLanding from './pages/SanierungskostenLanding';
 import RadexLiveRedirect from './pages/RadexLiveRedirect';
@@ -195,7 +196,7 @@ export default function App({ location }) {
           <Route path="/ueber-uns" element={<UeberUns />} />
           <Route path="/karriere" element={<Karriere />} />
           <Route path="/sanierungskosten-rechner" element={<SanierungskostenRechnerPage />} />
-          <Route path="/badsanierung-kosten" element={<SanierungskostenRechnerPage defaultType="bad" metaType="bad" />} />
+          <Route path="/badsanierung-kosten" element={<BadsanierungKostenLanding />} />
           <Route path="/wohnungssanierung-kosten" element={<SanierungskostenRechnerPage defaultType="wohnung" metaType="wohnung" />} />
           <Route path="/altbausanierung-kosten" element={<SanierungskostenRechnerPage defaultType="altbau" metaType="altbau" />} />
           <Route path="/haussanierung-kosten" element={<SanierungskostenRechnerPage defaultType="haus" metaType="haus" />} />

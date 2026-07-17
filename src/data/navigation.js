@@ -66,7 +66,7 @@ export const badsanierungCards = [
     image: '/img/badsanierung-thema-gaestewc.png',
   },
   {
-    to: '/badsanierung-kosten-rhein-main',
+    to: '/badsanierung-kosten',
     title: 'Badsanierung Kosten',
     desc: 'Typische Einstiegspreise für Basis, Komfort und Premium – nutzen Sie unseren Badsanierung-Kostenrechner für eine erste Orientierung.',
     cta: 'Mehr erfahren',

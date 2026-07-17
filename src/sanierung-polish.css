@@ -2377,3 +2377,128 @@
     justify-content: center;
   }
 }
+
+/* ── Badsanierung Kosten money page ── */
+.badsanierung-kosten-page .br-bw-vorteile-section .br-nav-card-img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  position: relative;
+}
+
+.badsanierung-kosten-page .br-bw-vorteile-section .br-decision-card .br-nav-card-img::after {
+  content: 'Symbolbild';
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.badsanierung-kosten-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.badsanierung-kosten-page .br-bw-vorteile-section .br-nav-landing-grid,
+.badsanierung-kosten-page .br-trust-usp-section .br-nav-landing-grid,
+.badsanierung-kosten-page .br-bw-process-section .br-nav-landing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.badsanierung-kosten-page .br-bw-project-subtitle {
+  color: #f97316;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.badsanierung-kosten-page .br-bw-price-note,
+.badsanierung-kosten-page .br-festpreis-calc-note {
+  max-width: 820px;
+  margin: 28px auto 0;
+  text-align: center;
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.badsanierung-kosten-page .br-kosten-calc-intro {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.badsanierung-kosten-page .br-kosten-calc-intro p {
+  max-width: 720px;
+  margin: 0 auto;
+  color: #374151;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.badsanierung-kosten-page .br-kosten-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.badsanierung-kosten-page .br-kosten-price-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+  padding: 28px 24px;
+  height: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.badsanierung-kosten-page .br-kosten-price-card h3 {
+  margin: 0 0 10px;
+  color: #0f2744;
+  font-size: 1.35rem;
+}
+
+.badsanierung-kosten-page .br-kosten-price-value {
+  margin: 0 0 14px;
+  color: #f97316;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.badsanierung-kosten-page .br-kosten-price-card p:last-child {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.badsanierung-kosten-page .sk-rechner {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .badsanierung-kosten-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-trust-usp-section .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-bw-process-section .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-kosten-price-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .badsanierung-kosten-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-trust-usp-section .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-bw-process-section .br-nav-landing-grid,
+  .badsanierung-kosten-page .br-kosten-price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .badsanierung-kosten-page .br-hero-actions--hero .btn,
+  .badsanierung-kosten-page .br-hero-actions--centered .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

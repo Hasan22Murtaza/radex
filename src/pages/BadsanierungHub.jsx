@@ -80,9 +80,9 @@ const referenceCards = [
 ];
 
 const costTeaserCards = [
-  { title: 'Basis', price: 'ab ca. 8.000 €', desc: 'Ideal für funktionale Modernisierungen mit solider Ausstattung.', to: '/badsanierung-kosten-rhein-main' },
-  { title: 'Komfort', price: '15.000–25.000 €', desc: 'Die häufigste Wahl unserer Kunden – ausgewogene Qualität und Komfort.', to: '/badsanierung-kosten-rhein-main' },
-  { title: 'Premium', price: '25.000–45.000 €+', desc: 'Hochwertige Ausstattung, großformatige Fliesen und individuelle Gestaltung.', to: '/badsanierung-kosten-rhein-main' },
+  { title: 'Basis', price: 'ab ca. 8.000 €', desc: 'Ideal für funktionale Modernisierungen mit solider Ausstattung.', to: '/badsanierung-kosten' },
+  { title: 'Komfort', price: '15.000–25.000 €', desc: 'Die häufigste Wahl unserer Kunden – ausgewogene Qualität und Komfort.', to: '/badsanierung-kosten' },
+  { title: 'Premium', price: '25.000–45.000 €+', desc: 'Hochwertige Ausstattung, großformatige Fliesen und individuelle Gestaltung.', to: '/badsanierung-kosten' },
 ];
 
 const processSteps = [
