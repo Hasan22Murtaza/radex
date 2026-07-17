@@ -171,7 +171,7 @@ const seoSections = [
   {
     id: 'barrierefreies-bad',
     title: 'Barrierefreies Bad',
-    href: '/barrierefreies-bad#was-bedeutet',
+    href: '/barrierefreies-bad#altersgerecht-umbauen',
   },
   {
     id: 'gaeste-wc',

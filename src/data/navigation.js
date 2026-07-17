@@ -50,12 +50,12 @@ export const badsanierungCards = [
     image: '/img/badrenovierung-rhein-main-radex.webp',
   },
   {
-    to: '/barrierefreies-bad-rhein-main',
+    to: '/barrierefreies-bad',
     title: 'Barrierefreies Bad',
     desc: 'Bodengleiche Duschen, sichere Bewegungsflächen und durchdachte Lösungen für ein barrierefreies Badezimmer im Bestand.',
     cta: 'Mehr erfahren',
     icon: Accessibility,
-    image: '/img/badsanierung-thema-barrierefrei.png',
+    image: '/img/barrierefreies-bad-hero.webp',
   },
   {
     to: '/gaeste-wc-sanieren-rhein-main',

@@ -61,6 +61,7 @@ import BadrenovierungLanding from './pages/BadrenovierungLanding';
 import BadsanierungDauerLanding from './pages/BadsanierungDauerLanding';
 import BadsanierungFestpreisLanding from './pages/BadsanierungFestpreisLanding';
 import BadsanierungKostenLanding from './pages/BadsanierungKostenLanding';
+import BarrierefreiesBadLanding from './pages/BarrierefreiesBadLanding';
 import BadplanungLanding from './pages/BadplanungLanding';
 import SanierungskostenLanding from './pages/SanierungskostenLanding';
 import RadexLiveRedirect from './pages/RadexLiveRedirect';
@@ -154,7 +155,7 @@ export default function App({ location }) {
           <Route path="/badrenovierung" element={<BadrenovierungLanding />} />
           <Route path="/badsanierung-dauer" element={<BadsanierungDauerLanding />} />
           <Route path="/badsanierung-festpreis" element={<BadsanierungFestpreisLanding />} />
-          <Route path="/barrierefreies-bad" element={<BadsanierungTopicPage topicId="barrierefreies-bad" />} />
+          <Route path="/barrierefreies-bad" element={<BarrierefreiesBadLanding />} />
           <Route path="/gaeste-wc" element={<BadsanierungTopicPage topicId="gaeste-wc" />} />
           <Route path="/badplanung" element={<BadplanungLanding />} />
           <Route path="/ablauf-badsanierung" element={<AblaufBadsanierungLanding />} />

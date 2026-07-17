@@ -2502,3 +2502,164 @@
     justify-content: center;
   }
 }
+
+/* ===== Barrierefreies Bad Landing ===== */
+.barrierefreies-bad-page .br-bw-vorteile-section .br-nav-card-img {
+  height: 200px;
+  border-radius: 12px 12px 0 0;
+  margin: -24px -24px 16px;
+  background-size: cover;
+  background-position: center;
+}
+
+.barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid,
+.barrierefreies-bad-page .br-trust-usp-section .br-nav-landing-grid,
+.barrierefreies-bad-page .br-bw-process-section .br-nav-landing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.barrierefreies-bad-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.barrierefreies-bad-page .br-kosten-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.barrierefreies-bad-page .br-kosten-price-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  padding: 28px 24px;
+  height: 100%;
+}
+
+.barrierefreies-bad-page .br-kosten-price-card h3 {
+  margin: 0 0 8px;
+  color: var(--navy, #1e3a8a);
+}
+
+.barrierefreies-bad-page .br-kosten-price-value {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #f97316;
+}
+
+.barrierefreies-bad-page .br-bf-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.barrierefreies-bad-page .br-bf-compare-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.barrierefreies-bad-page .br-bf-compare-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
+}
+
+.barrierefreies-bad-page .br-bf-compare-img {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background-size: cover;
+  background-position: center;
+}
+
+.barrierefreies-bad-page .br-bf-compare-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(30, 58, 138, 0.92);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.barrierefreies-bad-page .br-bf-video-split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.barrierefreies-bad-page .br-bf-video-content .br-ablauf-video-trust {
+  margin-top: 0;
+  grid-template-columns: 1fr;
+}
+
+.barrierefreies-bad-page .br-bf-cta-box {
+  margin-top: 40px;
+  padding: 36px 28px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  text-align: center;
+}
+
+.barrierefreies-bad-page .br-bf-cta-box h3 {
+  margin: 0 0 12px;
+  color: var(--navy, #1e3a8a);
+  font-size: 24px;
+}
+
+.barrierefreies-bad-page .br-bf-cta-box p {
+  margin: 0 auto 24px;
+  max-width: 640px;
+  color: #4b5563;
+}
+
+.barrierefreies-bad-page .br-bw-calculator {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  padding: 28px;
+}
+
+@media (max-width: 1024px) {
+  .barrierefreies-bad-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-trust-usp-section .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-bw-process-section .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-kosten-price-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .barrierefreies-bad-page .br-bf-video-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .barrierefreies-bad-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-trust-usp-section .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-bw-process-section .br-nav-landing-grid,
+  .barrierefreies-bad-page .br-kosten-price-grid,
+  .barrierefreies-bad-page .br-bf-compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .barrierefreies-bad-page .br-hero-actions--hero .btn,
+  .barrierefreies-bad-page .br-hero-actions--centered .btn,
+  .barrierefreies-bad-page .br-ablauf-cta-wrap .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

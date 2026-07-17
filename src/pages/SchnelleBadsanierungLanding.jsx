@@ -47,7 +47,7 @@ const serviceCards = [
   { to: '/komplettbadsanierung-rhein-main', title: 'Komplettbadsanierung', desc: 'Das Bad vollständig entkernen und neu aufbauen – aus einer Hand.', icon: Bath },
   { to: '/badplanung', title: 'Badplanung', desc: 'Grundriss, Materialien und Ausstattung professionell planen.', icon: FileText },
   { to: '/sanitaerinstallation-rhein-main', title: 'Sanitärinstallation', desc: 'Wasser, Abwasser und Sanitärobjekte fachgerecht installieren.', icon: Droplets },
-  { to: '/barrierefreies-bad-rhein-main', title: 'Barrierefreies Bad', desc: 'Bodengleiche Dusche und sichere Bewegungsflächen planen.', icon: Accessibility },
+  { to: '/barrierefreies-bad', title: 'Barrierefreies Bad', desc: 'Bodengleiche Dusche und sichere Bewegungsflächen planen.', icon: Accessibility },
 ];
 
 const processSteps = [
@@ -152,7 +152,7 @@ const seoAccordions = [
         <li><strong>Komplettbadsanierung:</strong> Das Bad wird vollständig entkernt und neu aufgebaut – von der Rohinstallation bis zur schlüsselfertigen Übergabe. <a href="/komplettbadsanierung-rhein-main">Komplettbadsanierung</a>.</li>
         <li><strong>Badmodernisierung:</strong> Mehr Komfort, bessere Optik und neue Funktionen mit weniger Bauaufwand – neue Armaturen, moderne Beleuchtung oder eine zeitgemäße Dusche.</li>
         <li><strong>Badrenovierung:</strong> Oberflächen erneuern, Sanitärobjekte ersetzen, Licht verbessern – ohne das Bad vollständig aufzureißen.</li>
-        <li><strong>Barrierefreies Bad:</strong> Bodengleiche Duschen, Haltegriffe und gut geplante Bewegungsflächen. <a href="/barrierefreies-bad-rhein-main">Barrierefreies Bad</a>.</li>
+        <li><strong>Barrierefreies Bad:</strong> Bodengleiche Duschen, Haltegriffe und gut geplante Bewegungsflächen. <a href="/barrierefreies-bad">Barrierefreies Bad</a>.</li>
         <li><strong>Kleines Bad & Gäste-WC:</strong> Auf kleiner Fläche ein funktionales, helles Bad schaffen – Radex kennt die typischen Grundrisse im Rhein-Main-Gebiet.</li>
         <li><strong>Dusche statt Badewanne:</strong> Der Umbau von Wanne zu Dusche – Entwässerung, Abdichtung und Installationsführung werden sorgfältig geplant.</li>
       </ul>
