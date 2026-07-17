@@ -348,7 +348,7 @@ export const barrierefreiesBadSeoSections = [
         </p>
         <p className={p}>
           Informationen zu Kosten, Budgetrahmen und Kostenspektrum für barrierefreie Umbauten finden Sie auf der Seite{' '}
-          <Link to="/badsanierung-kosten">Barrierefreies Bad – Kosten</Link>.
+          <Link to="/barrierefreies-bad-kosten">Barrierefreies Bad – Kosten</Link>.
         </p>
         <p className={p}>
           <a href="#kontakt" className="br-btn-orange">

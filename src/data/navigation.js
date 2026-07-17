@@ -58,6 +58,14 @@ export const badsanierungCards = [
     image: '/img/barrierefreies-bad-hero.webp',
   },
   {
+    to: '/barrierefreies-bad-kosten',
+    title: 'Barrierefreies Bad Kosten',
+    desc: 'Preisbeispiele, Fördermöglichkeiten und Kostenfaktoren für den barrierefreien Badumbau im Rhein-Main-Gebiet.',
+    cta: 'Mehr erfahren',
+    icon: Calculator,
+    image: '/img/barrierefreies-bad-kosten-hero.png',
+  },
+  {
     to: '/gaeste-wc-sanieren-rhein-main',
     title: 'Gäste-WC modernisieren',
     desc: 'Auch auf kleiner Fläche ein funktionales, helles Gäste-WC – kompakt geplant, hochwertig ausgeführt und schnell fertiggestellt.',

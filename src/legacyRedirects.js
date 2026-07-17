@@ -36,6 +36,13 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/badewanne-austauschen') || p.startsWith('/badsanierung/badewanne-austauschen'), to: '/badewanne-austauschen' },
   { test: (p) => p.startsWith('/badmodernisierung') || p.startsWith('/badsanierung/badmodernisierung'), to: '/badmodernisierung' },
   { test: (p) => p.startsWith('/badrenovierung') || p.startsWith('/badsanierung/badrenovierung'), to: '/badrenovierung' },
+  {
+    test: (p) =>
+      p.startsWith('/barrierefreies-bad-kosten') ||
+      p === '/badsanierung/barrierefreies-bad-kosten' ||
+      p.startsWith('/barrierefreies-bad-kosten-rhein-main'),
+    to: '/barrierefreies-bad-kosten',
+  },
   { test: (p) => p.startsWith('/barrierefreies-bad'), to: '/barrierefreies-bad' },
   { test: (p) => p.startsWith('/gaeste-wc') || p.startsWith('/kleines-bad'), to: '/gaeste-wc' },
   { test: (p) => p.startsWith('/badplanung'), to: '/badplanung' },

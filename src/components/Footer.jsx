@@ -67,6 +67,8 @@ export default function Footer() {
               <li><a href="/badplanung" className="footer-link">Badplanung</a></li>
               <li><a href={RADEX_LIVE_URL} className="footer-link">Aktuelle Badprojekte</a></li>
               <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
+              <li><a href="/barrierefreies-bad-kosten" className="footer-link">Barrierefreies Bad Kosten</a></li>
+              <li><a href="/barrierefreies-bad" className="footer-link">Barrierefreies Bad</a></li>
             </ul>
           </div>
 
@@ -110,6 +112,7 @@ export default function Footer() {
             <ul className="footer-links">
               <li><a href="/sanierungskosten-rechner" className="footer-link">Sanierungskosten Rechner</a></li>
               <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
+              <li><a href="/barrierefreies-bad-kosten" className="footer-link">Barrierefreies Bad Kosten</a></li>
               <li><a href="/wohnungssanierung-kosten" className="footer-link">Wohnungssanierung Kosten</a></li>
               <li><a href="/sanierung/haussanierung" className="footer-link">Haussanierung Kosten</a></li>
               <li><a href="/altbausanierung-kosten" className="footer-link">Altbausanierung Kosten</a></li>

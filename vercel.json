@@ -134,7 +134,12 @@
     },
     {
       "source": "/barrierefreies-bad-kosten-rhein-main",
-      "destination": "/badsanierung-rhein-main",
+      "destination": "/barrierefreies-bad-kosten",
+      "permanent": true
+    },
+    {
+      "source": "/badsanierung/barrierefreies-bad-kosten",
+      "destination": "/barrierefreies-bad-kosten",
       "permanent": true
     },
     {

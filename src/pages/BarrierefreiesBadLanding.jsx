@@ -938,7 +938,8 @@ export default function BarrierefreiesBadLanding() {
 
       <SectionTransition title="Was kostet ein barrierefreies Bad?">
         Die Kosten hängen von der Raumgröße, den gewünschten Ausstattungsmerkmalen und dem Umfang der Umbauarbeiten ab.
-        Mit den folgenden Preisbeispielen erhalten Sie eine erste Orientierung. Für eine allgemeine{' '}
+        Mit den folgenden Preisbeispielen erhalten Sie eine erste Orientierung. Ausführliche Informationen finden Sie auf
+        der Seite <Link to="/barrierefreies-bad-kosten">Barrierefreies Bad Kosten</Link>. Für eine allgemeine{' '}
         <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>-Übersicht steht auch unser{' '}
         <Link to="/sanierungskosten-rechner">Budgetrechner</Link> bereit.
       </SectionTransition>

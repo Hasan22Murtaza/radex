@@ -2771,3 +2771,226 @@
     justify-content: center;
   }
 }
+
+/* ===== Barrierefreies Bad Kosten money page ===== */
+.barrierefreies-bad-kosten-page .br-bw-vorteile-section .br-nav-card-img {
+  height: 200px;
+  border-radius: 12px 12px 0 0;
+  margin: -24px -24px 16px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-vorteile-section .br-decision-card .br-nav-card-img::after {
+  content: 'Symbolbild';
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.barrierefreies-bad-kosten-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.barrierefreies-bad-kosten-page .br-bw-vorteile-section .br-nav-landing-grid,
+.barrierefreies-bad-kosten-page .br-trust-usp-section .br-nav-landing-grid,
+.barrierefreies-bad-kosten-page .br-bw-process-section .br-nav-landing-grid,
+.barrierefreies-bad-kosten-page #foerdermoeglichkeiten .br-nav-landing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-vorteile-section .br-nav-landing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.barrierefreies-bad-kosten-page .br-kosten-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.barrierefreies-bad-kosten-page .br-kosten-price-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  padding: 28px 24px;
+  height: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.barrierefreies-bad-kosten-page .br-kosten-price-card h3 {
+  margin: 0 0 8px;
+  color: var(--navy, #1e3a8a);
+}
+
+.barrierefreies-bad-kosten-page .br-kosten-price-value {
+  margin: 0 0 12px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #f97316;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-project-subtitle {
+  margin: 0 0 8px !important;
+  color: var(--orange, #f97316) !important;
+  font-weight: 600;
+  font-size: 14px !important;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-price-note {
+  margin-top: 24px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calculator {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+}
+
+.barrierefreies-bad-kosten-page .br-dauer-calc-header {
+  background: var(--navy, #1e3a8a);
+  color: #fff;
+  padding: 28px 28px 24px;
+}
+
+.barrierefreies-bad-kosten-page .br-dauer-calc-header h3 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 24px;
+}
+
+.barrierefreies-bad-kosten-page .br-dauer-calc-header p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+}
+
+.barrierefreies-bad-kosten-page .br-dauer-calc-body {
+  padding: 32px 28px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-question {
+  margin-bottom: 28px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-question h3 {
+  margin: 0 0 14px;
+  color: var(--navy, #1e3a8a);
+  font-size: 18px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-btn {
+  appearance: none;
+  border: 1.5px solid #d1d5db;
+  background: #f9fafb;
+  color: #1f2937;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-btn:hover {
+  border-color: var(--navy, #1e3a8a);
+  background: #fff;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-btn.is-active {
+  border-color: var(--navy, #1e3a8a);
+  background: rgba(30, 58, 138, 0.08);
+  color: var(--navy, #1e3a8a);
+  box-shadow: 0 0 0 1px var(--navy, #1e3a8a);
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-result {
+  margin-top: 8px;
+  padding: 24px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-range {
+  font-size: 28px;
+  font-weight: 700;
+  color: #f97316;
+  margin: 8px 0 12px;
+}
+
+.barrierefreies-bad-kosten-page .br-bw-calc-note {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.barrierefreies-bad-kosten-page .br-bf-cta-box {
+  margin-top: 40px;
+  padding: 36px 28px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  text-align: center;
+}
+
+.barrierefreies-bad-kosten-page .br-bf-cta-box h3 {
+  margin: 0 0 12px;
+  color: var(--navy, #1e3a8a);
+  font-size: 24px;
+}
+
+.barrierefreies-bad-kosten-page .br-bf-cta-box p {
+  margin: 0 auto 24px;
+  max-width: 640px;
+  color: #4b5563;
+}
+
+@media (max-width: 1024px) {
+  .barrierefreies-bad-kosten-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-trust-usp-section .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-bw-process-section .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page #foerdermoeglichkeiten .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-kosten-price-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .barrierefreies-bad-kosten-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-trust-usp-section .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-bw-process-section .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page #foerdermoeglichkeiten .br-nav-landing-grid,
+  .barrierefreies-bad-kosten-page .br-kosten-price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .barrierefreies-bad-kosten-page .br-hero-actions--hero .btn,
+  .barrierefreies-bad-kosten-page .br-hero-actions--centered .btn,
+  .barrierefreies-bad-kosten-page .br-ablauf-cta-wrap .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
