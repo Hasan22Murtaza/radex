@@ -62,6 +62,7 @@ import BadsanierungDauerLanding from './pages/BadsanierungDauerLanding';
 import BadsanierungFestpreisLanding from './pages/BadsanierungFestpreisLanding';
 import BadsanierungKostenLanding from './pages/BadsanierungKostenLanding';
 import BarrierefreiesBadLanding from './pages/BarrierefreiesBadLanding';
+import DuscheStattBadewanneLanding from './pages/DuscheStattBadewanneLanding';
 import BadplanungLanding from './pages/BadplanungLanding';
 import SanierungskostenLanding from './pages/SanierungskostenLanding';
 import RadexLiveRedirect from './pages/RadexLiveRedirect';
@@ -149,7 +150,7 @@ export default function App({ location }) {
           <Route pathPrefix="/ratgeber" element={<RatgeberRouter />} />
           <Route path="/badsanierung-rhein-main" element={<BadsanierungHub />} />
           <Route path="/badsanierung/badezimmer-sanieren" element={<BathroomRenovation />} />
-          <Route path="/dusche-statt-badewanne" element={<BadsanierungTopicPage topicId="dusche-statt-badewanne" />} />
+          <Route path="/dusche-statt-badewanne" element={<DuscheStattBadewanneLanding />} />
           <Route path="/badewanne-austauschen" element={<BadewanneAustauschenLanding />} />
           <Route path="/badmodernisierung" element={<BadmodernisierungLanding />} />
           <Route path="/badrenovierung" element={<BadrenovierungLanding />} />

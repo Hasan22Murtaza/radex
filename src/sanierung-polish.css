@@ -1,4 +1,4 @@
-/* Sanierung Hub – Final Polish additions */
+﻿/* Sanierung Hub â€“ Final Polish additions */
 
 /* FAQ polish */
 .badsanierung-page .br-faq-grid {
@@ -31,7 +31,7 @@
   border-top: 1px solid #f3f4f6;
 }
 
-/* Nav landing cards – smaller icons */
+/* Nav landing cards â€“ smaller icons */
 .br-nav-landing-grid .br-decision-icon {
   width: 44px;
   height: 44px;
@@ -112,7 +112,7 @@
 }
 
 .br-seo-checklist li::before {
-  content: '✓ ';
+  content: 'âœ“ ';
   color: var(--br-orange);
   font-weight: 700;
 }
@@ -212,7 +212,7 @@
   gap: 16px;
 }
 
-/* SEO knowledge center – all chapters visible */
+/* SEO knowledge center â€“ all chapters visible */
 .br-seo-toc-content--all {
   display: flex;
   flex-direction: column;
@@ -255,7 +255,7 @@
   color: #6b7280;
 }
 
-/* Cost factors – smaller icons, clearer typography */
+/* Cost factors â€“ smaller icons, clearer typography */
 .br-nav-landing-grid--compact {
   gap: 20px;
 }
@@ -292,7 +292,7 @@
   padding-bottom: 72px;
 }
 
-/* Linked image cards – generous photo area */
+/* Linked image cards â€“ generous photo area */
 .br-image-card-grid .br-nav-card-img {
   width: 100%;
   align-self: stretch;
@@ -315,7 +315,7 @@
   transform: translateY(-2px);
 }
 
-/* Premium icon cards – larger icons (Ablauf benefits) */
+/* Premium icon cards â€“ larger icons (Ablauf benefits) */
 .br-nav-landing-grid--large-icons {
   gap: 24px;
 }
@@ -1303,7 +1303,7 @@
   }
 }
 
-/* ── Badrenovierung money page (mirrors Badmodernisierung layout) ── */
+/* â”€â”€ Badrenovierung money page (mirrors Badmodernisierung layout) â”€â”€ */
 .badrenovierung-page .br-bw-breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -1517,7 +1517,7 @@
   }
 }
 
-/* ── Badmodernisierung money page (mirrors Badewanne layout) ── */
+/* â”€â”€ Badmodernisierung money page (mirrors Badewanne layout) â”€â”€ */
 .badmodernisierung-page .br-bw-breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -1739,7 +1739,7 @@
   }
 }
 
-/* ── Badplanung money page ── */
+/* â”€â”€ Badplanung money page â”€â”€ */
 .badplanung-page .br-bw-breadcrumb {
   display: flex;
   flex-wrap: wrap;
@@ -2378,7 +2378,7 @@
   }
 }
 
-/* ── Badsanierung Kosten money page ── */
+/* â”€â”€ Badsanierung Kosten money page â”€â”€ */
 .badsanierung-kosten-page .br-bw-vorteile-section .br-nav-card-img {
   aspect-ratio: 16 / 10;
   object-fit: cover;
@@ -2503,8 +2503,9 @@
   }
 }
 
-/* ===== Barrierefreies Bad Landing ===== */
-.barrierefreies-bad-page .br-bw-vorteile-section .br-nav-card-img {
+/* ===== Barrierefreies Bad + Dusche statt Badewanne Landing ===== */
+.barrierefreies-bad-page .br-bw-vorteile-section .br-nav-card-img,
+.dusche-statt-badewanne-page .br-bw-vorteile-section .br-nav-card-img {
   height: 200px;
   border-radius: 12px 12px 0 0;
   margin: -24px -24px 16px;
@@ -2514,26 +2515,33 @@
 
 .barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid,
 .barrierefreies-bad-page .br-trust-usp-section .br-nav-landing-grid,
-.barrierefreies-bad-page .br-bw-process-section .br-nav-landing-grid {
+.barrierefreies-bad-page .br-bw-process-section .br-nav-landing-grid,
+.dusche-statt-badewanne-page .br-bw-vorteile-section .br-nav-landing-grid,
+.dusche-statt-badewanne-page .br-trust-usp-section .br-nav-landing-grid,
+.dusche-statt-badewanne-page .br-bw-process-section .br-nav-landing-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
 
-.barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid {
+.barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid,
+.dusche-statt-badewanne-page .br-bw-vorteile-section .br-nav-landing-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.barrierefreies-bad-page .br-ablauf-why-grid .br-nav-landing-grid {
+.barrierefreies-bad-page .br-ablauf-why-grid .br-nav-landing-grid,
+.dusche-statt-badewanne-page .br-ablauf-why-grid .br-nav-landing-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.barrierefreies-bad-page .br-kosten-price-grid {
+.barrierefreies-bad-page .br-kosten-price-grid,
+.dusche-statt-badewanne-page .br-kosten-price-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
 
-.barrierefreies-bad-page .br-kosten-price-card {
+.barrierefreies-bad-page .br-kosten-price-card,
+.dusche-statt-badewanne-page .br-kosten-price-card {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
@@ -2541,25 +2549,29 @@
   height: 100%;
 }
 
-.barrierefreies-bad-page .br-kosten-price-card h3 {
+.barrierefreies-bad-page .br-kosten-price-card h3,
+.dusche-statt-badewanne-page .br-kosten-price-card h3 {
   margin: 0 0 8px;
   color: var(--navy, #1e3a8a);
 }
 
-.barrierefreies-bad-page .br-kosten-price-value {
+.barrierefreies-bad-page .br-kosten-price-value,
+.dusche-statt-badewanne-page .br-kosten-price-value {
   margin: 0 0 12px;
   font-size: 28px;
   font-weight: 700;
   color: #f97316;
 }
 
-.barrierefreies-bad-page .br-bf-compare-grid {
+.barrierefreies-bad-page .br-bf-compare-grid,
+.dusche-statt-badewanne-page .br-bf-compare-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
 
-.barrierefreies-bad-page .br-bf-compare-card {
+.barrierefreies-bad-page .br-bf-compare-card,
+.dusche-statt-badewanne-page .br-bf-compare-card {
   border-radius: 16px;
   overflow: hidden;
   background: #fff;
@@ -2567,19 +2579,22 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.barrierefreies-bad-page .br-bf-compare-card:hover {
+.barrierefreies-bad-page .br-bf-compare-card:hover,
+.dusche-statt-badewanne-page .br-bf-compare-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.1);
 }
 
-.barrierefreies-bad-page .br-bf-compare-img {
+.barrierefreies-bad-page .br-bf-compare-img,
+.dusche-statt-badewanne-page .br-bf-compare-img {
   position: relative;
   aspect-ratio: 4 / 3;
   background-size: cover;
   background-position: center;
 }
 
-.barrierefreies-bad-page .br-bf-compare-label {
+.barrierefreies-bad-page .br-bf-compare-label,
+.dusche-statt-badewanne-page .br-bf-compare-label {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -2592,19 +2607,22 @@
   border-radius: 8px;
 }
 
-.barrierefreies-bad-page .br-bf-video-split {
+.barrierefreies-bad-page .br-bf-video-split,
+.dusche-statt-badewanne-page .br-bf-video-split {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: 32px;
   align-items: center;
 }
 
-.barrierefreies-bad-page .br-bf-video-content .br-ablauf-video-trust {
+.barrierefreies-bad-page .br-bf-video-content .br-ablauf-video-trust,
+.dusche-statt-badewanne-page .br-bf-video-content .br-ablauf-video-trust {
   margin-top: 0;
   grid-template-columns: 1fr;
 }
 
-.barrierefreies-bad-page .br-bf-cta-box {
+.barrierefreies-bad-page .br-bf-cta-box,
+.dusche-statt-badewanne-page .br-bf-cta-box {
   margin-top: 40px;
   padding: 36px 28px;
   background: #fff;
@@ -2613,23 +2631,98 @@
   text-align: center;
 }
 
-.barrierefreies-bad-page .br-bf-cta-box h3 {
+.barrierefreies-bad-page .br-bf-cta-box h3,
+.dusche-statt-badewanne-page .br-bf-cta-box h3 {
   margin: 0 0 12px;
   color: var(--navy, #1e3a8a);
   font-size: 24px;
 }
 
-.barrierefreies-bad-page .br-bf-cta-box p {
+.barrierefreies-bad-page .br-bf-cta-box p,
+.dusche-statt-badewanne-page .br-bf-cta-box p {
   margin: 0 auto 24px;
   max-width: 640px;
   color: #4b5563;
 }
 
-.barrierefreies-bad-page .br-bw-calculator {
+.barrierefreies-bad-page .br-bw-calculator,
+.dusche-statt-badewanne-page .br-bw-calculator {
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
   padding: 28px;
+}
+
+.barrierefreies-bad-page .br-bw-calc-question,
+.dusche-statt-badewanne-page .br-bw-calc-question {
+  margin-bottom: 24px;
+}
+
+.barrierefreies-bad-page .br-bw-calc-question h3,
+.dusche-statt-badewanne-page .br-bw-calc-question h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  color: var(--navy, #1e3a8a);
+}
+
+.barrierefreies-bad-page .br-bw-calc-options,
+.dusche-statt-badewanne-page .br-bw-calc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.barrierefreies-bad-page .br-bw-calc-btn,
+.dusche-statt-badewanne-page .br-bw-calc-btn {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #1e3a8a;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.barrierefreies-bad-page .br-bw-calc-btn:hover,
+.dusche-statt-badewanne-page .br-bw-calc-btn:hover {
+  border-color: #f97316;
+}
+
+.barrierefreies-bad-page .br-bw-calc-btn.is-active,
+.dusche-statt-badewanne-page .br-bw-calc-btn.is-active {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
+  color: #fff;
+}
+
+.barrierefreies-bad-page .br-bw-calc-result,
+.dusche-statt-badewanne-page .br-bw-calc-result {
+  margin-top: 8px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.barrierefreies-bad-page .br-bw-calc-range,
+.dusche-statt-badewanne-page .br-bw-calc-range {
+  font-size: 28px;
+  font-weight: 700;
+  color: #f97316;
+  margin: 8px 0 12px;
+}
+
+.barrierefreies-bad-page .br-bw-calc-note,
+.dusche-statt-badewanne-page .br-bw-calc-note {
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.barrierefreies-bad-page .br-bw-price-note,
+.dusche-statt-badewanne-page .br-bw-price-note {
+  margin-top: 24px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
 }
 
 @media (max-width: 1024px) {
@@ -2637,11 +2730,17 @@
   .barrierefreies-bad-page .br-bw-vorteile-section .br-nav-landing-grid,
   .barrierefreies-bad-page .br-trust-usp-section .br-nav-landing-grid,
   .barrierefreies-bad-page .br-bw-process-section .br-nav-landing-grid,
-  .barrierefreies-bad-page .br-kosten-price-grid {
+  .barrierefreies-bad-page .br-kosten-price-grid,
+  .dusche-statt-badewanne-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-trust-usp-section .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-bw-process-section .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-kosten-price-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .barrierefreies-bad-page .br-bf-video-split {
+  .barrierefreies-bad-page .br-bf-video-split,
+  .dusche-statt-badewanne-page .br-bf-video-split {
     grid-template-columns: 1fr;
   }
 }
@@ -2652,13 +2751,22 @@
   .barrierefreies-bad-page .br-trust-usp-section .br-nav-landing-grid,
   .barrierefreies-bad-page .br-bw-process-section .br-nav-landing-grid,
   .barrierefreies-bad-page .br-kosten-price-grid,
-  .barrierefreies-bad-page .br-bf-compare-grid {
+  .barrierefreies-bad-page .br-bf-compare-grid,
+  .dusche-statt-badewanne-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-bw-vorteile-section .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-trust-usp-section .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-bw-process-section .br-nav-landing-grid,
+  .dusche-statt-badewanne-page .br-kosten-price-grid,
+  .dusche-statt-badewanne-page .br-bf-compare-grid {
     grid-template-columns: 1fr;
   }
 
   .barrierefreies-bad-page .br-hero-actions--hero .btn,
   .barrierefreies-bad-page .br-hero-actions--centered .btn,
-  .barrierefreies-bad-page .br-ablauf-cta-wrap .btn {
+  .barrierefreies-bad-page .br-ablauf-cta-wrap .btn,
+  .dusche-statt-badewanne-page .br-hero-actions--hero .btn,
+  .dusche-statt-badewanne-page .br-hero-actions--centered .btn,
+  .dusche-statt-badewanne-page .br-ablauf-cta-wrap .btn {
     width: 100%;
     justify-content: center;
   }
