@@ -2994,3 +2994,163 @@
     justify-content: center;
   }
 }
+
+/* ===== Badsanierung Hub relaunch ===== */
+.badsanierung-hub-page .br-hub-solutions-grid {
+  margin-bottom: 24px;
+}
+
+.badsanierung-hub-page .br-hub-solutions-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.badsanierung-hub-page .br-hub-solutions-grid .br-decision-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+}
+
+.badsanierung-hub-page .br-hub-solutions-grid .br-decision-card p {
+  flex: 1;
+}
+
+.badsanierung-hub-page .br-hub-solutions-grid .br-btn-orange {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.badsanierung-hub-page #leistungen {
+  padding-bottom: 80px;
+}
+
+.badsanierung-hub-page .br-contact-duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.badsanierung-hub-page .br-contact-duo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 40px 32px;
+  border-radius: 20px;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+}
+
+.badsanierung-hub-page .br-contact-duo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.1);
+}
+
+.badsanierung-hub-page .br-contact-duo-card--wa {
+  background: linear-gradient(160deg, #f0fdf4 0%, #ecfdf5 55%, #fff 100%);
+}
+
+.badsanierung-hub-page .br-contact-duo-card--phone {
+  background: linear-gradient(160deg, #eff6ff 0%, #f0f7ff 55%, #fff 100%);
+}
+
+.badsanierung-hub-page .br-contact-duo-card h3 {
+  margin: 0;
+  color: var(--navy, #1e3a8a);
+  font-size: 24px;
+  line-height: 1.3;
+}
+
+.badsanierung-hub-page .br-contact-duo-card p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.badsanierung-hub-page .br-contact-duo-card .btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.badsanierung-hub-page .br-contact-duo-card .br-ablauf-contact-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.badsanierung-hub-page .br-contact-duo-card .br-ablauf-contact-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.badsanierung-hub-page .br-bf-video-split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.badsanierung-hub-page .br-bf-video-content .br-section-title {
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.badsanierung-hub-page .br-bf-video-content .br-section-subtitle {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.badsanierung-hub-page .br-bf-video-content .br-ablauf-video-trust {
+  margin-top: 20px;
+  grid-template-columns: 1fr;
+}
+
+.badsanierung-hub-page .br-bw-process-section .br-nav-landing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.badsanierung-hub-page .br-ablauf-why-grid .br-nav-landing-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.badsanierung-hub-page .br-trust-usp-section .br-nav-landing-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+  .badsanierung-hub-page .br-hub-solutions-grid .br-nav-landing-grid,
+  .badsanierung-hub-page .br-contact-duo,
+  .badsanierung-hub-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badsanierung-hub-page .br-bw-process-section .br-nav-landing-grid,
+  .badsanierung-hub-page .br-trust-usp-section .br-nav-landing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .badsanierung-hub-page .br-bf-video-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .badsanierung-hub-page .br-hub-solutions-grid .br-nav-landing-grid,
+  .badsanierung-hub-page .br-contact-duo,
+  .badsanierung-hub-page .br-ablauf-why-grid .br-nav-landing-grid,
+  .badsanierung-hub-page .br-bw-process-section .br-nav-landing-grid,
+  .badsanierung-hub-page .br-trust-usp-section .br-nav-landing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .badsanierung-hub-page .br-hero-actions--hero .btn,
+  .badsanierung-hub-page .br-hero-actions--centered .btn,
+  .badsanierung-hub-page .br-ablauf-cta-wrap .btn,
+  .badsanierung-hub-page .br-contact-duo-card .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
