@@ -130,7 +130,7 @@ export const sanierungCards = [
     desc: 'Modernisieren Sie Ihre Eigentumswohnung oder Bestandswohnung – von neuen Böden über Elektro bis zur kompletten Badmodernisierung.',
     cta: 'Mehr erfahren',
     icon: Building2,
-    image: '/img/sanierung-thema-wohnung.png',
+    image: '/img/wohnung-hero.png',
   },
   {
     to: '/haussanierung-rhein-main',
@@ -138,7 +138,7 @@ export const sanierungCards = [
     desc: 'Komplette Modernisierung Ihres Hauses – technisch, energetisch und optisch aus einer Hand.',
     cta: 'Mehr erfahren',
     icon: Home,
-    image: '/img/sanierung-thema-haus.png',
+    image: '/img/haus-hero.png',
   },
   {
     to: '/altbausanierung-rhein-main',
@@ -146,7 +146,7 @@ export const sanierungCards = [
     desc: 'Historische Gebäude und ältere Bestandsimmobilien professionell modernisieren und den Charakter erhalten.',
     cta: 'Mehr erfahren',
     icon: Landmark,
-    image: '/img/sanierung-thema-altbau.png',
+    image: '/img/altbau-hero.png',
   },
   {
     to: '/generalunternehmer-rhein-main',

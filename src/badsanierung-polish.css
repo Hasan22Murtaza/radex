@@ -387,9 +387,12 @@
 /* Nav landing cards – taller images */
 .br-nav-landing-grid .br-nav-card-img,
 .br-nav-landing-grid .br-cost-img {
+  width: 100%;
   height: 160px;
   border-radius: 8px;
   margin-bottom: 16px;
+  background-size: cover;
+  background-position: center;
 }
 
 .br-decision-icon svg {
