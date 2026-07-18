@@ -18,7 +18,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -465,11 +465,12 @@ export default function EnergyEfficientRenovation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Wärmepumpe, Dämmung, Fenster, Förderung)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über energetische Sanierung wissen sollten"
         intro={energetischeSanierungSeoIntro}
         sections={energetischeSanierungSeoSections}
-        showAllContent
+        ctaLabel="Energetische Sanierung anfragen"
+        panelId="energetisch-seo-panel"
       />
     </main>
   );

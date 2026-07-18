@@ -18,7 +18,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -1025,11 +1025,11 @@ export default function BadsanierungTopicPage({ topicId }) {
         placeholder={topic.contactPlaceholder}
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title={topic.seoTitle}
         intro={topic.seoIntro}
         sections={topic.seoSections}
-        showAllContent
+        panelId={`badsanierung-topic-${topicId}-seo-panel`}
       />
     </main>
   );

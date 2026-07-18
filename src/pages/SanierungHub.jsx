@@ -14,7 +14,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   TrustUspCards,
 } from '../components/landing/SharedLandingParts';
@@ -344,10 +344,12 @@ export default function SanierungHub() {
 
       <ContactForm />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über eine Sanierung wissen sollten"
         intro={sanierungSeoIntro}
         sections={linkedSanierungSections}
+        ctaLabel="Sanierung anfragen"
+        panelId="sanierung-hub-seo-panel"
       />
     </main>
   );

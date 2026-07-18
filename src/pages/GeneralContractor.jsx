@@ -11,7 +11,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -384,11 +384,12 @@ export default function GeneralContractor() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Haussanierung, Bad & Elektro, Termin vor Einzug)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über einen Generalunternehmer bei einer Sanierung wissen sollten"
         intro={generalunternehmerSeoIntro}
         sections={generalunternehmerSeoSections}
-        showAllContent
+        ctaLabel="Generalunternehmer anfragen"
+        panelId="gu-seo-panel"
       />
     </main>
   );

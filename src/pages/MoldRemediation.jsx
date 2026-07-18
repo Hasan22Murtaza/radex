@@ -18,7 +18,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -471,11 +471,12 @@ export default function MoldRemediation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Anliegen (z.B. Schimmel im Bad, Wasserschaden, Kellerfeuchtigkeit)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Schimmelsanierung wissen sollten"
         intro={schimmelsanierungSeoIntro}
         sections={schimmelsanierungSeoSections}
-        showAllContent
+        ctaLabel="Schimmelsanierung anfragen"
+        panelId="schimmel-seo-panel"
       />
     </main>
   );

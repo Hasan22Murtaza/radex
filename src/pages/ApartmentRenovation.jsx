@@ -10,7 +10,7 @@ import ContactForm from '../components/ContactForm';
 import {
   SharedCTABlock,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   TrustUspCards,
   ProcessSteps,
@@ -424,10 +424,12 @@ export default function ApartmentRenovation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Wohnungssanierung, 80 m², Komplettmodernisierung)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über eine Wohnungssanierung wissen sollten"
         intro={wohnungssanierungSeoIntro}
         sections={wohnungssanierungSeoSections}
+        ctaLabel="Wohnungssanierung anfragen"
+        panelId="wohnung-seo-panel"
       />
     </main>
   );

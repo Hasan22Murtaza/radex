@@ -10,7 +10,7 @@ import ContactForm from '../components/ContactForm';
 import {
   SharedCTABlock,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -403,11 +403,12 @@ export default function HouseRenovation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Haussanierung, 150 m², Komplettsanierung)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über eine Haussanierung wissen sollten"
         intro={haussanierungSeoIntro}
         sections={haussanierungSeoSections}
-        showAllContent
+        ctaLabel="Haussanierung anfragen"
+        panelId="haus-seo-panel"
       />
     </main>
   );

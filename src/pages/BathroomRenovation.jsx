@@ -18,7 +18,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -473,11 +473,12 @@ export default function BathroomRenovation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Komplettbad, Dusche statt Wanne, barrierefrei, Gäste-WC)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Badsanierung wissen sollten"
         intro={badezimmerSanierenSeoIntro}
         sections={badezimmerSanierenSeoSections}
-        showAllContent
+        ctaLabel="Badsanierung anfragen"
+        panelId="bad-seo-panel"
       />
     </main>
   );

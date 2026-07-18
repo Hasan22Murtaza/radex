@@ -18,7 +18,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -457,11 +457,12 @@ export default function HeatingPlumbing() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Wärmepumpe, Heizungstausch, Fußbodenheizung, Leitungen erneuern)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Heizung & Sanitär wissen sollten"
         intro={heizungSanitaerSeoIntro}
         sections={heizungSanitaerSeoSections}
-        showAllContent
+        ctaLabel="Heizung & Sanitär anfragen"
+        panelId="heizung-seo-panel"
       />
     </main>
   );

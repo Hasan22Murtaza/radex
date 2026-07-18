@@ -19,7 +19,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -463,11 +463,12 @@ export default function CompleteRenovation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Komplettsanierung EFH, Kernsanierung Altbau, vor Einzug)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Komplett- und Kernsanierung wissen sollten"
         intro={komplettsanierungSeoIntro}
         sections={komplettsanierungSeoSections}
-        showAllContent
+        ctaLabel="Komplettsanierung anfragen"
+        panelId="komplett-seo-panel"
       />
     </main>
   );

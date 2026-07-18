@@ -10,7 +10,7 @@ import ContactForm from '../components/ContactForm';
 import {
   SharedCTABlock,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -401,11 +401,12 @@ export default function HistoricBuildingRenovation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Altbausanierung, 110 m², Leitungen & Bad)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über eine Altbausanierung wissen sollten"
         intro={altbausanierungSeoIntro}
         sections={altbausanierungSeoSections}
-        showAllContent
+        ctaLabel="Altbausanierung anfragen"
+        panelId="altbau-seo-panel"
       />
     </main>
   );

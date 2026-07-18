@@ -18,7 +18,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -462,11 +462,12 @@ export default function AsbestosRemoval() {
         placeholder="Bitte beschreiben Sie kurz Ihr Anliegen (z.B. Asbestdach, Floor-Flex, Kleber, Baujahr vor 1993)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Asbestsanierung wissen sollten"
         intro={asbestsanierungSeoIntro}
         sections={asbestsanierungSeoSections}
-        showAllContent
+        ctaLabel="Asbestsanierung anfragen"
+        panelId="asbest-seo-panel"
       />
     </main>
   );

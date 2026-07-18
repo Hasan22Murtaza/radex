@@ -19,7 +19,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -499,11 +499,12 @@ export default function InteriorConstruction() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Raumaufteilung, Trockenbau, Böden, Wanddurchbruch)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Innenausbau und Umbau wissen sollten"
         intro={innenausbauSeoIntro}
         sections={innenausbauSeoSections}
-        showAllContent
+        ctaLabel="Innenausbau anfragen"
+        panelId="innenausbau-seo-panel"
       />
     </main>
   );

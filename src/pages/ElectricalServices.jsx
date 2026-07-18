@@ -18,7 +18,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -464,11 +464,12 @@ export default function ElectricalServices() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Sicherungskasten, Altbau-Elektrik, Bad, Küche, Wallbox)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Elektroinstallation wissen sollten"
         intro={elektroinstallationSeoIntro}
         sections={elektroinstallationSeoSections}
-        showAllContent
+        ctaLabel="Elektroinstallation anfragen"
+        panelId="elektro-seo-panel"
       />
     </main>
   );

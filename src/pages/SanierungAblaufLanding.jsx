@@ -25,7 +25,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   SectionTransition,
   ImageCardGrid,
@@ -381,11 +381,12 @@ export default function SanierungAblaufLanding() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Wohnungssanierung, Bad & Elektro, gewünschter Zeitraum)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über den Ablauf einer Sanierung wissen sollten"
         intro={sanierungAblaufSeoIntro}
         sections={sanierungAblaufSeoSections}
-        showAllContent
+        ctaLabel="Sanierung anfragen"
+        panelId="sanierung-ablauf-seo-panel"
       />
     </main>
   );

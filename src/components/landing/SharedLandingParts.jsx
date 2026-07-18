@@ -9,6 +9,7 @@ import {
   MessageSquare,
   Phone,
   UserCheck,
+  X,
 } from 'lucide-react';
 import { Link } from '../../router';
 import { RADEX_LIVE_URL } from '../../constants/brand';
@@ -439,6 +440,134 @@ export function SeoTocSection({
             </div>
           )}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Collapsed "Alles, was Sie ... wissen sollten" heading that opens the full SEO
+ * knowledge copy in a slide-over side drawer (same UX as the city pages).
+ * SEO copy stays in the DOM so it remains crawlable.
+ */
+export function SeoKnowledgeDrawer({
+  title = 'Weitere Informationen',
+  intro,
+  sections = [],
+  ctaLabel = 'Kostenlose Beratung anfragen',
+  ctaHref = '#kontakt',
+  panelId = 'seo-knowledge-panel',
+}) {
+  const [open, setOpen] = useState(false);
+  const headingId = `${panelId}-heading`;
+
+  const linkSections = sections.filter((s) => s.href || s.to);
+  const contentSections = sections.filter((s) => !(s.href || s.to));
+
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && sections.some((s) => s.id === hash && !(s.href || s.to))) {
+      setOpen(true);
+    }
+  }, [sections]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const hash = window.location.hash.slice(1);
+    if (!hash) return undefined;
+    const timer = window.setTimeout(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 320);
+    return () => window.clearTimeout(timer);
+  }, [open]);
+
+  return (
+    <section className="br-section br-bg-light">
+      <div className="container">
+        <div className="text-center">
+          <button
+            type="button"
+            className={`br-seo-toc-toggle${open ? ' is-open' : ''}`}
+            onClick={() => setOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={open}
+            aria-controls={panelId}
+          >
+            <h2 id={headingId} className="br-section-title">
+              {title}
+            </h2>
+            <ChevronDown size={28} className="br-seo-toc-toggle-icon" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+
+      <div className={`br-city-seo-panel-root ${open ? 'open' : ''}`} aria-hidden={!open}>
+        <button
+          type="button"
+          className="br-city-seo-panel-backdrop"
+          aria-label="Hintergrund schließen"
+          tabIndex={open ? 0 : -1}
+          onClick={() => setOpen(false)}
+        />
+        <aside
+          id={panelId}
+          className="br-city-seo-panel br-ablauf-seo-panel"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={headingId}
+        >
+          <div className="br-city-seo-panel-header">
+            <p className="br-bw-seo-panel-label">{title}</p>
+            <button
+              type="button"
+              className="br-city-seo-panel-close"
+              aria-label="Schließen"
+              onClick={() => setOpen(false)}
+            >
+              <X size={22} />
+            </button>
+          </div>
+          <div className="br-city-seo-panel-body">
+            {intro && <div className="br-city-seo-panel-block br-ablauf-seo-intro">{intro}</div>}
+
+            {contentSections.map((section) => (
+              <article key={section.id} id={section.id} className="br-city-seo-panel-block">
+                <h3>{section.title}</h3>
+                <div className="br-ablauf-seo-article-body">{section.content}</div>
+              </article>
+            ))}
+
+            {linkSections.length > 0 && (
+              <ul className="br-city-seo-panel-links">
+                {linkSections.map((section) => (
+                  <li key={section.id}>
+                    <Link to={section.href || section.to} onClick={() => setOpen(false)}>
+                      {section.title}
+                      <ArrowRight size={16} />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <a href={ctaHref} className="br-city-seo-panel-faq" onClick={() => setOpen(false)}>
+              {ctaLabel}
+            </a>
+          </div>
+        </aside>
       </div>
     </section>
   );

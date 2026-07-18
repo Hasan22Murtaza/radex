@@ -11,7 +11,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   SectionTransition,
   ImageCardGrid,
@@ -261,10 +261,12 @@ export default function SanierungskostenLanding() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Wohnungssanierung, 85 m², Leitungen & Bad)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Sanierungskosten wissen sollten"
         intro={sanierungskostenSeoIntro}
         sections={sanierungskostenSeoSections}
+        ctaLabel="Kostenberatung anfragen"
+        panelId="sanierungskosten-seo-panel"
       />
     </main>
   );

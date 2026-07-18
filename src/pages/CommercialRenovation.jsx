@@ -19,7 +19,7 @@ import {
   SharedCTABlock,
   PremiumIconCards,
   FaqAccordion,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   ProcessSteps,
   SectionTransition,
@@ -475,11 +475,12 @@ export default function CommercialRenovation() {
         placeholder="Bitte beschreiben Sie kurz Ihr Projekt (z.B. Büroumbau, Praxis, Laden, Mieterausbau, Termin vor Mietbeginn)..."
       />
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Alles, was Sie über Gewerbe- und Objektsanierung wissen sollten"
         intro={gewerbeObjektsanierungSeoIntro}
         sections={gewerbeObjektsanierungSeoSections}
-        showAllContent
+        ctaLabel="Gewerbesanierung anfragen"
+        panelId="gewerbe-seo-panel"
       />
     </main>
   );
