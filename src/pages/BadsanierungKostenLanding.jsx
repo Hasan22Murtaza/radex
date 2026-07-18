@@ -3,7 +3,6 @@ import {
   Award,
   Calculator,
   CheckCircle2,
-  ChevronDown,
   FileText,
   FolderOpen,
   Handshake,
@@ -14,7 +13,6 @@ import {
   Phone,
   Ruler,
   Send,
-  X,
 } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
@@ -268,6 +266,21 @@ const faqsData = [
   },
 ];
 
+const SEO_SECTION_CTAS = {
+  'was-kostet-ein-neues-bad-und-warum-lasst-sich-das-so-schwer-pauschal-sagen': 'Badsanierung Kosten einschätzen lassen',
+  'die-faktoren-hinter-den-badsanierung-kosten-was-den-preis-wirklich-bestimmt': 'Unverbindliches Angebot anfragen',
+  'ausstattung-dusche-fliesen-und-elektro-die-weiteren-kostenpositionen': 'Unverbindlich anfragen',
+  'barrierefreies-bad-und-ruckbau-zwei-positionen-mit-eigenem-gewicht': 'Kostenrahmen besprechen',
+  'badbudget-planen-wie-eine-seriose-kostenschatzung-entsteht': 'Kostenlos beraten lassen',
+  'badsanierung-kosten-transparent-einschatzen-was-radex-dabei-leitet': 'Beratung anfragen',
+};
+
+// Die ausführlichen Kosten-FAQ liegen bereits im sichtbaren FAQ-Accordion vor –
+// hier ausschließen, um doppelten Inhalt zu vermeiden.
+const seoArticleSections = badsanierungKostenSeoSections.filter(
+  (section) => section.id !== 'haeufige-fragen-zu-den-badsanierung-kosten',
+);
+
 const videoTranscript = [
   'Mein Name ist Bernd Knoop. Ich bin SHK-Meister und Betriebsleiter der Radex Objektmanagement GmbH.',
   'Die häufigste Frage unserer Kunden lautet: Was kostet eine Badsanierung? Eine pauschale Antwort gibt es darauf nicht, denn jedes Badezimmer ist anders. Raumgröße, Leitungen, Materialauswahl und der gewünschte Ausstattungsstandard beeinflussen den späteren Gesamtpreis.',
@@ -469,41 +482,17 @@ function KostenContactSection() {
 }
 
 export default function BadsanierungKostenLanding() {
-  const [seoPanelOpen, setSeoPanelOpen] = useState(false);
-
   useEffect(() => {
     if (!window.location.hash) {
       window.scrollTo(0, 0);
-      return;
+      return undefined;
     }
     const hash = window.location.hash.slice(1);
-    if (badsanierungKostenSeoSections.some((s) => s.id === hash)) {
-      setSeoPanelOpen(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!seoPanelOpen) return undefined;
-    const onKey = (event) => {
-      if (event.key === 'Escape') setSeoPanelOpen(false);
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [seoPanelOpen]);
-
-  useEffect(() => {
-    if (!seoPanelOpen) return undefined;
-    const hash = window.location.hash.slice(1);
-    if (!hash) return undefined;
     const timer = window.setTimeout(() => {
       document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 320);
+    }, 200);
     return () => window.clearTimeout(timer);
-  }, [seoPanelOpen]);
+  }, []);
 
   useSeo({
     title: META_TITLE,
@@ -753,12 +742,34 @@ export default function BadsanierungKostenLanding() {
         </div>
       </section>
 
-      <SectionTransition title="Häufige Fragen zu den Kosten einer Badsanierung">
-        Im nächsten Abschnitt beantworten wir häufig gestellte Fragen rund um Preise, Festpreise, Fördermöglichkeiten und
-        die Kalkulation einer Badsanierung.
+      <SectionTransition title="Weitere Informationen zu den Kosten einer Badsanierung">
+        Im folgenden Bereich finden Sie ausführliche Informationen rund um Preisfaktoren, Materialkosten,
+        Arbeitsleistungen, Ausstattung, Budgetplanung sowie das Einsatzgebiet – transparent und ohne
+        Pauschalversprechen, auf Basis realer Projekterfahrung im Rhein-Main-Gebiet.
       </SectionTransition>
 
-      {/* 10 FAQ */}
+      {/* 10 Ausführliche Kosten-Informationen (Langform) */}
+      <section id="seo-informationen" className="br-section br-kosten-seo-article">
+        <div className="container br-kosten-seo-container">
+          <div className="br-ablauf-seo-intro br-kosten-seo-intro">{badsanierungKostenSeoIntro}</div>
+
+          {seoArticleSections.map((section) => (
+            <article key={section.id} id={section.id} className="br-kosten-seo-block">
+              <h2 className="br-kosten-seo-title">{section.title}</h2>
+              <div className="br-ablauf-seo-article-body">{section.content}</div>
+              {SEO_SECTION_CTAS[section.id] && (
+                <div className="br-ablauf-cta-wrap br-kosten-seo-cta">
+                  <a href="#kontakt" className="btn br-btn-orange">
+                    {SEO_SECTION_CTAS[section.id]}
+                  </a>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* 11 FAQ */}
       <FaqAccordion
         faqs={faqsData}
         title="Häufige Fragen zu den Kosten einer Badsanierung"
@@ -770,79 +781,8 @@ export default function BadsanierungKostenLanding() {
         transparente Kosteneinschätzung für Ihr Badezimmer.
       </SectionTransition>
 
-      {/* 11 Kontakt */}
+      {/* 12 Kontakt */}
       <KostenContactSection />
-
-      {/* 12 Weitere Informationen */}
-      <section id="seo-informationen" className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center mb-6">
-            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: '20px' }}>
-              Im folgenden Bereich finden Sie ausführliche Informationen rund um Preisfaktoren, Materialkosten,
-              Arbeitsleistungen, Planung, Einsparmöglichkeiten und weitere Themen zur Kalkulation einer Badsanierung.
-            </p>
-            <button
-              type="button"
-              className={`br-seo-toc-toggle${seoPanelOpen ? ' is-open' : ''}`}
-              onClick={() => setSeoPanelOpen(true)}
-              aria-haspopup="dialog"
-              aria-expanded={seoPanelOpen}
-            >
-              <h2 className="br-section-title">Weitere Informationen zu den Kosten einer Badsanierung</h2>
-              <ChevronDown size={28} className="br-seo-toc-toggle-icon" aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-
-        <div className={`br-city-seo-panel-root ${seoPanelOpen ? 'open' : ''}`} aria-hidden={!seoPanelOpen}>
-          <button
-            type="button"
-            className="br-city-seo-panel-backdrop"
-            aria-label="Hintergrund schließen"
-            tabIndex={seoPanelOpen ? 0 : -1}
-            onClick={() => setSeoPanelOpen(false)}
-          />
-          <aside
-            className="br-city-seo-panel br-ablauf-seo-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="br-kosten-seo-panel-title"
-          >
-            <div className="br-city-seo-panel-header">
-              <h2 id="br-kosten-seo-panel-title">Weitere Informationen zu den Kosten einer Badsanierung</h2>
-              <button
-                type="button"
-                className="br-city-seo-panel-close"
-                aria-label="Schließen"
-                onClick={() => setSeoPanelOpen(false)}
-              >
-                <X size={22} />
-              </button>
-            </div>
-            <div className="br-city-seo-panel-body">
-              <div className="br-city-seo-panel-block br-ablauf-seo-intro">
-                <p className="mb-4 text-gray-600">
-                  Hier finden Sie ausführliche Informationen rund um die Kosten einer Badsanierung. Erfahren Sie mehr
-                  über Preisfaktoren, Materialkosten, Arbeitsleistungen, Badgrößen, Ausstattungsvarianten,
-                  Einsparpotenziale sowie den Ablauf einer professionellen Badsanierung im Rhein-Main-Gebiet.
-                </p>
-                {badsanierungKostenSeoIntro}
-              </div>
-
-              {badsanierungKostenSeoSections.map((section) => (
-                <article key={section.id} id={section.id} className="br-city-seo-panel-block">
-                  <h3>{section.title}</h3>
-                  <div className="br-ablauf-seo-article-body">{section.content}</div>
-                </article>
-              ))}
-
-              <a href="#kontakt" className="br-city-seo-panel-faq" onClick={() => setSeoPanelOpen(false)}>
-                Kostenlose Kosteneinschätzung anfragen
-              </a>
-            </div>
-          </aside>
-        </div>
-      </section>
     </main>
   );
 }

@@ -32,6 +32,7 @@ import {
   FaqAccordion,
   ImageCardGrid,
   PremiumIconCards,
+  QualityPromiseBlock,
   SectionTransition,
 } from '../components/landing/SharedLandingParts';
 import testVideo from '../assets/test.mp4';
@@ -825,6 +826,9 @@ export default function DuscheStattBadewanneLanding() {
           </div>
         </div>
       </section>
+
+      {/* Radex Qualitätsversprechen */}
+      <QualityPromiseBlock intro="Beim Umbau von der Badewanne zur Dusche stehen fachgerechte Abdichtung, sichere Entwässerung und eine saubere Ausführung im Mittelpunkt." />
 
       {/* 7 Video */}
       <section id="video" className="br-section br-bg-light br-ablauf-video-section br-bf-video-section">

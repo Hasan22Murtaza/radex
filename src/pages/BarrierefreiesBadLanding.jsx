@@ -31,6 +31,7 @@ import {
   FaqAccordion,
   ImageCardGrid,
   PremiumIconCards,
+  QualityPromiseBlock,
   SectionTransition,
 } from '../components/landing/SharedLandingParts';
 import testVideo from '../assets/test.mp4';
@@ -833,6 +834,9 @@ export default function BarrierefreiesBadLanding() {
           </div>
         </div>
       </section>
+
+      {/* Radex Qualitätsversprechen */}
+      <QualityPromiseBlock intro="Bei barrierefreien Badezimmern achten wir besonders auf sichere Nutzung, technische Ausführung und eine sorgfältige Übergabe." />
 
       <SectionTransition title="Persönlich erklärt von Bernd Knoop">
         Ein barrierefreies Badezimmer muss nicht nach Pflege oder Klinik aussehen. Bernd Knoop, SHK-Meister und

@@ -74,6 +74,14 @@ export const badsanierungCards = [
     image: '/img/badsanierung-thema-gaestewc.png',
   },
   {
+    to: '/kleines-bad-sanieren',
+    title: 'Kleines Bad sanieren',
+    desc: 'Mehr Platz, Komfort und Stauraum auf wenigen Quadratmetern – mit intelligenter Planung, platzsparenden Lösungen und hellem Design.',
+    cta: 'Mehr erfahren',
+    icon: LayoutGrid,
+    image: '/img/kleines-bad-sanieren-hero.webp',
+  },
+  {
     to: '/badsanierung-kosten',
     title: 'Badsanierung Kosten',
     desc: 'Typische Einstiegspreise für Basis, Komfort und Premium – nutzen Sie unseren Badsanierung-Kostenrechner für eine erste Orientierung.',

@@ -175,6 +175,7 @@ export default function Footer() {
             </p>
             <ul className="footer-links">
               <li><Link to="/ueber-uns" className="footer-link">Über Radex</Link></li>
+              <li><Link to="/radex-qualitaetsversprechen" className="footer-link">Radex Qualitätsversprechen</Link></li>
               <li><Link to="/karriere" className="footer-link">Karriere</Link></li>
               <li><a href="/#kontakt" className="footer-link">Kontakt</a></li>
               <li><Link to="/impressum" className="footer-link">Impressum</Link></li>

@@ -58,7 +58,7 @@ export const badsanierungKostenSeoSections = [
           Die Grundfläche des Bades ist ein offensichtlicher Kostenfaktor – mehr Fläche bedeutet mehr Fliesen, mehr Abdichtung, mehr Estrich. Aber die Relation ist nicht linear. Die Kostenpositionen, die unabhängig von der Badgröße entstehen – Sanitärinstallation, Vorwandinstallation, Elektro, Abdichtungsgrundarbeiten – fallen in einem kleinen Bad genauso an wie in einem großen. Wer ein sehr kleines Bad sanieren lässt, zahlt daher oft einen höheren Anteil dieser Fixkosten gemessen an der Fläche.
         </p>
         <p className={p}>
-          Aus diesem Grund lassen sich pauschale Preisangaben pro Quadratmeter für Badsanierungen nur eingeschränkt verwenden. Ein Gäste-WC mit 3 Quadratmetern hat eine andere Kostenstruktur als ein Familienbadezimmer mit 8 Quadratmetern – selbst wenn beide vollständig erneuert werden sollen. Mehr dazu auf der Seite <Link to="/kleines-bad-sanieren">kleines Bad sanieren</Link>.
+          Aus diesem Grund lassen sich pauschale Preisangaben pro Quadratmeter für Badsanierungen nur eingeschränkt verwenden. Ein Gäste-WC mit 3 Quadratmetern hat eine andere Kostenstruktur als ein Familienbadezimmer mit 8 Quadratmetern – selbst wenn beide vollständig erneuert werden sollen. Mehr dazu auf der Seite <Link to="/badsanierung-rhein-main">Badsanierung im Überblick</Link>.
         </p>
         <h4 className={h4}>Zustand des Bestandes – der unsichtbare Kostentreiber</h4>
         <p className={p}>
@@ -96,7 +96,7 @@ export const badsanierungKostenSeoSections = [
           Der Umbau von einer Badewanne zu einer bodengleichen Dusche gehört zu den häufigsten Wünschen bei einer Badsanierung. Er ist sinnvoll, komfortabel und barrierearm – aber er ist mit einem höheren Aufwand verbunden als ein einfacher Objekttausch. Bodengleiche Dusche bauen bedeutet: neuer Bodenaufbau mit Gefälleestrich, Positionierung des Ablaufs, Abdichtung im gesamten Duschbereich nach DIN 18534, Fliesenarbeiten auf der Schräge. Das sind handwerkliche Anforderungen, die in der Kostenposition für Fliesenarbeiten und Sanitärinstallation zusammen sichtbar werden.
         </p>
         <p className={p}>
-          Wer eine bodengleiche Dusche in einem Bestandsbad ohne vollständigen Rückbau nachrüsten will, stößt in der Regel auf Grenzen: Der Bodenaufbau lässt oft nicht genug Tiefe für den Ablauf. Eine vollständige Badsanierung ist deshalb der richtige Zeitpunkt für diese Maßnahme. Mehr zu den spezifischen Kosten finden Sie auf der Seite <Link to="/dusche-statt-badewanne">Dusche statt Badewanne</Link>.
+          Wer eine bodengleiche Dusche in einem Bestandsbad ohne vollständigen Rückbau nachrüsten will, stößt in der Regel auf Grenzen: Der Bodenaufbau lässt oft nicht genug Tiefe für den Ablauf. Eine vollständige Badsanierung ist deshalb der richtige Zeitpunkt für diese Maßnahme. Mehr zu den spezifischen Kosten finden Sie auf der Seite <Link to="/dusche-statt-badewanne">Dusche statt Badewanne Kosten</Link>.
         </p>
         <h4 className={h4}>Fliesenarbeiten – Materialwahl und Verlegeart entscheiden mit</h4>
         <p className={p}>
@@ -133,7 +133,7 @@ export const badsanierungKostenSeoSections = [
           Ein barrierefreies Bad zu bauen bedeutet: bodengleiche Dusche mit ausreichend Bewegungsfläche, Haltegriffe an der richtigen Position, eventuell breitere Türen oder ein unterfahrbarer Waschtisch. Diese Maßnahmen sind bei einer ohnehin geplanten Badsanierung mit einem überschaubaren Mehraufwand verbunden – weil der Bodenaufbau ohnehin erneuert wird, die Leitungen ohnehin zugänglich sind und die Grundrissplanung ohnehin neu gedacht wird.
         </p>
         <p className={p}>
-          Wer das Bad erst später barrierefrei umrüsten will, zahlt deutlich mehr – weil dann ein erneuter vollständiger Rückbau notwendig wird. Der richtige Zeitpunkt für barrierefreie Maßnahmen ist deshalb die Badsanierung. Hinzu kommt: Für barrierefreie Umbauten gibt es Förderprogramme der KfW (Programm 455-B), die die Kosten erheblich reduzieren können. Mehr zur Kalkulation finden Sie auf der Seite <Link to="/barrierefreies-bad">barrierefreies Bad</Link>.
+          Wer das Bad erst später barrierefrei umrüsten will, zahlt deutlich mehr – weil dann ein erneuter vollständiger Rückbau notwendig wird. Der richtige Zeitpunkt für barrierefreie Maßnahmen ist deshalb die Badsanierung. Hinzu kommt: Für barrierefreie Umbauten gibt es Förderprogramme der KfW (Programm 455-B), die die Kosten erheblich reduzieren können. Mehr zur Kalkulation finden Sie auf der Seite <Link to="/barrierefreies-bad-kosten">Barrierefreies Bad Kosten</Link>.
         </p>
         <h4 className={h4}>Rückbau – der erste Kostenblock, der oft vergessen wird</h4>
         <p className={p}>

@@ -16,6 +16,7 @@ import {
   ProcessSteps,
   SectionTransition,
   ImageCardGrid,
+  QualityPromiseBlock,
 } from '../components/landing/SharedLandingParts';
 import {
   wohnungssanierungSeoIntro,
@@ -346,6 +347,9 @@ export default function ApartmentRenovation() {
         die fachgerechte Umsetzung auf der Baustelle. Deshalb geben wir Ihnen im nächsten Abschnitt echte Einblicke in
         unsere tägliche Arbeit.
       </SectionTransition>
+
+      {/* Radex Qualitätsversprechen */}
+      <QualityPromiseBlock intro="Bei einer Wohnungssanierung sorgen zentrale Koordination, transparente Kommunikation und kontrollierte Bauphasen für Planungssicherheit." />
 
       <RadexLiveSection
         title="Schauen Sie uns bei der Arbeit über die Schulter."

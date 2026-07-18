@@ -51,13 +51,15 @@ import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 import UeberUns from './pages/UeberUns';
 import Karriere from './pages/Karriere';
-import BathroomRenovation from './pages/BathroomRenovation';
+import KomplettbadsanierungLanding from './pages/KomplettbadsanierungLanding';
 import SanierungskostenRechnerPage from './pages/SanierungskostenRechnerPage';
 import SanierungAblaufLanding from './pages/SanierungAblaufLanding';
 import AblaufBadsanierungLanding from './pages/AblaufBadsanierungLanding';
 import BadewanneAustauschenLanding from './pages/BadewanneAustauschenLanding';
 import BadmodernisierungLanding from './pages/BadmodernisierungLanding';
 import BadrenovierungLanding from './pages/BadrenovierungLanding';
+import GaesteWcLanding from './pages/GaesteWcLanding';
+import KleinesBadLanding from './pages/KleinesBadLanding';
 import BadsanierungDauerLanding from './pages/BadsanierungDauerLanding';
 import BadsanierungFestpreisLanding from './pages/BadsanierungFestpreisLanding';
 import BadsanierungKostenLanding from './pages/BadsanierungKostenLanding';
@@ -67,6 +69,7 @@ import DuscheStattBadewanneLanding from './pages/DuscheStattBadewanneLanding';
 import BadplanungLanding from './pages/BadplanungLanding';
 import SanierungskostenLanding from './pages/SanierungskostenLanding';
 import RadexLiveRedirect from './pages/RadexLiveRedirect';
+import RadexQualitaetsversprechen from './pages/RadexQualitaetsversprechen';
 
 function ScrollAndAnimationManager() {
   const location = useLocation();
@@ -150,7 +153,7 @@ export default function App({ location }) {
           ))}
           <Route pathPrefix="/ratgeber" element={<RatgeberRouter />} />
           <Route path="/badsanierung-rhein-main" element={<BadsanierungHub />} />
-          <Route path="/badsanierung/badezimmer-sanieren" element={<BathroomRenovation />} />
+          <Route path="/badsanierung/badezimmer-sanieren" element={<KomplettbadsanierungLanding />} />
           <Route path="/dusche-statt-badewanne" element={<DuscheStattBadewanneLanding />} />
           <Route path="/badewanne-austauschen" element={<BadewanneAustauschenLanding />} />
           <Route path="/badmodernisierung" element={<BadmodernisierungLanding />} />
@@ -159,7 +162,8 @@ export default function App({ location }) {
           <Route path="/badsanierung-festpreis" element={<BadsanierungFestpreisLanding />} />
           <Route path="/barrierefreies-bad" element={<BarrierefreiesBadLanding />} />
           <Route path="/barrierefreies-bad-kosten" element={<BarrierefreiesBadKostenLanding />} />
-          <Route path="/gaeste-wc" element={<BadsanierungTopicPage topicId="gaeste-wc" />} />
+          <Route path="/gaeste-wc" element={<GaesteWcLanding />} />
+          <Route path="/kleines-bad-sanieren" element={<KleinesBadLanding />} />
           <Route path="/badplanung" element={<BadplanungLanding />} />
           <Route path="/ablauf-badsanierung" element={<AblaufBadsanierungLanding />} />
           <Route path="/leistungen/heizung-sanitaer" element={<HeizungSanitaerHub />} />
@@ -197,6 +201,7 @@ export default function App({ location }) {
           <Route path="/raeume-umbauen-rhein-main" element={<RaeumeUmbauenLanding />} />
           <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
           <Route path="/radex-live" element={<RadexLiveRedirect />} />
+          <Route path="/radex-qualitaetsversprechen" element={<RadexQualitaetsversprechen />} />
           <Route path="/ueber-uns" element={<UeberUns />} />
           <Route path="/karriere" element={<Karriere />} />
           <Route path="/sanierungskosten-rechner" element={<SanierungskostenRechnerPage />} />

@@ -1,5 +1,15 @@
 ﻿import { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowRight, Camera, ChevronDown, MessageSquare, Phone } from 'lucide-react';
+import {
+  ArrowRight,
+  Award,
+  Camera,
+  ChevronDown,
+  ClipboardCheck,
+  FileCheck,
+  MessageSquare,
+  Phone,
+  UserCheck,
+} from 'lucide-react';
 import { Link } from '../../router';
 import { RADEX_LIVE_URL } from '../../constants/brand';
 import testVideo from '../../assets/test.mp4';
@@ -512,6 +522,64 @@ export function ImageCardGrid({ cards, linked = false }) {
         );
       })}
     </div>
+  );
+}
+
+const qualityPromisePoints = [
+  { title: 'SHK-Meisterbetrieb', icon: Award },
+  { title: 'Transparente Angebote', icon: FileCheck },
+  { title: 'Persönlicher Ansprechpartner', icon: UserCheck },
+  { title: 'Kontrollierte Übergabe', icon: ClipboardCheck },
+];
+
+/**
+ * Compact, topic-specific quality block for Money Pages.
+ * Shows four fixed quality points, a service-specific intro and links to the
+ * central quality promise page. Placed once per page (after "Warum Radex").
+ */
+export function QualityPromiseBlock({ intro }) {
+  return (
+    <section className="br-section br-qp-block-section" aria-labelledby="br-qp-block-title">
+      <div className="container">
+        <div className="br-qp-block">
+          <div className="br-qp-block-head">
+            <span className="br-qp-block-kicker">Qualität bei Radex</span>
+            <h2 id="br-qp-block-title" className="br-section-title">
+              Das Radex Qualitätsversprechen
+            </h2>
+            {intro && <p className="br-qp-block-intro">{intro}</p>}
+          </div>
+
+          <ul className="br-qp-block-points">
+            {qualityPromisePoints.map((point) => {
+              const Icon = point.icon;
+              return (
+                <li key={point.title} className="br-qp-block-point">
+                  <span className="br-qp-block-point-icon" aria-hidden="true">
+                    <Icon size={22} strokeWidth={1.5} />
+                  </span>
+                  <span className="br-qp-block-point-label">{point.title}</span>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="br-qp-block-actions">
+            <Link to="/radex-qualitaetsversprechen" className="btn br-btn-orange">
+              Qualitätsversprechen ansehen →
+            </Link>
+          </div>
+
+          <p className="br-qp-block-legal">
+            Für unsere Leistungen gelten die gesetzlichen Mängelrechte und die im jeweiligen Vertrag
+            vereinbarten Regelungen.{' '}
+            <Link to="/radex-qualitaetsversprechen#gewaehrleistung" className="br-qp-block-legal-link">
+              Mehr zu Qualität und Gewährleistung →
+            </Link>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
 

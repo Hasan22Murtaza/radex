@@ -15,6 +15,7 @@ import {
   ProcessSteps,
   SectionTransition,
   ImageCardGrid,
+  QualityPromiseBlock,
 } from '../components/landing/SharedLandingParts';
 import {
   haussanierungSeoIntro,
@@ -323,6 +324,9 @@ export default function HouseRenovation() {
         strukturierter Ablauf. Im nächsten Abschnitt zeigen wir Ihnen Schritt für Schritt, wie Ihr Projekt umgesetzt
         wird.
       </SectionTransition>
+
+      {/* Radex Qualitätsversprechen */}
+      <QualityPromiseBlock intro="Umfangreiche Sanierungsprojekte werden mit klar definierten Leistungen, abgestimmten Gewerken und regelmäßigen Qualitätskontrollen begleitet." />
 
       <ProcessSteps
         title="So läuft Ihre Haussanierung mit Radex ab"
