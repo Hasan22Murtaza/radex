@@ -659,11 +659,6 @@ export default function BadsanierungKostenLanding() {
         </div>
       </section>
 
-      <SectionTransition title="So entsteht Ihr individuelles Festpreisangebot">
-        Von der ersten Kontaktaufnahme bis zum fertigen Angebot analysieren wir Ihr Badezimmer Schritt für Schritt und
-        erstellen eine transparente Kalkulation auf Grundlage Ihrer Wünsche und der tatsächlichen Gegebenheiten vor Ort.
-      </SectionTransition>
-
       {/* 7 Angebotserstellung */}
       <section id="angebotserstellung" className="br-section br-bg-light br-bw-process-section">
         <div className="container">

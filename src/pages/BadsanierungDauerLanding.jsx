@@ -835,12 +835,6 @@ export default function BadsanierungDauerLanding() {
         </div>
       </section>
 
-      <SectionTransition title="So entsteht Ihr persönlicher Zeitplan">
-        Von der ersten Anfrage bis zur Fertigstellung planen wir jeden Arbeitsschritt sorgfältig. So wissen Sie
-        frühzeitig, welche Bauphasen aufeinander folgen und wann Ihr neues Badezimmer voraussichtlich fertiggestellt
-        wird.
-      </SectionTransition>
-
       {/* 7 Zeitplanung / Ablauf */}
       <section id="zeitplanung" className="br-section br-bg-light br-bw-process-section">
         <div className="container">
@@ -911,11 +905,6 @@ export default function BadsanierungDauerLanding() {
           </div>
         </div>
       </section>
-
-      <SectionTransition title="Häufige Fragen zur Dauer einer Badsanierung">
-        Im nächsten Abschnitt beantworten wir häufige Fragen rund um Bauzeiten, Terminplanung, mögliche Verzögerungen und
-        die einzelnen Bauphasen einer Badsanierung.
-      </SectionTransition>
 
       {/* 10 FAQ */}
       <FaqAccordion

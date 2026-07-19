@@ -236,11 +236,6 @@ export default function RadexQualitaetsversprechen() {
         </div>
       </section>
 
-      <SectionTransition title="So sichern wir die Qualität Ihres Projekts">
-        Klare Abläufe schaffen Verlässlichkeit. In fünf Schritten stellen wir sicher, dass die vereinbarten
-        Leistungen sauber geplant, koordiniert, geprüft und gemeinsam übergeben werden.
-      </SectionTransition>
-
       {/* 5 Quality control process */}
       <HorizontalProcessTimeline
         title="So sichern wir die Qualität Ihres Projekts"

@@ -853,11 +853,6 @@ export default function KleinesBadLanding() {
         </div>
       </section>
 
-      <SectionTransition title="So entsteht Ihr neues kleines Badezimmer">
-        Von der ersten Planung bis zur fertigen Übergabe koordinieren wir sämtliche Arbeiten und sorgen dafür, dass
-        jeder Zentimeter optimal genutzt wird.
-      </SectionTransition>
-
       {/* 8 Ablauf */}
       <section id="ablauf" className="br-section br-bw-process-section">
         <div className="container">

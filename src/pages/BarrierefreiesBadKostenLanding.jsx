@@ -856,11 +856,6 @@ export default function BarrierefreiesBadKostenLanding() {
         </div>
       </section>
 
-      <SectionTransition title="So entsteht Ihre persönliche Kostenplanung">
-        Von der ersten Beratung bis zum fertigen Angebot erfassen wir alle relevanten Faktoren und erstellen auf dieser
-        Grundlage eine transparente Kostenübersicht für Ihr barrierefreies Badezimmer.
-      </SectionTransition>
-
       {/* 8 Kostenplanung / Ablauf */}
       <section id="kostenplanung" className="br-section br-bw-process-section">
         <div className="container">
@@ -935,11 +930,6 @@ export default function BarrierefreiesBadKostenLanding() {
           </div>
         </div>
       </section>
-
-      <SectionTransition title="Häufige Fragen zu den Kosten eines barrierefreien Badezimmers">
-        Im nächsten Abschnitt beantworten wir häufig gestellte Fragen rund um Preise, Zuschüsse, Planung und den
-        Leistungsumfang eines barrierefreien Badumbaus.
-      </SectionTransition>
 
       {/* 11 FAQ */}
       <FaqAccordion

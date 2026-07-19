@@ -673,12 +673,6 @@ export default function BadsanierungFestpreisLanding() {
         </div>
       </section>
 
-      <SectionTransition title="So entsteht Ihr persönliches Festpreisangebot">
-        Von der ersten Anfrage bis zum fertigen Angebot erfolgt jeder Schritt transparent und nachvollziehbar. So wissen
-        Sie bereits vor Beginn der Arbeiten, welche Leistungen geplant sind und auf welcher Grundlage Ihr individuelles
-        Festpreisangebot erstellt wurde.
-      </SectionTransition>
-
       {/* 7 Angebotserstellung */}
       <section id="angebotserstellung" className="br-section br-bg-light br-bw-process-section">
         <div className="container">

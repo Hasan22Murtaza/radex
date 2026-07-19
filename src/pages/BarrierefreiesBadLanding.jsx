@@ -881,11 +881,6 @@ export default function BarrierefreiesBadLanding() {
         </div>
       </section>
 
-      <SectionTransition title="So entsteht Ihr barrierefreies Bad">
-        Eine gute Planung schafft die Grundlage für ein komfortables und sicheres Badezimmer. Im nächsten Abschnitt
-        zeigen wir Ihnen Schritt für Schritt, wie Ihr barrierefreier Badumbau abläuft.
-      </SectionTransition>
-
       {/* 8 Ablauf */}
       <section id="ablauf" className="br-section br-bw-process-section">
         <div className="container">
@@ -940,14 +935,6 @@ export default function BarrierefreiesBadLanding() {
         </div>
       </section>
 
-      <SectionTransition title="Was kostet ein barrierefreies Bad?">
-        Die Kosten hängen von der Raumgröße, den gewünschten Ausstattungsmerkmalen und dem Umfang der Umbauarbeiten ab.
-        Mit den folgenden Preisbeispielen erhalten Sie eine erste Orientierung. Ausführliche Informationen finden Sie auf
-        der Seite <Link to="/barrierefreies-bad-kosten">Barrierefreies Bad Kosten</Link>. Für eine allgemeine{' '}
-        <Link to="/badsanierung-kosten">Badsanierung Kosten</Link>-Übersicht steht auch unser{' '}
-        <Link to="/sanierungskosten-rechner">Budgetrechner</Link> bereit.
-      </SectionTransition>
-
       {/* 10 Preise */}
       <section id="preise" className="br-section">
         <div className="container">
@@ -994,11 +981,6 @@ export default function BarrierefreiesBadLanding() {
           </div>
         </div>
       </section>
-
-      <SectionTransition title="Häufige Fragen zum barrierefreien Bad">
-        Hier beantworten wir häufig gestellte Fragen rund um Planung, Kosten, Technik und Möglichkeiten eines
-        barrierefreien Badezimmers. Weitere Tipps finden Sie im <Link to="/ratgeber">Ratgeber</Link>.
-      </SectionTransition>
 
       {/* 12 FAQ */}
       <FaqAccordion

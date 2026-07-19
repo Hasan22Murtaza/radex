@@ -968,11 +968,6 @@ export default function GaesteWcLanding() {
         </div>
       </section>
 
-      <SectionTransition title="Häufige Fragen zur Gäste-WC-Sanierung">
-        Hier beantworten wir die häufigsten Fragen rund um Planung, Ablauf, Kosten und Möglichkeiten der
-        Gäste-WC-Modernisierung.
-      </SectionTransition>
-
       {/* 12 FAQ */}
       <FaqAccordion
         faqs={faqsData}

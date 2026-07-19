@@ -932,11 +932,6 @@ export default function DuscheStattBadewanneLanding() {
         </div>
       </section>
 
-      <SectionTransition title="Was kostet der Umbau von Badewanne zur Dusche?">
-        Die Kosten hängen unter anderem von der Größe des Badezimmers, der gewünschten Dusche und dem Umfang der Arbeiten
-        ab. Die folgenden Werte dienen als erste Orientierung.
-      </SectionTransition>
-
       {/* 10 Preise */}
       <section id="preise" className="br-section">
         <div className="container">
@@ -990,10 +985,6 @@ export default function DuscheStattBadewanneLanding() {
           </div>
         </div>
       </section>
-
-      <SectionTransition title="Häufige Fragen zum Umbau von Badewanne zur Dusche">
-        Antworten auf häufig gestellte Fragen rund um Planung, Ablauf, Technik und Kosten.
-      </SectionTransition>
 
       {/* 12 FAQ */}
       <FaqAccordion

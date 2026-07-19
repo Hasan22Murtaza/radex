@@ -956,10 +956,6 @@ export default function KomplettbadsanierungLanding() {
         </div>
       </section>
 
-      <SectionTransition title="Häufige Fragen zur Komplettbadsanierung">
-        Antworten auf häufig gestellte Fragen rund um Planung, Ablauf und Kosten einer Komplettbadsanierung.
-      </SectionTransition>
-
       {/* 11 FAQ */}
       <FaqAccordion
         faqs={faqsData}
