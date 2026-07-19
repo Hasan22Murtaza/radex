@@ -24,8 +24,8 @@ const LIVE_IMAGE = '/img/heizung-sanitaer-radex-live.webp';
 
 const serviceCards = [
   {
-    to: '/heizung-sanitaer-rhein-main',
-    title: 'Heizung modernisieren',
+    to: '/heizungsmodernisierung-rhein-main',
+    title: 'Heizungsmodernisierung',
     desc: 'Effizient heizen, Energiekosten senken und den Wohnkomfort nachhaltig verbessern.',
     icon: Thermometer,
   },
@@ -36,7 +36,7 @@ const serviceCards = [
     icon: Flame,
   },
   {
-    to: '/heizung-sanitaer-rhein-main',
+    to: '/sanitaerinstallation-rhein-main',
     title: 'Sanitärinstallation',
     desc: 'Moderne Sanitärtechnik für Bad, Küche und komplette Sanierungsprojekte – fachgerecht installiert vom SHK-Meisterbetrieb.',
     icon: Droplets,

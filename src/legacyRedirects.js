@@ -7,6 +7,10 @@ import { implementedCityPaths } from './data/cities.js';
 const exactRedirects = {
   '/kontakt': '/#kontakt',
   '/dienstleistungen': '/leistungen',
+  '/einsatzgebiete': '/einsatzgebiete-rhein-main',
+  '/schimmel-asbest-rhein-main': '/leistungen/schimmel-asbest',
+  '/raumaufteilung-aendern-rhein-main': '/raeume-umbauen-rhein-main',
+  '/wohnungssanierung-kosten-rhein-main': '/wohnungssanierung-kosten',
   '/ratgeber': '/ratgeber',
   '/radex-live': '/#beispiele',
   '/gewerbeumbau': '/gewerbe-objektsanierung-rhein-main',

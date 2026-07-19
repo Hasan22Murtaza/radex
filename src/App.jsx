@@ -70,6 +70,10 @@ import BadplanungLanding from './pages/BadplanungLanding';
 import SanierungskostenLanding from './pages/SanierungskostenLanding';
 import RadexLiveRedirect from './pages/RadexLiveRedirect';
 import RadexQualitaetsversprechen from './pages/RadexQualitaetsversprechen';
+import MigratedServicePage from './components/MigratedServicePage';
+import migratedServices from './data/migratedServices.json';
+
+const migratedServiceSlugs = Object.keys(migratedServices.pages);
 
 function ScrollAndAnimationManager() {
   const location = useLocation();
@@ -200,6 +204,9 @@ export default function App({ location }) {
           <Route path="/sanierungs-soforthilfe-rhein-main" element={<SanierungsSoforthilfeLanding />} />
           <Route path="/raeume-umbauen-rhein-main" element={<RaeumeUmbauenLanding />} />
           <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
+          {migratedServiceSlugs.map((slug) => (
+            <Route key={slug} path={`/${slug}`} element={<MigratedServicePage slug={slug} />} />
+          ))}
           <Route path="/radex-live" element={<RadexLiveRedirect />} />
           <Route path="/radex-qualitaetsversprechen" element={<RadexQualitaetsversprechen />} />
           <Route path="/ueber-uns" element={<UeberUns />} />

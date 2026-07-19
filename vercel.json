@@ -38,11 +38,6 @@
       "permanent": true
     },
     {
-      "source": "/elektrotechnik-rhein-main",
-      "destination": "/elektroinstallation-rhein-main",
-      "permanent": true
-    },
-    {
       "source": "/umbau",
       "destination": "/innenausbau-umbau-rhein-main",
       "permanent": true
@@ -170,71 +165,6 @@
     {
       "source": "/sanierung/altbau-sanieren-kosten",
       "destination": "/sanierung/altbausanierung",
-      "permanent": true
-    },
-    {
-      "source": "/kernsanierung-rhein-main",
-      "destination": "/komplettsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/teilsanierung-rhein-main",
-      "destination": "/komplettsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/bauleitung-projektsteuerung-rhein-main",
-      "destination": "/generalunternehmer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/altbau-elektrik-erneuern-rhein-main",
-      "destination": "/elektroinstallation-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/heizungsmodernisierung-rhein-main",
-      "destination": "/heizung-sanitaer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/sanitaerinstallation-rhein-main",
-      "destination": "/heizung-sanitaer-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/innenausbau-wohnung-rhein-main",
-      "destination": "/innenausbau-umbau-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/innenausbau-haus-rhein-main",
-      "destination": "/innenausbau-umbau-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/trockenbau-rhein-main",
-      "destination": "/innenausbau-umbau-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/energieeffizienz-rhein-main",
-      "destination": "/energetische-sanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/sanierung-foerderung-rhein-main",
-      "destination": "/energetische-sanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/bad-soforthilfe-rhein-main",
-      "destination": "/badsanierung-rhein-main",
-      "permanent": true
-    },
-    {
-      "source": "/bueroumbau-rhein-main",
-      "destination": "/gewerbesanierung-rhein-main",
       "permanent": true
     },
     {

@@ -1,0 +1,54 @@
+/* Typography for migrated rich content rendered inside native accordions. */
+.migrated-rich p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+.migrated-rich > p:last-child,
+.migrated-rich > ul:last-child {
+  margin-bottom: 0;
+}
+.migrated-rich ul,
+.migrated-rich ol {
+  padding-left: 20px;
+  margin: 0 0 12px;
+  color: #4b5563;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.migrated-rich ul { list-style: disc; }
+.migrated-rich ol { list-style: decimal; }
+.migrated-rich li { margin-bottom: 4px; }
+.migrated-rich a {
+  color: var(--br-orange, #f97316);
+  text-decoration: none;
+  font-weight: 500;
+}
+.migrated-rich a:hover { text-decoration: underline; }
+.migrated-rich h3,
+.migrated-rich h4 {
+  color: #1f2937;
+  font-weight: 700;
+  margin: 18px 0 8px;
+  font-size: 16px;
+}
+.migrated-rich strong { color: #1f2937; }
+.migrated-rich img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 14px 0;
+  display: block;
+}
+
+/* Lead paragraph shown under the hero. */
+.migrated-lead p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: #4b5563;
+  margin-bottom: 16px;
+}
+.migrated-lead p:last-child { margin-bottom: 0; }
+.migrated-lead a { color: var(--br-orange, #f97316); text-decoration: none; font-weight: 500; }
+.migrated-lead a:hover { text-decoration: underline; }

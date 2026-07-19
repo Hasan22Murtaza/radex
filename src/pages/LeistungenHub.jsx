@@ -116,7 +116,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Bei einer Kernsanierung wird das Gebäude bis auf die tragende Struktur zurückgebaut. Alle nicht tragenden Wände, Leitungen für Strom, Wasser und Heizung sowie Böden und Oberflächen werden vollständig erneuert. Das Ergebnis kommt einem Neubau gleich – mit dem Vorteil, dass Standort und Charakter erhalten bleiben.{' '}
-        <Link to="/komplettsanierung-rhein-main">Mehr zur Kernsanierung</Link>.
+        <Link to="/kernsanierung-rhein-main">Mehr zur Kernsanierung</Link>.
       </SeoP>
     ),
   },
@@ -125,7 +125,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Wenn mehrere Gewerke oder technische Schnittstellen beteiligt sind, kann Radex auch eine Teilsanierung oder einen einzelnen Projektabschnitt koordinieren. Entscheidend ist immer, was zum Objekt und zum Ziel passt – etwa Bad, Innenausbau oder Heizungsmodernisierung als abgegrenztes Projekt.{' '}
-        <Link to="/generalunternehmer-rhein-main">Teilsanierung besprechen</Link>.
+        <Link to="/teilsanierung-rhein-main">Teilsanierung besprechen</Link>.
       </SeoP>
     ),
   },
@@ -134,7 +134,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Professionelle Koordination, Terminplanung und Qualitätskontrolle sind entscheidend, sobald mehrere Gewerke zusammenkommen. Radex stellt einen festen Bauleiter, der die Fachbetriebe steuert und Ihr zentraler Ansprechpartner während des gesamten Projekts ist.{' '}
-        <Link to="/generalunternehmer-rhein-main">Bauleitung & Projektsteuerung</Link>.
+        <Link to="/bauleitung-projektsteuerung-rhein-main">Bauleitung & Projektsteuerung</Link>.
       </SeoP>
     ),
   },
@@ -152,7 +152,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Eine Heizungsmodernisierung ist mehr als ein neues Heizgerät. Entscheidend ist das Zusammenspiel aus Wärmeerzeuger, Wärmeverteilung, Heizkörpern bzw. Flächenheizung und dem energetischen Zustand des Gebäudes. Radex analysiert die Heizlast, führt einen hydraulischen Abgleich durch und stimmt Vorlauftemperaturen und Heizflächen optimal ab.{' '}
-        <Link to="/heizung-sanitaer-rhein-main">Heizung modernisieren</Link>.
+        <Link to="/heizungsmodernisierung-rhein-main">Heizung modernisieren</Link>.
       </SeoP>
     ),
   },
@@ -170,7 +170,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Zur Sanitärinstallation gehören Wasserleitungen, Abwasser, Abdichtung, Vorwandinstallation und Warmwasser – fachgerecht nach Norm. Auch in Küche und Gäste-WC erneuern wir Leitungen. Veraltete Stahl- oder Bleileitungen sollten dringend ersetzt werden. Installation normgerecht nach DIN 1988 und Trinkwasserverordnung.{' '}
-        <Link to="/heizung-sanitaer-rhein-main">Sanitärinstallation</Link> ·{' '}
+        <Link to="/sanitaerinstallation-rhein-main">Sanitärinstallation</Link> ·{' '}
         <Link to="/badsanierung-rhein-main">Badsanierung</Link>.
       </SeoP>
     ),
@@ -198,7 +198,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         In älteren Immobilien sind alte Leitungen, veraltete Sicherungen, fehlende Schutzschalter und zu wenige Stromkreise häufig. Wenn Wände und Böden ohnehin geöffnet werden, ist der richtige Zeitpunkt für eine fachliche Prüfung und Erneuerung der Elektrostruktur.{' '}
-        <Link to="/elektroinstallation-rhein-main">Altbau-Elektrik erneuern</Link>.
+        <Link to="/altbau-elektrik-erneuern-rhein-main">Altbau-Elektrik erneuern</Link>.
       </SeoP>
     ),
   },
@@ -226,7 +226,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Neue Trennwände, abgehängte Decken, Vorwände und Installationsflächen für Leitungen und Technik – fachgerecht erstellt und abgestimmt mit SHK und Elektro, bevor Oberflächen fertiggestellt werden.{' '}
-        <Link to="/innenausbau-umbau-rhein-main">Trockenbau</Link>.
+        <Link to="/trockenbau-rhein-main">Trockenbau</Link>.
       </SeoP>
     ),
   },
@@ -235,7 +235,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Nichttragende Wände entfernen und Räume öffnen – statisch geprüft und fachgerecht umgesetzt. Oft kombiniert mit Grundrissänderung, Elektroanpassung und Bodenarbeiten im Rahmen einer Wohnungs- oder Haussanierung.{' '}
-        <Link to="/innenausbau-umbau-rhein-main">Wand entfernen</Link>.
+        <Link to="/wand-entfernen-rhein-main">Wand entfernen</Link>.
       </SeoP>
     ),
   },
@@ -253,7 +253,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Heizkosten senken und den energetischen Standard verbessern – durch Heizungsoptimierung, Dämmung, Fenstertausch, Leitungsdämmung oder Fußbodenheizung in einzelnen Bereichen. Maßnahmen werden immer zum Gebäudezustand und zur Nutzung passend geplant.{' '}
-        <Link to="/energetische-sanierung-rhein-main">Energieeffizienz verbessern</Link>.
+        <Link to="/energieeffizienz-rhein-main">Energieeffizienz verbessern</Link>.
       </SeoP>
     ),
   },
@@ -262,7 +262,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Förderprogramme von KfW und BAFA können je nach Maßnahme relevant sein – Förderanträge müssen in der Regel vor Beginn gestellt werden. Radex arbeitet mit zertifizierten Energie-Effizienz-Experten zusammen und berücksichtigt Förderthemen früh im Ablauf. Über die BEG sind Zuschüsse von bis zu 70 % für Wärmepumpen möglich.{' '}
-        <Link to="/leistungen/energie-foerderung">Energie & Förderung</Link>.
+        <Link to="/sanierung-foerderung-rhein-main">Förderung prüfen</Link>.
       </SeoP>
     ),
   },
@@ -307,7 +307,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Schnelle Hilfe bei dringenden Bad- und Sanitärproblemen – Wasserschäden, undichte Leitungen oder akuter Modernisierungsbedarf. Radex reagiert zeitnah und koordiniert die notwendigen Gewerke strukturiert.{' '}
-        <Link to="/badsanierung-rhein-main">Bad-Soforthilfe</Link>.
+        <Link to="/bad-soforthilfe-rhein-main">Bad-Soforthilfe</Link>.
       </SeoP>
     ),
   },

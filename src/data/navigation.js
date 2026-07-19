@@ -244,7 +244,10 @@ export const leistungenCategories = {
     },
     subpages: [
       { to: '/generalunternehmer-rhein-main', title: 'Generalunternehmer', desc: 'Alle Gewerke aus einer Hand mit Festpreisgarantie.', icon: Handshake },
-      { to: '/generalunternehmer-rhein-main', title: 'Bauleitung & Projektsteuerung', desc: 'Professionelle Koordination, Terminplanung und Qualitätskontrolle.', icon: FileText },
+      { to: '/komplettsanierung-rhein-main', title: 'Komplettsanierung', desc: 'Alle zentralen Bereiche einer Immobilie in einem Projekt sanieren.', icon: Building2 },
+      { to: '/kernsanierung-rhein-main', title: 'Kernsanierung', desc: 'Bestand bis auf die tragende Struktur zurückbauen und neu aufbauen.', icon: Hammer },
+      { to: '/teilsanierung-rhein-main', title: 'Teilsanierung', desc: 'Gezielt einzelne Bereiche oder Gewerke modernisieren.', icon: Wrench },
+      { to: '/bauleitung-projektsteuerung-rhein-main', title: 'Bauleitung & Projektsteuerung', desc: 'Professionelle Koordination, Terminplanung und Qualitätskontrolle.', icon: FileText },
     ],
   },
   'heizung-sanitaer': {
@@ -256,9 +259,10 @@ export const leistungenCategories = {
       path: '/leistungen/heizung-sanitaer',
     },
     subpages: [
-      { to: '/heizung-sanitaer-rhein-main', title: 'Heizung modernisieren', desc: 'Heizungstausch, Heizkörper und Wärmeverteilung im Bestand.', icon: Thermometer },
+      { to: '/heizung-sanitaer-rhein-main', title: 'Heizung & Sanitär', desc: 'Moderne Haustechnik vom SHK-Meisterbetrieb aus einer Hand.', icon: Flame },
+      { to: '/heizungsmodernisierung-rhein-main', title: 'Heizungsmodernisierung', desc: 'Heizung erneuern, hydraulischer Abgleich und effiziente Wärmeverteilung.', icon: Thermometer },
       { to: '/waermepumpe-rhein-main', title: 'Wärmepumpe', desc: 'Luft- und Sole-Wasser-Wärmepumpen inkl. Förderabwicklung.', icon: Flame },
-      { to: '/heizung-sanitaer-rhein-main', title: 'Sanitärinstallation', desc: 'Wasserleitungen, Abwasser und Sanitäranlagen fachgerecht installiert.', icon: Droplets },
+      { to: '/sanitaerinstallation-rhein-main', title: 'Sanitärinstallation', desc: 'Wasserleitungen, Abwasser und Sanitäranlagen fachgerecht installiert.', icon: Droplets },
     ],
   },
   'elektrotechnik': {
@@ -271,7 +275,7 @@ export const leistungenCategories = {
     },
     subpages: [
       { to: '/elektroinstallation-rhein-main', title: 'Elektroinstallation', desc: 'Steckdosen, Leitungen, Licht und Gebäudetechnik nach VDE.', icon: Zap },
-      { to: '/elektroinstallation-rhein-main', title: 'Altbau Elektrik erneuern', desc: 'Veraltete Installationen sicher und normgerecht modernisieren.', icon: Home },
+      { to: '/altbau-elektrik-erneuern-rhein-main', title: 'Altbau-Elektrik erneuern', desc: 'Veraltete Installationen sicher und normgerecht modernisieren.', icon: Home },
       { to: '/sicherungskasten-erneuern-rhein-main', title: 'Sicherungskasten erneuern', desc: 'Unterverteilung, FI-Schutz und Zählerschrank auf aktuellen Stand bringen.', icon: Shield },
     ],
   },
@@ -284,7 +288,7 @@ export const leistungenCategories = {
       path: '/leistungen/innenausbau-umbau',
     },
     subpages: [
-      { to: '/raeume-umbauen-rhein-main', title: 'Räume umbauen', desc: 'Grundriss anpassen und Wohnflächen besser nutzen.', icon: Sofa },
+      { to: '/innenausbau-umbau-rhein-main', title: 'Innenausbau & Umbau', desc: 'Räume umbauen, modernisieren und Grundrisse anpassen – aus einer Hand.', icon: Sofa },
       { to: '/innenausbau-wohnung-rhein-main', title: 'Innenausbau Wohnung', desc: 'Wohnungen modernisieren und an neue Nutzung anpassen.', icon: LayoutGrid },
       { to: '/innenausbau-haus-rhein-main', title: 'Innenausbau Haus', desc: 'Komplette Wohnhäuser modernisieren und Räume neu gestalten.', icon: Home },
       { to: '/trockenbau-rhein-main', title: 'Trockenbau', desc: 'Wände, Decken und Vorwandinstallationen fachgerecht erstellen.', icon: Hammer },
@@ -301,8 +305,8 @@ export const leistungenCategories = {
     },
     subpages: [
       { to: '/energetische-sanierung-rhein-main', title: 'Energetische Sanierung', desc: 'Dämmung, Fenster, Heizung und Gebäudetechnik im Zusammenspiel.', icon: Leaf },
-      { to: '/energetische-sanierung-rhein-main', title: 'Energieeffizienz', desc: 'Heizkosten senken und den energetischen Standard verbessern.', icon: Thermometer },
-      { to: '/energetische-sanierung-rhein-main', title: 'Fördermöglichkeiten', desc: 'KfW- und BAFA-Förderungen frühzeitig prüfen und beantragen.', icon: FileText },
+      { to: '/energieeffizienz-rhein-main', title: 'Energieeffizienz', desc: 'Heizkosten senken und den energetischen Standard verbessern.', icon: Thermometer },
+      { to: '/sanierung-foerderung-rhein-main', title: 'Förderung', desc: 'KfW- und BAFA-Förderungen frühzeitig prüfen und beantragen.', icon: FileText },
     ],
   },
   'schimmel-asbest': {
@@ -330,7 +334,7 @@ export const leistungenCategories = {
     subpages: [
       { to: '/sanierungs-soforthilfe-rhein-main', title: 'Sanierungs-Soforthilfe', desc: 'Kurzfristige Beratung und schneller Sanierungsstart.', icon: ExpressIcon },
       { to: '/schnellsanierung-rhein-main', title: 'Schnellsanierung Rhein-Main', desc: 'Wohnung oder Haus schnell sanieren mit klarer Planung.', icon: ExpressIcon },
-      { to: '/badsanierung-rhein-main', title: 'Bad-Soforthilfe', desc: 'Schnelle Hilfe bei dringenden Bad- und Sanitärproblemen.', icon: Bath },
+      { to: '/bad-soforthilfe-rhein-main', title: 'Bad-Soforthilfe', desc: 'Schnelle Hilfe bei Wasserschaden, Rohrbruch oder Schimmel im Bad.', icon: Bath },
       { to: '/schnelle-badsanierung-rhein-main', title: 'Schnelle Badsanierung', desc: 'Zeitnahe Badsanierung mit strukturiertem Ablauf.', icon: Clock },
     ],
   },
@@ -343,8 +347,9 @@ export const leistungenCategories = {
       path: '/leistungen/gewerbe-objektsanierung',
     },
     subpages: [
-      { to: '/gewerbesanierung-rhein-main', title: 'Gewerbesanierung', desc: 'Praxen, Läden und Gewerbeflächen modernisieren.', icon: Building },
-      { to: '/gewerbe-objektsanierung-rhein-main', title: 'Büroumbau', desc: 'Büroflächen umbauen und an neue Nutzung anpassen.', icon: Briefcase },
+      { to: '/gewerbe-objektsanierung-rhein-main', title: 'Gewerbe & Objektsanierung', desc: 'Objekte und Gewerbeflächen ganzheitlich modernisieren.', icon: Building },
+      { to: '/gewerbesanierung-rhein-main', title: 'Gewerbesanierung', desc: 'Praxen, Läden und Gewerbeflächen modernisieren.', icon: Briefcase },
+      { to: '/bueroumbau-rhein-main', title: 'Büroumbau', desc: 'Büroflächen umbauen und an neue Nutzung anpassen.', icon: Briefcase },
       { to: '/mieterausbau-rhein-main', title: 'Mieterausbau', desc: 'Ausbau nach Mieterwunsch – termingerecht und sauber.', icon: Users },
     ],
   },

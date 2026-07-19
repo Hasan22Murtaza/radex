@@ -11,6 +11,10 @@ import { citySeoContent } from '../src/data/citySeoContent.js';
 import { listCityServiceRoutes } from '../src/data/cityServiceRoutes.js';
 import { leistungenCategories } from '../src/data/navigation.js';
 import { ratgeberArticles, ratgeberCategories } from '../src/data/ratgeber.js';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const migratedServices = require('../src/data/migratedServices.json');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -127,7 +131,13 @@ const routes = {
     ])
   ),
   ...cityMeta,
-  ...cleanCityMeta
+  ...cleanCityMeta,
+  ...Object.fromEntries(
+    Object.entries(migratedServices.pages).map(([slug, page]) => [
+      `/${slug}`,
+      { title: page.title, description: page.description },
+    ])
+  ),
 };
 
 function escapeAttr(s) {

@@ -34,6 +34,12 @@ const serviceCards = [
     desc: 'Asbest fachgerecht erkennen, Sanierungsmaßnahmen koordinieren und sicher durchführen lassen.',
     icon: Shield,
   },
+  {
+    to: '/schadstoffsanierung-rhein-main',
+    title: 'Schadstoffsanierung',
+    desc: 'Gefahrstoffe fachgerecht prüfen, sicher beseitigen und vollständig dokumentieren.',
+    icon: ShieldCheck,
+  },
 ];
 
 const whyRadexCards = [
