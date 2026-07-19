@@ -2310,6 +2310,58 @@ a {
   list-style: none;
 }
 
+/* Expandable "Weitere Leistungen & Informationen" */
+.footer-more {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 40px;
+}
+
+.footer-more-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 24px 0;
+  text-align: left;
+  transition: color 0.2s ease;
+}
+
+.footer-more-toggle:hover {
+  color: var(--gold-light);
+}
+
+.footer-more-toggle svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.footer-more-panel {
+  padding-bottom: 24px;
+  animation: footerMoreReveal 0.25s ease;
+}
+
+@keyframes footerMoreReveal {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.footer-more-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.footer-more-grid .footer-col h4 {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
 /* Floating WhatsApp button */
 .floating-whatsapp {
   position: fixed;

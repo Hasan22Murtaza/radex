@@ -1,9 +1,180 @@
-import { Shield, Wrench, ShieldAlert, MapPin, Phone, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { Shield, Wrench, ShieldAlert, MapPin, Phone, Mail, Plus, Minus } from 'lucide-react';
 import { RADEX_LIVE_URL } from '../constants/brand';
 import { Link } from '../router';
 import Logo from './Logo';
 
+// Every entry maps to a real, routable page on the new site. Legacy anchor
+// texts from the old radex-objektmanagement.de footer are preserved so the
+// internal link structure and its SEO value carry over.
+const footerColumns = [
+  {
+    heading: 'Badsanierung',
+    desc: 'Badplanung · Badrenovierung · Badmodernisierung · Komplettbadsanierung',
+    links: [
+      { label: 'Badsanierung Überblick', to: '/badsanierung-rhein-main' },
+      { label: 'Komplettbadsanierung', to: '/badsanierung/badezimmer-sanieren' },
+      { label: 'Badrenovierung', to: '/badrenovierung' },
+      { label: 'Badmodernisierung', to: '/badmodernisierung' },
+      { label: 'Badplanung', to: '/badplanung' },
+      { label: 'Aktuelle Badprojekte', to: RADEX_LIVE_URL },
+      { label: 'Badsanierung Kosten', to: '/badsanierung-kosten' },
+      { label: 'Barrierefreies Bad', to: '/barrierefreies-bad' },
+      { label: 'Barrierefreies Bad Kosten', to: '/barrierefreies-bad-kosten' },
+    ],
+  },
+  {
+    heading: 'Sanierung',
+    desc: 'Wohnungssanierung · Haussanierung · Altbausanierung · Komplettsanierung',
+    links: [
+      { label: 'Sanierung Überblick', to: '/sanierung-rhein-main' },
+      { label: 'Wohnungssanierung', to: '/sanierung/wohnungssanierung' },
+      { label: 'Wohnung sanieren Kosten', to: '/wohnungssanierung-kosten' },
+      { label: 'Haussanierung', to: '/sanierung/haussanierung' },
+      { label: 'Haus sanieren Kosten', to: '/haussanierung-kosten' },
+      { label: 'Altbausanierung', to: '/sanierung/altbausanierung' },
+      { label: 'Altbau sanieren Kosten', to: '/altbausanierung-kosten' },
+      { label: 'Generalunternehmer', to: '/generalunternehmer-rhein-main' },
+      { label: 'Komplettsanierung', to: '/komplettsanierung-rhein-main' },
+    ],
+  },
+  {
+    heading: 'Leistungen',
+    desc: 'Heizung · Sanitär · Elektrotechnik · Innenausbau · Gebäudetechnik',
+    links: [
+      { label: 'Generalunternehmer', to: '/generalunternehmer-rhein-main' },
+      { label: 'Heizung & Sanitär', to: '/heizung-sanitaer-rhein-main' },
+      { label: 'Elektrotechnik', to: '/elektroinstallation-rhein-main' },
+      { label: 'Innenausbau & Umbau', to: '/innenausbau-umbau-rhein-main' },
+      { label: 'Energetische Sanierung', to: '/energetische-sanierung-rhein-main' },
+      { label: 'Energieeffizienz', to: '/energieeffizienz-rhein-main' },
+      { label: 'Schimmel- & Schadstoffsanierung', to: '/schadstoffsanierung-rhein-main' },
+      { label: 'Gewerbe & Objektsanierung', to: '/gewerbe-objektsanierung-rhein-main' },
+      { label: 'Gewerbesanierung', to: '/gewerbesanierung-rhein-main' },
+    ],
+  },
+  {
+    heading: 'Kosten & Preise',
+    desc: 'Kostenrechner, Preisbeispiele und Budgetfaktoren für Ihr Projekt.',
+    links: [
+      { label: 'Sanierungskosten Rechner', to: '/sanierungskosten-rechner' },
+      { label: 'Badsanierung Kosten', to: '/badsanierung-kosten' },
+      { label: 'Barrierefreies Bad Kosten', to: '/barrierefreies-bad-kosten' },
+      { label: 'Wohnungssanierung Kosten', to: '/wohnungssanierung-kosten' },
+      { label: 'Haussanierung Kosten', to: '/haussanierung-kosten' },
+      { label: 'Altbausanierung Kosten', to: '/altbausanierung-kosten' },
+      { label: 'Heizung erneuern Kosten', to: '/heizung-sanitaer-rhein-main' },
+    ],
+  },
+  {
+    heading: 'Projekte',
+    desc: 'Laufende Baustellen, abgeschlossene Sanierungen und Referenzen.',
+    links: [
+      { label: 'Aktuelle Projekte', to: RADEX_LIVE_URL },
+      { label: 'Abgeschlossene Projekte', to: RADEX_LIVE_URL },
+      { label: 'Vorher & Nachher', to: RADEX_LIVE_URL },
+      { label: 'Radex Live', to: RADEX_LIVE_URL },
+    ],
+  },
+  {
+    heading: 'Einsatzgebiete',
+    desc: 'Sanierung & Modernisierung im gesamten Rhein-Main-Gebiet.',
+    links: [
+      { label: 'Frankfurt am Main', to: '/sanierung-frankfurt-am-main' },
+      { label: 'Offenbach am Main', to: '/sanierung-offenbach-am-main' },
+      { label: 'Rodgau', to: '/sanierung-rodgau' },
+      { label: 'Rödermark', to: '/sanierung-roedermark' },
+      { label: 'Darmstadt', to: '/haus-wohnung-bad-modernisieren-darmstadt' },
+      { label: 'Alle Einsatzgebiete ansehen →', to: '/einsatzgebiete-rhein-main', strong: true },
+    ],
+  },
+  {
+    heading: 'Ratgeber',
+    desc: 'Wissen zu Planung, Kosten und Ablauf Ihrer Sanierung.',
+    links: [
+      { label: 'Badsanierung Kosten', to: '/ratgeber/badsanierung-kosten-faktoren' },
+      { label: 'Wohnung sanieren Kosten', to: '/ratgeber/wohnung-sanieren-nach-kauf' },
+      { label: 'Haus sanieren Kosten', to: '/ratgeber/haus-modernisieren-nach-kauf-erbschaft' },
+      { label: 'Heizung erneuern Kosten', to: '/ratgeber/heizung-modernisieren-bei-sanierung' },
+      { label: 'Schimmel entfernen Kosten', to: '/ratgeber/schimmel-bei-sanierung-ursache-pruefen' },
+      { label: 'Badsanierung Ratgeber', to: '/ratgeber/kategorie/badsanierung' },
+      { label: 'Sanierung Ratgeber', to: '/ratgeber/kategorie/sanierung' },
+      { label: 'Heizung & Sanitär Ratgeber', to: '/ratgeber/kategorie/heizung-sanitaer' },
+      { label: 'Schimmel & Asbest Ratgeber', to: '/ratgeber/kategorie/schimmel-asbest' },
+      { label: 'Alle Ratgeber ansehen →', to: '/ratgeber', strong: true },
+    ],
+  },
+  {
+    heading: 'Unternehmen',
+    desc: 'Über Radex, Qualität, Karriere und rechtliche Informationen.',
+    links: [
+      { label: 'Über Radex', to: '/ueber-uns' },
+      { label: 'Radex Qualitätsversprechen', to: '/radex-qualitaetsversprechen' },
+      { label: 'Radex Live', to: RADEX_LIVE_URL },
+      { label: 'Karriere', to: '/karriere' },
+      { label: 'Kontakt', to: '/#kontakt' },
+      { label: 'Impressum', to: '/impressum' },
+      { label: 'Datenschutz', to: '/datenschutz' },
+    ],
+  },
+];
+
+// Additional SEO topics kept out of the main footer to avoid clutter. These
+// point to the closest existing landing/guide pages today and are ready to be
+// repointed to dedicated pages as they are published.
+const expandableGroups = [
+  {
+    heading: 'Modernisierung',
+    links: [
+      { label: 'Modernisierung', to: '/sanierung-rhein-main' },
+      { label: 'Haus modernisieren', to: '/sanierung/haussanierung' },
+      { label: 'Wohnung modernisieren', to: '/sanierung/wohnungssanierung' },
+      { label: 'Immobilienmodernisierung', to: '/komplettsanierung-rhein-main' },
+    ],
+  },
+  {
+    heading: 'Renovierung',
+    links: [
+      { label: 'Renovierung', to: '/ratgeber/wohnung-renovieren-oder-sanieren-unterschied' },
+      { label: 'Haus renovieren', to: '/sanierung/haussanierung' },
+      { label: 'Wohnung renovieren', to: '/sanierung/wohnungssanierung' },
+    ],
+  },
+  {
+    heading: 'Weitere Sanierung',
+    links: [
+      { label: 'Kernsanierung', to: '/kernsanierung-rhein-main' },
+      { label: 'Teilsanierung', to: '/teilsanierung-rhein-main' },
+      { label: 'Bestandssanierung', to: '/sanierung-rhein-main' },
+      { label: 'Sanierung nach Hauskauf', to: '/ratgeber/wohnung-sanieren-nach-kauf' },
+      { label: 'Kapitalanlagensanierung', to: '/gewerbe-objektsanierung-rhein-main' },
+    ],
+  },
+  {
+    heading: 'Innenausbau & Bauleistungen',
+    links: [
+      { label: 'Innenausbau', to: '/innenausbau-umbau-rhein-main' },
+      { label: 'Umbau', to: '/raeume-umbauen-rhein-main' },
+      { label: 'Trockenbau', to: '/trockenbau-rhein-main' },
+      { label: 'Bodenarbeiten', to: '/innenausbau-umbau-rhein-main' },
+      { label: 'Fliesenarbeiten', to: '/badrenovierung' },
+      { label: 'Malerarbeiten', to: '/innenausbau-umbau-rhein-main' },
+    ],
+  },
+];
+
+function FooterLink({ to, label, strong }) {
+  const className = strong ? 'footer-link font-semibold' : 'footer-link';
+  return (
+    <li>
+      <Link to={to} className={className}>{label}</Link>
+    </li>
+  );
+}
+
 export default function Footer() {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <footer className="footer">
       {/* Google Maps Strip */}
@@ -29,8 +200,8 @@ export default function Footer() {
 
       <div className="container" style={{maxWidth: '1440px'}}>
         <div className="footer-grid">
-          
-          {/* COLUMN 1 - COMPANY */}
+
+          {/* COMPANY */}
           <div className="footer-col">
             <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{display: 'inline-block', marginBottom: '24px', background: '#fff', padding: '10px 14px', borderRadius: '12px'}}>
               <Logo height={88} />
@@ -54,135 +225,49 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* COLUMN 2 - BATHROOM RENOVATION */}
-          <div className="footer-col">
-            <h4>Badsanierung</h4>
-            <p className="footer-col-desc">
-              Von der Badmodernisierung bis zur Komplettbadsanierung bietet Radex Planung, Koordination und Ausführung aus einer Hand.
-            </p>
-            <ul className="footer-links">
-              <li><a href="/badsanierung-rhein-main" className="footer-link">Badsanierung</a></li>
-              <li><a href="/badrenovierung" className="footer-link">Badrenovierung</a></li>
-              <li><a href="/badmodernisierung" className="footer-link">Badmodernisierung</a></li>
-              <li><a href="/badplanung" className="footer-link">Badplanung</a></li>
-              <li><a href={RADEX_LIVE_URL} className="footer-link">Aktuelle Badprojekte</a></li>
-              <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
-              <li><a href="/barrierefreies-bad-kosten" className="footer-link">Barrierefreies Bad Kosten</a></li>
-              <li><a href="/barrierefreies-bad" className="footer-link">Barrierefreies Bad</a></li>
-            </ul>
-          </div>
+          {/* CATEGORY COLUMNS */}
+          {footerColumns.map((col) => (
+            <div className="footer-col" key={col.heading}>
+              <h4>{col.heading}</h4>
+              <p className="footer-col-desc">{col.desc}</p>
+              <ul className="footer-links">
+                {col.links.map((link) => (
+                  <FooterLink key={link.label} to={link.to} label={link.label} strong={link.strong} />
+                ))}
+              </ul>
+            </div>
+          ))}
 
-          {/* COLUMN 3 - RENOVATION */}
-          <div className="footer-col">
-            <h4>Sanierung</h4>
-            <p className="footer-col-desc">
-              Professionelle Sanierungslösungen für Wohnungen, Häuser, Altbauten und Kapitalanlagen im Rhein-Main-Gebiet.
-            </p>
-            <ul className="footer-links">
-              <li><a href="/sanierung/wohnungssanierung" className="footer-link">Wohnungssanierung</a></li>
-              <li><a href="/sanierung/haussanierung" className="footer-link">Haussanierung</a></li>
-              <li><a href="/sanierung/altbausanierung" className="footer-link">Altbausanierung</a></li>
-              <li><a href="/generalunternehmer-rhein-main" className="footer-link">Generalunternehmer</a></li>
-              <li><a href="/komplettsanierung-rhein-main" className="footer-link">Komplettsanierung</a></li>
-            </ul>
-          </div>
+        </div>
 
-          {/* COLUMN 4 - SPECIALIST SERVICES */}
-          <div className="footer-col">
-            <h4>Leistungen</h4>
-            <p className="footer-col-desc">
-              Spezialisierte Fachleistungen für Gebäudetechnik, Modernisierung, Innenausbau und Immobilienaufwertung.
-            </p>
-            <ul className="footer-links">
-              <li><a href="/heizung-sanitaer-rhein-main" className="footer-link">Heizung & Sanitär</a></li>
-              <li><a href="/elektroinstallation-rhein-main" className="footer-link">Elektrotechnik</a></li>
-              <li><a href="/innenausbau-umbau-rhein-main" className="footer-link">Innenausbau & Umbau</a></li>
-              <li><a href="/energetische-sanierung-rhein-main" className="footer-link">Energetische Sanierung</a></li>
-              <li><a href="/schadstoffsanierung-rhein-main" className="footer-link">Schimmel- & Schadstoffsanierung</a></li>
-              <li><a href="/gewerbesanierung-rhein-main" className="footer-link">Gewerbesanierung</a></li>
-            </ul>
-          </div>
-
-          {/* COLUMN 5 - COSTS & PRICING */}
-          <div className="footer-col">
-            <h4>Kosten & Preise</h4>
-            <p className="footer-col-desc">
-              Kostenratgeber, Preisbeispiele und wichtige Budgetfaktoren für gängige Sanierungsprojekte.
-            </p>
-            <ul className="footer-links">
-              <li><a href="/sanierungskosten-rechner" className="footer-link">Sanierungskosten Rechner</a></li>
-              <li><a href="/badsanierung-kosten" className="footer-link">Badsanierung Kosten</a></li>
-              <li><a href="/barrierefreies-bad-kosten" className="footer-link">Barrierefreies Bad Kosten</a></li>
-              <li><a href="/wohnungssanierung-kosten" className="footer-link">Wohnungssanierung Kosten</a></li>
-              <li><a href="/sanierung/haussanierung" className="footer-link">Haussanierung Kosten</a></li>
-              <li><a href="/altbausanierung-kosten" className="footer-link">Altbausanierung Kosten</a></li>
-              <li><a href="/heizung-sanitaer-rhein-main" className="footer-link">Heizung erneuern Kosten</a></li>
-            </ul>
-          </div>
-
-          {/* COLUMN 6 - PROJECTS */}
-          <div className="footer-col">
-            <h4>Projekte</h4>
-            <p className="footer-col-desc">
-              Entdecken Sie laufende Baustellen, abgeschlossene Sanierungen und echte Praxisbeispiele aus unserem Baualltag.
-            </p>
-            <ul className="footer-links">
-              <li><a href={RADEX_LIVE_URL} className="footer-link">Aktuelle Projekte</a></li>
-              <li><a href={RADEX_LIVE_URL} className="footer-link">Abgeschlossene Projekte</a></li>
-              <li><a href={RADEX_LIVE_URL} className="footer-link">Vorher & Nachher</a></li>
-              <li><a href={RADEX_LIVE_URL} className="footer-link">Radex Live</a></li>
-            </ul>
-          </div>
-
-          {/* COLUMN 7 - SERVICE AREAS */}
-          <div className="footer-col">
-            <h4>Einsatzgebiete</h4>
-            <p className="footer-col-desc">
-              Radex betreut Sanierungs- und Modernisierungsprojekte in zahlreichen Städten im Rhein-Main-Gebiet.
-            </p>
-            <ul className="footer-links">
-              <li><a href="/frankfurt" className="footer-link">Frankfurt am Main</a></li>
-              <li><a href="/sanierung-offenbach-am-main" className="footer-link">Offenbach am Main</a></li>
-              <li><a href="/einsatzgebiete-rhein-main" className="footer-link">Rodgau</a></li>
-              <li><a href="/sanierung-roedermark" className="footer-link">Rödermark</a></li>
-              <li><a href="/haus-wohnung-bad-modernisieren-darmstadt" className="footer-link">Darmstadt</a></li>
-              <li><a href="/einsatzgebiete-rhein-main" className="footer-link font-semibold">Alle Einsatzgebiete ansehen &rarr;</a></li>
-            </ul>
-          </div>
-
-          {/* COLUMN 8 - GUIDES & RESOURCES */}
-          <div className="footer-col">
-            <h4>Ratgeber</h4>
-            <p className="footer-col-desc">
-              Hilfreiche Informationen zu Planung, Sanierungskosten, Modernisierungsstrategien und häufigen Projektfragen.
-            </p>
-            <ul className="footer-links">
-              <li><a href="/badsanierung-rhein-main" className="footer-link">Badsanierung</a></li>
-              <li><a href="/sanierung/wohnungssanierung" className="footer-link">Wohnungssanierung</a></li>
-              <li><a href="/sanierung/haussanierung" className="footer-link">Haussanierung</a></li>
-              <li><a href="/sanierung/altbausanierung" className="footer-link">Altbausanierung</a></li>
-              <li><a href="/heizung-sanitaer-rhein-main" className="footer-link">Heizung</a></li>
-              <li><a href="/schimmelsanierung-rhein-main" className="footer-link">Schimmelsanierung</a></li>
-              <li><a href="/ratgeber" className="footer-link font-semibold">Alle Ratgeber ansehen &rarr;</a></li>
-            </ul>
-          </div>
-
-          {/* COLUMN 9 - COMPANY */}
-          <div className="footer-col">
-            <h4>Unternehmen</h4>
-            <p className="footer-col-desc">
-              Erfahren Sie mehr über Radex, Karrieremöglichkeiten und Unternehmensinformationen.
-            </p>
-            <ul className="footer-links">
-              <li><Link to="/ueber-uns" className="footer-link">Über Radex</Link></li>
-              <li><Link to="/radex-qualitaetsversprechen" className="footer-link">Radex Qualitätsversprechen</Link></li>
-              <li><Link to="/karriere" className="footer-link">Karriere</Link></li>
-              <li><a href="/#kontakt" className="footer-link">Kontakt</a></li>
-              <li><Link to="/impressum" className="footer-link">Impressum</Link></li>
-              <li><Link to="/datenschutz" className="footer-link">Datenschutz</Link></li>
-            </ul>
-          </div>
-
+        {/* EXPANDABLE: WEITERE LEISTUNGEN & INFORMATIONEN */}
+        <div className="footer-more">
+          <button
+            type="button"
+            className="footer-more-toggle"
+            aria-expanded={expanded}
+            aria-controls="footer-more-panel"
+            onClick={() => setExpanded((v) => !v)}
+          >
+            {expanded ? <Minus size={18} /> : <Plus size={18} />}
+            <span>Weitere Leistungen & Informationen</span>
+          </button>
+          {expanded && (
+            <div className="footer-more-panel" id="footer-more-panel">
+              <div className="footer-more-grid">
+                {expandableGroups.map((group) => (
+                  <div className="footer-col" key={group.heading}>
+                    <h4>{group.heading}</h4>
+                    <ul className="footer-links">
+                      {group.links.map((link) => (
+                        <FooterLink key={link.label} to={link.to} label={link.label} />
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="footer-bottom">

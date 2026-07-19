@@ -860,10 +860,6 @@ export default function BadsanierungHub() {
         </div>
       </section>
 
-      <SectionTransition title="So läuft Ihre Badsanierung ab">
-        Von der ersten Anfrage bis zur fertigen Übergabe begleiten wir Ihr Projekt Schritt für Schritt.
-      </SectionTransition>
-
       {/* 11 Process */}
       <section id="ablauf" className="br-section br-bw-process-section">
         <div className="container">
@@ -914,11 +910,6 @@ export default function BadsanierungHub() {
           </div>
         </div>
       </section>
-
-      <SectionTransition title="Was kostet eine Badsanierung?">
-        Die Kosten hängen unter anderem von der Raumgröße, dem Zustand des Badezimmers und dem gewünschten
-        Leistungsumfang ab.
-      </SectionTransition>
 
       {/* 15 Prices */}
       <section id="preise" className="br-section">
@@ -973,10 +964,6 @@ export default function BadsanierungHub() {
           </div>
         </div>
       </section>
-
-      <SectionTransition title="Häufige Fragen zur Badsanierung">
-        Hier finden Sie Antworten auf häufig gestellte Fragen rund um Planung, Kosten und Ablauf einer Badsanierung.
-      </SectionTransition>
 
       {/* 19 FAQ */}
       <FaqAccordion
