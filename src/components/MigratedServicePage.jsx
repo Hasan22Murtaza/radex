@@ -76,7 +76,21 @@ function parsePageContent(contentHtml) {
     const type = classifyBlock(block);
 
     if (type === 'hero') {
-      hero = { html: block, image: extractImg(block) };
+      hero = {
+        html: block,
+        image: extractImg(block),
+        label: ((block.match(/class="section-label"[^>]*>([\s\S]*?)<\/div>/i) || [])[1] || '')
+          .replace(/<[^>]+>/g, '')
+          .trim(),
+        h1: ((block.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1] || '')
+          .replace(/<[^>]+>/g, '')
+          .trim(),
+        lead: ((block.match(/<p[^>]*>([\s\S]*?)<\/p>/i) || [])[1] || '')
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim(),
+        ctaHtml: (block.match(/<a\b[^>]*class="[^"]*btn-primary[^"]*"[^>]*>[\s\S]*?<\/a>/i) || [])[0] || '',
+      };
       continue;
     }
 
@@ -166,10 +180,31 @@ export default function MigratedServicePage({ slug }) {
     <main className="migrated-service-page msp" ref={contentRef}>
       <div className="radex-legacy msp-root">
         {hero && (
-          <div
-            className="msp-hero-original"
-            dangerouslySetInnerHTML={{ __html: hero.html }}
-          />
+          <section className="msp-banner">
+            <div className="msp-banner-inner">
+              <div className="msp-banner-copy">
+                {hero.label && <div className="msp-banner-eyebrow">{hero.label}</div>}
+                {hero.h1 && <h1 className="msp-banner-title">{hero.h1}</h1>}
+                {hero.lead && <p className="msp-banner-lead">{hero.lead}</p>}
+                {hero.ctaHtml && (
+                  <div
+                    className="msp-banner-cta"
+                    dangerouslySetInnerHTML={{ __html: hero.ctaHtml }}
+                  />
+                )}
+              </div>
+              {hero.image && (
+                <div className="msp-banner-media">
+                  <img
+                    src={hero.image.src}
+                    alt={hero.image.alt}
+                    fetchPriority="high"
+                    loading="eager"
+                  />
+                </div>
+              )}
+            </div>
+          </section>
         )}
 
         {contentSections.map((section, index) => {
