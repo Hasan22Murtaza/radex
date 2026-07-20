@@ -185,6 +185,10 @@ export default function App({ location }) {
           <Route path="/sanierung/wohnungssanierung" element={<ApartmentRenovation />} />
           <Route path="/sanierung/haussanierung" element={<HouseRenovation />} />
           <Route path="/sanierung/altbausanierung" element={<HistoricBuildingRenovation />} />
+          {/* Full old-site content for migrated service pages (takes precedence over legacy landings). */}
+          {migratedServiceSlugs.map((slug) => (
+            <Route key={slug} path={`/${slug}`} element={<MigratedServicePage slug={slug} />} />
+          ))}
           <Route path="/komplettsanierung-rhein-main" element={<CompleteRenovation />} />
           <Route path="/generalunternehmer-rhein-main" element={<GeneralContractor />} />
           <Route path="/energetische-sanierung-rhein-main" element={<EnergyEfficientRenovation />} />
@@ -204,9 +208,6 @@ export default function App({ location }) {
           <Route path="/sanierungs-soforthilfe-rhein-main" element={<SanierungsSoforthilfeLanding />} />
           <Route path="/raeume-umbauen-rhein-main" element={<RaeumeUmbauenLanding />} />
           <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
-          {migratedServiceSlugs.map((slug) => (
-            <Route key={slug} path={`/${slug}`} element={<MigratedServicePage slug={slug} />} />
-          ))}
           <Route path="/radex-live" element={<RadexLiveRedirect />} />
           <Route path="/radex-qualitaetsversprechen" element={<RadexQualitaetsversprechen />} />
           <Route path="/ueber-uns" element={<UeberUns />} />

@@ -1,0 +1,301 @@
+/* Clean alternating image ↔ text layout for migrated service pages.
+   Hero (.page-hero) is left to legacy styles and is not restyled here. */
+
+.msp {
+  --msp-navy: #1b3a6b;
+  --msp-text: #1a2540;
+  --msp-muted: #5b6578;
+  --msp-line: #e8ebf0;
+  --msp-tint: #f7f8fa;
+  --msp-white: #ffffff;
+  --msp-orange: #f97316;
+  --msp-orange-hover: #ea580c;
+  --msp-radius: 20px;
+  --msp-shadow: 0 12px 36px rgba(18, 40, 80, 0.08);
+  /* Match site-wide .container / --container-width */
+  --msp-max: var(--container-width, 1280px);
+  --msp-gap: 56px;
+  --msp-pad-y: 100px;
+  --msp-pad-x: 24px;
+  background: var(--msp-white);
+  color: var(--msp-text);
+  overflow-x: hidden;
+}
+
+.msp-root {
+  background: var(--msp-white);
+}
+
+/* ---------- Hero: untouched ---------- */
+.msp-hero-original {
+  /* Original .page-hero styles from legacy CSS */
+}
+
+/* ---------- Content sections ---------- */
+.msp-section {
+  padding: var(--msp-pad-y) var(--msp-pad-x);
+  border-top: 1px solid var(--msp-line);
+  background: var(--msp-white);
+}
+
+.msp-section--tint {
+  background: var(--msp-tint);
+}
+
+.msp-section-inner {
+  max-width: var(--msp-max);
+  margin: 0 auto;
+  display: grid;
+  gap: var(--msp-gap);
+  align-items: start;
+}
+
+/* Section odd (0-based even): image left, text right */
+.msp-section--image-left .msp-section-inner {
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+}
+
+.msp-section--image-left .msp-media {
+  order: 1;
+}
+
+.msp-section--image-left .msp-copy {
+  order: 2;
+}
+
+/* Section even (0-based odd): text left, image right */
+.msp-section--text-left .msp-section-inner {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+}
+
+.msp-section--text-left .msp-copy {
+  order: 1;
+}
+
+.msp-section--text-left .msp-media {
+  order: 2;
+}
+
+/* ---------- Images: consistent size, balanced with text ---------- */
+.msp-media {
+  border-radius: var(--msp-radius);
+  overflow: hidden;
+  box-shadow: var(--msp-shadow);
+  background: #e8ebf0;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 560px;
+}
+
+.msp-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ---------- Copy ---------- */
+.msp-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.msp-copy > .section,
+.msp-copy > .intro-section,
+.msp-copy > .faq-section {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  max-width: none !important;
+}
+
+.msp-copy .section-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c8861a;
+  margin-bottom: 12px;
+}
+
+.msp-copy h2 {
+  font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--msp-navy);
+  margin: 0 0 18px !important;
+}
+
+.msp-copy p,
+.msp-copy li {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--msp-muted);
+}
+
+.msp-copy p {
+  margin-bottom: 14px;
+}
+
+.msp-copy p:last-child {
+  margin-bottom: 0;
+}
+
+.msp-copy a:not(.btn-primary):not(.link-pill) {
+  color: var(--msp-navy);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.msp-copy a:not(.btn-primary):not(.link-pill):hover {
+  color: var(--msp-orange);
+}
+
+.msp-copy ul:not(.ablauf-list):not(.link-list) {
+  margin: 8px 0 18px;
+  padding-left: 1.15em;
+}
+
+.msp-copy ul:not(.ablauf-list):not(.link-list) li {
+  margin-bottom: 6px;
+}
+
+.msp-copy .btn-primary,
+.msp-copy a.btn-primary,
+.msp-copy .btn-primary.gold {
+  background: var(--msp-orange) !important;
+  background-color: var(--msp-orange) !important;
+  color: #fff !important;
+  border: none !important;
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msp-copy .btn-primary:hover,
+.msp-copy a.btn-primary:hover {
+  background: var(--msp-orange-hover) !important;
+  background-color: var(--msp-orange-hover) !important;
+}
+
+.msp-copy div[style*="text-align:center"],
+.msp-copy div[style*="text-align: center"] {
+  text-align: left !important;
+}
+
+.msp-copy .link-list {
+  margin-top: 8px;
+}
+
+.msp-copy .link-pill {
+  border-radius: 999px;
+  border: 1px solid var(--msp-line);
+  background: var(--msp-white);
+}
+
+.msp-copy .link-pill:hover {
+  border-color: rgba(249, 115, 22, 0.4);
+  background: #fff7ed;
+}
+
+.msp-copy .ablauf-list {
+  max-width: none;
+}
+
+/* ---------- FAQ ---------- */
+.msp-faq {
+  padding: var(--msp-pad-y) var(--msp-pad-x);
+  border-top: 1px solid var(--msp-line);
+  background: var(--msp-tint);
+}
+
+.msp-faq > .faq-section,
+.msp-faq > .section {
+  padding: 0 !important;
+  background: transparent !important;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.msp-faq .section-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c8861a;
+  margin-bottom: 12px;
+}
+
+.msp-faq h2 {
+  font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+  letter-spacing: -0.02em;
+  color: var(--msp-navy);
+  margin-bottom: 28px !important;
+}
+
+.msp-faq .faq-item {
+  background: var(--msp-white);
+  border: 1px solid var(--msp-line);
+  border-radius: 14px;
+  padding: 4px 20px;
+  margin-bottom: 10px;
+}
+
+.msp-faq .faq-question {
+  padding: 16px 0;
+}
+
+/* ---------- Contact ---------- */
+.msp-contact {
+  border-top: 1px solid var(--msp-line);
+}
+
+.msp-contact > .cta-form-wrap {
+  max-width: none;
+  border-radius: 0;
+}
+
+/* ---------- Tablet ---------- */
+@media (max-width: 1024px) {
+  .msp {
+    --msp-pad-y: 80px;
+    --msp-gap: 40px;
+  }
+}
+
+/* ---------- Mobile: image first, text below ---------- */
+@media (max-width: 800px) {
+  .msp {
+    --msp-pad-y: 64px;
+    --msp-gap: 24px;
+    --msp-radius: 16px;
+  }
+
+  .msp-section--image-left .msp-section-inner,
+  .msp-section--text-left .msp-section-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .msp-section--image-left .msp-media,
+  .msp-section--text-left .msp-media {
+    order: 1;
+    aspect-ratio: 16 / 10;
+    max-height: none;
+  }
+
+  .msp-section--image-left .msp-copy,
+  .msp-section--text-left .msp-copy {
+    order: 2;
+  }
+
+  .msp-media img {
+    min-height: 0;
+  }
+}

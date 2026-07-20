@@ -18,26 +18,45 @@ const ORIGIN = 'https://www.radex-objektmanagement.de';
 // the new site. Each must become its own standalone page with its own URL.
 const SLUGS = [
   // General Contractor & Renovation
+  'generalunternehmer-rhein-main',
+  'komplettsanierung-rhein-main',
   'kernsanierung-rhein-main',
   'teilsanierung-rhein-main',
   'bauleitung-projektsteuerung-rhein-main',
   // Heating & Plumbing
+  'heizung-sanitaer-rhein-main',
   'heizungsmodernisierung-rhein-main',
+  'waermepumpe-rhein-main',
   'sanitaerinstallation-rhein-main',
   // Electrical & Building Technology
+  'elektroinstallation-rhein-main',
   'altbau-elektrik-erneuern-rhein-main',
   'elektrotechnik-rhein-main',
+  'sicherungskasten-erneuern-rhein-main',
   // Interior Construction & Remodeling
+  'innenausbau-umbau-rhein-main',
   'innenausbau-wohnung-rhein-main',
   'innenausbau-haus-rhein-main',
   'trockenbau-rhein-main',
+  'wand-entfernen-rhein-main',
   // Energy & Funding
+  'energetische-sanierung-rhein-main',
   'energieeffizienz-rhein-main',
   'sanierung-foerderung-rhein-main',
+  // Mold & Asbestos
+  'schadstoffsanierung-rhein-main',
+  'asbestsanierung-rhein-main',
+  'schimmelsanierung-rhein-main',
   // Emergency & Immediate Assistance
+  'sanierungs-soforthilfe-rhein-main',
+  'schnellsanierung-rhein-main',
   'bad-soforthilfe-rhein-main',
+  'schnelle-badsanierung-rhein-main',
   // Commercial & Property Renovation
+  'gewerbe-objektsanierung-rhein-main',
+  'gewerbesanierung-rhein-main',
   'bueroumbau-rhein-main',
+  'mieterausbau-rhein-main',
 ];
 
 function decodeEntities(s) {
@@ -113,11 +132,21 @@ function scopeCss(css, scope) {
 }
 
 // ---- URL rewriting inside the migrated content ----
-function absolutizeAssets(html) {
+// Resolve relative asset paths the same way a browser would from /{slug}.
+function resolveAssetUrl(path, slug) {
+  if (/^(https?:|data:|\/\/)/i.test(path)) return path;
+  try {
+    return new URL(path, `${ORIGIN}/${slug}`).href;
+  } catch {
+    return `${ORIGIN}/${String(path).replace(/^\//, '')}`;
+  }
+}
+
+function absolutizeAssets(html, slug) {
   // <a href> -> keep root-relative so links stay on the NEW site
   html = html.replace(/href="https?:\/\/(?:www\.)?radex-objektmanagement\.de/gi, 'href="');
-  // src / poster relative -> hotlink to the original domain
-  html = html.replace(/\b(src|poster)="(?!https?:|data:|\/\/)\/?([^"]+)"/gi, (m, attr, path) => `${attr}="${ORIGIN}/${path}"`);
+  // src / poster relative -> hotlink to the original domain (resolve ../ and ../../)
+  html = html.replace(/\b(src|poster)="(?!https?:|data:|\/\/)([^"]+)"/gi, (m, attr, path) => `${attr}="${resolveAssetUrl(path, slug)}"`);
   // srcset relative candidates -> hotlink
   html = html.replace(/\bsrcset="([^"]+)"/gi, (m, val) => {
     const fixed = val
@@ -127,14 +156,13 @@ function absolutizeAssets(html) {
         if (!seg) return seg;
         const [url, ...desc] = seg.split(/\s+/);
         if (/^(https?:|data:|\/\/)/.test(url)) return seg;
-        const abs = `${ORIGIN}/${url.replace(/^\//, '')}`;
-        return [abs, ...desc].join(' ');
+        return [resolveAssetUrl(url, slug), ...desc].join(' ');
       })
       .join(', ');
     return `srcset="${fixed}"`;
   });
   // url(...) inside inline styles -> hotlink
-  html = html.replace(/url\((['"]?)(?!https?:|data:|\/\/|#)\/?([^'")]+)\1\)/gi, (m, q, path) => `url(${q}${ORIGIN}/${path}${q})`);
+  html = html.replace(/url\((['"]?)(?!https?:|data:|\/\/|#)([^'")]+)\1\)/gi, (m, q, path) => `url(${q}${resolveAssetUrl(path, slug)}${q})`);
   return html;
 }
 
@@ -190,7 +218,7 @@ async function fetchPage(slug) {
   const label = (content.match(/<div class="section-label">([\s\S]*?)<\/div>/i) || [])[1];
   const h1 = (content.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [])[1];
 
-  content = absolutizeAssets(content);
+  content = absolutizeAssets(content, slug);
 
   return {
     slug,
