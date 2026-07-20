@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { X } from 'lucide-react';
 import useSeo, { buildFaqSchema } from '../useSeo';
 import migrated from '../data/migratedServices.json';
 import '../data/legacyServiceStyles.css';
@@ -6,8 +7,12 @@ import '../data/migratedServicePage.css';
 
 /**
  * Migrated service page – original hero untouched; remaining sections use a
- * clean alternating image ↔ text layout. Content is preserved as scraped.
+ * clean alternating image ↔ text layout. Long copy is truncated with
+ * "Weiterlesen" that opens a side drawer so the page stays scroll-friendly.
  */
+
+const PREVIEW_PARAGRAPHS = 2;
+const LONG_SECTION_CHARS = 700;
 
 function extractFaqs(html) {
   if (!html || !/faq-list/.test(html)) return [];
@@ -64,6 +69,59 @@ function classifyBlock(html) {
   return 'other';
 }
 
+function plainText(html) {
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function extractHeading(html) {
+  const h2 = (html.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/i) || [])[1];
+  if (h2) return plainText(h2);
+  const h3 = (html.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/i) || [])[1];
+  if (h3) return plainText(h3);
+  const label = (html.match(/class="section-label"[^>]*>([\s\S]*?)<\/div>/i) || [])[1];
+  return label ? plainText(label) : 'Weitere Informationen';
+}
+
+/**
+ * Build a short on-page preview for long sections: label + heading + first
+ * N paragraphs. Full HTML stays available for the side drawer (and SEO).
+ */
+function buildSectionPreview(html) {
+  const paragraphs = [...html.matchAll(/<p\b[^>]*>[\s\S]*?<\/p>/gi)];
+  const chars = plainText(html).length;
+  const isLong = chars >= LONG_SECTION_CHARS && paragraphs.length > PREVIEW_PARAGRAPHS;
+
+  if (!isLong) {
+    return {
+      isLong: false,
+      previewHtml: html,
+      fullHtml: html,
+      title: extractHeading(html),
+      ctaHtml: '',
+    };
+  }
+
+  const label = (html.match(/<div[^>]*class="[^"]*section-label[^"]*"[^>]*>[\s\S]*?<\/div>/i) || [])[0] || '';
+  const heading =
+    (html.match(/<h2\b[^>]*>[\s\S]*?<\/h2>/i) || [])[0] ||
+    (html.match(/<h3\b[^>]*>[\s\S]*?<\/h3>/i) || [])[0] ||
+    '';
+  const previewParas = paragraphs
+    .slice(0, PREVIEW_PARAGRAPHS)
+    .map((m) => m[0])
+    .join('\n');
+  const ctaHtml =
+    (html.match(/<a\b[^>]*class="[^"]*btn-primary[^"]*"[^>]*>[\s\S]*?<\/a>/i) || [])[0] || '';
+
+  return {
+    isLong: true,
+    previewHtml: `${label}${heading}${previewParas}`,
+    fullHtml: html,
+    title: extractHeading(html),
+    ctaHtml,
+  };
+}
+
 function parsePageContent(contentHtml) {
   const blocks = splitTopLevelBlocks(contentHtml);
   let hero = null;
@@ -111,7 +169,7 @@ function parsePageContent(contentHtml) {
     }
 
     if (type === 'content') {
-      contentSections.push({ html: block, image: null });
+      contentSections.push({ html: block, image: null, ...buildSectionPreview(block) });
     }
   }
 
@@ -133,11 +191,72 @@ function sectionLayout(index) {
   return index % 2 === 0 ? 'image-left' : 'text-left';
 }
 
+function stripDrawerChrome(html) {
+  let out = html.replace(/<div[^>]*class="[^"]*section-label[^"]*"[^>]*>[\s\S]*?<\/div>/i, '');
+  if (/<h2\b/i.test(out)) {
+    out = out.replace(/<h2\b[^>]*>[\s\S]*?<\/h2>/i, '');
+  } else {
+    out = out.replace(/<h3\b[^>]*>[\s\S]*?<\/h3>/i, '');
+  }
+  return out;
+}
+
+function MspReadMoreDrawer({ open, title, html, onClose, panelId }) {
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open, onClose]);
+
+  const bodyHtml = html ? stripDrawerChrome(html) : '';
+
+  return (
+    <div className={`msp-drawer-root${open ? ' open' : ''}`} aria-hidden={!open}>
+      <button
+        type="button"
+        className="msp-drawer-backdrop"
+        aria-label="Hintergrund schließen"
+        tabIndex={open ? 0 : -1}
+        onClick={onClose}
+      />
+      <aside
+        id={panelId}
+        className="msp-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`${panelId}-title`}
+      >
+        <div className="msp-drawer-header">
+          <h2 id={`${panelId}-title`} className="msp-drawer-title">
+            {title}
+          </h2>
+          <button type="button" className="msp-drawer-close" aria-label="Schließen" onClick={onClose}>
+            <X size={22} />
+          </button>
+        </div>
+        <div
+          className="msp-drawer-body msp-copy"
+          dangerouslySetInnerHTML={{ __html: bodyHtml }}
+        />
+      </aside>
+    </div>
+  );
+}
+
 export default function MigratedServicePage({ slug }) {
   const page = migrated.pages[slug];
   const contentRef = useRef(null);
   const faqs = page ? extractFaqs(page.contentHtml) : [];
   const parsed = page?.contentHtml ? parsePageContent(page.contentHtml) : null;
+  const [drawer, setDrawer] = useState(null);
+  const closeDrawer = useCallback(() => setDrawer(null), []);
 
   useSeo({
     title: page?.title,
@@ -148,6 +267,7 @@ export default function MigratedServicePage({ slug }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setDrawer(null);
   }, [slug]);
 
   useEffect(() => {
@@ -175,6 +295,7 @@ export default function MigratedServicePage({ slug }) {
   if (!page || !parsed) return null;
 
   const { hero, contentSections, faq, contact } = parsed;
+  const drawerOpen = Boolean(drawer);
 
   return (
     <main className="migrated-service-page msp" ref={contentRef}>
@@ -210,6 +331,7 @@ export default function MigratedServicePage({ slug }) {
         {contentSections.map((section, index) => {
           const layout = sectionLayout(index);
           const tint = index % 2 === 1 ? 'msp-section--tint' : '';
+          const panelId = `msp-section-drawer-${index}`;
           return (
             <section
               key={`msp-sec-${index}`}
@@ -221,10 +343,36 @@ export default function MigratedServicePage({ slug }) {
                     <img src={section.image.src} alt={section.image.alt} loading="lazy" />
                   </div>
                 )}
-                <div
-                  className="msp-copy"
-                  dangerouslySetInnerHTML={{ __html: section.html }}
-                />
+                <div className="msp-copy">
+                  <div dangerouslySetInnerHTML={{ __html: section.previewHtml }} />
+                  {section.isLong && (
+                    <>
+                      <button
+                        type="button"
+                        className="msp-read-more"
+                        aria-haspopup="dialog"
+                        aria-expanded={drawer?.index === index}
+                        aria-controls={panelId}
+                        onClick={() =>
+                          setDrawer({
+                            index,
+                            title: section.title,
+                            html: section.fullHtml,
+                            panelId,
+                          })
+                        }
+                      >
+                        Weiterlesen
+                      </button>
+                      {section.ctaHtml && (
+                        <div
+                          className="msp-copy-cta"
+                          dangerouslySetInnerHTML={{ __html: section.ctaHtml }}
+                        />
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </section>
           );
@@ -244,6 +392,14 @@ export default function MigratedServicePage({ slug }) {
           />
         )}
       </div>
+
+      <MspReadMoreDrawer
+        open={drawerOpen}
+        title={drawer?.title || 'Weitere Informationen'}
+        html={drawer?.html || ''}
+        panelId={drawer?.panelId || 'msp-section-drawer'}
+        onClose={closeDrawer}
+      />
     </main>
   );
 }
