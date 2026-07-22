@@ -4,10 +4,15 @@ import {
   Award,
   Camera,
   ChevronDown,
+  CircleCheck,
   ClipboardCheck,
   FileCheck,
+  Hammer,
   MessageSquare,
+  MessagesSquare,
   Phone,
+  ShieldCheck,
+  Sparkles,
   UserCheck,
   X,
 } from 'lucide-react';
@@ -147,6 +152,14 @@ export function PremiumIconCards({ cards, linked = false, compactIcons = false, 
             {linked && <span className="br-btn-orange">{card.cta || 'Mehr erfahren'} &rarr;</span>}
           </>
         );
+
+        if (linked && card.href) {
+          return (
+            <a key={card.title} href={card.href} className="br-decision-card">
+              {content}
+            </a>
+          );
+        }
 
         if (linked && card.to) {
           return (
@@ -504,18 +517,29 @@ export function SeoKnowledgeDrawer({
   ctaLabel = 'Kostenlose Beratung anfragen',
   ctaHref = '#kontakt',
   panelId = 'seo-knowledge-panel',
+  showToc = false,
 }) {
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState(null);
+  const [tocNavOpen, setTocNavOpen] = useState(false);
   const headingId = `${panelId}-heading`;
+  const panelBodyRef = useRef(null);
 
   const linkSections = sections.filter((s) => s.href || s.to);
   const contentSections = sections.filter((s) => !(s.href || s.to));
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (hash && sections.some((s) => s.id === hash && !(s.href || s.to))) {
-      setOpen(true);
-    }
+    const openForHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash && sections.some((s) => s.id === hash && !(s.href || s.to))) {
+        setOpen(true);
+        setActiveId(hash);
+      }
+    };
+
+    openForHash();
+    window.addEventListener('hashchange', openForHash);
+    return () => window.removeEventListener('hashchange', openForHash);
   }, [sections]);
 
   useEffect(() => {
@@ -540,6 +564,41 @@ export function SeoKnowledgeDrawer({
     }, 320);
     return () => window.clearTimeout(timer);
   }, [open]);
+
+  useEffect(() => {
+    if (!open || !showToc || contentSections.length === 0) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0) {
+          const id = visible[0].target.id;
+          setActiveId(id);
+          if (window.location.hash.slice(1) !== id) {
+            window.history.replaceState(null, '', `#${id}`);
+          }
+        }
+      },
+      { root: panelBodyRef.current, rootMargin: '-10% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+
+    contentSections.forEach((section) => {
+      const el = document.getElementById(section.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [open, showToc, contentSections]);
+
+  const handleTocClick = useCallback((event, id) => {
+    event.preventDefault();
+    setActiveId(id);
+    window.history.replaceState(null, '', `#${id}`);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTocNavOpen(false);
+  }, []);
 
   return (
     <section className="br-section br-bg-light">
@@ -587,8 +646,43 @@ export function SeoKnowledgeDrawer({
               <X size={22} />
             </button>
           </div>
-          <div className="br-city-seo-panel-body">
+          <div className="br-city-seo-panel-body" ref={panelBodyRef}>
             {intro && <div className="br-city-seo-panel-block br-ablauf-seo-intro">{intro}</div>}
+
+            {showToc && contentSections.length > 0 && (
+              <nav className="br-seo-drawer-toc" aria-label="Inhaltsverzeichnis">
+                <button
+                  type="button"
+                  className={`br-seo-toc-mobile-toggle${tocNavOpen ? ' is-open' : ''}`}
+                  aria-expanded={tocNavOpen}
+                  aria-controls={`${panelId}-toc-list`}
+                  onClick={() => setTocNavOpen((value) => !value)}
+                >
+                  <span>Inhaltsverzeichnis</span>
+                  <ChevronDown size={20} aria-hidden="true" />
+                </button>
+                <div
+                  id={`${panelId}-toc-list`}
+                  className={`br-seo-drawer-toc-body${tocNavOpen ? ' is-open' : ''}`}
+                >
+                  <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
+                  <ol className="br-seo-toc-list">
+                    {contentSections.map((section) => (
+                      <li key={section.id}>
+                        <a
+                          href={`#${section.id}`}
+                          className={activeId === section.id ? 'is-active' : undefined}
+                          aria-current={activeId === section.id ? 'true' : undefined}
+                          onClick={(event) => handleTocClick(event, section.id)}
+                        >
+                          {section.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </nav>
+            )}
 
             {contentSections.map((section) => (
               <article key={section.id} id={section.id} className="br-city-seo-panel-block">
@@ -980,6 +1074,170 @@ export function HorizontalProcessTimeline({ title, intro, steps }) {
             );
           })}
         </ol>
+      </div>
+    </section>
+  );
+}
+
+/** Two-option comparison for Sanierung money pages (e.g. Teilsanierung vs. Komplettsanierung). */
+export function SanierungOptionComparison({ title, options }) {
+  return (
+    <section className="br-section br-bg-light br-sanierung-compare-section">
+      <div className="container">
+        {title && (
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">{title}</h2>
+          </div>
+        )}
+        <div className="br-sanierung-compare-grid">
+          {options.map((option) => {
+            const Icon = option.icon;
+            const body = (
+              <>
+                {Icon && (
+                  <div className="br-decision-icon br-decision-icon--large">
+                    <Icon size={36} strokeWidth={1.5} />
+                  </div>
+                )}
+                <h3>{option.title}</h3>
+                <p>{option.desc}</p>
+                {option.cta && option.to && (
+                  <span className="br-btn-orange">{option.cta} &rarr;</span>
+                )}
+              </>
+            );
+
+            if (option.to) {
+              return (
+                <Link key={option.title} to={option.to} className="br-decision-card br-sanierung-compare-card">
+                  {body}
+                </Link>
+              );
+            }
+
+            return (
+              <div key={option.title} className="br-decision-card br-sanierung-compare-card" style={{ cursor: 'default' }}>
+                {body}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Responsive checklist for project suitability sections. */
+export function ResponsiveChecklistSection({ title, intro, items, withCircleCheck = false }) {
+  return (
+    <section className="br-section br-checklist-section">
+      <div className="container" style={{ maxWidth: '820px' }}>
+        <div className="text-center mb-10">
+          {title && <h2 className="br-section-title">{title}</h2>}
+          {intro && <p className="br-section-subtitle br-section-subtitle--wide">{intro}</p>}
+        </div>
+        <ul
+          className={`br-seo-checklist br-seo-checklist--grid${withCircleCheck ? ' br-seo-checklist--circle' : ''}`}
+        >
+          {items.map((item) => (
+            <li key={item}>
+              {withCircleCheck && (
+                <CircleCheck size={20} strokeWidth={1.5} className="br-seo-checklist-icon" aria-hidden="true" />
+              )}
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+const moneyPageQualityCards = [
+  {
+    title: 'Fachgerechte Ausführung',
+    desc: 'Alle vereinbarten Arbeiten werden nach anerkannten Regeln der Technik und den geltenden Normen ausgeführt.',
+    icon: Hammer,
+  },
+  {
+    title: 'Geprüfte Materialien',
+    desc: 'Wir setzen auf qualitätsgeprüfte Produkte und Materialien, die zum geplanten Nutzungsumfang passen.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Klare Kommunikation',
+    desc: 'Sie erhalten verständliche Informationen über Projektstand, erforderliche Entscheidungen und den weiteren Ablauf.',
+    icon: MessagesSquare,
+  },
+  {
+    title: 'Saubere Baustellen',
+    desc: 'Ordnung, Staubschutz und eine strukturierte Baustellenführung sind fester Bestandteil unserer Projektarbeit.',
+    icon: Sparkles,
+  },
+  {
+    title: 'Nachvollziehbare Dokumentation',
+    desc: 'Wichtige Projektstände, Befunde und Abschlusspunkte werden für Sie dokumentiert.',
+    icon: FileCheck,
+  },
+  {
+    title: 'Verlässliche Projektbegleitung',
+    desc: 'Ein fester Ansprechpartner begleitet Ihr Projekt von der ersten Einschätzung bis zur Übergabe.',
+    icon: UserCheck,
+  },
+];
+
+/** Standard six-card quality grid for SEO money pages. */
+export function MoneyPageQualityGrid() {
+  return (
+    <section className="br-section br-bg-light" aria-labelledby="money-page-quality-title">
+      <div className="container">
+        <div className="text-center mb-12">
+          <h2 id="money-page-quality-title" className="br-section-title">
+            Qualitätsversprechen
+          </h2>
+        </div>
+        <PremiumIconCards cards={moneyPageQualityCards} largeIcons />
+      </div>
+    </section>
+  );
+}
+
+/** Video placeholder block for Bernd erklärt sections on money pages. */
+export function BerndExplainsVideo({
+  kicker = 'Bernd erklärt',
+  title,
+  description,
+  duration = 'ca. 2 Minuten',
+  poster,
+  posterAlt,
+  transcript,
+}) {
+  return (
+    <section id="video" className="br-section br-bg-light br-ablauf-video-section">
+      <div className="container br-ablauf-video-container">
+        <div className="text-center mb-10">
+          <p className="br-hero-kicker">{kicker}</p>
+          <h2 className="br-section-title">{title}</h2>
+          {description && <p className="br-section-subtitle br-section-subtitle--wide">{description}</p>}
+          <p className="br-hero-micro">Dauer: {duration}</p>
+        </div>
+        <div
+          className="br-ablauf-video-frame br-bw-video-placeholder"
+          style={{ backgroundImage: `url(${poster})` }}
+          role="img"
+          aria-label={posterAlt || title}
+        >
+          <div className="br-bw-video-placeholder-overlay">
+            <span className="br-bw-video-placeholder-play" aria-hidden="true" />
+            <p>Video folgt in Kürze</p>
+          </div>
+        </div>
+        {transcript && (
+          <div className="br-ablauf-video-transcript">
+            <h3>Platzhalter-Skript</h3>
+            <p>{transcript}</p>
+          </div>
+        )}
       </div>
     </section>
   );

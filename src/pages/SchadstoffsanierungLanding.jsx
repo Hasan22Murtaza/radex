@@ -1,611 +1,646 @@
-import { useEffect, useState } from 'react';
-import { RADEX_LIVE_URL } from '../constants/brand';
+import { useEffect } from 'react';
 import {
-  Camera,
-  ChevronDown,
-  MessageSquare,
-  Phone,
-  ArrowRight,
-  Landmark,
-  Droplets,
-  Key,
-  Hammer,
+  FlaskConical,
+  SearchCheck,
+  UsersRound,
+  Workflow,
   ShieldCheck,
-  Users,
-  Handshake,
-  UserCheck,
-  FileText,
-  MapPin,
-  Award,
+  FileCheck2,
+  Building2,
+  BadgeEuro,
+  UserRound,
+  CalendarClock,
+  MessagesSquare,
+  Hammer,
+  Waves,
+  Flame,
+  TestTubeDiagonal,
+  PaintRoller,
+  TriangleAlert,
+  Microscope,
+  PhoneCall,
+  Search,
+  ClipboardList,
+  CircleCheckBig,
+  PanelTopClose,
+  Wind,
+  DoorOpen,
+  HardHat,
+  PackageCheck,
+  Phone,
+  Mail,
+  MessageCircle,
+  Briefcase,
+  Warehouse,
+  House,
+  Landmark,
 } from 'lucide-react';
 import { Link } from '../router';
 import '../badsanierung.css';
-import useSeo, { buildFaqSchema } from '../useSeo';
+import '../badsanierung-polish.css';
+import '../sanierung-polish.css';
+import '../home.css';
+import useSeo, { buildBreadcrumbSchema, buildServiceSchema } from '../useSeo';
+import ReviewsMarquee from '../components/ReviewsMarquee';
+import {
+  PremiumIconCards,
+  SectionTransition,
+  SeoKnowledgeDrawer,
+  RadexLiveSection,
+  HorizontalProcessTimeline,
+  BerndExplainsVideo,
+} from '../components/landing/SharedLandingParts';
+import {
+  schadstoffsanierungSeoIntro,
+  schadstoffsanierungSeoSections,
+  schadstoffsanierungSeoLinkSections,
+} from '../data/schadstoffsanierungSeoContent';
 
-const HERO_IMAGE = '/img/schadstoffsanierung-hero.webp';
-const LIVE_IMAGE = '/img/schadstoffsanierung-radex-live.webp';
+const SITE_URL = 'https://www.radex-objektmanagement.de';
+const PAGE_PATH = '/schadstoffsanierung-rhein-main';
+const HERO_IMAGE = '/img/schadstoffsanierung-rhein-main-radex.webp';
+const VIDEO_POSTER = '/img/bernd-schadstoffsanierung-rhein-main.webp';
+const WHATSAPP_URL = 'https://wa.me/496074960620';
+const PHONE_TEL = 'tel:+496074960620';
 
-const whenCards = [
-  { title: 'Altbausanierung', desc: 'Prüfung vor umfangreichen Umbau- und Sanierungsarbeiten.', icon: Landmark },
-  { title: 'Wasserschäden', desc: 'Schadstoffe und Folgeschäden frühzeitig erkennen.', icon: Droplets },
-  { title: 'Gebäudekauf', desc: 'Sicherheit vor einer Investition schaffen.', icon: Key },
-  { title: 'Kernsanierung', desc: 'Gefahrstoffe vor Beginn aller Ausbauarbeiten fachgerecht berücksichtigen.', icon: Hammer },
+const META_TITLE = 'Schadstoffsanierung Rhein-Main | Fachgerechte Gebäudeschadstoffe sanieren';
+const META_DESCRIPTION =
+  'Professionelle Schadstoffsanierung im Rhein-Main-Gebiet. Koordination von Untersuchung, Sanierung, Rückbau und Wiederherstellung für Gewerbe- und Wohnimmobilien.';
+
+const BREADCRUMBS = [
+  { name: 'Startseite', path: '/' },
+  { name: 'Schimmel & Asbest', path: '/schimmel-asbest-sanierung-rhein-main' },
+  { name: 'Schadstoffsanierung', path: PAGE_PATH },
 ];
 
+const TRUST_LINE = 'Koordination aller Gewerke · Dokumentierte Abläufe · Qualifizierte Fachpartner';
+
+function SchadstoffsanierungCTA({ isHero = false, centered = false }) {
+  return (
+    <div
+      className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
+    >
+      <a href="#kontakt" className="btn br-btn-orange">
+        Kostenlose Erstberatung
+      </a>
+      <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
+        <MessageCircle size={20} />
+        Fotos per WhatsApp senden
+      </a>
+    </div>
+  );
+}
+
 const whyRadexCards = [
-  { title: 'Zertifiziert für Schimmel & Asbest', desc: 'Schimmelsanierung und Sachkunde nach TRGS 519 für Asbest im Sanierungsprojekt.', icon: ShieldCheck },
-  { title: 'Koordination aller Fachbetriebe', desc: 'Prüfung, Rückbau, Trocknung, SHK und Wiederaufbau in der richtigen Reihenfolge.', icon: Users },
-  { title: 'Alles aus einer Hand', desc: 'Planung, Koordination und Ausführung mit einem festen Ansprechpartner.', icon: Handshake },
-  { title: 'Fester Ansprechpartner', desc: 'Von der ersten Einschätzung bis zur dokumentierten Übergabe.', icon: UserCheck },
-  { title: 'Dokumentierte Projektabläufe', desc: 'Saubere Dokumentation für Eigentümer, Vermieter und Versicherungen.', icon: FileText },
-  { title: 'Regional im Rhein-Main-Gebiet', desc: 'Über 60 Städte – Erfahrung mit Bestandsimmobilien und Altbauten.', icon: MapPin },
+  {
+    title: 'Strukturierte Projektaufnahme',
+    desc: 'Wir analysieren die Ausgangssituation und koordinieren bei Bedarf die notwendigen Untersuchungen und Fachleistungen.',
+    icon: SearchCheck,
+  },
+  {
+    title: 'Qualifizierte Fachpartner',
+    desc: 'Spezialisierte Arbeiten werden durch entsprechend qualifizierte Sanierungsunternehmen und Sachverständige ausgeführt.',
+    icon: UsersRound,
+  },
+  {
+    title: 'Zentrale Projektkoordination',
+    desc: 'Alle beteiligten Gewerke werden über einen festen Ansprechpartner organisiert und abgestimmt.',
+    icon: Workflow,
+  },
+  {
+    title: 'Fachgerechte Ausführung',
+    desc: 'Sanierungsmaßnahmen erfolgen entsprechend der jeweiligen Anforderungen und geltenden Vorgaben.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Transparente Dokumentation',
+    desc: 'Projektfortschritt, Sanierungsschritte und relevante Nachweise werden nachvollziehbar dokumentiert.',
+    icon: FileCheck2,
+  },
+  {
+    title: 'Wiederherstellung aus einer Hand',
+    desc: 'Nach Abschluss der Schadstoffsanierung koordinieren wir auf Wunsch auch den Innenausbau und die vollständige Wiederherstellung der betroffenen Bereiche.',
+    icon: Building2,
+  },
+];
+
+const qualityCards = [
+  {
+    title: 'Festpreisgarantie',
+    desc: 'Transparente Angebote schaffen eine verlässliche Grundlage für Ihre Projektplanung.',
+    icon: BadgeEuro,
+  },
+  {
+    title: 'Fester Ansprechpartner',
+    desc: 'Sie werden während des gesamten Projekts von einer zentralen Projektleitung begleitet.',
+    icon: UserRound,
+  },
+  {
+    title: 'Termingerechte Umsetzung',
+    desc: 'Sanierung und Folgearbeiten werden anhand eines abgestimmten Zeitplans koordiniert.',
+    icon: CalendarClock,
+  },
+  {
+    title: 'Koordination aller Gewerke',
+    desc: 'Fachgutachter, Sanierungsbetriebe, Entsorgung und Wiederaufbau werden zentral gesteuert.',
+    icon: Workflow,
+  },
+  {
+    title: 'Geprüfte Qualität',
+    desc: 'Alle Arbeiten werden kontinuierlich kontrolliert und dokumentiert.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Transparente Kommunikation',
+    desc: 'Sie erhalten jederzeit Informationen zum Projektstand, zu Terminen und zum weiteren Ablauf.',
+    icon: MessagesSquare,
+  },
+];
+
+const leistungenCards = [
+  {
+    title: 'Schadstofferkundung',
+    desc: 'Vor Umbau-, Rückbau- oder Modernisierungsarbeiten prüfen wir gemeinsam mit qualifizierten Fachpartnern, ob schadstoffverdächtige Baustoffe vorhanden sind und welche weiteren Untersuchungen erforderlich werden.',
+    icon: SearchCheck,
+    to: '#schadstofferkundung',
+    cta: 'Mehr zur Schadstofferkundung',
+  },
+  {
+    title: 'Schadstoffrückbau',
+    desc: 'Belastete Baustoffe werden kontrolliert ausgebaut, sicher verpackt und über geeignete Entsorgungswege abgeführt. Schutzmaßnahmen und Arbeitsabläufe werden auf den jeweiligen Befund abgestimmt.',
+    icon: Hammer,
+    to: '#schadstoffrueckbau',
+    cta: 'Mehr zum Schadstoffrückbau',
+  },
+  {
+    title: 'Wiederherstellung',
+    desc: 'Nach Abschluss der Sanierung koordinieren wir den fachgerechten Wiederaufbau von Wänden, Böden, Decken, Dämmungen und weiteren betroffenen Bauteilen.',
+    icon: Building2,
+    to: '#wiederherstellung',
+    cta: 'Mehr zur Wiederherstellung',
+  },
+];
+
+const schadstoffCards = [
+  {
+    title: 'Künstliche Mineralfasern',
+    desc: 'Ältere Dämmstoffe und technische Isolierungen können Fasern freisetzen. Art, Alter und Zustand des Materials bestimmen, welche Schutzmaßnahmen beim Ausbau notwendig sind.',
+    icon: Waves,
+  },
+  {
+    title: 'PAK-haltige Baustoffe',
+    desc: 'PAK kann unter anderem in älteren Parkettklebstoffen, Abdichtungen, Estrichaufbauten und teerhaltigen Produkten vorkommen.',
+    icon: Flame,
+  },
+  {
+    title: 'PCB-haltige Materialien',
+    desc: 'PCB wurde früher beispielsweise in Fugendichtungen, Beschichtungen und technischen Anwendungen eingesetzt. Eine Laboranalyse schafft Klarheit über eine mögliche Belastung.',
+    icon: TestTubeDiagonal,
+  },
+  {
+    title: 'Belastete Klebstoffe',
+    desc: 'Klebstoffe unter Bodenbelägen, Spachtelmassen und Beschichtungen können schadstoffhaltige Bestandteile enthalten und sollten vor mechanischer Bearbeitung geprüft werden.',
+    icon: PaintRoller,
+  },
+  {
+    title: 'Asbesthaltige Baustoffe',
+    desc: 'Asbest kann in verschiedenen älteren Bauprodukten enthalten sein. Bei einem entsprechenden Verdacht verweisen wir auf unsere spezialisierte Leistung zur Asbestsanierung.',
+    icon: TriangleAlert,
+    to: '/asbestsanierung-rhein-main',
+    cta: 'Zur Asbestsanierung',
+  },
+  {
+    title: 'Mikrobielle Belastungen',
+    desc: 'Feuchtigkeitsschäden können Schimmel und weitere mikrobielle Belastungen verursachen. Für diese Fälle steht die spezialisierte Schimmelsanierung zur Verfügung.',
+    icon: Microscope,
+    to: '/schimmelsanierung-rhein-main',
+    cta: 'Zur Schimmelsanierung',
+  },
 ];
 
 const processSteps = [
-  'Kostenlose Erstberatung',
-  'Besichtigung der Immobilie',
-  'Bewertung möglicher Schadstoffe',
-  'Planung der Sanierungsmaßnahmen',
-  'Fachgerechte Ausführung',
-  'Abschluss & Dokumentation',
-];
-
-const faqsData = [
   {
-    q: 'Wann ist eine Schadstoffsanierung notwendig?',
-    a: 'Sobald Feuchtigkeit, Schimmel, Verdachtsmaterialien oder Rückbau im Bestand zusammenkommen, sollte fachlich geprüft werden – besonders vor Kernsanierung, Altbausanierung oder nach Wasserschäden.',
+    title: 'Erstkontakt und Bedarfsklärung',
+    desc: 'Wir erfassen Objektart, bekannte Auffälligkeiten, geplante Bauarbeiten und die aktuelle Nutzung der betroffenen Bereiche.',
+    icon: PhoneCall,
   },
   {
-    q: 'Welche Gefahrstoffe kommen in Altbauten häufig vor?',
-    a: 'Häufig sind Asbest in alten Bodenbelägen, Klebern, Platten oder Isolierungen, außerdem Schimmel durch Feuchtigkeit, PAK-haltige Materialien, Mineralfasern oder belastete Anstriche.',
+    title: 'Besichtigung und Bestandsaufnahme',
+    desc: 'Verdächtige Materialien und betroffene Bauteile werden vor Ort dokumentiert und für mögliche Untersuchungen eingegrenzt.',
+    icon: Search,
   },
   {
-    q: 'Muss vor einer Kernsanierung geprüft werden?',
-    a: 'Ja. Bevor Wände, Böden oder Decken geöffnet werden, sollte geklärt werden, ob Schadstoffe vorhanden sein könnten. So lassen sich Gesundheitsrisiken und Folgeschäden vermeiden.',
+    title: 'Probenahme und Laboranalyse',
+    desc: 'Falls notwendig, koordinieren qualifizierte Fachleute eine fachgerechte Probenahme und die Untersuchung in einem geeigneten Labor.',
+    icon: Microscope,
   },
   {
-    q: 'Arbeiten Sie mit zertifizierten Fachpartnern zusammen?',
-    a: 'Ja. Radex ist zertifiziert für Schimmelsanierung und verfügt über Sachkunde nach TRGS 519 für Asbest. Zusätzlich koordiniert Radex qualifizierte Fachpartner für weitere Schadstoffthemen.',
+    title: 'Sanierungs- und Schutzkonzept',
+    desc: 'Auf Grundlage der Ergebnisse werden Arbeitsbereiche, Schutzmaßnahmen, Rückbauverfahren, Transportwege und Entsorgung geplant.',
+    icon: ClipboardList,
   },
   {
-    q: 'Wie lange dauert eine Schadstoffsanierung?',
-    a: 'Das hängt von Befund, Ursache, Zugänglichkeit und Wiederaufbau ab. Nach der Bestandsaufnahme erstellen wir einen realistischen Zeitplan für Ihr Projekt.',
+    title: 'Fachgerechte Sanierung',
+    desc: 'Entsprechend qualifizierte Fachbetriebe führen die vereinbarten Arbeiten kontrolliert und unter den erforderlichen Schutzmaßnahmen aus.',
+    icon: ShieldCheck,
   },
   {
-    q: 'Erhalte ich ein Festpreisangebot?',
-    a: 'Ja. Nach Besichtigung und klarer Abstimmung des Umfangs erstellen wir ein transparentes Angebot für die geplanten Maßnahmen.',
+    title: 'Abschlusskontrolle und Wiederherstellung',
+    desc: 'Nach Reinigung und erforderlichen Kontrollen werden die betroffenen Bereiche für den weiteren Ausbau vorbereitet und anschließend wiederhergestellt.',
+    icon: CircleCheckBig,
   },
 ];
 
-const seoAccordions = [
+const schutzCards = [
   {
-    title: 'Schimmel ist immer ein Ursache-Folge-Thema',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Schimmel ist nie nur ein optischer Mangel. Sichtbare Flecken, Geruch oder feuchte Stellen zeigen fast immer ein Feuchtigkeitsproblem an, das bauphysikalisch oder technisch eingeordnet werden muss.
-        </p>
-        <p className="text-gray-600">
-          Radex betrachtet deshalb nicht nur die Oberfläche, sondern den gesamten Zusammenhang aus Feuchtigkeit, Nutzung, Bauweise und Technik. Mehr zur{' '}
-          <Link to="/leistungen/schimmel-asbest">Schimmel & Asbest</Link>.
-        </p>
-      </>
-    ),
+    title: 'Räumliche Abschottung',
+    desc: 'Arbeitsbereiche werden abhängig von der Belastung und Gebäudenutzung von angrenzenden Bereichen getrennt.',
+    icon: PanelTopClose,
   },
   {
-    title: 'Schimmel im Bad, Keller und an Außenwänden',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Besonders häufig tritt Schimmel in Bädern, Kellern, Schlafzimmern und an Außenwänden auf. Dort treffen Feuchtigkeit, kalte Flächen und ungünstige Luftführung oft zusammen.
-        </p>
-        <p className="text-gray-600">
-          Gerade nach einem Wasserschaden oder bei älteren Bädern muss deshalb geprüft werden, wie tief der Schaden reicht und welche Bauteile betroffen sind.{' '}
-          <a href="/schimmelsanierung-rhein-main">Schimmelsanierung</a>.
-        </p>
-      </>
-    ),
+    title: 'Unterdruckhaltung',
+    desc: 'Bei staub- oder faserfreisetzenden Arbeiten kann eine kontrollierte Luftführung mit geeigneter Filtertechnik erforderlich sein.',
+    icon: Wind,
   },
   {
-    title: 'Schadstoffe im Bestand sachlich prüfen',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Bei älteren Gebäuden können beim Rückbau zusätzlich Schadstoffe sichtbar werden. Dazu gehören unter anderem Asbest, alte Kleber, PAK-haltige Materialien, Mineralfasern oder belastete Anstriche.
-        </p>
-        <p className="text-gray-600">
-          Radex verfügt über TRGS-519-Sachkunde und kann diese Themen in die Sanierungsplanung integrieren.{' '}
-          <a href="/asbestsanierung-rhein-main">Asbestsanierung</a>.
-        </p>
-      </>
-    ),
+    title: 'Personen- und Materialschleusen',
+    desc: 'Schleusensysteme unterstützen die kontrollierte Trennung zwischen Sanierungs- und Nutzungsbereichen.',
+    icon: DoorOpen,
   },
   {
-    title: 'Schimmel- und Schadstoffsanierung zusammen denken',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Wenn ein Bereich geöffnet wird, sollte nicht blind weitergearbeitet werden. Erst prüfen, dann rückbauen, dann trocknen und erst danach wiederaufbauen. Diese Reihenfolge schützt vor Doppelarbeit und Folgeschäden.
-        </p>
-        <p className="text-gray-600">
-          Radex koordiniert dabei Schimmelbeseitigung, Trocknung, Abdichtung, SHK-Leistungen, Wiederaufbau und die Schnittstellen zu weiteren Gewerken – ideal als{' '}
-          <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link>.
-        </p>
-      </>
-    ),
+    title: 'Persönliche Schutzausrüstung',
+    desc: 'Die eingesetzten Fachkräfte verwenden eine auf Material und Verfahren abgestimmte Schutzausrüstung.',
+    icon: HardHat,
   },
   {
-    title: 'Regionale Erreichbarkeit und Erfahrung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Radex arbeitet im gesamten Rhein-Main-Gebiet und ist bei Schimmel- und Schadstoffthemen häufig bei Bestandsimmobilien, Altbauten, Wohnungen und Gewerbeflächen im Einsatz.
-        </p>
-        <p className="text-gray-600">
-          Für eine erste Einschätzung genügt oft ein Anruf unter 06074 960620 oder eine Anfrage über den{' '}
-          <a href="/kontakt">Kontaktbereich</a>. Verfolgen Sie Projekte bei{' '}
-          <a href={RADEX_LIVE_URL}>Radex Live</a>.
-        </p>
-      </>
-    ),
+    title: 'Sichere Verpackung',
+    desc: 'Belastete Materialien werden sachgerecht verpackt, gekennzeichnet und für den Abtransport vorbereitet.',
+    icon: PackageCheck,
   },
   {
-    title: 'Für wen Schimmel- und Schadstoffsanierung relevant ist',
-    content: (
-      <ul className="space-y-4 text-gray-600">
-        <li><strong>Eigentümer und Käufer:</strong> Vor oder nach dem Kauf einer älteren Immobilie können Feuchtigkeit, Schimmel und Verdachtsmaterialien rechtzeitig eingeordnet werden.</li>
-        <li><strong>Vermieter und Hausverwaltungen:</strong> Bei Mietverhältnissen, Leerstand oder Schadensfällen braucht es eine saubere Dokumentation und klare Kommunikation.</li>
-        <li><strong>Eigentümer mit Keller- oder Badproblemen:</strong> Feuchte Keller, undichte Bäder, Wärmebrücken und Lüftungsprobleme sind häufige Auslöser für Schimmel.</li>
-        <li><strong>Sanierer im Altbau:</strong> Bei älteren Baustoffen können Schimmel und Schadstoffe gemeinsam auftreten und müssen zusammen betrachtet werden.</li>
-        <li><strong>Gewerbliche Nutzer und Objektverantwortliche:</strong> Auch in Büro-, Praxis- oder Ladenflächen können Rückbau und Schadstoffprüfung eng mit der Sanierungsplanung verknüpft sein.</li>
-      </ul>
-    ),
-  },
-  {
-    title: 'Typische Ursachen und Befunde',
-    content: (
-      <ul className="space-y-4 text-gray-600">
-        <li><strong>Wasserschaden:</strong> Rohrbruch, undichte Leitungen oder eindringende Feuchtigkeit können Schimmel auslösen.</li>
-        <li><strong>Kältebrücken:</strong> Ungünstige Außenwandecken, Fensterbereiche oder Deckenanschlüsse begünstigen Kondensat.</li>
-        <li><strong>Schimmel im Bad:</strong> Feuchte Zonen, undichte Fugen, schlechte Lüftung oder versteckte Schäden hinter Verkleidungen.</li>
-        <li><strong>Schimmel im Keller:</strong> Feuchte Kellerwände, Kondensation, aufsteigende Feuchtigkeit oder fehlende Abdichtung.</li>
-        <li><strong>Asbestverdacht:</strong> Alte Bodenbeläge, Kleber, Platten oder Isolierungen müssen fachlich geprüft werden.</li>
-        <li><strong>Altbausanierung:</strong> Bei älteren Gebäuden können mehrere Themen zusammen auftreten und müssen gemeinsam bewertet werden.{' '}
-          <a href="/altbausanierung-rhein-main">Altbausanierung</a>.
-        </li>
-      </ul>
-    ),
-  },
-  {
-    title: 'Kosten einer Schimmel- und Schadstoffsanierung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Die Kosten hängen immer von Befund, Ursache, Zugänglichkeit und Wiederaufbau ab. Die Angaben dienen nur der Orientierung.
-        </p>
-        <ul className="space-y-2 text-gray-600">
-          <li><strong>Oberflächlicher Schimmel:</strong> ab 300 €</li>
-          <li><strong>Tiefsitzender Befall:</strong> ab 1.500 €</li>
-          <li><strong>Trocknung und Wiederaufbau:</strong> ab 3.500 €</li>
-          <li><strong>Asbestprüfung und Rückbau:</strong> projektbezogen</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    title: 'Wann sollte Schimmel fachlich geprüft werden?',
-    content: (
-      <p className="text-gray-600">
-        Wenn Schimmel wiederholt auftritt, größer wird, nach einem Wasserschaden entstanden ist, im Bad oder Keller sichtbar wird oder einen muffigen Geruch verursacht, sollte er fachlich geprüft werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Warum reicht oberflächliches Entfernen nicht aus?',
-    content: (
-      <p className="text-gray-600">
-        Weil es nur den sichtbaren Befall beseitigt. Wenn die Feuchtigkeit bleibt, entsteht der Schimmel erneut. Ursache, Tiefe des Befalls und betroffene Bauteile müssen mit betrachtet werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Was kostet eine Schimmelsanierung?',
-    content: (
-      <p className="text-gray-600">
-        Die Kosten hängen vom Umfang ab. Eine kleine lokale Sanierung ist anders zu bewerten als ein Wasserschaden mit Trocknung, Rückbau und Wiederherstellung.
-      </p>
-    ),
-  },
-  {
-    title: 'Kann Schimmel im Bad dauerhaft saniert werden?',
-    content: (
-      <p className="text-gray-600">
-        Ja, wenn die Ursache behoben wird. Abdichtung, Fugen, Lüftung, Wandaufbau und mögliche Leitungsprobleme müssen dabei zusammen geprüft werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Was passiert bei Schimmel nach einem Wasserschaden?',
-    content: (
-      <p className="text-gray-600">
-        Zuerst wird die Ursache gestoppt, dann werden betroffene Bauteile getrocknet und geprüft. Erst danach folgt der Wiederaufbau der betroffenen Bereiche.
-      </p>
-    ),
-  },
-  {
-    title: 'Ist Radex zertifiziert für Schimmelsanierung?',
-    content: (
-      <p className="text-gray-600">
-        Ja. Radex ist zertifiziert für Schimmelsanierung und verfügt zusätzlich über Sachkunde nach TRGS 519 für Asbest.
-      </p>
-    ),
-  },
-  {
-    title: 'Kann Schimmel mit Asbest oder anderen Schadstoffen zusammenhängen?',
-    content: (
-      <p className="text-gray-600">
-        Ja, im selben Sanierungsprojekt können mehrere Befunde auftreten. Deshalb ist im Bestand ein fachkundiger Blick auf Schimmel und Verdachtsmaterialien wichtig.
-      </p>
-    ),
-  },
-  {
-    title: 'Wie läuft die Anfrage ab?',
-    content: (
-      <p className="text-gray-600">
-        Sie rufen Radex unter 06074 960620 an oder nutzen den Kontaktbereich. Im ersten Gespräch werden Befund, Raum, Baujahr und mögliche Ursachen besprochen.
-      </p>
-    ),
-  },
-  {
-    title: 'Welche Städte betreut Radex?',
-    content: (
-      <p className="text-gray-600">
-        Radex ist in über 60 Städten im Rhein-Main-Gebiet aktiv, unter anderem in Rödermark, Rodgau, Dietzenbach, Dreieich, Langen, Neu-Isenburg, Offenbach, Frankfurt, Hanau, Darmstadt, Bad Vilbel, Bad Homburg und Oberursel.
-      </p>
-    ),
+    title: 'Dokumentierte Entsorgung',
+    desc: 'Die Entsorgung erfolgt über geeignete Wege und wird entsprechend den projektbezogenen Anforderungen dokumentiert.',
+    icon: FileCheck2,
   },
 ];
 
-function SharedCTABlock({ isHero = false, centered = false }) {
-  return (
-    <div
-      className={`br-hero-actions ${isHero ? '' : 'mt-8'}`}
-      style={{
-        display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: centered ? 'center' : 'flex-start',
-      }}
-    >
-      <a href="#kontakt" className="btn br-btn-orange">Kostenlose Beratung &rarr;</a>
-      <a
-        href="https://wa.me/496074960620"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn br-btn-whatsapp"
-      >
-        Fotos über WhatsApp senden <MessageSquare size={18} color="#25D366" style={{ marginLeft: '8px' }} />
-      </a>
-      <a
-        href="tel:+496074960620"
-        className="btn"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: isHero ? 'transparent' : '#fff',
-          border: isHero ? '1px solid #111827' : '1px solid #d1d5db',
-          color: '#111827',
-          padding: '12px 24px',
-          borderRadius: '4px',
-          fontWeight: 'bold',
-          textDecoration: 'none',
-        }}
-      >
-        <Phone size={18} /> Jetzt anrufen
-      </a>
-    </div>
-  );
-}
+const einsatzbereicheCards = [
+  {
+    title: 'Büro- und Verwaltungsgebäude',
+    desc: 'Bei Modernisierung, Mieterausbau oder Rückbau können schadstoffverdächtige Materialien in Boden-, Wand- und Deckenaufbauten relevant werden.',
+    icon: Briefcase,
+  },
+  {
+    title: 'Gewerbe- und Industrieimmobilien',
+    desc: 'Produktionshallen, Lagerflächen und technische Bereiche erfordern häufig eine besonders genaue Abstimmung von Sanierung und laufendem Betrieb.',
+    icon: Warehouse,
+  },
+  {
+    title: 'Wohngebäude',
+    desc: 'In Mehrfamilienhäusern und bewohnten Immobilien müssen Schutzmaßnahmen, Zugänglichkeit und Kommunikation sorgfältig geplant werden.',
+    icon: House,
+  },
+  {
+    title: 'Schulen und öffentliche Gebäude',
+    desc: 'Bei sensibel genutzten Immobilien sind klare Abläufe, dokumentierte Maßnahmen und abgestimmte Zeitfenster besonders wichtig.',
+    icon: Landmark,
+  },
+];
 
-function PremiumIconCards({ cards }) {
-  return (
-    <div className="br-nav-landing-grid">
-      {cards.map((card) => {
-        const Icon = card.icon;
-        return (
-          <div key={card.title} className="br-decision-card" style={{ cursor: 'default' }}>
-            <div className="br-decision-icon">
-              <Icon size={40} strokeWidth={1.5} />
-            </div>
-            <h3>{card.title}</h3>
-            <p>{card.desc}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+const radexLiveProjects = [
+  {
+    image: '/img/buero1.webp',
+    badge: 'LIVE',
+    title: 'Schadstoffsanierung Gewerbeobjekt',
+    location: 'Hanau',
+    desc: 'Abschnittsweise Sanierung mit Abschottung, kontrolliertem Rückbau und Vorbereitung für den Folgeausbau.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/sanierung-service-wohnung.webp',
+    badge: 'Abgeschlossen',
+    title: 'Schadstoffsanierung Bestandswohnung',
+    location: 'Frankfurt am Main',
+    desc: 'Koordinierte Probenahme, Abschottung und Rückbau belasteter Baustoffe mit anschließender Wiederherstellung.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/sanierung-service-altbau.webp',
+    badge: 'Vorher & Nachher',
+    title: 'Rückbau belasteter Baustoffe',
+    location: 'Darmstadt',
+    desc: 'Fachgerechter Rückbau und dokumentierte Entsorgung durch qualifizierte Partner in einem Altbau.',
+    cta: 'Vorher & Nachher ansehen',
+  },
+  {
+    image: '/img/wohnzimmer.webp',
+    badge: 'Abgeschlossen',
+    title: 'Innenausbau nach Schadstoffsanierung',
+    location: 'Offenbach am Main',
+    desc: 'Trockenbau, Malerarbeiten und Bodenbeläge nach abgeschlossener Sanierung in einer Bestandswohnung.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/renov1.webp',
+    badge: 'LIVE',
+    title: 'Schadstoffsanierung Bestandsgebäude',
+    location: 'Rodgau',
+    desc: 'Koordinierte Sanierung mit Abschottung, Rückbau und Wiederherstellung in einem Mehrfamilienhaus.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/buero2.webp',
+    badge: 'Video',
+    title: 'Baustelleneinblick Schadstoffsanierung',
+    location: 'Dreieich',
+    desc: 'Authentischer Einblick in Abschottung, kontrollierten Rückbau und Wiederherstellung auf einer echten Baustelle.',
+    cta: 'Video ansehen',
+  },
+];
+
+const videoTranscript =
+  'Bei einer Schadstoffsanierung steht am Anfang immer die Frage, welche Materialien tatsächlich betroffen sind. Deshalb koordinieren wir zunächst die Bestandsaufnahme und bei Bedarf eine Laboranalyse. Auf dieser Grundlage entstehen das Schutz- und Sanierungskonzept. Anschließend werden Rückbau, Entsorgung und Wiederherstellung so aufeinander abgestimmt, dass der gesamte Ablauf transparent und planbar bleibt.';
+
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'Wie läuft eine Schadstoffsanierung ab?',
+  description:
+    'Bernd erklärt, warum vor dem Rückbau eine fachgerechte Untersuchung sinnvoll ist und wie Analyse, Schutzkonzept, Sanierung, Entsorgung und Wiederherstellung aufeinander abgestimmt werden.',
+  thumbnailUrl: `${SITE_URL}${VIDEO_POSTER}`,
+  duration: 'PT2M',
+  inLanguage: 'de',
+  publisher: { '@id': `${SITE_URL}/#organization` },
+};
+
+const seoTocSections = [...schadstoffsanierungSeoSections, ...schadstoffsanierungSeoLinkSections];
 
 export default function SchadstoffsanierungLanding() {
-  const [openFaq, setOpenFaq] = useState(null);
-  const [openSeo, setOpenSeo] = useState(null);
-
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   useSeo({
-    title: 'Schadstoffsanierung im Rhein-Main-Gebiet | Fachgerechte Gebäudesanierung | Radex',
-    description:
-      'Schadstoffsanierung im Rhein-Main-Gebiet. Gefahrstoffe erkennen, Sanierungen professionell planen und Gebäude sicher modernisieren – alles aus einer Hand.',
-    path: '/schadstoffsanierung-rhein-main',
+    title: META_TITLE,
+    description: META_DESCRIPTION,
+    path: PAGE_PATH,
     image: HERO_IMAGE,
-    jsonLd: [buildFaqSchema(faqsData)],
+    jsonLd: [
+      buildServiceSchema({
+        name: 'Schadstoffsanierung Rhein-Main',
+        description: META_DESCRIPTION,
+        path: PAGE_PATH,
+      }),
+      buildBreadcrumbSchema(BREADCRUMBS),
+      videoSchema,
+    ],
   });
 
   return (
-    <main className="badsanierung-page">
+    <main className="badsanierung-page ablauf-badsanierung-page schadstoffsanierung-page">
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
+              <Link to="/">Startseite</Link>
+              <span aria-hidden="true">↓</span>
+              <Link to="/schimmel-asbest-sanierung-rhein-main">Schimmel &amp; Asbest</Link>
+              <span aria-hidden="true">↓</span>
+              <span>Schadstoffsanierung</span>
+            </nav>
+            <p className="br-hero-kicker">
+              <FlaskConical size={16} strokeWidth={1.5} aria-hidden="true" /> Schadstoffsanierung · Rhein-Main-Gebiet
+            </p>
             <h1 className="br-hero-title">
-              Schadstoffsanierung im<br />
+              Schadstoffsanierung im
+              <br />
               <span>Rhein-Main-Gebiet</span>
             </h1>
-            <p className="br-hero-subtitle">
-              Gefahrstoffe erkennen. Risiken minimieren. Immobilien sicher sanieren.
+            <p className="br-hero-lead">
+              Professionelle Koordination von Untersuchung, Rückbau, Schadstoffsanierung und Wiederherstellung belasteter
+              Gebäude.
             </p>
             <p className="br-hero-text">
-              Vor Beginn einer Sanierung sollten mögliche Schadstoffe frühzeitig erkannt und fachgerecht bewertet werden. Eine professionelle Schadstoffsanierung schützt Bewohner, Handwerker und die Bausubstanz und sorgt für einen sicheren Ablauf der gesamten Modernisierung. Radex koordiniert sämtliche notwendigen Maßnahmen im gesamten Rhein-Main-Gebiet und arbeitet mit qualifizierten Fachpartnern zusammen.
+              Schadstoffbelastete Baustoffe erfordern eine strukturierte Vorgehensweise. Vor einer Sanierung müssen
+              Materialien bewertet, geeignete Schutzmaßnahmen geplant und die Arbeiten fachgerecht umgesetzt werden.
             </p>
-            <SharedCTABlock isHero />
-            <p className="br-hero-micro mt-4">
-              <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
+            <p className="br-hero-text">
+              Radex begleitet Eigentümer, Unternehmen und Hausverwaltungen während des gesamten Projekts und koordiniert
+              alle beteiligten Fachunternehmen – von der ersten Bestandsaufnahme bis zur abschließenden Wiederherstellung
+              der betroffenen Bereiche.
+            </p>
+            <SchadstoffsanierungCTA isHero />
+            <p className="br-hero-micro" style={{ marginTop: '16px' }}>
+              {TRUST_LINE}
             </p>
           </div>
         </div>
-        <div className="br-hero-right" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
+        <div
+          className="br-hero-right"
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          role="img"
+          aria-label="Professionelle Schadstoffsanierung in einem Gewerbegebäude im Rhein-Main-Gebiet."
+          title="Schadstoffsanierung Rhein-Main | Radex Objektmanagement"
+        />
+      </section>
+
+      <section className="br-section br-bg-light">
+        <div className="container" style={{ maxWidth: '820px' }}>
+          <div className="text-center">
+            <h2 className="br-section-title">Fachgerechte Sanierung schadstoffbelasteter Gebäude</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: 0 }}>
+              In Bestandsgebäuden können unterschiedliche Schadstoffe vorhanden sein, die bei Umbau-, Rückbau- oder
+              Sanierungsarbeiten berücksichtigt werden müssen. Dazu zählen unter anderem belastete Klebstoffe, künstliche
+              Mineralfasern, PAK-haltige Baustoffe, PCB-haltige Materialien oder weitere Gebäudeschadstoffe.
+            </p>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginTop: '16px', marginBottom: 0 }}>
+              Eine erfolgreiche Schadstoffsanierung beginnt deshalb mit einer fundierten Bestandsaufnahme und einer klaren
+              Projektplanung. Radex koordiniert die erforderlichen Untersuchungen, Schutzmaßnahmen, Fachbetriebe und
+              Folgegewerke, damit die betroffenen Bereiche sicher saniert und anschließend wieder genutzt werden können.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="br-section">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Warum Radex?</h2>
+          </div>
+          <PremiumIconCards cards={whyRadexCards} largeIcons />
+        </div>
       </section>
 
       <section className="br-section br-bg-light">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Wann ist eine Schadstoffsanierung sinnvoll?</h2>
+            <h2 className="br-section-title">Qualitätsversprechen</h2>
           </div>
-          <PremiumIconCards cards={whenCards} />
+          <PremiumIconCards cards={qualityCards} largeIcons />
         </div>
       </section>
 
-      <section className="br-section">
+      <SectionTransition>
+        Im nächsten Abschnitt finden Sie einen Überblick über unsere Leistungen im Bereich Schadstoffsanierung – von der
+        Erkundung bis zur Wiederherstellung.
+      </SectionTransition>
+
+      <section id="leistungen" className="br-section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Warum Eigentümer Radex wählen</h2>
+            <h2 className="br-section-title">Unsere Leistungen</h2>
           </div>
-          <PremiumIconCards cards={whyRadexCards} />
+          <div className="br-leistungen-grid-three">
+            <PremiumIconCards cards={leistungenCards} linked largeIcons />
+          </div>
         </div>
       </section>
+
+      <SectionTransition>
+        In Bestandsgebäuden treten unterschiedliche Schadstoffe auf – eine fachgerechte Bewertung ist dabei
+        unverzichtbar. Materialien lassen sich nicht zuverlässig allein anhand des Aussehens identifizieren.
+      </SectionTransition>
 
       <section className="br-section br-bg-light">
         <div className="container">
-          <div className="text-center" style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <h2 className="br-section-title">Professionelle Schadstoffsanierung</h2>
-            <p className="br-section-subtitle">
-              Jedes Gebäude ist unterschiedlich. Deshalb wird jedes Projekt individuell bewertet und die notwendigen Sanierungsmaßnahmen sorgfältig geplant. Ziel ist ein sicherer und reibungsloser Ablauf der anschließenden Modernisierung.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="br-section">
-        <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Radex Live</h2>
-            <p className="br-section-subtitle">Schauen Sie uns bei der Arbeit über die Schulter.</p>
+            <h2 className="br-section-title">Typische Schadstoffe in Gebäuden</h2>
           </div>
-
-          <div
-            className="br-project-img mb-10"
-            style={{
-              backgroundImage: `url(${LIVE_IMAGE})`,
-              height: '420px',
-              borderRadius: '8px',
-            }}
-          />
-
-          <p className="br-section-subtitle text-center mb-10" style={{ maxWidth: '800px', margin: '0 auto 40px' }}>
-            Nicht jedes Projekt darf veröffentlicht werden. Deshalb zeigen wir Ihnen bei Radex Live ausgewählte Schadstoffsanierungen und laufende Sanierungsprojekte aus dem gesamten Rhein-Main-Gebiet. Erhalten Sie authentische Einblicke in unsere tägliche Arbeit und erleben Sie, wie anspruchsvolle Sanierungsprojekte professionell vorbereitet und umgesetzt werden.
-          </p>
-
-          <div className="br-projects-grid">
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(/img/boden.webp)' }}>
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Schadstoffprüfung Altbau</h4>
-                <p>Frankfurt am Main</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(/img/wohnzimmer.webp)' }}>
-                <span className="br-project-badge">Abgeschlossen</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Schimmelsanierung Wohnung</h4>
-                <p>Offenbach</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: `url(${LIVE_IMAGE})` }}>
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Fachgerechte Sanierung</h4>
-                <p>Darmstadt</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
-              Alle Projekte ansehen
-            </a>
-            <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
-              Projekt anfragen
-            </a>
-          </div>
+          <PremiumIconCards cards={schadstoffCards} linked largeIcons />
         </div>
       </section>
+
+      <SectionTransition>
+        Ein klar strukturierter Projektablauf schafft Planungssicherheit – von der ersten Einschätzung bis zur
+        Wiederherstellung der betroffenen Bereiche.
+      </SectionTransition>
+
+      <HorizontalProcessTimeline
+        title="Projektablauf"
+        intro="Von der Erstkontaktaufnahme bis zur Wiederherstellung – so koordinieren wir Schadstoffsanierungen Schritt für Schritt."
+        steps={processSteps}
+      />
 
       <section className="br-section br-bg-light">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="br-section-title">So läuft Ihr Projekt ab</h2>
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Schutzmaßnahmen bei der Schadstoffsanierung</h2>
           </div>
-          <div className="br-process-flow">
-            {processSteps.map((step, idx) => (
-              <div key={step} style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="br-process-step">
-                  <div className="br-step-number">{idx + 1}</div>
-                  <h4>{step}</h4>
-                </div>
-                {idx < processSteps.length - 1 && <ArrowRight className="br-step-arrow" size={24} />}
-              </div>
-            ))}
-          </div>
+          <PremiumIconCards cards={schutzCards} largeIcons />
         </div>
       </section>
 
       <section className="br-section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Häufig gestellte Fragen</h2>
-          </div>
-          <div className="br-faq-grid">
-            {faqsData.map((faq, i) => (
-              <div key={faq.q} className="home-faq-item">
-                <button
-                  type="button"
-                  className="home-faq-btn"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                >
-                  <span style={{ fontWeight: 600, color: '#1f2937', fontSize: '16px', textAlign: 'left' }}>{faq.q}</span>
-                  <ChevronDown
-                    style={{
-                      transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }}
-                    color="#9ca3af"
-                    size={18}
-                  />
-                </button>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: openFaq === i ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                    padding: 0,
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ borderTop: '1px solid #f9fafb', padding: '16px', color: '#4b5563', fontSize: '15px', lineHeight: '1.6' }}>
-                      {faq.a}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="kontakt" className="br-section br-bg-light">
         <div className="container">
-          <div className="text-center" style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <h2 className="br-section-title">Lassen Sie sich kostenlos beraten</h2>
-            <p className="br-section-subtitle mb-8">
-              Sie planen eine Sanierung und möchten mögliche Schadstoffe frühzeitig ausschließen oder fachgerecht beseitigen lassen?
-              Senden Sie uns Fotos Ihrer Immobilie per WhatsApp oder vereinbaren Sie eine persönliche Beratung. Gemeinsam besprechen wir die nächsten sinnvollen Schritte für Ihr Projekt.
-            </p>
-            <SharedCTABlock centered />
-          </div>
-        </div>
-      </section>
-
-      <section className="br-section">
-        <div className="container" style={{ maxWidth: '900px' }}>
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Weitere Informationen</h2>
+            <h2 className="br-section-title">Einsatzbereiche</h2>
           </div>
-          <div className="br-faq-grid">
-            {seoAccordions.map((item, i) => (
-              <div key={item.title} className="home-faq-item">
-                <button
-                  type="button"
-                  className="home-faq-btn"
-                  onClick={() => setOpenSeo(openSeo === i ? null : i)}
-                  aria-expanded={openSeo === i}
-                >
-                  <span style={{ fontWeight: 600, color: '#1f2937', fontSize: '16px', textAlign: 'left' }}>{item.title}</span>
-                  <ChevronDown
-                    style={{
-                      transform: openSeo === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }}
-                    color="#9ca3af"
-                    size={18}
-                  />
-                </button>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: openSeo === i ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ borderTop: '1px solid #f9fafb', padding: '16px', fontSize: '15px', lineHeight: '1.6' }}>
-                      {item.content}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="br-trust-footer mt-12">
-            <div className="br-trust-item">
-              <Award size={32} color="#aaa" />
-              <div>
-                <strong>TRGS 519</strong>
-                <span>Asbest-Sachkunde</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <ShieldCheck size={32} color="#aaa" />
-              <div>
-                <strong>Zertifiziert</strong>
-                <span>Schimmelsanierung</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <MapPin size={32} color="#aaa" />
-              <div>
-                <strong>60+</strong>
-                <span>Betreute Städte</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <Users size={32} color="#aaa" />
-              <div>
-                <strong>SHK-Meister</strong>
-                <span>Zugelassener Fachbetrieb</span>
-              </div>
-            </div>
+          <div className="br-leistungen-grid-two">
+            <PremiumIconCards cards={einsatzbereicheCards} largeIcons />
           </div>
         </div>
       </section>
+
+      <section id="kontakt" className="br-section br-dept-contact-section">
+        <div className="container">
+          <div className="text-center mb-12" style={{ maxWidth: '760px', margin: '0 auto' }}>
+            <h2 className="br-section-title">Ihre Ansprechpartner</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: '8px' }}>
+              <strong>Das Team Schadstoffsanierung</strong>
+            </p>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Unsere Projektleitung begleitet Eigentümer, Unternehmen, Hausverwaltungen und Investoren bei der
+              Untersuchung und Sanierung belasteter Gebäude. Sie erhalten eine zentrale Ansprechstelle für Sachverständige,
+              Labore, Fachbetriebe, Entsorgung und Wiederherstellung.
+            </p>
+          </div>
+
+          <div className="br-ablauf-contact-cards">
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon">
+                <Phone size={24} strokeWidth={1.5} />
+              </div>
+              <h3>Telefon</h3>
+              <p>+49 (0) 6074 960620</p>
+              <a href={PHONE_TEL} className="br-ablauf-contact-number">
+                06074 960620
+              </a>
+            </div>
+
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon">
+                <Mail size={24} strokeWidth={1.5} />
+              </div>
+              <h3>E-Mail</h3>
+              <p>info@radex-objektmanagement.de</p>
+              <a href="mailto:info@radex-objektmanagement.de" className="br-ablauf-contact-number">
+                info@radex-objektmanagement.de
+              </a>
+            </div>
+
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon br-ablauf-contact-icon--wa">
+                <MessageCircle size={24} strokeWidth={1.5} />
+              </div>
+              <h3>WhatsApp</h3>
+              <p>
+                Fotos der betroffenen Bereiche senden und eine erste unverbindliche Einschätzung anfragen.
+              </p>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
+                WhatsApp öffnen
+              </a>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <a href="#kontakt" className="btn br-btn-orange">
+              Kostenlose Erstberatung
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <BerndExplainsVideo
+        title="Wie läuft eine Schadstoffsanierung ab?"
+        description="Bernd erklärt, warum vor dem Rückbau eine fachgerechte Untersuchung sinnvoll ist und wie Analyse, Schutzkonzept, Sanierung, Entsorgung und Wiederherstellung aufeinander abgestimmt werden."
+        poster={VIDEO_POSTER}
+        posterAlt="Erklärung zum Ablauf einer Schadstoffsanierung im Rhein-Main-Gebiet"
+        duration="ca. 2 Minuten"
+        transcript={videoTranscript}
+      />
+
+      <ReviewsMarquee />
+
+      <section className="br-section br-gwc-cta-section">
+        <div className="container">
+          <div className="br-gwc-cta-box">
+            <h2>Schadstoffverdacht in Ihrem Gebäude?</h2>
+            <p>
+              Senden Sie uns erste Informationen und Fotos der betroffenen Bereiche. Wir besprechen das sinnvolle weitere
+              Vorgehen und koordinieren bei Bedarf Untersuchung, Sanierung, Entsorgung und Wiederherstellung.
+            </p>
+            <SchadstoffsanierungCTA centered />
+          </div>
+        </div>
+      </section>
+
+      <SeoKnowledgeDrawer
+        title="Unsere Leistungen im Bereich Schadstoffsanierung"
+        intro={schadstoffsanierungSeoIntro}
+        sections={seoTocSections}
+        ctaLabel="Kostenlose Erstberatung"
+        ctaHref="#kontakt"
+        panelId="schadstoffsanierung-seo-panel"
+        showToc
+      />
+
+      <RadexLiveSection
+        title="Radex Live – Einblicke in Schadstoffsanierungen"
+        intro="Authentische Baustelleneinblicke aus dem Rhein-Main-Gebiet: Schadstoffsanierung, Rückbau, Innenausbau nach Sanierung, Gewerbeobjekte und Bestandsgebäude."
+        projects={radexLiveProjects}
+      />
     </main>
   );
 }

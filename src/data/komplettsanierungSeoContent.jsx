@@ -6,157 +6,193 @@ const ul = 'br-seo-list mb-4';
 export const komplettsanierungSeoIntro = (
   <>
     <p className={p}>
-      Eine Komplettsanierung fasst mehrere zentrale Bereiche einer Immobilie in einem abgestimmten Gesamtprojekt
-      zusammen – Bad, Leitungen, Elektro, Heizung, Innenausbau und Oberflächen. Statt vieler Einzelaufträge entsteht ein
-      klarer Ablauf mit einem Ansprechpartner und einem Festpreis nach Begehung.
+      Eine Komplettsanierung kann aus sehr unterschiedlichen Gründen erforderlich werden. Manche Eigentümer möchten eine
+      neu gekaufte Immobilie vor dem Einzug modernisieren. Andere müssen ein geerbtes Haus auf einen zeitgemäßen Stand
+      bringen, eine leer stehende Wohnung für die Vermietung vorbereiten oder ein bewohntes Gebäude schrittweise
+      erneuern.
     </p>
     <p className={p}>
-      Die Radex Objektmanagement GmbH koordiniert Komplett- und Kernsanierungen im Rhein-Main-Gebiet als
-      Generalunternehmer. Im Bereich Heizung, Sanitär und Gebäudetechnik ist Bernd Knoop als SHK-Meister und
-      Betriebsleiter fachlich verantwortlich – weitere Gewerke werden durch eingespielte Fachpartner gesteuert.
+      Radex stimmt den Sanierungsumfang auf den Zustand, die Nutzung und das gewünschte Ergebnis der Immobilie ab. Die
+      folgenden Leistungen zeigen typische Situationen, in denen eine koordinierte Komplettsanierung sinnvoll sein kann.
     </p>
   </>
 );
 
 export const komplettsanierungSeoSections = [
   {
-    id: 'was-ist-komplettsanierung',
-    title: 'Was ist eine Komplettsanierung?',
+    id: 'komplettsanierung-nach-immobilienkauf',
+    title: 'Komplettsanierung nach Immobilienkauf',
     content: (
       <>
         <p className={p}>
-          Eine Komplettsanierung umfasst mehrere zentrale Bereiche einer Immobilie gleichzeitig – nicht nur
-          oberflächliche Renovierungen, sondern eine technische, funktionale und gestalterische Neuaufstellung durch
-          koordinierte Fachgewerke. Typischerweise werden Bad, Heizung, Sanitär, Elektro, Innenausbau und Böden in einem
-          abgestimmten Projekt erneuert.
+          Nach dem Kauf eines Hauses oder einer Wohnung bietet sich häufig die beste Gelegenheit für eine umfassende
+          Modernisierung. Die Räume sind meist noch leer und erforderliche Eingriffe lassen sich durchführen, bevor
+          Möbel, Küche und persönliche Einrichtung eingebaut werden.
         </p>
         <p className={p}>
-          So entsteht Planungssicherheit: ein Bauleiter, ein Zeitplan und ein Festpreis. Die Gewerke greifen ineinander,
-          ohne Pausen durch fehlende Abstimmung. Mehr zum{' '}
-          <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link>.
+          Radex prüft gemeinsam mit Ihnen, welche Bereiche vor dem Einzug erneuert werden sollten und welche Maßnahmen
+          später umgesetzt werden können. Dabei werden technische Arbeiten, Raumgestaltung und Innenausbau als
+          zusammenhängendes Projekt betrachtet.{' '}
+          <Link to="/generalunternehmer-rhein-main">Komplettsanierung mit einem Generalunternehmer koordinieren</Link>.
         </p>
       </>
     ),
   },
   {
-    id: 'komplett-vs-kern',
-    title: 'Komplettsanierung vs. Kernsanierung',
+    id: 'komplettsanierung-vor-einzug',
+    title: 'Komplettsanierung vor dem Einzug',
     content: (
       <>
         <p className={p}>
-          Eine Komplettsanierung muss nicht bis zur Rohstruktur gehen. Sie erneuert zentrale Bereiche und Technik, kann
-          aber bestehende Raumstrukturen und tragende Bauteile weitgehend belassen.
+          Wer vor dem Einzug saniert, vermeidet spätere Baustellen im bereits eingerichteten Zuhause. Bad,
+          Küchenanschlüsse, Böden, Wände, Türen und technische Installationen können in einer sinnvollen Reihenfolge
+          bearbeitet werden.
         </p>
         <p className={p}>
-          Eine Kernsanierung geht tiefer: Das Gebäude wird oft bis auf die tragende Struktur zurückgebaut. Alle nicht
-          tragenden Wände, sämtliche Leitungen für Strom, Wasser und Heizung sowie Böden und Oberflächen werden
-          vollständig erneuert. Das Ergebnis kommt einem Neubau gleich – Standort, Grundstück und oft der Charakter des
-          Hauses bleiben erhalten.
-        </p>
-        <p className={p}>
-          Welche Variante passt, hängt vom Zustand, vom Sanierungsstau und von Ihren Zielen ab. Radex klärt das in der
-          Bestandsaufnahme – bevor Rückbau und Technik geplant werden.
+          Gemeinsam definieren wir, welcher Zustand bei der Übergabe erreicht werden soll. Je nach Auftrag kann die
+          Immobilie vorbereitet, modernisiert oder vollständig bezugsfertig übergeben werden.
         </p>
       </>
     ),
   },
   {
-    id: 'wann-sinnvoll',
-    title: 'Wann ist eine Komplettsanierung sinnvoll?',
+    id: 'geerbte-immobilie-sanieren',
+    title: 'Geerbte Immobilie komplett sanieren',
     content: (
       <>
-        <p className={p}>Sinnvoll ist sie insbesondere:</p>
-        <ul className={ul}>
-          <li>beim Hauskauf vor dem Einzug</li>
-          <li>bei einer Erbschaft oder vor dem Verkauf</li>
-          <li>bei aufgelaufenem Sanierungsstau</li>
-          <li>wenn Bad, Küche, Böden und Leitungen ohnehin gleichzeitig erneuert werden müssen</li>
-          <li>zur deutlichen Wertverbesserung der Immobilie</li>
-        </ul>
         <p className={p}>
-          Für Einfamilienhäuser und Wohnungen gibt es eigene Themenseiten:{' '}
-          <Link to="/sanierung/haussanierung">Haussanierung</Link> und{' '}
-          <Link to="/sanierung/wohnungssanierung">Wohnungssanierung</Link>.
+          Bei einer geerbten Immobilie ist der tatsächliche Sanierungsbedarf häufig zunächst unklar. Frühere Umbauten,
+          ältere Installationen und unterschiedlich modernisierte Gebäudebereiche müssen sorgfältig eingeordnet werden.
+        </p>
+        <p className={p}>
+          Radex unterstützt bei der Bestandsaufnahme und entwickelt ein Sanierungskonzept passend zur geplanten Nutzung.
+          Dabei kann berücksichtigt werden, ob die Immobilie selbst genutzt, vermietet oder verkauft werden soll.{' '}
+          <Link to="/kernsanierung-rhein-main">Prüfen, ob eine tiefgreifende Kernsanierung erforderlich ist</Link>.
         </p>
       </>
     ),
   },
   {
-    id: 'ablauf',
-    title: 'Ablauf einer Komplettsanierung',
+    id: 'komplettsanierung-nach-mieterwechsel',
+    title: 'Komplettsanierung nach Mieterwechsel',
     content: (
       <>
         <p className={p}>
-          Wir beginnen mit einer gründlichen Bestandsaufnahme und Planung. Nach dem Festpreisangebot folgen Entkernung,
-          Rohbauarbeiten und ggf. statische Eingriffe, anschließend die komplette Haustechnik (Elektro, Heizung, Sanitär),
-          danach Trockenbau, Estrich, Fliesen, Maler und Bodenbeläge. Den Abschluss bilden Feinmontage und Endreinigung.
+          Ein Mieterwechsel bietet Eigentümern die Möglichkeit, mehrere erforderliche Modernisierungen ohne
+          Beeinträchtigung der Bewohner durchzuführen.
         </p>
         <p className={p}>
-          Ein fester Bauleiter sorgt dafür, dass die Gewerke getaktet ineinandergreifen. Auch energetische Maßnahmen –
-          etwa Wärmepumpe oder Dämmung – lassen sich in diesem Ablauf mitdenken. Mehr zur{' '}
-          <Link to="/energetische-sanierung-rhein-main">energetischen Sanierung</Link>.
+          Je nach Zustand können Bad, Bodenbeläge, Wandflächen, Türen, Heizkörper und Anschlüsse gemeinsam erneuert
+          werden. Ziel ist eine technisch zuverlässige, gepflegte und zur Zielgruppe passende Mietimmobilie.{' '}
+          <Link to="/teilsanierung-rhein-main">Komplettsanierung und gezielte Teilsanierung vergleichen</Link>.
         </p>
       </>
     ),
   },
   {
-    id: 'festpreis',
-    title: 'Festpreis und Planungssicherheit',
+    id: 'bezugsfertige-wohnungssanierung',
+    title: 'Bezugsfertige Wohnungssanierung',
     content: (
       <>
         <p className={p}>
-          Gerade bei einem Großprojekt wie der Komplettsanierung ist Kostensicherheit entscheidend. Sie erhalten ein
-          verbindliches Festpreisangebot nach Begehung, das alle vereinbarten Leistungen abdeckt. Änderungen während der
-          Bauphase werden transparent dokumentiert und freigegeben – so behalten Sie die Kontrolle über Budget und
-          Zeitplan.
+          Bei einer bezugsfertigen Wohnungssanierung werden die vereinbarten Arbeiten so koordiniert, dass die Wohnung
+          nach der Übergabe unmittelbar eingerichtet und genutzt werden kann.
         </p>
         <p className={p}>
-          Orientierungswerte und Rechner finden Sie auch unter{' '}
-          <Link to="/haussanierung-kosten">Haussanierung Kosten</Link> und{' '}
-          <Link to="/wohnungssanierung-kosten">Wohnungssanierung Kosten</Link>.
+          Radex stimmt Rückbau, technische Installationen, Innenausbau und abschließende Oberflächenarbeiten aufeinander
+          ab. Der genaue Übergabezustand wird vor Projektbeginn eindeutig festgelegt.{' '}
+          <Link to="/innenausbau-wohnung-rhein-main">Mehr über den Innenausbau einer Wohnung erfahren</Link>.
         </p>
       </>
     ),
   },
   {
-    id: 'fuer-wen',
-    title: 'Für wen ist die Komplettsanierung geeignet?',
+    id: 'komplettsanierung-einfamilienhaus',
+    title: 'Komplettsanierung eines Einfamilienhauses',
     content: (
       <>
         <p className={p}>
-          <strong>Immobilienkäufer:</strong> Aus einem sanierungsbedürftigen Objekt wird in einem Zug Ihr modernes Zuhause
-          – Technik und Oberflächen abgestimmt vor dem Einzug.
+          Bei einem Einfamilienhaus sind häufig mehrere Etagen, technische Anlagen und unterschiedliche Ausbauphasen
+          miteinander verbunden. Eine koordinierte Planung hilft dabei, unnötige Doppelarbeiten zu vermeiden.
         </p>
         <p className={p}>
-          <strong>Erbengemeinschaften:</strong> Wertmaximierung vor dem Verkauf oder zur fairen Aufteilung – mit klarer
-          Kosten- und Terminplanung.
-        </p>
-        <p className={p}>
-          <strong>Bestandshalter:</strong> Verlängerung des Gebäudelebenszyklus durch technische Erneuerung und
-          zeitgemäßen Ausbau.
+          Wir betrachten das Haus als Ganzes und stimmen die Maßnahmen auf die zukünftige Nutzung der Bewohner ab. Dazu
+          können neue Raumstrukturen, modernisierte Bäder, technische Anpassungen und ein vollständiger Innenausbau
+          gehören.{' '}
+          <Link to="/innenausbau-haus-rhein-main">Innenausbau für ein modernisiertes Haus planen</Link>.
         </p>
       </>
     ),
   },
   {
-    id: 'warum-radex',
-    title: 'Warum Radex für Komplettsanierung',
+    id: 'komplettsanierung-mehrfamilienhaus',
+    title: 'Komplettsanierung eines Mehrfamilienhauses',
     content: (
       <>
         <p className={p}>
-          <strong>Generalunternehmer:</strong> ein Ansprechpartner für Planung, Koordination und schlüsselfertige
-          Übergabe.
+          Die Komplettsanierung eines Mehrfamilienhauses erfordert eine besonders strukturierte Ablaufplanung.
+          Gemeinschaftsflächen, einzelne Wohnungen, technische Leitungswege und die Interessen mehrerer Beteiligter
+          müssen berücksichtigt werden.
         </p>
         <p className={p}>
-          <strong>SHK-Meisterkompetenz:</strong> Heizung, Sanitär und Gebäudetechnik unter Meisterverantwortung von Bernd
-          Knoop.
+          Radex koordiniert die vereinbarten Bauabschnitte und stimmt Zugänge, Arbeitszeiten, Materialtransporte und
+          Übergaben mit Eigentümern oder Hausverwaltungen ab.{' '}
+          <Link to="/bauleitung-projektsteuerung-rhein-main">Bauleitung und Projektsteuerung für größere Objekte</Link>.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'komplettsanierung-bewohnter-zustand',
+    title: 'Komplettsanierung im bewohnten Zustand',
+    content: (
+      <>
+        <p className={p}>
+          Ist ein vollständiger Auszug nicht möglich, muss die Sanierung in klar abgegrenzte Abschnitte unterteilt
+          werden. Dabei sind Zugänglichkeit, Staubschutz, nutzbare Räume und notwendige Versorgungsunterbrechungen zu
+          berücksichtigen.
         </p>
         <p className={p}>
-          <strong>Komplett und Kern klar unterschieden:</strong> Wir planen den realistisch nötigen Eingriff – nicht zu
-          wenig und nicht unnötig tief.
+          Nach der Bestandsaufnahme klären wir, ob eine Komplettsanierung im bewohnten Zustand realistisch ist oder ob
+          einzelne Projektphasen während einer vorübergehenden Räumung ausgeführt werden sollten.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'komplettsanierung-altbau-bestand',
+    title: 'Komplettsanierung von Alt- und Bestandsbauten',
+    content: (
+      <>
+        <p className={p}>
+          Alt- und Bestandsgebäude besitzen häufig eine gute Grundsubstanz, gleichzeitig aber gewachsene technische und
+          bauliche Strukturen. Deshalb sollte nicht pauschal zurückgebaut werden.
         </p>
         <p className={p}>
-          <strong>Regional im Rhein-Main-Gebiet:</strong> über 60 Städte, kurze Wege und Erfahrung mit Bestandsgebäuden.
+          Radex prüft, welche Bauteile erhalten werden können und wo eine Erneuerung erforderlich ist. Vor
+          Rückbauarbeiten werden mögliche Feuchtigkeits-, Schimmel- oder Schadstoffthemen berücksichtigt.{' '}
+          <Link to="/schadstoffsanierung-rhein-main">Schadstoffe vor der Sanierung fachgerecht prüfen</Link>,{' '}
+          <Link to="/asbestsanierung-rhein-main">Informationen zur Asbestsanierung</Link> und{' '}
+          <Link to="/schimmelsanierung-rhein-main">Ursachenorientierte Schimmelsanierung</Link>.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'komplettsanierung-gewerbeimmobilie',
+    title: 'Komplettsanierung einer Gewerbeimmobilie',
+    content: (
+      <>
+        <p className={p}>
+          Bei Gewerbeimmobilien richtet sich die Sanierung nach der zukünftigen Nutzung. Büros, Praxen, Verkaufsflächen
+          und andere Gewerbeeinheiten stellen unterschiedliche Anforderungen an Raumstruktur, Gebäudetechnik,
+          Oberflächen und Terminplanung.
+        </p>
+        <p className={p}>
+          Radex koordiniert die beteiligten Gewerke und berücksichtigt betriebliche Fristen sowie geplante
+          Eröffnungs- oder Übergabetermine. Verbindliche Termine werden erst nach Prüfung des tatsächlichen
+          Leistungsumfangs vereinbart.{' '}
+          <Link to="/gewerbesanierung-rhein-main">Komplettsanierung einer Gewerbeimmobilie planen</Link>.
         </p>
       </>
     ),

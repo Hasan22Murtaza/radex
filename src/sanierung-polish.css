@@ -1089,6 +1089,34 @@
   text-underline-offset: 2px;
 }
 
+.ablauf-badsanierung-page .br-seo-drawer-toc {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-bottom: 20px;
+  padding: 16px 0;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ablauf-badsanierung-page .br-seo-drawer-toc-body {
+  display: none;
+}
+
+.ablauf-badsanierung-page .br-seo-drawer-toc-body.is-open {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .ablauf-badsanierung-page .br-seo-drawer-toc-body {
+    display: block;
+  }
+
+  .ablauf-badsanierung-page .br-seo-drawer-toc .br-seo-toc-mobile-toggle {
+    display: none;
+  }
+}
+
 /* Visible long-form Kosten article (restored original structure) */
 .badsanierung-kosten-page .br-kosten-seo-container {
   max-width: 900px;
@@ -1187,7 +1215,9 @@
 .badewanne-austauschen-page .br-bw-video-placeholder,
 .ablauf-badsanierung-page .br-bw-video-placeholder,
 .wand-entfernen-page .br-bw-video-placeholder,
-.trockenbau-page .br-bw-video-placeholder {
+.trockenbau-page .br-bw-video-placeholder,
+.innenausbau-wohnung-page .br-bw-video-placeholder,
+.innenausbau-umbau-page .br-bw-video-placeholder {
   position: relative;
   min-height: 360px;
   background-size: cover;
@@ -1200,7 +1230,9 @@
 .badewanne-austauschen-page .br-bw-video-placeholder-overlay,
 .ablauf-badsanierung-page .br-bw-video-placeholder-overlay,
 .wand-entfernen-page .br-bw-video-placeholder-overlay,
-.trockenbau-page .br-bw-video-placeholder-overlay {
+.trockenbau-page .br-bw-video-placeholder-overlay,
+.innenausbau-wohnung-page .br-bw-video-placeholder-overlay,
+.innenausbau-umbau-page .br-bw-video-placeholder-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1216,7 +1248,9 @@
 .badewanne-austauschen-page .br-bw-video-placeholder-overlay p,
 .ablauf-badsanierung-page .br-bw-video-placeholder-overlay p,
 .wand-entfernen-page .br-bw-video-placeholder-overlay p,
-.trockenbau-page .br-bw-video-placeholder-overlay p {
+.trockenbau-page .br-bw-video-placeholder-overlay p,
+.innenausbau-wohnung-page .br-bw-video-placeholder-overlay p,
+.innenausbau-umbau-page .br-bw-video-placeholder-overlay p {
   margin: 0;
   font-size: 15px;
   font-weight: 600;
@@ -1226,7 +1260,9 @@
 .badewanne-austauschen-page .br-bw-video-placeholder-play,
 .ablauf-badsanierung-page .br-bw-video-placeholder-play,
 .wand-entfernen-page .br-bw-video-placeholder-play,
-.trockenbau-page .br-bw-video-placeholder-play {
+.trockenbau-page .br-bw-video-placeholder-play,
+.innenausbau-wohnung-page .br-bw-video-placeholder-play,
+.innenausbau-umbau-page .br-bw-video-placeholder-play {
   width: 64px;
   height: 64px;
   border-radius: 999px;
@@ -1238,7 +1274,9 @@
 .badewanne-austauschen-page .br-bw-video-placeholder-play::after,
 .ablauf-badsanierung-page .br-bw-video-placeholder-play::after,
 .wand-entfernen-page .br-bw-video-placeholder-play::after,
-.trockenbau-page .br-bw-video-placeholder-play::after {
+.trockenbau-page .br-bw-video-placeholder-play::after,
+.innenausbau-wohnung-page .br-bw-video-placeholder-play::after,
+.innenausbau-umbau-page .br-bw-video-placeholder-play::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -4236,5 +4274,202 @@
 
   .sanierung-money-page .sanierung-mp-wa-wrap {
     width: 100%;
+  }
+}
+
+/* Teilsanierung money page */
+.br-sanierung-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.br-sanierung-compare-card {
+  height: 100%;
+}
+
+.br-seo-checklist--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px 24px;
+  text-align: left;
+}
+
+.br-seo-checklist--circle li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.br-seo-checklist--circle li::before {
+  content: none;
+}
+
+.br-seo-checklist-icon {
+  flex-shrink: 0;
+  color: var(--br-orange);
+  margin-top: 2px;
+}
+
+.br-hero-trust-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.br-hero-trust-list li::before {
+  content: '✓ ';
+  color: var(--br-orange);
+  font-weight: 700;
+}
+
+.br-seo-inline-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+
+.teilsanierung-page .br-legacy-migrated-html a,
+.komplettsanierung-page .br-legacy-migrated-html a {
+  color: var(--br-orange);
+}
+
+.mieterausbau-page .br-legacy-migrated-html a {
+  color: var(--br-orange);
+}
+
+@media (max-width: 768px) {
+  .br-sanierung-compare-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .br-hero-trust-list {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* Notfall & Soforthilfe hub */
+.br-icon-checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.br-icon-checklist-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 12px;
+}
+
+.br-icon-checklist-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(249, 115, 22, 0.1);
+  color: var(--br-orange);
+  flex-shrink: 0;
+}
+
+.br-icon-checklist-item h3 {
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+  color: var(--br-navy, #0f172a);
+}
+
+.br-icon-checklist-item p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.br-trust-notice-box {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 24px 28px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(15, 23, 42, 0.03));
+  border: 1px solid rgba(249, 115, 22, 0.2);
+}
+
+.br-trust-notice-icon {
+  color: var(--br-orange);
+  flex-shrink: 0;
+}
+
+.br-trust-notice-title {
+  font-size: 1.25rem;
+  margin: 0 0 10px;
+  color: var(--br-navy, #0f172a);
+}
+
+.br-trust-notice-box p {
+  margin: 0;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.br-gwc-cta-box--with-image {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+  align-items: center;
+  text-align: left;
+}
+
+.br-gwc-cta-box--with-image .br-hero-actions {
+  justify-content: flex-start;
+}
+
+.br-gwc-cta-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+
+.notfall-soforthilfe-page .br-leistungen-grid-two .br-nav-landing-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 992px) {
+  .br-gwc-cta-box--with-image {
+    grid-template-columns: 1fr;
+  }
+
+  .br-gwc-cta-box--with-image .br-hero-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .br-icon-checklist-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .br-trust-notice-box {
+    flex-direction: column;
+  }
+
+  .notfall-soforthilfe-page .br-leistungen-grid-two .br-nav-landing-grid {
+    grid-template-columns: 1fr;
   }
 }

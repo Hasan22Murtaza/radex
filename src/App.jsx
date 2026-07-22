@@ -26,7 +26,7 @@ import { leistungenCategories } from './data/navigation';
 import ApartmentRenovation from './pages/ApartmentRenovation';
 import HouseRenovation from './pages/HouseRenovation';
 import HistoricBuildingRenovation from './pages/HistoricBuildingRenovation';
-import CompleteRenovation from './pages/CompleteRenovation';
+import KomplettsanierungLanding from './pages/KomplettsanierungLanding';
 import GeneralContractor from './pages/GeneralContractor';
 import EnergyEfficientRenovation from './pages/EnergyEfficientRenovation';
 import CommercialRenovation from './pages/CommercialRenovation';
@@ -37,17 +37,24 @@ import RaeumeUmbauenLanding from './pages/RaeumeUmbauenLanding';
 import SanierungsSoforthilfeLanding from './pages/SanierungsSoforthilfeLanding';
 import SchadstoffsanierungLanding from './pages/SchadstoffsanierungLanding';
 import SchimmelAsbestHub from './pages/SchimmelAsbestHub';
+import SchimmelAsbestSanierungLanding from './pages/SchimmelAsbestSanierungLanding';
 import SchnelleBadsanierungLanding from './pages/SchnelleBadsanierungLanding';
 import SchnellsanierungLanding from './pages/SchnellsanierungLanding';
 import WandEntfernenLanding from './pages/WandEntfernenLanding';
 import TrockenbauLanding from './pages/TrockenbauLanding';
+import InnenausbauWohnungLanding from './pages/InnenausbauWohnungLanding';
+import TeilsanierungLanding from './pages/TeilsanierungLanding';
+import KernsanierungLanding from './pages/KernsanierungLanding';
+import MieterausbauLanding from './pages/MieterausbauLanding';
 import SicherungskastenErneuernLanding from './pages/SicherungskastenErneuernLanding';
+import NotfallSoforthilfeHub from './pages/NotfallSoforthilfeHub';
+import SanierungFoerderungLanding from './pages/SanierungFoerderungLanding';
 import WaermepumpeLanding from './pages/WaermepumpeLanding';
 import MoldRemediation from './pages/MoldRemediation';
 import AsbestosRemoval from './pages/AsbestosRemoval';
 import HeatingPlumbing from './pages/HeatingPlumbing';
 import ElectricalServices from './pages/ElectricalServices';
-import InteriorConstruction from './pages/InteriorConstruction';
+import InnenausbauUmbauLanding from './pages/InnenausbauUmbauLanding';
 import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 import UeberUns from './pages/UeberUns';
@@ -74,7 +81,16 @@ import RadexQualitaetsversprechen from './pages/RadexQualitaetsversprechen';
 import MigratedServicePage from './components/MigratedServicePage';
 import migratedServices from './data/migratedServices.json';
 
-const migratedServiceSlugs = Object.keys(migratedServices.pages);
+const migratedServiceSlugs = Object.keys(migratedServices.pages).filter(
+  (slug) =>
+    slug !== 'teilsanierung-rhein-main' &&
+    slug !== 'kernsanierung-rhein-main' &&
+    slug !== 'komplettsanierung-rhein-main' &&
+    slug !== 'sicherungskasten-erneuern-rhein-main' &&
+    slug !== 'sanierung-foerderung-rhein-main' &&
+    slug !== 'mieterausbau-rhein-main' &&
+    slug !== 'innenausbau-wohnung-rhein-main',
+);
 
 function ScrollAndAnimationManager() {
   const location = useLocation();
@@ -190,12 +206,13 @@ export default function App({ location }) {
           {migratedServiceSlugs.map((slug) => (
             <Route key={slug} path={`/${slug}`} element={<MigratedServicePage slug={slug} />} />
           ))}
-          <Route path="/komplettsanierung-rhein-main" element={<CompleteRenovation />} />
+          <Route path="/komplettsanierung-rhein-main" element={<KomplettsanierungLanding />} />
           <Route path="/generalunternehmer-rhein-main" element={<GeneralContractor />} />
           <Route path="/energetische-sanierung-rhein-main" element={<EnergyEfficientRenovation />} />
           <Route path="/gewerbesanierung-rhein-main" element={<GewerbesanierungLanding />} />
-          <Route path="/mieterausbau-rhein-main" element={<GewerbesanierungLanding />} />
+          <Route path="/mieterausbau-rhein-main" element={<MieterausbauLanding />} />
           <Route path="/gewerbe-objektsanierung-rhein-main" element={<CommercialRenovation />} />
+          <Route path="/schimmel-asbest-sanierung-rhein-main" element={<SchimmelAsbestSanierungLanding />} />
           <Route path="/schimmelsanierung-rhein-main" element={<MoldRemediation />} />
           <Route path="/schadstoffsanierung-rhein-main" element={<SchadstoffsanierungLanding />} />
           <Route path="/asbestsanierung-rhein-main" element={<AsbestosRemoval />} />
@@ -203,13 +220,18 @@ export default function App({ location }) {
           <Route path="/waermepumpe-rhein-main" element={<WaermepumpeLanding />} />
           <Route path="/elektroinstallation-rhein-main" element={<ElectricalServices />} />
           <Route path="/sicherungskasten-erneuern-rhein-main" element={<SicherungskastenErneuernLanding />} />
+          <Route path="/sanierung-foerderung-rhein-main" element={<SanierungFoerderungLanding />} />
           <Route path="/wand-entfernen-rhein-main" element={<WandEntfernenLanding />} />
           <Route path="/trockenbau-rhein-main" element={<TrockenbauLanding />} />
+          <Route path="/innenausbau-wohnung-rhein-main" element={<InnenausbauWohnungLanding />} />
+          <Route path="/teilsanierung-rhein-main" element={<TeilsanierungLanding />} />
+          <Route path="/kernsanierung-rhein-main" element={<KernsanierungLanding />} />
           <Route path="/schnellsanierung-rhein-main" element={<SchnellsanierungLanding />} />
           <Route path="/schnelle-badsanierung-rhein-main" element={<SchnelleBadsanierungLanding />} />
+          <Route path="/notfall-soforthilfe-rhein-main" element={<NotfallSoforthilfeHub />} />
           <Route path="/sanierungs-soforthilfe-rhein-main" element={<SanierungsSoforthilfeLanding />} />
           <Route path="/raeume-umbauen-rhein-main" element={<RaeumeUmbauenLanding />} />
-          <Route path="/innenausbau-umbau-rhein-main" element={<InteriorConstruction />} />
+          <Route path="/innenausbau-umbau-rhein-main" element={<InnenausbauUmbauLanding />} />
           <Route path="/radex-live" element={<RadexLiveRedirect />} />
           <Route path="/radex-qualitaetsversprechen" element={<RadexQualitaetsversprechen />} />
           <Route path="/ueber-uns" element={<UeberUns />} />

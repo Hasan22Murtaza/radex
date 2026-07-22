@@ -1,146 +1,206 @@
 import { Link } from '../router';
 
 const p = 'mb-4 text-gray-600';
-const ul = 'br-seo-list mb-4';
 
 export const schimmelsanierungSeoIntro = (
   <>
     <p className={p}>
-      Schimmel ist nie nur ein optischer Mangel. Sichtbare Flecken, Geruch oder feuchte Stellen zeigen fast immer ein
-      Feuchtigkeitsproblem an, das bauphysikalisch oder technisch eingeordnet werden muss – sonst entsteht der Befall
-      erneut.
+      Eine professionelle Schimmelsanierung beginnt mit der Ursachenanalyse. Sichtbarer Schimmel ist häufig nur die Folge
+      eines Feuchtigkeitsproblems, das ohne gezielte Maßnahmen erneut zu Schäden führen kann. Deshalb werden
+      Feuchtigkeitseintritt, Wasserschäden und bauliche Gegebenheiten vor Beginn der Sanierung sorgfältig bewertet.
     </p>
     <p className={p}>
-      Die Radex Objektmanagement GmbH koordiniert Schimmelsanierungen im Rhein-Main-Gebiet. Radex ist zertifiziert für
-      Schimmelsanierung und verfügt zusätzlich über Sachkunde nach TRGS&nbsp;519 für Asbest. Im Bereich Heizung, Sanitär
-      und Gebäudetechnik ist Bernd Knoop als SHK-Meister und Betriebsleiter fachlich verantwortlich.
+      Radex koordiniert die einzelnen Arbeitsschritte – von der Bestandsaufnahme über Trocknung und Schimmelbeseitigung
+      bis zur vollständigen Wiederherstellung der betroffenen Bereiche.
     </p>
   </>
 );
 
 export const schimmelsanierungSeoSections = [
   {
-    id: 'ursache-folge',
-    title: 'Schimmel ist immer ein Ursache-Folge-Thema',
+    id: 'schimmelanalyse',
+    title: 'Schimmelanalyse',
+    content: (
+      <p className={p}>
+        Wir analysieren den sichtbaren Schimmelbefall, dokumentieren die betroffenen Bereiche und koordinieren bei Bedarf
+        weiterführende Untersuchungen, um die Ursache der Feuchtigkeit einzugrenzen. Fotos allein reichen für eine
+        belastbare Einschätzung nicht aus – eine fachliche Bestandsaufnahme vor Ort ist entscheidend.
+      </p>
+    ),
+  },
+  {
+    id: 'schimmel-erkennen',
+    title: 'Schimmelbefall richtig einschätzen',
     content: (
       <>
         <p className={p}>
-          Oberflächliches Entfernen beseitigt nur den sichtbaren Befall. Bleibt die Feuchtigkeit, kommt der Schimmel
-          zurück. Deshalb prüft Radex Ursache, Tiefe des Befalls und betroffene Bauteile – nicht nur die Oberfläche.
+          Nicht jede Verfärbung an einer Wand ist automatisch Schimmel. Ebenso lässt sich das tatsächliche Ausmaß eines
+          Befalls häufig nicht allein anhand der sichtbaren Oberfläche beurteilen. Eine fachgerechte Bestandsaufnahme
+          hilft dabei, den Schaden realistisch einzuordnen und die nächsten Schritte zu planen.
         </p>
         <p className={p}>
-          Typische Auslöser sind Wasserschäden, undichte Leitungen, Kältebrücken, mangelnde Lüftung, undichte Bäder oder
-          aufsteigende Feuchtigkeit im Keller. Erst wenn die Ursache klar ist, entsteht ein nachhaltiger Sanierungsplan.
+          Mehr zur{' '}
+          <Link to="/leistungen/schimmel-asbest">Schimmel- &amp; Asbestsanierung Rhein-Main</Link>.
         </p>
       </>
     ),
   },
   {
-    id: 'bad-keller-aussenwand',
-    title: 'Schimmel im Bad, Keller und an Außenwänden',
+    id: 'ursachenanalyse',
+    title: 'Ursachenanalyse',
     content: (
-      <>
-        <p className={p}>
-          Besonders häufig tritt Schimmel in Bädern, Kellern, Schlafzimmern und an Außenwänden auf. Dort treffen
-          Feuchtigkeit, kalte Flächen und ungünstige Luftführung oft zusammen.
-        </p>
-        <p className={p}>
-          Gerade nach einem Wasserschaden oder bei älteren Bädern muss geprüft werden, wie tief der Schaden reicht und
-          welche Bauteile betroffen sind. Abdichtung, Fugen, Lüftung, Wandaufbau und mögliche Leitungsprobleme gehören
-          in dieselbe Bewertung. Mehr zur{' '}
-          <Link to="/komplettbadsanierung-rhein-main">Badsanierung</Link>.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 'zertifizierung-trgs',
-    title: 'Zertifizierung und TRGS-519-Sachkunde',
-    content: (
-      <>
-        <p className={p}>
-          Radex ist zertifiziert für Schimmelsanierung. Zusätzlich verfügt der Betrieb über Sachkunde nach
-          TRGS&nbsp;519 – relevant, wenn im selben Projekt Asbestverdacht oder weitere Schadstoffe auftreten.
-        </p>
-        <p className={p}>
-          Im Bestand können Schimmel und Verdachtsmaterialien gemeinsam vorkommen. Deshalb ist ein fachkundiger Blick
-          auf Feuchtigkeit und Schadstoffe wichtig, bevor blind rückgebaut wird. Mehr zur{' '}
-          <Link to="/asbestsanierung-rhein-main">Asbestsanierung</Link> und zur{' '}
-          <Link to="/schadstoffsanierung-rhein-main">Schadstoffsanierung</Link>.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: 'ablauf-wiederaufbau',
-    title: 'Prüfen, trocknen, sanieren, wiederaufbauen',
-    content: (
-      <>
-        <p className={p}>
-          Wenn ein Bereich geöffnet wird, sollte nicht blind weitergearbeitet werden. Die sinnvolle Reihenfolge lautet:
-          erst prüfen, dann rückbauen, dann trocknen und erst danach wiederaufbauen. Das schützt vor Doppelarbeit und
-          Folgeschäden.
-        </p>
-        <p className={p}>
-          Radex koordiniert Schimmelbeseitigung, Trocknung, Abdichtung, SHK-Leistungen, Wiederaufbau und die
-          Schnittstellen zu weiteren Gewerken – ideal, wenn Bad, Innenausbau oder eine umfassendere{' '}
-          <Link to="/sanierung/altbausanierung">Altbausanierung</Link> ansteht.
-        </p>
-      </>
+      <p className={p}>
+        Eine nachhaltige Schimmelsanierung beginnt mit der Suche nach der Ursache. Typische Auslöser sind Rohrbrüche,
+        Undichtigkeiten, Wärmebrücken, Kondenswasser oder unzureichend getrocknete Bauteile. Erst wenn die
+        Feuchtigkeitsquelle beseitigt wurde, kann die eigentliche Sanierung langfristig erfolgreich sein.
+      </p>
     ),
   },
   {
     id: 'wasserschaden',
     title: 'Schimmel nach Wasserschaden',
     content: (
-      <>
-        <p className={p}>
-          Nach Rohrbruch, undichten Leitungen oder eindringender Feuchtigkeit muss zuerst die Ursache gestoppt werden.
-          Danach werden betroffene Bauteile getrocknet und geprüft. Erst im Anschluss folgt der Wiederaufbau.
-        </p>
-        <p className={p}>
-          Je nach Schadenstiefe reichen oberflächliche Maßnahmen nicht aus. Oft sind Rückbau, technische Trocknung und
-          eine dokumentierte Wiederherstellung nötig – insbesondere in vermieteten Objekten oder bei Versicherungsfällen.
-        </p>
-      </>
+      <p className={p}>
+        Nach Leitungswasserschäden oder Überschwemmungen kann Feuchtigkeit tief in Wände, Decken und Böden eindringen.
+        Vor der Wiederherstellung müssen die betroffenen Bereiche ausreichend getrocknet und beschädigte Materialien
+        gegebenenfalls entfernt werden.
+      </p>
     ),
   },
   {
-    id: 'kosten',
-    title: 'Kosten einer Schimmelsanierung',
+    id: 'keller',
+    title: 'Schimmel im Keller',
     content: (
-      <>
-        <p className={p}>
-          Die Kosten hängen von Befund, Ursache, Zugänglichkeit und Wiederaufbau ab. Die folgenden Angaben dienen nur der
-          Orientierung:
-        </p>
-        <ul className={ul}>
-          <li>Oberflächlicher Schimmel: ab 300&nbsp;€</li>
-          <li>Tiefsitzender Befall: ab 1.500&nbsp;€</li>
-          <li>Trocknung und Wiederaufbau: ab 3.500&nbsp;€</li>
-          <li>Asbestprüfung und Rückbau im selben Projekt: projektbezogen</li>
-        </ul>
-        <p className={p}>
-          Nach der Bestandsaufnahme erstellen wir ein konkretes Angebot ohne versteckte Kosten.
-        </p>
-      </>
+      <p className={p}>
+        Untergeschosse sind häufig von eindringender Feuchtigkeit oder dauerhaft hoher Luftfeuchtigkeit betroffen. Eine
+        sorgfältige Analyse der Baukonstruktion und der Feuchtigkeitsursachen bildet die Grundlage für eine nachhaltige
+        Sanierung.
+      </p>
     ),
   },
   {
-    id: 'region',
-    title: 'Schimmelsanierung im Rhein-Main-Gebiet',
+    id: 'badezimmer',
+    title: 'Schimmel im Badezimmer',
     content: (
-      <>
-        <p className={p}>
-          Radex ist in über 60 Städten im Rhein-Main-Gebiet aktiv – unter anderem in Rödermark, Rodgau, Dietzenbach,
-          Dreieich, Langen, Neu-Isenburg, Offenbach, Frankfurt, Hanau, Darmstadt, Bad Vilbel, Bad Homburg und Oberursel.
-        </p>
-        <p className={p}>
-          Für eine erste Einschätzung genügt oft ein Anruf unter 06074&nbsp;960620 oder eine Anfrage über den{' '}
-          <Link to="/kontakt">Kontaktbereich</Link>. Fotos vom Befund helfen, den nächsten Schritt schnell
-          einzuordnen.
-        </p>
-      </>
+      <p className={p}>
+        Hohe Luftfeuchtigkeit und unzureichende Belüftung können Schimmel in Badezimmern begünstigen. Je nach
+        Schadensbild werden betroffene Oberflächen gereinigt oder beschädigte Bauteile erneuert.
+      </p>
+    ),
+  },
+  {
+    id: 'buero',
+    title: 'Schimmel im Büro',
+    content: (
+      <p className={p}>
+        Schimmel in Büro- und Verwaltungsgebäuden kann den laufenden Betrieb beeinträchtigen. Radex koordiniert die
+        Sanierung so, dass Arbeitsabläufe möglichst wenig gestört werden.
+      </p>
+    ),
+  },
+  {
+    id: 'trocknung',
+    title: 'Technische Trocknung',
+    content: (
+      <p className={p}>
+        Vor dem Wiederaufbau müssen durchfeuchtete Bauteile häufig technisch getrocknet werden. Art und Dauer der
+        Trocknung richten sich nach Material, Feuchtigkeitsgehalt und Schadensumfang.
+      </p>
+    ),
+  },
+  {
+    id: 'schimmelbeseitigung',
+    title: 'Fachgerechte Schimmelbeseitigung',
+    content: (
+      <p className={p}>
+        Je nach Schadensbild werden betroffene Oberflächen gereinigt, belastete Materialien zurückgebaut oder vollständig
+        ersetzt. Ziel ist eine nachhaltige Sanierung und nicht lediglich die optische Beseitigung sichtbarer Stellen.
+      </p>
+    ),
+  },
+  {
+    id: 'luftreinigung',
+    title: 'Luftreinigung und Schutzmaßnahmen',
+    content: (
+      <p className={p}>
+        Abhängig vom Umfang der Arbeiten können Sanierungsbereiche abgeschottet und geeignete Luftreinigungsgeräte
+        eingesetzt werden, um angrenzende Bereiche während der Arbeiten zu schützen.
+      </p>
+    ),
+  },
+  {
+    id: 'wiederherstellung',
+    title: 'Wiederherstellung der Räume',
+    content: (
+      <p className={p}>
+        Nach erfolgreicher Schimmelsanierung übernimmt Radex auf Wunsch den vollständigen Innenausbau – einschließlich
+        Trockenbau, Malerarbeiten, Bodenbelägen und Deckenarbeiten.
+      </p>
+    ),
+  },
+  {
+    id: 'gewerbe',
+    title: 'Schimmelsanierung in Gewerbeimmobilien',
+    content: (
+      <p className={p}>
+        Ob Bürogebäude, Lagerhalle, Praxis oder Verkaufsfläche – wir koordinieren Sanierung und Wiederherstellung
+        entsprechend den betrieblichen Anforderungen und vereinbarten Zeitplänen.
+      </p>
+    ),
+  },
+  {
+    id: 'wohngebaeude',
+    title: 'Schimmelsanierung in Wohngebäuden',
+    content: (
+      <p className={p}>
+        In Wohnungen und Mehrfamilienhäusern stimmen wir die Sanierungsmaßnahmen auf die jeweilige Gebäudesituation und
+        Nutzung ab und koordinieren anschließend die vollständige Wiederherstellung.
+      </p>
+    ),
+  },
+];
+
+export const schimmelsanierungSeoLinkSections = [
+  {
+    id: 'hub-link',
+    title: 'Schimmel- & Asbestsanierung Rhein-Main',
+    to: '/leistungen/schimmel-asbest',
+    content: (
+      <p className={p}>
+        Die Hubseite bündelt alle Leistungen rund um Schimmel-, Asbest- und Schadstoffsanierungen.
+      </p>
+    ),
+  },
+  {
+    id: 'schadstoff-link',
+    title: 'Schadstoffsanierung Rhein-Main',
+    to: '/schadstoffsanierung-rhein-main',
+    content: (
+      <p className={p}>
+        Professionelle Koordination von Analyse, Rückbau, Entsorgung und Wiederherstellung schadstoffbelasteter
+        Gebäude.
+      </p>
+    ),
+  },
+  {
+    id: 'asbest-link',
+    title: 'Asbestsanierung Rhein-Main',
+    to: '/asbestsanierung-rhein-main',
+    content: (
+      <p className={p}>
+        Fachgerechte Planung und Koordination der Sanierung asbesthaltiger Baustoffe.
+      </p>
+    ),
+  },
+  {
+    id: 'gewerbe-link',
+    title: 'Gewerbe- & Objektsanierung Rhein-Main',
+    to: '/gewerbe-objektsanierung-rhein-main',
+    content: (
+      <p className={p}>
+        Nach Abschluss der Schimmelsanierung übernehmen wir auf Wunsch den vollständigen Innenausbau und die
+        Modernisierung Ihrer Gewerbeimmobilie.
+      </p>
     ),
   },
 ];

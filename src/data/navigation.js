@@ -332,6 +332,7 @@ export const leistungenCategories = {
       path: '/leistungen/express-soforthilfe',
     },
     subpages: [
+      { to: '/notfall-soforthilfe-rhein-main', title: 'Notfall & Soforthilfe', desc: 'Schnelle Hilfe bei dringenden Sanierungen im Rhein-Main-Gebiet.', icon: ExpressIcon },
       { to: '/sanierungs-soforthilfe-rhein-main', title: 'Sanierungs-Soforthilfe', desc: 'Kurzfristige Beratung und schneller Sanierungsstart.', icon: ExpressIcon },
       { to: '/schnellsanierung-rhein-main', title: 'Schnellsanierung Rhein-Main', desc: 'Wohnung oder Haus schnell sanieren mit klarer Planung.', icon: ExpressIcon },
       { to: '/bad-soforthilfe-rhein-main', title: 'Bad-Soforthilfe', desc: 'Schnelle Hilfe bei Wasserschaden, Rohrbruch oder Schimmel im Bad.', icon: Bath },

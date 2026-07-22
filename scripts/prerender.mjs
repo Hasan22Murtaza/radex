@@ -81,24 +81,34 @@ const routes = {
   '/sanierung/wohnungssanierung': { title: 'Wohnungssanierung Rhein-Main | Festpreis & aus einer Hand | Radex', description: 'Wohnungssanierung im Rhein-Main-Gebiet: Teilsanierung, Kernsanierung & Modernisierung vom Generalunternehmer. Termingerecht, staubarm, zum Festpreis. Jetzt anfragen!' },
   '/sanierung/haussanierung': { title: 'Haussanierung Rhein-Main | Modernisierung aus einer Hand | Radex', description: 'Haussanierung im Rhein-Main-Gebiet: energetische Modernisierung, Grundrissoptimierung, Dach & Fassade vom Generalunternehmer. Festpreis & feste Termine. Jetzt anfragen!' },
   '/sanierung/altbausanierung': { title: 'Altbausanierung Rhein-Main | Denkmalgerecht modernisieren | Radex', description: 'Altbausanierung im Rhein-Main-Gebiet: historischen Charme erhalten, moderne Technik integrieren. Denkmalgerecht, fachgerecht, aus einer Hand. Jetzt Beratung sichern!' },
-  '/komplettsanierung-rhein-main': { title: 'Komplettsanierung Rhein-Main | Kernsanierung zum Festpreis | Radex', description: 'Komplettsanierung & Kernsanierung im Rhein-Main-Gebiet vom Generalunternehmer: ein Ansprechpartner, ein Festpreis, ein Zeitplan. Jetzt kostenlose Beratung sichern!' },
+  '/komplettsanierung-rhein-main': {
+    title: 'Komplettsanierung Rhein-Main | Haus & Wohnung mit Radex',
+    description:
+      'Komplettsanierung im Rhein-Main-Gebiet für Haus, Wohnung und Gewerbe. Radex koordiniert alle Gewerke – mit einem Ansprechpartner von der Planung bis zur Übergabe.',
+  },
   '/generalunternehmer-rhein-main': { title: 'Generalunternehmer Rhein-Main | Sanierung aus einer Hand | Radex', description: 'Generalunternehmer im Rhein-Main-Gebiet: ein Vertragspartner, ein Festpreis, ein Bauleiter für Ihr gesamtes Sanierungsprojekt. 5 Jahre Gewährleistung. Jetzt anfragen!' },
   '/energetische-sanierung-rhein-main': { title: 'Energetische Sanierung Rhein-Main | Förderung & Wärmepumpe | Radex', description: 'Energetische Sanierung im Rhein-Main-Gebiet: Dämmung, Fenster, Wärmepumpe & Förderung (BAFA/KfW) aus einer Hand. Heizkosten senken, Wert steigern. Jetzt Beratung sichern!' },
   '/gewerbesanierung-rhein-main': { title: 'Gewerbesanierung im Rhein-Main-Gebiet | Gewerbe modernisieren | Radex', description: 'Professionelle Gewerbesanierung für Praxen, Ladenlokale, Restaurants und Gewerbeflächen im Rhein-Main-Gebiet. Planung, Koordination und Ausführung aus einer Hand.' },
-  '/mieterausbau-rhein-main': { title: 'Mieterausbau im Rhein-Main-Gebiet | Gewerbe modernisieren | Radex', description: 'Mieterausbau und Gewerbeflächen-Vorbereitung im Rhein-Main-Gebiet: termingerecht, sauber und aus einer Hand vom SHK-Meisterbetrieb Radex.' },
+  '/mieterausbau-rhein-main': { title: 'Mieterausbau Rhein-Main | Individuelle Gewerbeflächen schlüsselfertig ausbauen', description: 'Mieterausbau im Rhein-Main-Gebiet für Büros, Praxen, Ladenlokale und Gewerbeflächen. Individuelle Ausbaukonzepte und schlüsselfertige Umsetzung.' },
   '/gewerbe-objektsanierung-rhein-main': { title: 'Gewerbesanierung Rhein-Main | Büro, Praxis & Ladenbau | Radex', description: 'Gewerbe- & Objektsanierung im Rhein-Main-Gebiet: Büroumbau, Praxis, Gastronomie, Einzelhandel & Mieterausbau mit minimaler Betriebsunterbrechung. Jetzt Projekt besprechen!' },
-  '/schadstoffsanierung-rhein-main': { title: 'Schadstoffsanierung im Rhein-Main-Gebiet | Fachgerechte Gebäudesanierung | Radex', description: 'Schadstoffsanierung im Rhein-Main-Gebiet. Gefahrstoffe erkennen, Sanierungen professionell planen und Gebäude sicher modernisieren – alles aus einer Hand.' },
-  '/schimmelsanierung-rhein-main': { title: 'Schimmel- & Schadstoffsanierung Rhein-Main | Zertifiziert | Radex', description: 'Schimmel- & Schadstoffsanierung im Rhein-Main-Gebiet: Ursachenanalyse, Bautrocknung & sichere Beseitigung durch zertifizierte Experten (TRGS 519). Jetzt Befundung anfragen!', canonical: '/schadstoffsanierung-rhein-main' },
+  '/schadstoffsanierung-rhein-main': { title: 'Schadstoffsanierung Rhein-Main | Fachgerechte Gebäudeschadstoffe sanieren', description: 'Professionelle Schadstoffsanierung im Rhein-Main-Gebiet. Koordination von Untersuchung, Sanierung, Rückbau und Wiederherstellung für Gewerbe- und Wohnimmobilien.' },
+  '/schimmelsanierung-rhein-main': { title: 'Schimmelsanierung Rhein-Main | Schimmel fachgerecht beseitigen', description: 'Professionelle Schimmelsanierung im Rhein-Main-Gebiet. Ursachenanalyse, Feuchtigkeitsschäden beseitigen, Schimmel entfernen und Räume fachgerecht wiederherstellen.' },
   '/asbestsanierung-rhein-main': { title: 'Asbestsanierung Rhein-Main | TRGS 519 zertifiziert | Radex', description: 'Asbestsanierung im Rhein-Main-Gebiet: sichere Entfernung & Entsorgung von Asbest und Gefahrstoffen nach TRGS 519, vollständig dokumentiert. Jetzt Beratung anfragen!' },
   '/heizung-sanitaer-rhein-main': { title: 'Heizung & Sanitär Rhein-Main | Wärmepumpe vom SHK-Meister | Radex', description: 'Heizung & Sanitär im Rhein-Main-Gebiet vom SHK-Meisterbetrieb: Wärmepumpe, Heizungstausch, Fußbodenheizung & Sanitärinstallation inkl. Förderung. Jetzt Beratung sichern!' },
   '/elektroinstallation-rhein-main': { title: 'Elektrotechnik Rhein-Main | Elektroinstallation & Smart Home | Radex', description: 'Elektrotechnik im Rhein-Main-Gebiet: Elektroinstallation, Zählerschrank, Wallbox, PV-Vorbereitung & Smart Home nach VDE. Sicher & zukunftsfähig. Jetzt Beratung sichern!' },
-  '/innenausbau-umbau-rhein-main': { title: 'Innenausbau & Umbau Rhein-Main | Trockenbau & Böden | Radex', description: 'Innenausbau & Umbau im Rhein-Main-Gebiet: Trockenbau, Böden, Malerarbeiten, Wanddurchbrüche & Raumgestaltung aus einer Hand. Sauber & fachgerecht. Jetzt anfragen!' },
+  '/innenausbau-umbau-rhein-main': { title: 'Innenausbau & Umbau Rhein-Main | Radex Objektmanagement', description: 'Professioneller Innenausbau und Umbau im Rhein-Main-Gebiet. Trockenbau, Grundrissänderungen, Wohnungs- und Hausumbau sowie komplette Innenausbauprojekte aus einer Hand.' },
   '/raeume-umbauen-rhein-main': { title: 'Räume umbauen im Rhein-Main-Gebiet | Grundriss modernisieren | Radex', description: 'Räume professionell umbauen und Wohnflächen optimal nutzen. Grundrisse modernisieren, Wohnkomfort steigern und Umbauten fachgerecht umsetzen – alles aus einer Hand im Rhein-Main-Gebiet.' },
+  '/notfall-soforthilfe-rhein-main': { title: 'Notfall & Soforthilfe Rhein-Main | Schnelle Sanierung | Radex', description: 'Schnelle Hilfe bei dringenden Sanierungen im Rhein-Main-Gebiet. Ob Wasserschaden, beschädigtes Bad oder kurzfristige Sanierungsmaßnahmen – Radex koordiniert die komplette Umsetzung.' },
   '/sanierungs-soforthilfe-rhein-main': { title: 'Sanierungs-Soforthilfe im Rhein-Main-Gebiet | Schnell zum Sanierungsstart | Radex', description: 'Kurzfristige Beratung, schnelle Besichtigung und professionelle Projektplanung für Sanierungen im gesamten Rhein-Main-Gebiet. Jetzt kostenlose Ersteinschätzung sichern.' },
   '/schnellsanierung-rhein-main': { title: 'Schnellsanierung im Rhein-Main-Gebiet | Schnell modernisieren | Radex', description: 'Wohnung oder Haus schnell sanieren. Professionelle Planung, koordinierte Ausführung und kurze Bauzeiten im gesamten Rhein-Main-Gebiet.' },
   '/wand-entfernen-rhein-main': { title: 'Wand entfernen Rhein-Main | Grundrisse professionell verändern', description: 'Wände professionell entfernen im Rhein-Main-Gebiet. Neue Raumkonzepte für Wohnungen, Häuser und Gewerbeimmobilien – fachgerecht geplant und umgesetzt.' },
   '/trockenbau-rhein-main': { title: 'Trockenbau Rhein-Main | Moderne Trockenbaulösungen von Radex', description: 'Professioneller Trockenbau im Rhein-Main-Gebiet. Trockenbauwände, Decken, Schallschutz, Brandschutz und individuelle Raumlösungen für Wohn- und Gewerbeimmobilien.' },
-  '/sicherungskasten-erneuern-rhein-main': { title: 'Sicherungskasten erneuern im Rhein-Main-Gebiet | Radex', description: 'Sicherungskasten erneuern vom Fachbetrieb. Moderne Unterverteilungen, FI-Schutzschalter und Zählerschränke für mehr Sicherheit im gesamten Rhein-Main-Gebiet.' },
+  '/innenausbau-wohnung-rhein-main': { title: 'Innenausbau Wohnung Rhein-Main | Wohnungsmodernisierung vom Profi', description: 'Professioneller Innenausbau für Wohnungen im Rhein-Main-Gebiet. Moderne Raumkonzepte, Trockenbau, Bodenbeläge, Malerarbeiten und komplette Wohnungsmodernisierung aus einer Hand.' },
+  '/schimmel-asbest-sanierung-rhein-main': { title: 'Schimmel- & Asbestsanierung Rhein-Main | Schadstoffe sicher beseitigen', description: 'Schimmel-, Asbest- und Schadstoffsanierung im Rhein-Main-Gebiet. Radex koordiniert Analyse, Abschottung, fachgerechte Sanierung und Wiederherstellung.' },
+  '/teilsanierung-rhein-main': { title: 'Teilsanierung Rhein-Main | Einzelne Bereiche professionell sanieren | Radex', description: 'Teilsanierung im Rhein-Main-Gebiet für Häuser, Wohnungen und Gewerbeimmobilien. Radex modernisiert gezielt einzelne Bereiche Ihrer Immobilie – professionell geplant und fachgerecht umgesetzt.' },
+  '/kernsanierung-rhein-main': { title: 'Kernsanierung Rhein-Main | Haus & Wohnung grundlegend sanieren | Radex', description: 'Kernsanierung im Rhein-Main-Gebiet für Häuser, Wohnungen und Gewerbeimmobilien. Radex erneuert Bestandsimmobilien mit einem festen Ansprechpartner und koordinierter Projektabwicklung.' },
+  '/sicherungskasten-erneuern-rhein-main': { title: 'Sicherungskasten erneuern Rhein-Main | Moderne Unterverteilung | Radex', description: 'Sicherungskasten erneuern im Rhein-Main-Gebiet. Moderne Unterverteilungen mit zeitgemäßer Schutztechnik für Wohn- und Gewerbeimmobilien.' },
+  '/sanierung-foerderung-rhein-main': { title: 'Sanierung Förderung Rhein-Main | KfW, BAFA & Fördermittel | Radex', description: 'Fördermöglichkeiten für energetische Sanierungen im Rhein-Main-Gebiet. Wir unterstützen Sie bei der Planung förderfähiger Sanierungsprojekte und koordinieren alle beteiligten Gewerke.' },
   '/schnelle-badsanierung-rhein-main': { title: 'Schnelle Badsanierung im Rhein-Main-Gebiet | Modernes Bad | Radex', description: 'Komplettbadsanierung mit kurzer Bauzeit. Professionelle Planung, koordinierte Ausführung und moderne Badezimmer im gesamten Rhein-Main-Gebiet.' },
   '/waermepumpe-rhein-main': { title: 'Wärmepumpe im Rhein-Main-Gebiet | Beratung, Planung & Einbau | Radex', description: 'Wärmepumpe vom SHK-Meisterbetrieb. Beratung, Planung, Einbau und Fördermöglichkeiten für private Eigentümer im gesamten Rhein-Main-Gebiet. Jetzt kostenlos beraten lassen.' },
   '/ueber-uns': { title: 'Über Radex | SHK-Meisterbetrieb & Generalunternehmer im Rhein-Main-Gebiet', description: 'Lernen Sie Radex kennen. Über 40 Jahre Erfahrung als SHK-meistergeführter Fachbetrieb und Generalunternehmer für Badsanierung, Sanierung und Modernisierung im Rhein-Main-Gebiet.' },
@@ -134,10 +144,21 @@ const routes = {
   ...cityMeta,
   ...cleanCityMeta,
   ...Object.fromEntries(
-    Object.entries(migratedServices.pages).map(([slug, page]) => [
-      `/${slug}`,
-      { title: page.title, description: page.description },
-    ])
+    Object.entries(migratedServices.pages)
+      .filter(
+        ([slug]) =>
+          slug !== 'teilsanierung-rhein-main' &&
+          slug !== 'kernsanierung-rhein-main' &&
+          slug !== 'komplettsanierung-rhein-main' &&
+          slug !== 'sicherungskasten-erneuern-rhein-main' &&
+          slug !== 'sanierung-foerderung-rhein-main' &&
+          slug !== 'mieterausbau-rhein-main' &&
+          slug !== 'innenausbau-wohnung-rhein-main',
+      )
+      .map(([slug, page]) => [
+        `/${slug}`,
+        { title: page.title, description: page.description },
+      ])
   ),
 };
 
