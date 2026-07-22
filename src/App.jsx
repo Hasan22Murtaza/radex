@@ -40,6 +40,7 @@ import SchimmelAsbestHub from './pages/SchimmelAsbestHub';
 import SchnelleBadsanierungLanding from './pages/SchnelleBadsanierungLanding';
 import SchnellsanierungLanding from './pages/SchnellsanierungLanding';
 import WandEntfernenLanding from './pages/WandEntfernenLanding';
+import TrockenbauLanding from './pages/TrockenbauLanding';
 import SicherungskastenErneuernLanding from './pages/SicherungskastenErneuernLanding';
 import WaermepumpeLanding from './pages/WaermepumpeLanding';
 import MoldRemediation from './pages/MoldRemediation';
@@ -203,6 +204,7 @@ export default function App({ location }) {
           <Route path="/elektroinstallation-rhein-main" element={<ElectricalServices />} />
           <Route path="/sicherungskasten-erneuern-rhein-main" element={<SicherungskastenErneuernLanding />} />
           <Route path="/wand-entfernen-rhein-main" element={<WandEntfernenLanding />} />
+          <Route path="/trockenbau-rhein-main" element={<TrockenbauLanding />} />
           <Route path="/schnellsanierung-rhein-main" element={<SchnellsanierungLanding />} />
           <Route path="/schnelle-badsanierung-rhein-main" element={<SchnelleBadsanierungLanding />} />
           <Route path="/sanierungs-soforthilfe-rhein-main" element={<SanierungsSoforthilfeLanding />} />
