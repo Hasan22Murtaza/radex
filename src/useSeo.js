@@ -52,6 +52,21 @@ export function buildServiceSchema({ name, description, path }) {
   };
 }
 
+/** Build a BreadcrumbList JSON-LD object from ordered { name, path } items. */
+export function buildBreadcrumbSchema(items) {
+  if (!items || !items.length) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
 /**
  * Per-page SEO. Sets title, meta description, canonical, Open Graph tags,
  * and optionally injects JSON-LD structured data (cleaned up on unmount).

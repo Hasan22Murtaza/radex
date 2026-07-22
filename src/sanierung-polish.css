@@ -1185,7 +1185,8 @@
 }
 
 .badewanne-austauschen-page .br-bw-video-placeholder,
-.ablauf-badsanierung-page .br-bw-video-placeholder {
+.ablauf-badsanierung-page .br-bw-video-placeholder,
+.wand-entfernen-page .br-bw-video-placeholder {
   position: relative;
   min-height: 360px;
   background-size: cover;
@@ -1196,7 +1197,8 @@
 }
 
 .badewanne-austauschen-page .br-bw-video-placeholder-overlay,
-.ablauf-badsanierung-page .br-bw-video-placeholder-overlay {
+.ablauf-badsanierung-page .br-bw-video-placeholder-overlay,
+.wand-entfernen-page .br-bw-video-placeholder-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1210,7 +1212,8 @@
 }
 
 .badewanne-austauschen-page .br-bw-video-placeholder-overlay p,
-.ablauf-badsanierung-page .br-bw-video-placeholder-overlay p {
+.ablauf-badsanierung-page .br-bw-video-placeholder-overlay p,
+.wand-entfernen-page .br-bw-video-placeholder-overlay p {
   margin: 0;
   font-size: 15px;
   font-weight: 600;
@@ -1218,7 +1221,8 @@
 }
 
 .badewanne-austauschen-page .br-bw-video-placeholder-play,
-.ablauf-badsanierung-page .br-bw-video-placeholder-play {
+.ablauf-badsanierung-page .br-bw-video-placeholder-play,
+.wand-entfernen-page .br-bw-video-placeholder-play {
   width: 64px;
   height: 64px;
   border-radius: 999px;
@@ -1228,7 +1232,8 @@
 }
 
 .badewanne-austauschen-page .br-bw-video-placeholder-play::after,
-.ablauf-badsanierung-page .br-bw-video-placeholder-play::after {
+.ablauf-badsanierung-page .br-bw-video-placeholder-play::after,
+.wand-entfernen-page .br-bw-video-placeholder-play::after {
   content: '';
   position: absolute;
   top: 50%;

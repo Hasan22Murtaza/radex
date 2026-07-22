@@ -1,643 +1,633 @@
-import { useEffect, useState } from 'react';
-import { RADEX_LIVE_URL } from '../constants/brand';
+import { useEffect } from 'react';
 import {
-  Camera,
-  ChevronDown,
-  MessageSquare,
-  Phone,
-  ArrowRight,
-  UtensilsCrossed,
-  Sofa,
-  LayoutGrid,
-  Home,
-  Wrench,
-  Users,
-  Handshake,
-  Sparkles,
+  Construction,
+  SearchCheck,
+  Building,
+  Workflow,
   ShieldCheck,
-  MapPin,
+  Hammer,
+  LayoutPanelTop,
+  BadgeEuro,
+  UserRound,
+  CalendarClock,
+  MessagesSquare,
+  Sparkles,
+  Columns2,
+  PanelsTopLeft,
+  Paintbrush,
+  LayoutGrid,
+  PhoneCall,
+  ClipboardList,
+  CircleCheckBig,
+  Phone,
+  Mail,
+  MessageCircle,
+  Building2,
+  Home,
+  Briefcase,
+  Store,
 } from 'lucide-react';
+import { Link } from '../router';
 import '../badsanierung.css';
-import useSeo, { buildFaqSchema } from '../useSeo';
-import SanierungskostenRechner from '../components/SanierungskostenRechner';
+import '../badsanierung-polish.css';
+import '../sanierung-polish.css';
+import '../home.css';
+import useSeo, { buildBreadcrumbSchema, buildFaqSchema, buildServiceSchema } from '../useSeo';
+import ReviewsMarquee from '../components/ReviewsMarquee';
+import {
+  PremiumIconCards,
+  SectionTransition,
+  SeoKnowledgeDrawer,
+  RadexLiveSection,
+  HorizontalProcessTimeline,
+} from '../components/landing/SharedLandingParts';
+import {
+  wandEntfernenSeoIntro,
+  wandEntfernenSeoSections,
+  wandEntfernenSeoLinkSections,
+} from '../data/wandEntfernenSeoContent';
 
-const HERO_IMAGE = '/img/wand-entfernen-hero.webp';
-const LIVE_IMAGE = '/img/wand-entfernen-radex-live.webp';
+const PAGE_PATH = '/wand-entfernen-rhein-main';
+const HERO_IMAGE = '/img/wand-entfernen-rhein-main-radex.webp';
+const VIDEO_POSTER = '/img/bernd-wand-entfernen-rhein-main.webp';
+const WHATSAPP_URL = 'https://wa.me/496074960620';
+const PHONE_TEL = 'tel:+496074960620';
 
-const projectCards = [
-  { title: 'Küche zum Wohnraum öffnen', desc: 'Offene Wohnküche mit mehr Licht und Weite schaffen.', icon: UtensilsCrossed },
-  { title: 'Wohnzimmer vergrößern', desc: 'Zwei Räume verbinden und den Wohnbereich erweitern.', icon: Sofa },
-  { title: 'Räume zusammenlegen', desc: 'Kleine Zimmer zu einem großzügigen Raum verbinden.', icon: LayoutGrid },
-  { title: 'Grundriss modernisieren', desc: 'Bestandsgrundriss an heutige Wohnbedürfnisse anpassen.', icon: Home },
+const META_TITLE = 'Wand entfernen Rhein-Main | Grundrisse professionell verändern';
+const META_DESCRIPTION =
+  'Wände professionell entfernen im Rhein-Main-Gebiet. Neue Raumkonzepte für Wohnungen, Häuser und Gewerbeimmobilien – fachgerecht geplant und umgesetzt.';
+
+const BREADCRUMBS = [
+  { name: 'Startseite', path: '/' },
+  { name: 'Innenausbau & Umbau', path: '/innenausbau-umbau-rhein-main' },
+  { name: 'Wand entfernen', path: PAGE_PATH },
 ];
 
+function WandEntfernenCTA({ isHero = false, centered = false }) {
+  return (
+    <div
+      className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
+    >
+      <a href="#kontakt" className="btn br-btn-orange">
+        Kostenlose Erstberatung
+      </a>
+      <a href="#kontakt" className="btn br-btn-outline-orange">
+        Projekt anfragen
+      </a>
+    </div>
+  );
+}
+
 const whyRadexCards = [
-  { title: 'Individuelle Planung', desc: 'Jeder Wanddurchbruch wird objektbezogen geprüft und geplant.', icon: Wrench },
-  { title: 'Koordination aller Gewerke', desc: 'Statik, Elektro, SHK, Trockenbau, Boden und Maler in der richtigen Reihenfolge.', icon: Users },
-  { title: 'Alles aus einer Hand', desc: 'Ein fester Ansprechpartner von der Prüfung bis zur fertigen Übergabe.', icon: Handshake },
-  { title: 'Saubere Ausführung', desc: 'Staubschutz, Schutz der Umgebung und saubere Anschlussarbeiten inklusive.', icon: Sparkles },
-  { title: 'Festpreisgarantie', desc: 'Transparentes Angebot nach Besichtigung – ohne versteckte Kosten.', icon: ShieldCheck },
-  { title: 'Regional im Rhein-Main-Gebiet', desc: 'Über 60 Städte – Erfahrung mit Bestandswohnungen und -häusern.', icon: MapPin },
+  {
+    title: 'Sorgfältige Bestandsaufnahme',
+    desc: 'Vor jeder Grundrissänderung analysieren wir die vorhandene Gebäudesituation und entwickeln eine passende Lösung.',
+    icon: SearchCheck,
+  },
+  {
+    title: 'Individuelle Raumkonzepte',
+    desc: 'Neue Raumaufteilungen werden auf die Nutzung und Architektur Ihrer Immobilie abgestimmt.',
+    icon: Building,
+  },
+  {
+    title: 'Koordination aller Gewerke',
+    desc: 'Vom Rückbau über Trockenbau bis zu Maler- und Bodenarbeiten koordinieren wir sämtliche Leistungen aus einer Hand.',
+    icon: Workflow,
+  },
+  {
+    title: 'Fachgerechte Planung',
+    desc: 'Bei Eingriffen in tragende Bauteile werden statische Anforderungen und erforderliche Genehmigungen frühzeitig berücksichtigt.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Präzise Ausführung',
+    desc: 'Alle Arbeiten erfolgen strukturiert und mit Blick auf den Schutz angrenzender Bauteile.',
+    icon: Hammer,
+  },
+  {
+    title: 'Offene Wohnkonzepte',
+    desc: 'Wir schaffen moderne Räume mit einer optimalen Verbindung von Funktionalität, Komfort und Design.',
+    icon: LayoutPanelTop,
+  },
+];
+
+const qualityCards = [
+  {
+    title: 'Transparente Angebote',
+    desc: 'Sie erhalten eine nachvollziehbare Kalkulation auf Basis eines klar definierten Leistungsumfangs.',
+    icon: BadgeEuro,
+  },
+  {
+    title: 'Persönliche Projektleitung',
+    desc: 'Ein fester Ansprechpartner begleitet Ihr Projekt von der Planung bis zur Fertigstellung.',
+    icon: UserRound,
+  },
+  {
+    title: 'Strukturierte Terminplanung',
+    desc: 'Alle Arbeiten werden effizient geplant und mit den beteiligten Gewerken abgestimmt.',
+    icon: CalendarClock,
+  },
+  {
+    title: 'Kontrollierte Qualität',
+    desc: 'Jeder Bauabschnitt wird sorgfältig überwacht und dokumentiert.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Transparente Kommunikation',
+    desc: 'Sie werden regelmäßig über den Projektfortschritt und die nächsten Arbeitsschritte informiert.',
+    icon: MessagesSquare,
+  },
+  {
+    title: 'Nachhaltige Raumlösungen',
+    desc: 'Durchdachte Grundrissänderungen schaffen moderne Wohn- und Arbeitsbereiche mit langfristigem Mehrwert.',
+    icon: Sparkles,
+  },
+];
+
+const leistungenCards = [
+  {
+    title: 'Nichttragende Wände entfernen',
+    desc: 'Rückbau nichttragender Innenwände zur Schaffung offener und funktionaler Raumkonzepte.',
+    icon: Construction,
+    to: '#nichttragende-waende',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Wanddurchbrüche',
+    desc: 'Professionell geplante Wandöffnungen für neue Raumverbindungen und moderne Grundrisse.',
+    icon: Columns2,
+    to: '#wanddurchbruch',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Grundriss modernisieren',
+    desc: 'Komplette Neuorganisation von Wohn- und Arbeitsbereichen inklusive aller erforderlichen Ausbauarbeiten.',
+    icon: LayoutPanelTop,
+    to: '#grundriss',
+    cta: 'Mehr erfahren',
+  },
+];
+
+const typischeLeistungenCards = [
+  {
+    title: 'Innenwände zurückbauen',
+    desc: 'Rückbau geeigneter Innenwände zur Schaffung größerer und offener Räume.',
+    icon: Hammer,
+  },
+  {
+    title: 'Wanddurchbrüche herstellen',
+    desc: 'Herstellung neuer Wandöffnungen für optimierte Raumverbindungen und moderne Wohnkonzepte.',
+    icon: Columns2,
+  },
+  {
+    title: 'Grundrisse optimieren',
+    desc: 'Anpassung bestehender Raumaufteilungen an heutige Wohn- und Nutzungsanforderungen.',
+    icon: LayoutPanelTop,
+  },
+  {
+    title: 'Trockenbau anschließen',
+    desc: 'Errichtung neuer Trockenbauwände oder Raumtrennungen als Bestandteil des neuen Grundrisses.',
+    icon: PanelsTopLeft,
+  },
+  {
+    title: 'Oberflächen wiederherstellen',
+    desc: 'Spachtel-, Putz- und Malerarbeiten sorgen für ein einheitliches und hochwertiges Gesamtbild.',
+    icon: Paintbrush,
+  },
+  {
+    title: 'Bodenanschlüsse anpassen',
+    desc: 'Anpassung oder Erneuerung von Bodenbelägen nach der Grundrissänderung.',
+    icon: LayoutGrid,
+  },
 ];
 
 const processSteps = [
-  'Beratung',
-  'Besichtigung',
-  'Prüfung der Wand',
-  'Angebot',
-  'Fachgerechte Ausführung',
-  'Fertigstellung',
+  {
+    title: 'Erstberatung',
+    desc: 'Wir besprechen Ihre Vorstellungen sowie die vorhandene Gebäudesituation und prüfen die Machbarkeit Ihres Projekts.',
+    icon: PhoneCall,
+  },
+  {
+    title: 'Bestandsaufnahme',
+    desc: 'Die bestehende Bausubstanz wird analysiert. Bei möglichen Eingriffen in tragende Bauteile erfolgt eine statische Prüfung durch die hierfür zuständigen Fachstellen.',
+    icon: SearchCheck,
+  },
+  {
+    title: 'Angebot',
+    desc: 'Sie erhalten ein transparentes Angebot mit allen vorgesehenen Leistungen und dem geplanten Projektablauf.',
+    icon: ClipboardList,
+  },
+  {
+    title: 'Rückbau',
+    desc: 'Geeignete Innenwände werden fachgerecht zurückgebaut. Erforderliche Schutzmaßnahmen werden während der Arbeiten umgesetzt.',
+    icon: Hammer,
+  },
+  {
+    title: 'Ausbauarbeiten',
+    desc: 'Trockenbau, Oberflächen, Bodenanschlüsse sowie weitere Ausbauleistungen werden professionell ausgeführt.',
+    icon: PanelsTopLeft,
+  },
+  {
+    title: 'Übergabe',
+    desc: 'Nach gemeinsamer Endabnahme wird Ihr modernisierter Grundriss bezugsfertig übergeben.',
+    icon: CircleCheckBig,
+  },
 ];
+
+const einsatzbereicheCards = [
+  {
+    title: 'Eigentumswohnungen',
+    desc: 'Moderne offene Wohnbereiche und optimierte Raumaufteilungen für Bestandswohnungen.',
+    icon: Building2,
+  },
+  {
+    title: 'Einfamilienhäuser',
+    desc: 'Grundrissänderungen zur Anpassung älterer Häuser an heutige Wohnkonzepte.',
+    icon: Home,
+  },
+  {
+    title: 'Büroflächen',
+    desc: 'Neue Besprechungsräume, Open-Space-Bereiche und flexible Arbeitsplatzlösungen.',
+    icon: Briefcase,
+  },
+  {
+    title: 'Gewerbeimmobilien',
+    desc: 'Optimierung bestehender Flächen für Praxen, Ladenlokale und Gewerbeobjekte.',
+    icon: Store,
+  },
+];
+
+const radexLiveProjects = [
+  {
+    image: '/img/haus-service-innenausbau.png',
+    badge: 'LIVE',
+    title: 'Wanddurchbruch Wohnbereich',
+    location: 'Offenbach am Main',
+    desc: 'Offene Wohnküche durch fachgerechten Wanddurchbruch – laufendes Projekt mit täglichen Updates.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/wohnung-service-innenausbau.png',
+    badge: 'Vorher & Nachher',
+    title: 'Offene Wohnküche',
+    location: 'Frankfurt am Main',
+    desc: 'Grundrissänderung in einer Eigentumswohnung mit neuem offenen Wohn- und Essbereich.',
+    cta: 'Vorher & Nachher ansehen',
+  },
+  {
+    image: '/img/haus-process.png',
+    badge: 'Abgeschlossen',
+    title: 'Grundrissmodernisierung Einfamilienhaus',
+    location: 'Darmstadt',
+    desc: 'Wohnbereiche neu strukturiert – vom Rückbau bis zum fertigen Innenausbau.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/wohnung-service-boeden.png',
+    badge: 'Abgeschlossen',
+    title: 'Wohnungsumbau mit Trockenbau',
+    location: 'Rodgau',
+    desc: 'Nach dem Wandrückbau: neue Raumstruktur, Böden und Oberflächen schlüsselfertig übergeben.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/gu-process.png',
+    badge: 'LIVE',
+    title: 'Büroumbau mit offenen Bereichen',
+    location: 'Neu-Isenburg',
+    desc: 'Gewerbliche Grundrissänderung für moderne Open-Space-Arbeitsplätze.',
+    cta: 'Projekt ansehen',
+  },
+  {
+    image: '/img/wohnzimmer.webp',
+    badge: 'Video',
+    title: 'Baustelleneinblick Grundrissänderung',
+    location: 'Dreieich',
+    desc: 'Authentischer Einblick in Rückbau, Trockenbau und Anschlussarbeiten auf einer echten Baustelle.',
+    cta: 'Video ansehen',
+  },
+];
+
+const videoTranscript =
+  'Nicht jede Wand kann ohne Weiteres entfernt werden. Zunächst prüfen wir die bestehende Gebäudesituation. Bei tragenden Bauteilen sind eine statische Bewertung und – je nach Bauvorhaben – weitere erforderliche Schritte unverzichtbar. Erst danach erfolgt die fachgerechte Umsetzung und der anschließende Innenausbau.';
 
 const faqsData = [
   {
-    q: 'Welche Wände dürfen entfernt werden?',
-    a: 'Nichttragende Wände lassen sich in vielen Fällen entfernen, wenn keine kritischen Leitungen betroffen sind und baurechtliche Vorgaben eingehalten werden. Tragende Wände dürfen nur nach fachlicher Prüfung und gegebenenfalls statischer Freigabe verändert werden.',
+    q: 'Kann jede Innenwand entfernt werden?',
+    a: 'Nein. Vor jedem Eingriff muss geprüft werden, ob es sich um eine tragende oder nichttragende Wand handelt. Tragende Wände dürfen nicht ohne fachliche statische Bewertung und gegebenenfalls erforderliche Genehmigungen verändert werden.',
   },
   {
-    q: 'Muss jede Wand statisch geprüft werden?',
-    a: 'Bei Verdacht auf eine tragende Wand oder wenn Bauunterlagen fehlen, sollte ein Tragwerksplaner eingebunden werden. Radex koordiniert die Einbindung geeigneter Fachplaner und die anschließende Umsetzung.',
+    q: 'Was ist der Unterschied zwischen tragender und nichttragender Wand?',
+    a: 'Tragende Wände leiten Lasten aus Decken oder oberen Geschossen weiter und erfüllen statische Aufgaben. Nichttragende Innenwände dienen primär der Raumtrennung. Die Einordnung erfolgt durch Bestandsanalyse und gegebenenfalls Fachplanung.',
   },
   {
-    q: 'Wie lange dauert ein Wanddurchbruch?',
-    a: 'Ein einfacher Wanddurchbruch bei einer nicht tragenden Wand kann oft in wenigen Tagen umgesetzt werden. Tragende Eingriffe mit Statik, Sturzeinbau und Anschlussarbeiten dauern länger – der genaue Zeitrahmen ergibt sich nach der Prüfung.',
+    q: 'Brauche ich einen Statiker für einen Wanddurchbruch?',
+    a: 'Wenn eine tragende Wand betroffen sein könnte oder dies nicht sicher ausgeschlossen werden kann, ist eine statische Prüfung durch die zuständigen Fachstellen erforderlich, bevor mit den Arbeiten begonnen wird.',
   },
   {
-    q: 'Was kostet das Entfernen einer Wand?',
-    a: 'Die Kosten hängen von Wandart, Tragfunktion, Leitungen, Statik, Staubschutz, Entsorgung und Anschlussarbeiten ab. Nach einer Bestandsaufnahme lässt sich der Aufwand seriös einschätzen.',
+    q: 'Wie lange dauert eine Grundrissänderung?',
+    a: 'Die Dauer hängt von Umfang, Statik, Leitungen und Anschlussarbeiten ab. Ein einfacher Rückbau einer nichttragenden Wand kann oft in wenigen Tagen umgesetzt werden. Größere Projekte werden nach der Bestandsaufnahme terminiert.',
   },
   {
-    q: 'Erhalte ich ein Festpreisangebot?',
-    a: 'Ja. Nach Besichtigung und Abstimmung des Umfangs erstellen wir ein transparentes Festpreisangebot für Ihr Projekt.',
+    q: 'Übernimmt Radex auch Trockenbau und Oberflächen nach dem Rückbau?',
+    a: 'Ja. Radex koordiniert den gesamten Ablauf – vom Rückbau über Trockenbau und Oberflächenarbeiten bis zur fertigen Übergabe.',
+  },
+  {
+    q: 'In welchen Städten ist Radex tätig?',
+    a: 'Radex begleitet Grundrissänderungen im gesamten Rhein-Main-Gebiet – unter anderem in Frankfurt, Offenbach, Darmstadt, Hanau, Rodgau und über 60 weiteren Gemeinden.',
   },
 ];
 
-const seoAccordions = [
-  {
-    title: 'Wanddurchbruch bei Sanierungen im Bestand',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Eine Wand zu entfernen klingt im ersten Moment nach einer einfachen Idee: Küche und Wohnzimmer öffnen, einen kleinen Flur auflösen, zwei Räume verbinden oder mehr Licht in den Wohnbereich bringen. In der Praxis ist ein Wanddurchbruch aber deutlich mehr als ein schneller Abriss. Bevor eine Wand fällt, muss klar sein, ob sie tragend ist, ob Leitungen darin verlaufen, welche Anschlussarbeiten entstehen und welche Fachleute eingebunden werden müssen.
-        </p>
-        <p className="text-gray-600">
-          Die Radex Objektmanagement GmbH koordiniert Wanddurchbrüche, Wandöffnungen, Grundrissänderungen und Innenausbau im Rhein-Main-Gebiet als Teil professioneller Sanierungsprojekte. Mehr zum{' '}
-          <a href="/leistungen/innenausbau-umbau">Innenausbau & Umbau</a> und{' '}
-          <a href="/generalunternehmer-rhein-main">Generalunternehmer</a>.
-        </p>
-      </>
-    ),
-  },
-  {
-    title: 'Warum ein Wanddurchbruch sorgfältig geplant werden muss',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Ein Wanddurchbruch verändert nicht nur die Optik eines Raumes. Er greift in die Bausubstanz ein. Selbst wenn eine Wand auf den ersten Blick wie eine einfache Trennwand wirkt, können dahinter wichtige Funktionen liegen: Lastabtragung, Schallschutz, Brandschutz, Leitungsführung, Heizkörperanschlüsse, Elektroinstallation, Abluft oder Abwasserstränge.
-        </p>
-        <p className="text-gray-600">
-          Radex koordiniert diese Schritte, damit der Wanddurchbruch nicht zum Baustellenrisiko wird. Eigentümer bekommen einen festen Ansprechpartner, der die einzelnen Gewerke in die richtige Reihenfolge bringt.
-        </p>
-      </>
-    ),
-  },
-  {
-    title: 'Tragende oder nicht tragende Wand',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Die entscheidende Frage vor jedem Wanddurchbruch lautet: Ist die Wand tragend? Tragende Wände leiten Lasten aus Decken, Dach oder oberen Geschossen weiter. Ob eine Wand tragend ist, lässt sich nicht zuverlässig per Augenmaß entscheiden. Bei Verdacht muss ein Tragwerksplaner oder Statiker eingebunden werden.
-        </p>
-        <p className="text-gray-600">
-          Radex übernimmt keine statische Berechnung, koordiniert aber die Einbindung geeigneter Fachplaner. Nicht tragende Wände lassen sich in vielen Fällen einfacher entfernen – trotzdem gilt: erst prüfen, dann öffnen.
-        </p>
-      </>
-    ),
-  },
-  {
-    title: 'Leitungen in der Wand – Strom, Wasser, Heizung und Abluft',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Viele Wände sind nicht leer. In ihnen können Stromleitungen, Wasserleitungen, Heizungsrohre, Abwasserleitungen, Abluftkanäle oder alte Installationen verlaufen. Leitungen müssen vor dem Wanddurchbruch lokalisiert und fachgerecht gesichert oder umgelegt werden.
-        </p>
-        <p className="text-gray-600">
-          Elektroarbeiten werden mit qualifizierten Fachpartnern koordiniert. SHK-Leitungen werden durch die meistergeführte Kompetenz von Radex eingebunden.
-        </p>
-      </>
-    ),
-  },
-  {
-    title: 'Wand entfernen in Wohnung, Haus oder Altbau',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          In Wohnungen geht es häufig um eine bessere Verbindung zwischen Küche, Essbereich und Wohnzimmer. In Einfamilienhäusern oft um größere Wohnbereiche und bessere Lichtführung. In Altbauten ist besondere Sorgfalt nötig – alte Baupläne, nachträgliche Leitungen und mögliche Schadstoffe müssen berücksichtigt werden.
-        </p>
-        <p className="text-gray-600">
-          <a href="/innenausbau-wohnung-rhein-main">Innenausbau Wohnung</a> ·{' '}
-          <a href="/innenausbau-haus-rhein-main">Innenausbau Haus</a> ·{' '}
-          <a href="/raeume-umbauen-rhein-main">Räume umbauen</a>.
-        </p>
-      </>
-    ),
-  },
-  {
-    title: 'Wanddurchbruch und neue Raumaufteilung',
-    content: (
-      <p className="text-gray-600">
-        Eine Wand wird selten nur entfernt, weil sie stört. Meist steht dahinter ein neues Raumkonzept. Radex koordiniert Wanddurchbrüche deshalb zusammen mit Innenausbau und Umbau. Nach dem Rückbau folgen Trockenbau, Putz, Malerarbeiten, Bodenanschlüsse, Elektrokoordination und gegebenenfalls Anpassungen an Heizung oder Sanitär.{' '}
-        <a href="/trockenbau-rhein-main">Trockenbau</a>.
-      </p>
-    ),
-  },
-  {
-    title: 'Wanddurchbruch bei offener Küche',
-    content: (
-      <p className="text-gray-600">
-        Eine der häufigsten Anfragen betrifft die offene Küche. In Küchenwänden verlaufen oft Stromleitungen, Wasseranschlüsse, Abwasser, Abluft oder Heizungsleitungen. Radex koordiniert solche Umbauten mit den passenden Gewerken: Statik bei Bedarf, Elektrofachpartner, SHK, Trockenbau, Boden, Malerarbeiten und Innenausbau.
-      </p>
-    ),
-  },
-  {
-    title: 'Wanddurchbruch bei Badsanierung oder Badvergrößerung',
-    content: (
-      <p className="text-gray-600">
-        Auch bei Badsanierungen kann das Entfernen einer Wand sinnvoll sein – wenn ein Bad vergrößert, ein WC integriert oder ein Abstellraum eingebunden werden soll. Radex bringt SHK-Meisterkompetenz ein und koordiniert Abdichtung, Trockenbau, Fliesen, Elektro und Malerarbeiten in der richtigen Reihenfolge.
-      </p>
-    ),
-  },
-  {
-    title: 'Staubschutz, Lärm und Schutz der bewohnten Immobilie',
-    content: (
-      <p className="text-gray-600">
-        Beim Entfernen einer Wand entstehen Staub, Lärm und Bauschutt. Besonders in bewohnten Häusern und Eigentumswohnungen ist ein sauberer Baustellenschutz wichtig. Radex plant Abdeckungen, Staubschutz, Arbeitszeiten und Schutz der Umgebung mit ein.
-      </p>
-    ),
-  },
-  {
-    title: 'Anschlussarbeiten nach dem Wanddurchbruch',
-    content: (
-      <p className="text-gray-600">
-        Der eigentliche Wanddurchbruch ist nur ein Teil des Projekts. Typische Anschlussarbeiten sind das Schließen von Bodenlücken, Verputzen von Wandflächen, Verspachteln von Deckenanschlüssen, Streichen, Anpassen von Sockelleisten, Erneuern von Bodenbelägen und Umlegen von Steckdosen. Radex koordiniert die Anschlussgewerke so, dass der Raum fertig nutzbar ist.
-      </p>
-    ),
-  },
-  {
-    title: 'Wand entfernen in Eigentumswohnungen',
-    content: (
-      <p className="text-gray-600">
-        In Eigentumswohnungen gelten besondere Anforderungen. Teilungserklärung, Hausordnung, Pläne und Vorgaben der Eigentümergemeinschaft sollten geprüft werden. Bei tragenden Eingriffen ist häufig eine Zustimmung erforderlich. Radex koordiniert die handwerkliche Seite und bindet bei Bedarf Fachplaner ein.
-      </p>
-    ),
-  },
-  {
-    title: 'Tragende Wand öffnen – was fachlich dazugehört',
-    content: (
-      <p className="text-gray-600">
-        Wenn eine tragende Wand geöffnet werden soll, legt ein Tragwerksplaner fest, wie die Last abgefangen wird. Typische Maßnahmen können temporäre Abstützungen, ein Stahlträger oder Betonsturz sein. Radex koordiniert diese Schritte mit den beteiligten Fachkräften – ersetzt aber keinen Statiker.
-      </p>
-    ),
-  },
-  {
-    title: 'Nicht tragende Wand entfernen',
-    content: (
-      <p className="text-gray-600">
-        Nicht tragende Wände sind in vielen Wohnungen reine Raumtrenner. Der Aufwand liegt oft weniger im Rückbau selbst, sondern in der Fertigstellung danach: Boden, Decke, Wandflächen, Sockelleisten, Elektrik und Oberflächen müssen sauber angepasst werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Wanddurchbruch bei Altbausanierung',
-    content: (
-      <p className="text-gray-600">
-        Altbauten bringen besondere Fragen mit: unklare Leitungen, unterschiedliche Baustoffe und mögliche Schadstoffe. Radex ist zertifiziert für Schimmel- und Asbestsanierung mit Sachkunde nach TRGS 519. Wenn bei einem Umbau Schadstoffverdacht besteht, wird dieser in den Ablauf integriert.
-      </p>
-    ),
-  },
-  {
-    title: 'Wanddurchbruch im Gewerbeobjekt',
-    content: (
-      <p className="text-gray-600">
-        Bei Gewerbeflächen geht es häufig um neue Nutzung: ein Büro soll offener werden, eine Praxis braucht andere Räume oder ein Ladenlokal soll umgebaut werden. Radex koordiniert Wanddurchbrüche mit Blick auf Nutzung, Ablauf und Übergabe.
-      </p>
-    ),
-  },
-  {
-    title: 'Kosten für Wand entfernen und Wanddurchbruch',
-    content: (
-      <p className="text-gray-600">
-        Die Kosten hängen von Wandart, Tragfunktion, Leitungen, Statik, Staubschutz, Entsorgung und Anschlussarbeiten ab. Seriöse Kosten lassen sich erst nach einer Bestandsaufnahme nennen. Radex gibt keine pauschalen Versprechen ohne Objektkenntnis.
-      </p>
-    ),
-  },
-  {
-    title: 'Typische Fehler beim Wand entfernen',
-    content: (
-      <p className="text-gray-600">
-        Häufige Fehler sind: keine Prüfung der Statik, keine Leitungsortung, fehlender Staubschutz, kein Plan für Bodenanschlüsse und zu spätes Einbinden von Trockenbau oder Malerarbeiten. Radex betrachtet den Wanddurchbruch als Umbauprojekt – Ziel ist ein fertiger Raum.
-      </p>
-    ),
-  },
-  {
-    title: 'Regionale Einsatzgebiete im Rhein-Main-Gebiet',
-    content: (
-      <p className="text-gray-600">
-        Radex ist in über 60 Städten im Rhein-Main-Gebiet aktiv – unter anderem Rödermark, Rodgau, Dietzenbach, Dreieich, Langen, Neu-Isenburg, Offenbach, Frankfurt, Darmstadt, Hanau, Seligenstadt und viele weitere Gemeinden.{' '}
-        <a href="/einsatzgebiete-rhein-main">Einsatzgebiete</a>.
-      </p>
-    ),
-  },
-  {
-    title: 'Verwandte Leistungen',
-    content: (
-      <ul className="space-y-2 text-gray-600">
-        <li><a href="/leistungen/innenausbau-umbau">Innenausbau & Umbau</a></li>
-        <li><a href="/trockenbau-rhein-main">Trockenbau</a></li>
-        <li><a href="/raeume-umbauen-rhein-main">Räume umbauen</a></li>
-        <li><a href="/innenausbau-wohnung-rhein-main">Innenausbau Wohnung</a></li>
-        <li><a href="/innenausbau-haus-rhein-main">Innenausbau Haus</a></li>
-        <li><a href="/generalunternehmer-rhein-main">Generalunternehmer</a></li>
-        <li><a href={RADEX_LIVE_URL}>Radex Live</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
-      </ul>
-    ),
-  },
-  {
-    title: 'Kann man jede Wand einfach entfernen?',
-    content: (
-      <p className="text-gray-600">
-        Nein. Vor dem Entfernen einer Wand muss geprüft werden, ob sie tragend ist, ob Leitungen darin verlaufen und ob Genehmigungen oder Zustimmungen notwendig sind.
-      </p>
-    ),
-  },
-  {
-    title: 'Wie erkenne ich, ob eine Wand tragend ist?',
-    content: (
-      <p className="text-gray-600">
-        Einige Merkmale können Hinweise geben, zum Beispiel Wandstärke, Material oder Lage im Grundriss. Sicher ist das aber erst nach Prüfung von Bauunterlagen und gegebenenfalls durch einen Tragwerksplaner.
-      </p>
-    ),
-  },
-  {
-    title: 'Brauche ich für einen Wanddurchbruch einen Statiker?',
-    content: (
-      <p className="text-gray-600">
-        Wenn die Wand tragend ist oder nicht sicher ausgeschlossen werden kann, dass sie tragend ist, sollte ein Tragwerksplaner eingebunden werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Was passiert, wenn Leitungen in der Wand verlaufen?',
-    content: (
-      <p className="text-gray-600">
-        Leitungen müssen vor dem Rückbau geortet, gesichert oder umgelegt werden. Elektroarbeiten dürfen nur durch Elektrofachkräfte ausgeführt werden. Heizungs- und Sanitärleitungen werden durch SHK-Fachleute bearbeitet.
-      </p>
-    ),
-  },
-  {
-    title: 'Kann Radex eine tragende Wand entfernen?',
-    content: (
-      <p className="text-gray-600">
-        Radex koordiniert Wanddurchbrüche auch bei tragenden Wänden, wenn die notwendige Fachplanung vorliegt. Die statische Berechnung übernimmt ein Tragwerksplaner.
-      </p>
-    ),
-  },
-  {
-    title: 'Kann ein Wanddurchbruch in einer bewohnten Wohnung erfolgen?',
-    content: (
-      <p className="text-gray-600">
-        Ja, das ist möglich, erfordert aber guten Staubschutz, klare Arbeitszeiten und eine gute Abstimmung. Radex plant solche Maßnahmen im Ablauf mit ein.
-      </p>
-    ),
-  },
-  {
-    title: 'Was ist bei Eigentumswohnungen zu beachten?',
-    content: (
-      <p className="text-gray-600">
-        Bei Eigentumswohnungen müssen Teilungserklärung, Gemeinschaftseigentum, Hausverwaltung und gegebenenfalls Zustimmung der Eigentümergemeinschaft geprüft werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Kann ein Wanddurchbruch mit einer Badsanierung kombiniert werden?',
-    content: (
-      <p className="text-gray-600">
-        Ja. Wenn ein Bad vergrößert oder ein Grundriss verändert werden soll, kann der Wanddurchbruch Teil der Badsanierung sein. Dabei müssen Sanitär, Abdichtung, Elektro, Fliesen und Trockenbau abgestimmt werden.
-      </p>
-    ),
-  },
-];
-
-function SharedCTABlock({ isHero = false, centered = false }) {
-  return (
-    <div
-      className={`br-hero-actions ${isHero ? '' : 'mt-8'}`}
-      style={{
-        display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: centered ? 'center' : 'flex-start',
-      }}
-    >
-      <a href="#kontakt" className="btn br-btn-orange">Kostenlose Beratung &rarr;</a>
-      <a
-        href="https://wa.me/496074960620"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn br-btn-whatsapp"
-      >
-        Fotos über WhatsApp senden <MessageSquare size={18} color="#25D366" style={{ marginLeft: '8px' }} />
-      </a>
-      <a
-        href="tel:+496074960620"
-        className="btn"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: isHero ? 'transparent' : '#fff',
-          border: isHero ? '1px solid #111827' : '1px solid #d1d5db',
-          color: '#111827',
-          padding: '12px 24px',
-          borderRadius: '4px',
-          fontWeight: 'bold',
-          textDecoration: 'none',
-        }}
-      >
-        <Phone size={18} /> Jetzt anrufen
-      </a>
-    </div>
-  );
-}
-
-function PremiumIconCards({ cards }) {
-  return (
-    <div className="br-nav-landing-grid">
-      {cards.map((card) => {
-        const Icon = card.icon;
-        return (
-          <div key={card.title} className="br-decision-card" style={{ cursor: 'default' }}>
-            <div className="br-decision-icon">
-              <Icon size={40} strokeWidth={1.5} />
-            </div>
-            <h3>{card.title}</h3>
-            <p>{card.desc}</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+const seoTocSections = [...wandEntfernenSeoSections, ...wandEntfernenSeoLinkSections];
 
 export default function WandEntfernenLanding() {
-  const [openFaq, setOpenFaq] = useState(null);
-  const [openSeo, setOpenSeo] = useState(null);
-
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   useSeo({
-    title: 'Wand entfernen im Rhein-Main-Gebiet | Räume öffnen | Radex',
-    description:
-      'Nichttragende Wände fachgerecht entfernen und moderne Wohnräume schaffen. Professionelle Planung und Umbauten im gesamten Rhein-Main-Gebiet.',
-    path: '/wand-entfernen-rhein-main',
+    title: META_TITLE,
+    description: META_DESCRIPTION,
+    path: PAGE_PATH,
     image: HERO_IMAGE,
-    jsonLd: [buildFaqSchema(faqsData)],
+    jsonLd: [
+      buildServiceSchema({
+        name: 'Wand entfernen Rhein-Main',
+        description: META_DESCRIPTION,
+        path: PAGE_PATH,
+      }),
+      buildBreadcrumbSchema(BREADCRUMBS),
+      buildFaqSchema(faqsData),
+    ],
   });
 
   return (
-    <main className="badsanierung-page">
+    <main className="badsanierung-page ablauf-badsanierung-page wand-entfernen-page">
+      {/* Hero */}
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
+              <Link to="/">Startseite</Link>
+              <span aria-hidden="true">↓</span>
+              <Link to="/innenausbau-umbau-rhein-main">Innenausbau & Umbau</Link>
+              <span aria-hidden="true">↓</span>
+              <span>Wand entfernen</span>
+            </nav>
+            <p className="br-hero-kicker">
+              <Construction size={16} strokeWidth={1.5} aria-hidden="true" /> Wand entfernen · Rhein-Main-Gebiet
+            </p>
             <h1 className="br-hero-title">
-              Wand entfernen im<br />
+              Wände entfernen im
+              <br />
               <span>Rhein-Main-Gebiet</span>
             </h1>
-            <p className="br-hero-subtitle">
-              Mehr Licht. Mehr Platz. Offene Wohnkonzepte.
+            <p className="br-hero-lead">
+              Professionelle Grundrissänderungen für Wohnungen, Häuser und Gewerbeimmobilien – sorgfältig geplant und
+              fachgerecht umgesetzt.
             </p>
             <p className="br-hero-text">
-              Das Entfernen nichttragender Wände schafft offene Grundrisse, mehr Tageslicht und ein völlig neues Wohngefühl. Radex prüft die baulichen Voraussetzungen und koordiniert sämtliche Arbeiten fachgerecht im Rahmen Ihrer Sanierung oder Modernisierung.
+              Offene Wohnbereiche und flexible Raumkonzepte gehören heute zu den häufigsten Modernisierungsmaßnahmen.
+              Durch den Rückbau geeigneter Innenwände lassen sich Räume neu strukturieren und an veränderte
+              Anforderungen anpassen.
             </p>
-            <p className="br-hero-text" style={{ fontSize: '14px', color: '#6b7280', marginTop: '12px' }}>
-              Hinweis: Tragende Wände dürfen nur nach fachlicher Prüfung und gegebenenfalls statischer Freigabe verändert werden.
+            <p className="br-hero-text">
+              Radex begleitet Ihr Projekt von der Bestandsaufnahme über die Planung bis zur Fertigstellung. Bei
+              Eingriffen in tragende Bauteile erfolgen Planung und Umsetzung ausschließlich nach fachlicher statischer
+              Prüfung und unter Berücksichtigung der jeweils erforderlichen Genehmigungen.
             </p>
-            <SharedCTABlock isHero />
-            <p className="br-hero-micro mt-4">
-              <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
+            <WandEntfernenCTA isHero />
+            <p className="br-hero-micro" style={{ marginTop: '16px' }}>
+              Professionelle Planung · Sichere Ausführung · Moderne Raumkonzepte
             </p>
           </div>
         </div>
-        <div className="br-hero-right" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
+        <div
+          className="br-hero-right"
+          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          role="img"
+          aria-label="Professionelle Grundrissänderung durch das Entfernen einer Innenwand im Rhein-Main-Gebiet"
+          title="Wand entfernen Rhein-Main | Radex Objektmanagement"
+        />
       </section>
 
+      {/* Einleitung */}
       <section className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Typische Umbauprojekte</h2>
+        <div className="container" style={{ maxWidth: '820px' }}>
+          <div className="text-center">
+            <h2 className="br-section-title">Mehr Raum durch intelligente Grundrissplanung</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: 0 }}>
+              Die Anforderungen an Wohn- und Arbeitsräume verändern sich. Offene Küchen, großzügige Wohnbereiche und
+              flexible Büroflächen ersetzen zunehmend klassische, kleinteilige Grundrisse. Der gezielte Rückbau
+              geeigneter Innenwände ermöglicht eine moderne Nutzung vorhandener Flächen.
+            </p>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginTop: '16px', marginBottom: 0 }}>
+              Radex plant und koordiniert Grundrissänderungen für Wohnungen, Einfamilienhäuser und Gewerbeimmobilien.
+              Dabei werden bestehende Gebäudestrukturen sorgfältig bewertet und sämtliche Ausbauarbeiten professionell
+              aufeinander abgestimmt.
+            </p>
           </div>
-          <PremiumIconCards cards={projectCards} />
         </div>
       </section>
 
+      {/* Warum Radex */}
       <section className="br-section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Warum Radex</h2>
+            <h2 className="br-section-title">Warum Radex?</h2>
           </div>
-          <PremiumIconCards cards={whyRadexCards} />
+          <PremiumIconCards cards={whyRadexCards} largeIcons />
         </div>
       </section>
 
+      {/* Qualitätsversprechen */}
       <section className="br-section br-bg-light">
         <div className="container">
-          <div className="text-center mb-8">
-            <h2 className="br-section-title">Kosten</h2>
-            <p className="br-section-subtitle" style={{ maxWidth: '720px', margin: '0 auto' }}>
-              Mit unserem Sanierungskosten-Rechner erhalten Sie eine erste Orientierung. Nach einer Besichtigung erstellen wir ein individuelles Festpreisangebot.
-            </p>
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Qualitätsversprechen</h2>
           </div>
+          <PremiumIconCards cards={qualityCards} largeIcons />
         </div>
-        <SanierungskostenRechner defaultType="wohnung" compact />
       </section>
 
-      <section className="br-section">
+      <SectionTransition>
+        Von der Planung bis zur fertigen Raumlösung – im nächsten Abschnitt finden Sie einen Überblick über unsere
+        Leistungen rund um Wand entfernen und Grundrissänderungen.
+      </SectionTransition>
+
+      {/* Unsere Leistungen */}
+      <section id="leistungen" className="br-section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Radex Live</h2>
-            <p className="br-section-subtitle">Schauen Sie uns bei der Arbeit über die Schulter.</p>
+            <h2 className="br-section-title">Unsere Leistungen</h2>
+          </div>
+          <div className="br-leistungen-grid-three">
+            <PremiumIconCards cards={leistungenCards} linked largeIcons />
+          </div>
+        </div>
+      </section>
+
+      <SectionTransition>
+        Neben dem eigentlichen Wandrückbau gehören Anschlussarbeiten zum neuen Grundriss. Die folgenden typischen
+        Leistungen werden bei Bedarf koordiniert.
+      </SectionTransition>
+
+      {/* Typische Leistungen */}
+      <section className="br-section br-bg-light">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Typische Leistungen</h2>
+          </div>
+          <PremiumIconCards cards={typischeLeistungenCards} largeIcons />
+        </div>
+      </section>
+
+      <SectionTransition>
+        Ein klar strukturierter Projektablauf schafft Planungssicherheit – von der ersten Beratung bis zur bezugsfertigen
+        Übergabe.
+      </SectionTransition>
+
+      <HorizontalProcessTimeline
+        title="Projektablauf"
+        intro="Von der Erstberatung bis zur bezugsfertigen Übergabe – so begleiten wir Ihre Grundrissänderung Schritt für Schritt."
+        steps={processSteps}
+      />
+
+      {/* Einsatzbereiche */}
+      <section className="br-section br-bg-light">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Einsatzbereiche</h2>
+          </div>
+          <PremiumIconCards cards={einsatzbereicheCards} largeIcons />
+        </div>
+      </section>
+
+      {/* Ansprechpartner */}
+      <section id="kontakt" className="br-section br-dept-contact-section">
+        <div className="container">
+          <div className="text-center mb-12" style={{ maxWidth: '760px', margin: '0 auto' }}>
+            <h2 className="br-section-title">Ansprechpartner</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: '8px' }}>
+              <strong>Das Team Grundrissänderungen</strong>
+            </p>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Unsere Projektleitung begleitet Ihr Vorhaben von der ersten Beratung bis zur fertigen Raumlösung. Alle
+              beteiligten Gewerke werden zentral koordiniert und aufeinander abgestimmt.
+            </p>
           </div>
 
+          <div className="br-ablauf-contact-cards">
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon">
+                <Phone size={24} strokeWidth={1.5} />
+              </div>
+              <h3>Telefon</h3>
+              <p>+49 (0) 6074 960620</p>
+              <a href={PHONE_TEL} className="br-ablauf-contact-number">
+                06074 960620
+              </a>
+            </div>
+
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon">
+                <Mail size={24} strokeWidth={1.5} />
+              </div>
+              <h3>E-Mail</h3>
+              <p>Schreiben Sie uns Ihre Anfrage.</p>
+              <a href="mailto:info@radex-objektmanagement.de" className="br-ablauf-contact-number">
+                info@radex-objektmanagement.de
+              </a>
+            </div>
+
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon br-ablauf-contact-icon--wa">
+                <MessageCircle size={24} strokeWidth={1.5} />
+              </div>
+              <h3>WhatsApp</h3>
+              <p>
+                Senden Sie Fotos, Skizzen oder Grundrisse Ihrer Immobilie und erhalten Sie eine unverbindliche
+                Ersteinschätzung.
+              </p>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
+                WhatsApp öffnen
+              </a>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <a href="#kontakt" className="btn br-btn-orange">
+              Kostenlose Erstberatung
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Bernd erklärt */}
+      <section id="video" className="br-section br-bg-light br-ablauf-video-section">
+        <div className="container br-ablauf-video-container">
+          <div className="text-center mb-10">
+            <p className="br-hero-kicker">Bernd erklärt</p>
+            <h2 className="br-section-title">Wann kann eine Wand entfernt werden?</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Bernd erklärt den Unterschied zwischen tragenden und nichttragenden Wänden sowie den typischen Ablauf einer
+              professionellen Grundrissänderung.
+            </p>
+            <p className="br-hero-micro">Dauer: ca. 2 Minuten</p>
+          </div>
           <div
-            className="br-project-img mb-10"
-            style={{
-              backgroundImage: `url(${LIVE_IMAGE})`,
-              height: '420px',
-              borderRadius: '8px',
-            }}
-          />
-
-          <div className="br-projects-grid">
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: `url(${LIVE_IMAGE})` }}>
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Offene Wohnküche</h4>
-                <p>Frankfurt am Main</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(/img/wohnzimmer.webp)' }}>
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Wanddurchbruch Wohnbereich</h4>
-                <p>Offenbach</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div className="br-project-img" style={{ backgroundImage: 'url(/img/boden.webp)' }}>
-                <span className="br-project-badge">Abgeschlossen</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Grundrissmodernisierung</h4>
-                <p>Darmstadt</p>
-              </div>
-            </a>
+            className="br-ablauf-video-frame br-bw-video-placeholder"
+            style={{ backgroundImage: `url(${VIDEO_POSTER})` }}
+            role="img"
+            aria-label="Bernd erklärt die professionelle Planung einer Grundrissänderung im Rhein-Main-Gebiet"
+          >
+            <div className="br-bw-video-placeholder-overlay">
+              <span className="br-bw-video-placeholder-play" aria-hidden="true" />
+              <p>Video folgt in Kürze</p>
+            </div>
           </div>
-
-          <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
-              Alle Projekte ansehen
-            </a>
-            <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
-              Projekt anfragen
-            </a>
+          <div className="br-ablauf-video-transcript">
+            <h3>Platzhalter-Skript</h3>
+            <p>{videoTranscript}</p>
           </div>
         </div>
       </section>
 
-      <section className="br-section br-bg-light">
+      {/* Google Bewertungen */}
+      <ReviewsMarquee />
+
+      {/* CTA */}
+      <section className="br-section br-gwc-cta-section">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="br-section-title">Projektablauf</h2>
-          </div>
-          <div className="br-process-flow">
-            {processSteps.map((step, idx) => (
-              <div key={step} style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="br-process-step">
-                  <div className="br-step-number">{idx + 1}</div>
-                  <h4>{step}</h4>
-                </div>
-                {idx < processSteps.length - 1 && <ArrowRight className="br-step-arrow" size={24} />}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="br-section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Häufig gestellte Fragen</h2>
-          </div>
-          <div className="br-faq-grid">
-            {faqsData.map((faq, i) => (
-              <div key={faq.q} className="home-faq-item">
-                <button
-                  type="button"
-                  className="home-faq-btn"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                >
-                  <span style={{ fontWeight: 600, color: '#1f2937', fontSize: '16px', textAlign: 'left' }}>{faq.q}</span>
-                  <ChevronDown
-                    style={{
-                      transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }}
-                    color="#9ca3af"
-                    size={18}
-                  />
-                </button>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: openFaq === i ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                    padding: 0,
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ borderTop: '1px solid #f9fafb', padding: '16px', color: '#4b5563', fontSize: '15px', lineHeight: '1.6' }}>
-                      {faq.a}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="kontakt" className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center" style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <h2 className="br-section-title">Jetzt kostenlos beraten lassen</h2>
-            <p className="br-section-subtitle mb-8">
-              Sie möchten eine Wand entfernen, Küche und Wohnzimmer verbinden oder Ihren Grundriss modernisieren?
-              Senden Sie uns Fotos per WhatsApp oder vereinbaren Sie eine persönliche Beratung.
+          <div className="br-gwc-cta-box">
+            <h2>Sie möchten Ihren Grundriss modernisieren?</h2>
+            <p>
+              Ob Wohnung, Einfamilienhaus oder Gewerbeimmobilie – Radex begleitet Ihr Projekt von der ersten
+              Bestandsaufnahme bis zur fertigen Raumlösung. Mit einer sorgfältigen Planung und professionellen
+              Umsetzung schaffen wir moderne, funktionale und hochwertige Innenräume.
             </p>
-            <SharedCTABlock centered />
+            <WandEntfernenCTA centered />
           </div>
         </div>
       </section>
 
-      <section className="br-section">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Weitere Informationen</h2>
-          </div>
-          <div className="br-faq-grid">
-            {seoAccordions.map((item, i) => (
-              <div key={item.title} className="home-faq-item">
-                <button
-                  type="button"
-                  className="home-faq-btn"
-                  onClick={() => setOpenSeo(openSeo === i ? null : i)}
-                  aria-expanded={openSeo === i}
-                >
-                  <span style={{ fontWeight: 600, color: '#1f2937', fontSize: '16px', textAlign: 'left' }}>{item.title}</span>
-                  <ChevronDown
-                    style={{
-                      transform: openSeo === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }}
-                    color="#9ca3af"
-                    size={18}
-                  />
-                </button>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: openSeo === i ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ borderTop: '1px solid #f9fafb', padding: '16px', fontSize: '15px', lineHeight: '1.6' }}>
-                      {item.content}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SEO Leistungsbereich – Inhalt im Seiten-Drawer wie auf City-Seiten */}
+      <SeoKnowledgeDrawer
+        title="Unsere Leistungen im Bereich Wand entfernen"
+        intro={wandEntfernenSeoIntro}
+        sections={seoTocSections}
+        ctaLabel="Kostenlose Erstberatung"
+        ctaHref="#kontakt"
+        panelId="wand-entfernen-seo-panel"
+      />
+
+      <RadexLiveSection
+        title="Radex Live – Einblicke in Grundrissänderungen"
+        intro="Authentische Baustelleneinblicke aus dem Rhein-Main-Gebiet: Wanddurchbrüche, offene Wohnküchen, Grundrissänderungen und Trockenbau nach dem Rückbau."
+        projects={radexLiveProjects}
+      />
     </main>
   );
 }

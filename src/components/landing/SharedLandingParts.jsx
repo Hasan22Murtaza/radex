@@ -289,6 +289,7 @@ export function SeoTocSection({
 }) {
   const localSections = sections.filter((item) => !(item.href || item.to));
   const [activeId, setActiveId] = useState(() => localSections[0]?.id ?? null);
+  const [tocNavOpen, setTocNavOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.slice(1);
@@ -298,6 +299,33 @@ export function SeoTocSection({
     return showAllContent;
   });
   const contentRef = useRef(null);
+
+  useEffect(() => {
+    if (!showAllContent || localSections.length === 0) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0) {
+          const id = visible[0].target.id;
+          setActiveId(id);
+          if (window.location.hash.slice(1) !== id) {
+            window.history.replaceState(null, '', `#${id}`);
+          }
+        }
+      },
+      { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+
+    localSections.forEach((section) => {
+      const el = document.getElementById(section.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [showAllContent, localSections]);
 
   useEffect(() => {
     const hash = window.location.hash.slice(1);
@@ -382,63 +410,82 @@ export function SeoTocSection({
 
         <div
           id="br-seo-toc-panel"
-          className={`br-seo-toc-panel${isOpen ? ' is-open' : ''}`}
+          className={`br-seo-toc-panel${isOpen ? ' is-open' : ''}${showAllContent ? ' br-seo-toc-panel--knowledge' : ''}`}
           hidden={!isOpen}
         >
-          {!hideToc && (
-            <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
-              <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
-              <ol className="br-seo-toc-list">
-                {sections.map((item) => {
-                  const destination = buildDestination(item);
-                  const isActive = activeId === item.id;
-                  const linkClassName = isActive ? 'is-active' : undefined;
-
-                  if (destination) {
-                    return (
-                      <li key={item.id}>
-                        <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
-                          {item.title}
-                        </Link>
-                      </li>
-                    );
-                  }
-
-                  return (
-                    <li key={item.id}>
-                      <a
-                        href={`#${item.id}`}
-                        className={linkClassName}
-                        aria-current={isActive ? 'true' : undefined}
-                        onClick={(e) => handleTocClick(e, item.id)}
-                      >
-                        {item.title}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ol>
-            </nav>
-          )}
-
-          {contentItems.length > 0 && (
-            <div
-              className={`br-seo-toc-content${showAllContent || hideToc ? ' br-seo-toc-content--all' : ''}`}
-              ref={contentRef}
-            >
-              {contentItems.map((item) => (
-                <article
-                  key={item.id}
-                  id={item.id}
-                  className="br-seo-toc-article"
-                  hidden={!showAllContent && !hideToc && activeId !== item.id}
+          <div className={showAllContent ? 'br-seo-toc-layout' : undefined}>
+            {!hideToc && (
+              <nav className={`br-seo-toc${showAllContent ? ' br-seo-toc--sticky' : ''}`} aria-label="Inhaltsverzeichnis">
+                {showAllContent && (
+                  <button
+                    type="button"
+                    className={`br-seo-toc-mobile-toggle${tocNavOpen ? ' is-open' : ''}`}
+                    aria-expanded={tocNavOpen}
+                    aria-controls="br-seo-toc-mobile-list"
+                    onClick={() => setTocNavOpen((open) => !open)}
+                  >
+                    <span>Inhaltsverzeichnis</span>
+                    <ChevronDown size={20} aria-hidden="true" />
+                  </button>
+                )}
+                <div
+                  id="br-seo-toc-mobile-list"
+                  className={`br-seo-toc-nav-body${showAllContent && tocNavOpen ? ' is-open' : ''}`}
                 >
-                  <h3 className="br-seo-toc-article-title">{item.title}</h3>
-                  <div className="br-seo-toc-article-body">{item.content}</div>
-                </article>
-              ))}
-            </div>
-          )}
+                  <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
+                  <ol className="br-seo-toc-list">
+                    {sections.map((item) => {
+                      const destination = buildDestination(item);
+                      const isActive = activeId === item.id;
+                      const linkClassName = isActive ? 'is-active' : undefined;
+
+                      if (destination) {
+                        return (
+                          <li key={item.id}>
+                            <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
+                              {item.title}
+                            </Link>
+                          </li>
+                        );
+                      }
+
+                      return (
+                        <li key={item.id}>
+                          <a
+                            href={`#${item.id}`}
+                            className={linkClassName}
+                            aria-current={isActive ? 'true' : undefined}
+                            onClick={(e) => handleTocClick(e, item.id)}
+                          >
+                            {item.title}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              </nav>
+            )}
+
+            {contentItems.length > 0 && (
+              <div
+                className={`br-seo-toc-content${showAllContent || hideToc ? ' br-seo-toc-content--all' : ''}`}
+                ref={contentRef}
+              >
+                {contentItems.map((item) => (
+                  <article
+                    key={item.id}
+                    id={item.id}
+                    className="br-seo-toc-article"
+                    hidden={!showAllContent && !hideToc && activeId !== item.id}
+                  >
+                    <h3 className="br-seo-toc-article-title">{item.title}</h3>
+                    <div className="br-seo-toc-article-body">{item.content}</div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>
