@@ -131,7 +131,7 @@ export const schimmelAsbestSanierungSeoSections = [
           den erforderlichen Schutzmaßnahmen durchgeführt werden.
         </p>
         <p className={p}>
-          <Link to="/asbestsanierung-rhein-main#bodenbelaege-klebstoffe">
+          <Link to="/asbestsanierung-rhein-main#bodenbelaege">
             Asbestsanierung von Bodenbelägen und Klebstoffen
           </Link>
         </p>
@@ -152,7 +152,7 @@ export const schimmelAsbestSanierungSeoSections = [
           Bauteile.
         </p>
         <p className={p}>
-          <Link to="/asbestsanierung-rhein-main#fassade-dach">Asbestsanierung an Fassade und Dach</Link>
+          <Link to="/asbestsanierung-rhein-main#fassadenplatten">Asbestsanierung an Fassade und Dach</Link>
         </p>
       </>
     ),
@@ -314,7 +314,7 @@ export const schimmelAsbestSanierungSeoSections = [
           freigegeben.
         </p>
         <p className={p}>
-          <Link to="/asbestsanierung-rhein-main#freigabe">Freigabe nach der Asbestsanierung</Link>
+          <Link to="/asbestsanierung-rhein-main#abschlusskontrolle">Freigabe nach der Asbestsanierung</Link>
         </p>
       </>
     ),

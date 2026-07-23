@@ -28,8 +28,9 @@ import HouseRenovation from './pages/HouseRenovation';
 import HistoricBuildingRenovation from './pages/HistoricBuildingRenovation';
 import KomplettsanierungLanding from './pages/KomplettsanierungLanding';
 import GeneralContractor from './pages/GeneralContractor';
-import EnergyEfficientRenovation from './pages/EnergyEfficientRenovation';
-import CommercialRenovation from './pages/CommercialRenovation';
+import GeneralunternehmerSanierungLanding from './pages/GeneralunternehmerSanierungLanding';
+import EnergetischeSanierungLanding from './pages/EnergetischeSanierungLanding';
+import GewerbeObjektsanierungLanding from './pages/GewerbeObjektsanierungLanding';
 import GewerbesanierungLanding from './pages/GewerbesanierungLanding';
 import HeizungSanitaerHub from './pages/HeizungSanitaerHub';
 import InnenausbauUmbauHub from './pages/InnenausbauUmbauHub';
@@ -43,17 +44,24 @@ import SchnellsanierungLanding from './pages/SchnellsanierungLanding';
 import WandEntfernenLanding from './pages/WandEntfernenLanding';
 import TrockenbauLanding from './pages/TrockenbauLanding';
 import InnenausbauWohnungLanding from './pages/InnenausbauWohnungLanding';
+import InnenausbauHausLanding from './pages/InnenausbauHausLanding';
 import TeilsanierungLanding from './pages/TeilsanierungLanding';
 import KernsanierungLanding from './pages/KernsanierungLanding';
 import MieterausbauLanding from './pages/MieterausbauLanding';
+import BueroumbauLanding from './pages/BueroumbauLanding';
 import SicherungskastenErneuernLanding from './pages/SicherungskastenErneuernLanding';
+import ElektroinstallationLanding from './pages/ElektroinstallationLanding';
+import AltbauElektrikErneuernLanding from './pages/AltbauElektrikErneuernLanding';
+import BauleitungProjektsteuerungLanding from './pages/BauleitungProjektsteuerungLanding';
 import NotfallSoforthilfeHub from './pages/NotfallSoforthilfeHub';
 import SanierungFoerderungLanding from './pages/SanierungFoerderungLanding';
+import EnergieeffizienzLanding from './pages/EnergieeffizienzLanding';
+import EnergieFoerderungLanding from './pages/EnergieFoerderungLanding';
+import ElektrotechnikGebaeudetechnikLanding from './pages/ElektrotechnikGebaeudetechnikLanding';
 import WaermepumpeLanding from './pages/WaermepumpeLanding';
 import MoldRemediation from './pages/MoldRemediation';
-import AsbestosRemoval from './pages/AsbestosRemoval';
+import AsbestsanierungLanding from './pages/AsbestsanierungLanding';
 import HeatingPlumbing from './pages/HeatingPlumbing';
-import ElectricalServices from './pages/ElectricalServices';
 import InnenausbauUmbauLanding from './pages/InnenausbauUmbauLanding';
 import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
@@ -88,8 +96,15 @@ const migratedServiceSlugs = Object.keys(migratedServices.pages).filter(
     slug !== 'komplettsanierung-rhein-main' &&
     slug !== 'sicherungskasten-erneuern-rhein-main' &&
     slug !== 'sanierung-foerderung-rhein-main' &&
+    slug !== 'energieeffizienz-rhein-main' &&
     slug !== 'mieterausbau-rhein-main' &&
-    slug !== 'innenausbau-wohnung-rhein-main',
+    slug !== 'bueroumbau-rhein-main' &&
+    slug !== 'innenausbau-wohnung-rhein-main' &&
+    slug !== 'innenausbau-haus-rhein-main' &&
+    slug !== 'energetische-sanierung-rhein-main' &&
+    slug !== 'elektroinstallation-rhein-main' &&
+    slug !== 'altbau-elektrik-erneuern-rhein-main' &&
+    slug !== 'bauleitung-projektsteuerung-rhein-main',
 );
 
 function ScrollAndAnimationManager() {
@@ -191,7 +206,7 @@ export default function App({ location }) {
           <Route path="/leistungen/innenausbau-umbau" element={<InnenausbauUmbauHub />} />
           <Route path="/leistungen/schimmel-asbest" element={<SchimmelAsbestHub />} />
           {Object.keys(leistungenCategories)
-            .filter((categoryId) => categoryId !== 'heizung-sanitaer' && categoryId !== 'innenausbau-umbau' && categoryId !== 'schimmel-asbest')
+            .filter((categoryId) => categoryId !== 'heizung-sanitaer' && categoryId !== 'innenausbau-umbau' && categoryId !== 'schimmel-asbest' && categoryId !== 'energie-foerderung' && categoryId !== 'elektrotechnik')
             .map((categoryId) => (
             <Route
               key={categoryId}
@@ -208,22 +223,30 @@ export default function App({ location }) {
           ))}
           <Route path="/komplettsanierung-rhein-main" element={<KomplettsanierungLanding />} />
           <Route path="/generalunternehmer-rhein-main" element={<GeneralContractor />} />
-          <Route path="/energetische-sanierung-rhein-main" element={<EnergyEfficientRenovation />} />
+          <Route path="/generalunternehmer-sanierung-rhein-main" element={<GeneralunternehmerSanierungLanding />} />
+          <Route path="/energetische-sanierung-rhein-main" element={<EnergetischeSanierungLanding />} />
           <Route path="/gewerbesanierung-rhein-main" element={<GewerbesanierungLanding />} />
           <Route path="/mieterausbau-rhein-main" element={<MieterausbauLanding />} />
-          <Route path="/gewerbe-objektsanierung-rhein-main" element={<CommercialRenovation />} />
+          <Route path="/bueroumbau-rhein-main" element={<BueroumbauLanding />} />
+          <Route path="/gewerbe-objektsanierung-rhein-main" element={<GewerbeObjektsanierungLanding />} />
           <Route path="/schimmel-asbest-sanierung-rhein-main" element={<SchimmelAsbestSanierungLanding />} />
           <Route path="/schimmelsanierung-rhein-main" element={<MoldRemediation />} />
           <Route path="/schadstoffsanierung-rhein-main" element={<SchadstoffsanierungLanding />} />
-          <Route path="/asbestsanierung-rhein-main" element={<AsbestosRemoval />} />
+          <Route path="/asbestsanierung-rhein-main" element={<AsbestsanierungLanding />} />
           <Route path="/heizung-sanitaer-rhein-main" element={<HeatingPlumbing />} />
           <Route path="/waermepumpe-rhein-main" element={<WaermepumpeLanding />} />
-          <Route path="/elektroinstallation-rhein-main" element={<ElectricalServices />} />
+          <Route path="/elektroinstallation-rhein-main" element={<ElektroinstallationLanding />} />
+          <Route path="/altbau-elektrik-erneuern-rhein-main" element={<AltbauElektrikErneuernLanding />} />
+          <Route path="/bauleitung-projektsteuerung-rhein-main" element={<BauleitungProjektsteuerungLanding />} />
           <Route path="/sicherungskasten-erneuern-rhein-main" element={<SicherungskastenErneuernLanding />} />
+          <Route path="/energie-foerderung" element={<EnergieFoerderungLanding />} />
+          <Route path="/elektrotechnik-gebaeudetechnik" element={<ElektrotechnikGebaeudetechnikLanding />} />
+          <Route path="/energieeffizienz-rhein-main" element={<EnergieeffizienzLanding />} />
           <Route path="/sanierung-foerderung-rhein-main" element={<SanierungFoerderungLanding />} />
           <Route path="/wand-entfernen-rhein-main" element={<WandEntfernenLanding />} />
           <Route path="/trockenbau-rhein-main" element={<TrockenbauLanding />} />
           <Route path="/innenausbau-wohnung-rhein-main" element={<InnenausbauWohnungLanding />} />
+          <Route path="/innenausbau-haus-rhein-main" element={<InnenausbauHausLanding />} />
           <Route path="/teilsanierung-rhein-main" element={<TeilsanierungLanding />} />
           <Route path="/kernsanierung-rhein-main" element={<KernsanierungLanding />} />
           <Route path="/schnellsanierung-rhein-main" element={<SchnellsanierungLanding />} />

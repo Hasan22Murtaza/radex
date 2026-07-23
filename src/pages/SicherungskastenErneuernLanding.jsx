@@ -64,7 +64,7 @@ const META_DESCRIPTION =
 
 const BREADCRUMBS = [
   { name: 'Startseite', path: '/' },
-  { name: 'Elektrotechnik', path: '/leistungen/elektrotechnik' },
+  { name: 'Elektrotechnik', path: '/elektrotechnik-gebaeudetechnik' },
   { name: 'Sicherungskasten erneuern', path: PAGE_PATH },
 ];
 
@@ -386,7 +386,7 @@ export default function SicherungskastenErneuernLanding() {
             <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
               <Link to="/">Startseite</Link>
               <span aria-hidden="true">↓</span>
-              <Link to="/leistungen/elektrotechnik">Elektrotechnik</Link>
+              <Link to="/elektrotechnik-gebaeudetechnik">Elektrotechnik</Link>
               <span aria-hidden="true">↓</span>
               <span>Sicherungskasten erneuern</span>
             </nav>

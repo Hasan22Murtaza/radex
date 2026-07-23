@@ -402,7 +402,7 @@ export const ratgeberArticles = [
       { heading: 'Planung mitdenken', paragraphs: ['Elektro sollte vor Fliesen und Trockenbau geplant werden – sonst werden Wände später wieder geöffnet.'] },
     ],
     faqs: [],
-    serviceLinks: [{ label: 'Elektrotechnik', to: '/leistungen/elektrotechnik' }],
+    serviceLinks: [{ label: 'Elektrotechnik', to: '/elektrotechnik-gebaeudetechnik' }],
   }),
   articleBase({
     slug: 'energetische-sanierung-im-bestand',
@@ -435,7 +435,7 @@ export const ratgeberArticles = [
       { heading: 'Dämmung', paragraphs: ['Gedämmte Hülle reduziert Wärmeverluste – wichtig für jede Heiztechnik.'] },
     ],
     faqs: [],
-    serviceLinks: [{ label: 'Energie & Förderung', to: '/leistungen/energie-foerderung' }],
+    serviceLinks: [{ label: 'Energie & Förderung', to: '/energie-foerderung' }],
   }),
   articleBase({
     slug: 'sanierung-foerderung-vor-baustart-pruefen',

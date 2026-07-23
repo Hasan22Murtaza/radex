@@ -108,7 +108,7 @@ const seoAccordions = [
           <a href="/heizung-sanitaer-rhein-main">Heizungsmodernisierung</a> ·{' '}
           <a href="/sanitaerinstallation-rhein-main">Sanitärinstallation</a> ·{' '}
           <a href="/energetische-sanierung-rhein-main">Energetische Sanierung</a> ·{' '}
-          <a href="/leistungen/energie-foerderung">Energie & Förderung</a> ·{' '}
+          <a href="/energie-foerderung">Energie & Förderung</a> ·{' '}
           <a href="/haussanierung-rhein-main">Haussanierung</a> ·{' '}
           <a href="/komplettsanierung-rhein-main">Komplettsanierung</a> ·{' '}
           <a href="/generalunternehmer-rhein-main">Generalunternehmer</a> ·{' '}
@@ -305,7 +305,7 @@ const seoAccordions = [
         </ul>
         <p className="text-gray-600">
           Förderprogramme können je nach Maßnahme eine Rolle spielen. Für verbindliche Förderberatung sollte ein zugelassener Energieberater eingebunden werden. Mehr zu{' '}
-          <a href="/leistungen/energie-foerderung">Energie & Förderung</a> und{' '}
+          <a href="/energie-foerderung">Energie & Förderung</a> und{' '}
           <a href="/energetische-sanierung-rhein-main">Energetische Sanierung</a>.
         </p>
       </>
@@ -433,7 +433,7 @@ const seoAccordions = [
         <li><a href="/heizung-sanitaer-rhein-main">Heizungsmodernisierung</a></li>
         <li><a href="/sanitaerinstallation-rhein-main">Sanitärinstallation</a></li>
         <li><a href="/heizung-sanitaer-rhein-main">Fußbodenheizung</a></li>
-        <li><a href="/leistungen/energie-foerderung">Energie & Förderung</a></li>
+        <li><a href="/energie-foerderung">Energie & Förderung</a></li>
         <li><a href="/badsanierung-rhein-main">Badsanierung</a></li>
         <li><a href="/generalunternehmer-rhein-main">Generalunternehmer</a></li>
         <li><a href={RADEX_LIVE_URL}>Radex Live</a></li>

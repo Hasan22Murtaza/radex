@@ -87,15 +87,38 @@ const routes = {
       'Komplettsanierung im Rhein-Main-Gebiet für Haus, Wohnung und Gewerbe. Radex koordiniert alle Gewerke – mit einem Ansprechpartner von der Planung bis zur Übergabe.',
   },
   '/generalunternehmer-rhein-main': { title: 'Generalunternehmer Rhein-Main | Sanierung aus einer Hand | Radex', description: 'Generalunternehmer im Rhein-Main-Gebiet: ein Vertragspartner, ein Festpreis, ein Bauleiter für Ihr gesamtes Sanierungsprojekt. 5 Jahre Gewährleistung. Jetzt anfragen!' },
-  '/energetische-sanierung-rhein-main': { title: 'Energetische Sanierung Rhein-Main | Förderung & Wärmepumpe | Radex', description: 'Energetische Sanierung im Rhein-Main-Gebiet: Dämmung, Fenster, Wärmepumpe & Förderung (BAFA/KfW) aus einer Hand. Heizkosten senken, Wert steigern. Jetzt Beratung sichern!' },
+  '/generalunternehmer-sanierung-rhein-main': {
+    title: 'Generalunternehmer & Sanierung Rhein-Main | Radex Objektmanagement',
+    description:
+      'Generalunternehmer für Sanierungen im Rhein-Main-Gebiet. Komplettsanierung, Kernsanierung, Teilsanierung sowie Bauleitung und Projektsteuerung – alles aus einer Hand mit Radex Objektmanagement.',
+  },
+  '/energetische-sanierung-rhein-main': {
+    title: 'Energetische Sanierung Rhein-Main | Energie sparen & Immobilie modernisieren | Radex',
+    description:
+      'Energetische Sanierung im Rhein-Main-Gebiet. Gebäude modernisieren, Energiekosten senken und den Wohnkomfort nachhaltig verbessern.',
+  },
   '/gewerbesanierung-rhein-main': { title: 'Gewerbesanierung im Rhein-Main-Gebiet | Gewerbe modernisieren | Radex', description: 'Professionelle Gewerbesanierung für Praxen, Ladenlokale, Restaurants und Gewerbeflächen im Rhein-Main-Gebiet. Planung, Koordination und Ausführung aus einer Hand.' },
   '/mieterausbau-rhein-main': { title: 'Mieterausbau Rhein-Main | Individuelle Gewerbeflächen schlüsselfertig ausbauen', description: 'Mieterausbau im Rhein-Main-Gebiet für Büros, Praxen, Ladenlokale und Gewerbeflächen. Individuelle Ausbaukonzepte und schlüsselfertige Umsetzung.' },
-  '/gewerbe-objektsanierung-rhein-main': { title: 'Gewerbesanierung Rhein-Main | Büro, Praxis & Ladenbau | Radex', description: 'Gewerbe- & Objektsanierung im Rhein-Main-Gebiet: Büroumbau, Praxis, Gastronomie, Einzelhandel & Mieterausbau mit minimaler Betriebsunterbrechung. Jetzt Projekt besprechen!' },
+  '/bueroumbau-rhein-main': { title: 'Büroumbau Rhein-Main | Moderne Büros professionell umbauen', description: 'Büroumbau im Rhein-Main-Gebiet für Unternehmen jeder Größe. Moderne Arbeitswelten, neue Raumkonzepte und professionelle Umsetzung aus einer Hand.' },
+  '/gewerbe-objektsanierung-rhein-main': { title: 'Gewerbe- & Objektsanierung Rhein-Main | Büroumbau, Gewerbesanierung & Mieterausbau', description: 'Gewerbe- & Objektsanierung im Rhein-Main-Gebiet für Büros, Gewerbeimmobilien, Praxen und Ladenlokale. Planung, Umbau, Sanierung und Modernisierung aus einer Hand.' },
   '/schadstoffsanierung-rhein-main': { title: 'Schadstoffsanierung Rhein-Main | Fachgerechte Gebäudeschadstoffe sanieren', description: 'Professionelle Schadstoffsanierung im Rhein-Main-Gebiet. Koordination von Untersuchung, Sanierung, Rückbau und Wiederherstellung für Gewerbe- und Wohnimmobilien.' },
   '/schimmelsanierung-rhein-main': { title: 'Schimmelsanierung Rhein-Main | Schimmel fachgerecht beseitigen', description: 'Professionelle Schimmelsanierung im Rhein-Main-Gebiet. Ursachenanalyse, Feuchtigkeitsschäden beseitigen, Schimmel entfernen und Räume fachgerecht wiederherstellen.' },
-  '/asbestsanierung-rhein-main': { title: 'Asbestsanierung Rhein-Main | TRGS 519 zertifiziert | Radex', description: 'Asbestsanierung im Rhein-Main-Gebiet: sichere Entfernung & Entsorgung von Asbest und Gefahrstoffen nach TRGS 519, vollständig dokumentiert. Jetzt Beratung anfragen!' },
+  '/asbestsanierung-rhein-main': {
+    title: 'Asbestsanierung Rhein-Main | Fachgerechte Entfernung asbesthaltiger Baustoffe',
+    description:
+      'Professionelle Asbestsanierung im Rhein-Main-Gebiet. Koordination von Untersuchung, Rückbau, Entsorgung und Wiederherstellung mit qualifizierten Fachpartnern.',
+  },
   '/heizung-sanitaer-rhein-main': { title: 'Heizung & Sanitär Rhein-Main | Wärmepumpe vom SHK-Meister | Radex', description: 'Heizung & Sanitär im Rhein-Main-Gebiet vom SHK-Meisterbetrieb: Wärmepumpe, Heizungstausch, Fußbodenheizung & Sanitärinstallation inkl. Förderung. Jetzt Beratung sichern!' },
-  '/elektroinstallation-rhein-main': { title: 'Elektrotechnik Rhein-Main | Elektroinstallation & Smart Home | Radex', description: 'Elektrotechnik im Rhein-Main-Gebiet: Elektroinstallation, Zählerschrank, Wallbox, PV-Vorbereitung & Smart Home nach VDE. Sicher & zukunftsfähig. Jetzt Beratung sichern!' },
+  '/elektroinstallation-rhein-main': {
+    title: 'Elektroinstallation Rhein-Main | Moderne Elektroinstallationen | Radex',
+    description:
+      'Professionelle Elektroinstallationen für Neubau, Umbau und Sanierung im Rhein-Main-Gebiet. Moderne Stromversorgung, strukturierte Planung und zuverlässige Projektkoordination.',
+  },
+  '/bauleitung-projektsteuerung-rhein-main': {
+    title: 'Bauleitung & Projektsteuerung Rhein-Main | Sanierungsprojekte professionell koordinieren | Radex',
+    description:
+      'Bauleitung und Projektsteuerung im Rhein-Main-Gebiet. Radex koordiniert Sanierungsprojekte, organisiert alle Gewerke und begleitet Ihr Bauvorhaben von der Planung bis zur Übergabe.',
+  },
   '/innenausbau-umbau-rhein-main': { title: 'Innenausbau & Umbau Rhein-Main | Radex Objektmanagement', description: 'Professioneller Innenausbau und Umbau im Rhein-Main-Gebiet. Trockenbau, Grundrissänderungen, Wohnungs- und Hausumbau sowie komplette Innenausbauprojekte aus einer Hand.' },
   '/raeume-umbauen-rhein-main': { title: 'Räume umbauen im Rhein-Main-Gebiet | Grundriss modernisieren | Radex', description: 'Räume professionell umbauen und Wohnflächen optimal nutzen. Grundrisse modernisieren, Wohnkomfort steigern und Umbauten fachgerecht umsetzen – alles aus einer Hand im Rhein-Main-Gebiet.' },
   '/notfall-soforthilfe-rhein-main': { title: 'Notfall & Soforthilfe Rhein-Main | Schnelle Sanierung | Radex', description: 'Schnelle Hilfe bei dringenden Sanierungen im Rhein-Main-Gebiet. Ob Wasserschaden, beschädigtes Bad oder kurzfristige Sanierungsmaßnahmen – Radex koordiniert die komplette Umsetzung.' },
@@ -108,7 +131,18 @@ const routes = {
   '/teilsanierung-rhein-main': { title: 'Teilsanierung Rhein-Main | Einzelne Bereiche professionell sanieren | Radex', description: 'Teilsanierung im Rhein-Main-Gebiet für Häuser, Wohnungen und Gewerbeimmobilien. Radex modernisiert gezielt einzelne Bereiche Ihrer Immobilie – professionell geplant und fachgerecht umgesetzt.' },
   '/kernsanierung-rhein-main': { title: 'Kernsanierung Rhein-Main | Haus & Wohnung grundlegend sanieren | Radex', description: 'Kernsanierung im Rhein-Main-Gebiet für Häuser, Wohnungen und Gewerbeimmobilien. Radex erneuert Bestandsimmobilien mit einem festen Ansprechpartner und koordinierter Projektabwicklung.' },
   '/sicherungskasten-erneuern-rhein-main': { title: 'Sicherungskasten erneuern Rhein-Main | Moderne Unterverteilung | Radex', description: 'Sicherungskasten erneuern im Rhein-Main-Gebiet. Moderne Unterverteilungen mit zeitgemäßer Schutztechnik für Wohn- und Gewerbeimmobilien.' },
+  '/altbau-elektrik-erneuern-rhein-main': {
+    title: 'Altbau Elektrik erneuern Rhein-Main | Elektroanlage modernisieren | Radex',
+    description:
+      'Altbau Elektrik erneuern im Rhein-Main-Gebiet. Moderne Elektroanlagen für mehr Sicherheit, Komfort und Zukunftssicherheit in Bestandsimmobilien.',
+  },
   '/sanierung-foerderung-rhein-main': { title: 'Sanierung Förderung Rhein-Main | KfW, BAFA & Fördermittel | Radex', description: 'Fördermöglichkeiten für energetische Sanierungen im Rhein-Main-Gebiet. Wir unterstützen Sie bei der Planung förderfähiger Sanierungsprojekte und koordinieren alle beteiligten Gewerke.' },
+  '/energieeffizienz-rhein-main': { title: 'Energieeffizienz Rhein-Main | Energieverbrauch dauerhaft senken | Radex', description: 'Mehr Energieeffizienz für Wohn- und Gewerbeimmobilien im Rhein-Main-Gebiet. Moderne Gebäudetechnik, intelligente Steuerung und nachhaltige Optimierung für dauerhaft niedrigere Energiekosten.' },
+  '/elektrotechnik-gebaeudetechnik': {
+    title: 'Elektrotechnik & Gebäudetechnik | Elektroarbeiten im Rhein-Main | Radex',
+    description:
+      'Elektrotechnik und Gebäudetechnik im Rhein-Main-Gebiet. Finden Sie die passende Leistung – von der Elektroinstallation über die Altbau-Elektrik bis zum neuen Sicherungskasten.',
+  },
   '/schnelle-badsanierung-rhein-main': { title: 'Schnelle Badsanierung im Rhein-Main-Gebiet | Modernes Bad | Radex', description: 'Komplettbadsanierung mit kurzer Bauzeit. Professionelle Planung, koordinierte Ausführung und moderne Badezimmer im gesamten Rhein-Main-Gebiet.' },
   '/waermepumpe-rhein-main': { title: 'Wärmepumpe im Rhein-Main-Gebiet | Beratung, Planung & Einbau | Radex', description: 'Wärmepumpe vom SHK-Meisterbetrieb. Beratung, Planung, Einbau und Fördermöglichkeiten für private Eigentümer im gesamten Rhein-Main-Gebiet. Jetzt kostenlos beraten lassen.' },
   '/ueber-uns': { title: 'Über Radex | SHK-Meisterbetrieb & Generalunternehmer im Rhein-Main-Gebiet', description: 'Lernen Sie Radex kennen. Über 40 Jahre Erfahrung als SHK-meistergeführter Fachbetrieb und Generalunternehmer für Badsanierung, Sanierung und Modernisierung im Rhein-Main-Gebiet.' },
@@ -152,8 +186,14 @@ const routes = {
           slug !== 'komplettsanierung-rhein-main' &&
           slug !== 'sicherungskasten-erneuern-rhein-main' &&
           slug !== 'sanierung-foerderung-rhein-main' &&
+          slug !== 'energieeffizienz-rhein-main' &&
           slug !== 'mieterausbau-rhein-main' &&
-          slug !== 'innenausbau-wohnung-rhein-main',
+          slug !== 'bueroumbau-rhein-main' &&
+          slug !== 'innenausbau-wohnung-rhein-main' &&
+          slug !== 'energetische-sanierung-rhein-main' &&
+          slug !== 'elektroinstallation-rhein-main' &&
+          slug !== 'altbau-elektrik-erneuern-rhein-main' &&
+          slug !== 'bauleitung-projektsteuerung-rhein-main',
       )
       .map(([slug, page]) => [
         `/${slug}`,

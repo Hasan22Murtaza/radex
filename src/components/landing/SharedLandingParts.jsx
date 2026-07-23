@@ -149,7 +149,24 @@ export function PremiumIconCards({ cards, linked = false, compactIcons = false, 
             )}
             <h3>{card.title}</h3>
             <p>{card.desc}</p>
-            {linked && <span className="br-btn-orange">{card.cta || 'Mehr erfahren'} &rarr;</span>}
+            {card.actions?.length > 0 && (
+              <div className="br-card-actions" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '12px' }}>
+                {card.actions.map((action) =>
+                  action.href ? (
+                    <a key={action.label} href={action.href} className="br-btn-orange" style={{ fontSize: '14px' }}>
+                      {action.label} &rarr;
+                    </a>
+                  ) : (
+                    <Link key={action.label} to={action.to} className="br-btn-orange" style={{ fontSize: '14px' }}>
+                      {action.label} &rarr;
+                    </Link>
+                  )
+                )}
+              </div>
+            )}
+            {linked && !card.actions?.length && (
+              <span className="br-btn-orange">{card.cta || 'Mehr erfahren'} &rarr;</span>
+            )}
           </>
         );
 
@@ -299,46 +316,34 @@ export function SeoTocSection({
   sections,
   showAllContent = false,
   hideToc = false,
+  panelId = 'seo-toc-knowledge-panel',
+  ctaLabel = 'Kostenlose Beratung anfragen',
+  ctaHref = '#kontakt',
 }) {
+  if (showAllContent) {
+    return (
+      <SeoKnowledgeDrawer
+        title={title}
+        intro={intro}
+        sections={sections}
+        showToc={!hideToc}
+        panelId={panelId}
+        ctaLabel={ctaLabel}
+        ctaHref={ctaHref}
+      />
+    );
+  }
+
   const localSections = sections.filter((item) => !(item.href || item.to));
   const [activeId, setActiveId] = useState(() => localSections[0]?.id ?? null);
-  const [tocNavOpen, setTocNavOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.slice(1);
       if (hash && sections.some((s) => s.id === hash || s.hash === hash)) return true;
     }
-    // Hub-style TOC starts collapsed; full knowledge pages start open
-    return showAllContent;
+    return false;
   });
   const contentRef = useRef(null);
-
-  useEffect(() => {
-    if (!showAllContent || localSections.length === 0) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length > 0) {
-          const id = visible[0].target.id;
-          setActiveId(id);
-          if (window.location.hash.slice(1) !== id) {
-            window.history.replaceState(null, '', `#${id}`);
-          }
-        }
-      },
-      { rootMargin: '-20% 0px -55% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
-    );
-
-    localSections.forEach((section) => {
-      const el = document.getElementById(section.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [showAllContent, localSections]);
 
   useEffect(() => {
     const hash = window.location.hash.slice(1);
@@ -354,7 +359,7 @@ export function SeoTocSection({
     setActiveId(match.id);
 
     const scrollToTarget = () => {
-      const el = document.getElementById(hash) || (showAllContent ? null : contentRef.current);
+      const el = document.getElementById(hash) || contentRef.current;
       if (!el) return;
       const headerOffset = 160;
       const top = el.getBoundingClientRect().top + window.pageYOffset - headerOffset;
@@ -371,7 +376,7 @@ export function SeoTocSection({
       if (attempts++ < 40) setTimeout(tryScroll, 50);
     };
     setTimeout(tryScroll, 80);
-  }, [sections, showAllContent]);
+  }, [sections]);
 
   const scrollToContent = useCallback(() => {
     requestAnimationFrame(() => {
@@ -384,13 +389,9 @@ export function SeoTocSection({
       e.preventDefault();
       setActiveId(id);
       window.history.replaceState(null, '', `#${id}`);
-      if (showAllContent) {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } else {
-        scrollToContent();
-      }
+      scrollToContent();
     },
-    [scrollToContent, showAllContent],
+    [scrollToContent],
   );
 
   const buildDestination = (item) => {
@@ -423,82 +424,62 @@ export function SeoTocSection({
 
         <div
           id="br-seo-toc-panel"
-          className={`br-seo-toc-panel${isOpen ? ' is-open' : ''}${showAllContent ? ' br-seo-toc-panel--knowledge' : ''}`}
+          className={`br-seo-toc-panel${isOpen ? ' is-open' : ''}`}
           hidden={!isOpen}
         >
-          <div className={showAllContent ? 'br-seo-toc-layout' : undefined}>
-            {!hideToc && (
-              <nav className={`br-seo-toc${showAllContent ? ' br-seo-toc--sticky' : ''}`} aria-label="Inhaltsverzeichnis">
-                {showAllContent && (
-                  <button
-                    type="button"
-                    className={`br-seo-toc-mobile-toggle${tocNavOpen ? ' is-open' : ''}`}
-                    aria-expanded={tocNavOpen}
-                    aria-controls="br-seo-toc-mobile-list"
-                    onClick={() => setTocNavOpen((open) => !open)}
-                  >
-                    <span>Inhaltsverzeichnis</span>
-                    <ChevronDown size={20} aria-hidden="true" />
-                  </button>
-                )}
-                <div
-                  id="br-seo-toc-mobile-list"
-                  className={`br-seo-toc-nav-body${showAllContent && tocNavOpen ? ' is-open' : ''}`}
-                >
-                  <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
-                  <ol className="br-seo-toc-list">
-                    {sections.map((item) => {
-                      const destination = buildDestination(item);
-                      const isActive = activeId === item.id;
-                      const linkClassName = isActive ? 'is-active' : undefined;
+          {!hideToc && (
+            <nav className="br-seo-toc" aria-label="Inhaltsverzeichnis">
+              <div className="br-seo-toc-nav-body">
+                <h3 className="br-seo-toc-heading">Inhaltsverzeichnis</h3>
+                <ol className="br-seo-toc-list">
+                  {sections.map((item) => {
+                    const destination = buildDestination(item);
+                    const isActive = activeId === item.id;
+                    const linkClassName = isActive ? 'is-active' : undefined;
 
-                      if (destination) {
-                        return (
-                          <li key={item.id}>
-                            <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
-                              {item.title}
-                            </Link>
-                          </li>
-                        );
-                      }
-
+                    if (destination) {
                       return (
                         <li key={item.id}>
-                          <a
-                            href={`#${item.id}`}
-                            className={linkClassName}
-                            aria-current={isActive ? 'true' : undefined}
-                            onClick={(e) => handleTocClick(e, item.id)}
-                          >
+                          <Link to={destination} className={linkClassName} aria-current={isActive ? 'true' : undefined}>
                             {item.title}
-                          </a>
+                          </Link>
                         </li>
                       );
-                    })}
-                  </ol>
-                </div>
-              </nav>
-            )}
+                    }
 
-            {contentItems.length > 0 && (
-              <div
-                className={`br-seo-toc-content${showAllContent || hideToc ? ' br-seo-toc-content--all' : ''}`}
-                ref={contentRef}
-              >
-                {contentItems.map((item) => (
-                  <article
-                    key={item.id}
-                    id={item.id}
-                    className="br-seo-toc-article"
-                    hidden={!showAllContent && !hideToc && activeId !== item.id}
-                  >
-                    <h3 className="br-seo-toc-article-title">{item.title}</h3>
-                    <div className="br-seo-toc-article-body">{item.content}</div>
-                  </article>
-                ))}
+                    return (
+                      <li key={item.id}>
+                        <a
+                          href={`#${item.id}`}
+                          className={linkClassName}
+                          aria-current={isActive ? 'true' : undefined}
+                          onClick={(e) => handleTocClick(e, item.id)}
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ol>
               </div>
-            )}
-          </div>
+            </nav>
+          )}
+
+          {contentItems.length > 0 && (
+            <div className="br-seo-toc-content" ref={contentRef}>
+              {contentItems.map((item) => (
+                <article
+                  key={item.id}
+                  id={item.id}
+                  className="br-seo-toc-article"
+                  hidden={!hideToc && activeId !== item.id}
+                >
+                  <h3 className="br-seo-toc-article-title">{item.title}</h3>
+                  <div className="br-seo-toc-article-body">{item.content}</div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -1079,8 +1060,8 @@ export function HorizontalProcessTimeline({ title, intro, steps }) {
   );
 }
 
-/** Two-option comparison for Sanierung money pages (e.g. Teilsanierung vs. Komplettsanierung). */
-export function SanierungOptionComparison({ title, options }) {
+/** Two- or three-option comparison for Sanierung money pages. */
+export function SanierungOptionComparison({ title, options, threeColumn = false }) {
   return (
     <section className="br-section br-bg-light br-sanierung-compare-section">
       <div className="container">
@@ -1089,7 +1070,9 @@ export function SanierungOptionComparison({ title, options }) {
             <h2 className="br-section-title">{title}</h2>
           </div>
         )}
-        <div className="br-sanierung-compare-grid">
+        <div
+          className={`br-sanierung-compare-grid${threeColumn ? ' br-sanierung-compare-grid--three' : ''}`}
+        >
           {options.map((option) => {
             const Icon = option.icon;
             const body = (
@@ -1209,9 +1192,12 @@ export function BerndExplainsVideo({
   description,
   duration = 'ca. 2 Minuten',
   poster,
+  posterFallback,
   posterAlt,
   transcript,
 }) {
+  const posterBg = posterFallback ? `url(${poster}), url(${posterFallback})` : `url(${poster})`;
+
   return (
     <section id="video" className="br-section br-bg-light br-ablauf-video-section">
       <div className="container br-ablauf-video-container">
@@ -1223,7 +1209,7 @@ export function BerndExplainsVideo({
         </div>
         <div
           className="br-ablauf-video-frame br-bw-video-placeholder"
-          style={{ backgroundImage: `url(${poster})` }}
+          style={{ backgroundImage: posterBg }}
           role="img"
           aria-label={posterAlt || title}
         >
@@ -1236,6 +1222,199 @@ export function BerndExplainsVideo({
           <div className="br-ablauf-video-transcript">
             <h3>Platzhalter-Skript</h3>
             <p>{transcript}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/** Sticky in-page anchor navigation for hub and money pages */
+export function PageAnchorNav({ items, ariaLabel = 'Seitennavigation' }) {
+  if (!items?.length) return null;
+
+  return (
+    <nav className="br-page-anchor-nav" aria-label={ariaLabel}>
+      <div className="container br-page-anchor-nav-inner">
+        <ul className="br-page-anchor-nav-list">
+          {items.map((item) => (
+            <li key={item.href}>
+              <a href={item.href} className="br-page-anchor-nav-link">
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+}
+
+/** Two-column expandable SEO service grid – full copy stays in the DOM */
+export function ExpandableSeoServiceGrid({
+  id = 'weitere-leistungen',
+  title,
+  intro,
+  services = [],
+}) {
+  const [openId, setOpenId] = useState(null);
+  const prefersReducedMotion =
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const toggle = (serviceId) => {
+    setOpenId((current) => (current === serviceId ? null : serviceId));
+  };
+
+  return (
+    <section id={id} className="br-section br-expandable-seo-services-section">
+      <div className="container">
+        <div className="text-center mb-12" style={{ maxWidth: '820px', margin: '0 auto' }}>
+          <h2 className="br-section-title">{title}</h2>
+          {intro && <div className="br-section-subtitle br-section-subtitle--wide">{intro}</div>}
+        </div>
+
+        <div className="br-expandable-seo-services-grid">
+          {services.map((service) => {
+            const Icon = service.icon;
+            const isOpen = openId === service.id;
+            const panelId = `${service.id}-panel`;
+
+            return (
+              <article
+                key={service.id}
+                id={service.id}
+                className={`br-expandable-seo-service-card${isOpen ? ' is-open' : ''}`}
+              >
+                {Icon && (
+                  <div className="br-expandable-seo-service-icon" aria-hidden="true">
+                    <Icon size={24} strokeWidth={1.5} />
+                  </div>
+                )}
+                <h3 className="br-expandable-seo-service-title">{service.title}</h3>
+                <p className="br-seo-service-text">{service.lead}</p>
+
+                <div
+                  id={panelId}
+                  className="br-expandable-seo-service-more"
+                  style={{
+                    display: 'grid',
+                    gridTemplateRows: isOpen ? '1fr' : '0fr',
+                    transition: prefersReducedMotion ? 'none' : 'grid-template-rows 0.35s ease',
+                  }}
+                  aria-hidden={!isOpen}
+                >
+                  <div style={{ overflow: 'hidden' }}>
+                    <div className="br-expandable-seo-service-more-inner">
+                      {service.more}
+                      {service.link && (
+                        <p className="br-expandable-seo-service-link-wrap">
+                          <Link to={service.link.to} className="br-expandable-seo-service-link">
+                            {service.link.label} →
+                          </Link>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {service.more && (
+                  <button
+                    type="button"
+                    className="br-expandable-seo-service-toggle"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => toggle(service.id)}
+                  >
+                    {isOpen ? 'Weniger anzeigen' : 'Mehr erfahren'}
+                    <ChevronDown size={18} aria-hidden="true" />
+                  </button>
+                )}
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const regionalLinkPatterns = [
+  (city) => ({ label: `Gewerbe- & Objektsanierung in ${city}` }),
+  (city) => ({ label: `Gewerbesanierung in ${city}` }),
+  (city) => ({ label: `Büroumbau in ${city}` }),
+  (city) => ({ label: `Mieterausbau in ${city}` }),
+];
+
+/** Searchable regional city grid for service hub pages */
+export function RegionalServiceCities({
+  id = 'einsatzgebiete',
+  title = 'Unsere Einsatzgebiete',
+  intro,
+  regionalText,
+  cities = [],
+}) {
+  const [query, setQuery] = useState('');
+
+  const uniqueCities = cities.filter(
+    (city, index, list) => list.findIndex((entry) => entry.name === city.name) === index,
+  );
+
+  const filtered = uniqueCities.filter((city) =>
+    city.name.toLowerCase().includes(query.trim().toLowerCase()),
+  );
+
+  return (
+    <section id={id} className="br-section br-bg-light br-regional-cities-section">
+      <div className="container">
+        <div className="text-center mb-10" style={{ maxWidth: '820px', margin: '0 auto' }}>
+          <p className="br-hero-kicker">Städte &amp; Gemeinden</p>
+          <h2 className="br-section-title">{title}</h2>
+          {intro && <p className="br-section-subtitle br-section-subtitle--wide">{intro}</p>}
+        </div>
+
+        <div className="br-regional-cities-search-wrap">
+          <label htmlFor={`${id}-search`} className="sr-only">
+            Stadt oder Gemeinde suchen
+          </label>
+          <input
+            id={`${id}-search`}
+            type="search"
+            className="br-regional-cities-search"
+            placeholder="Stadt oder Gemeinde suchen …"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            autoComplete="off"
+          />
+        </div>
+
+        <ul className="br-regional-cities-grid" role="list">
+          {filtered.map((city, index) => {
+            const pattern = regionalLinkPatterns[index % regionalLinkPatterns.length](city.name);
+
+            return (
+              <li key={`${city.id}-${city.name}`}>
+                <Link
+                  to={city.path}
+                  className="br-regional-cities-link"
+                  aria-label={`${pattern.label} – regionale Informationen ansehen`}
+                >
+                  {pattern.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        {filtered.length === 0 && (
+          <p className="br-regional-cities-empty">Keine passende Stadt gefunden. Kontaktieren Sie uns gerne direkt.</p>
+        )}
+
+        {regionalText && (
+          <div className="br-regional-cities-footnote">
+            <h3 className="br-regional-cities-footnote-title">Regional vor Ort im Rhein-Main-Gebiet</h3>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: 0 }}>
+              {regionalText}
+            </p>
           </div>
         )}
       </div>

@@ -19,10 +19,12 @@ const exactRedirects = {
   '/wohnungssanierung-rhein-main': '/sanierung/wohnungssanierung',
   '/haussanierung-rhein-main': '/sanierung/haussanierung',
   '/altbausanierung-rhein-main': '/sanierung/altbausanierung',
-  '/elektrotechnik-rhein-main': '/elektroinstallation-rhein-main',
+  '/elektrotechnik-rhein-main': '/elektrotechnik-gebaeudetechnik',
+  '/leistungen/elektrotechnik': '/elektrotechnik-gebaeudetechnik',
   '/badsanierung': '/badsanierung-rhein-main',
   '/wohnungssanierung': '/sanierung/wohnungssanierung',
   '/energetische-sanierung': '/energetische-sanierung-rhein-main',
+  '/leistungen/energie-foerderung': '/energie-foerderung',
   '/badsanierung-roedermark': '/sanierung-roedermark',
   '/haus-sanieren-wohnungssanierung-darmstadt': '/haus-wohnung-bad-modernisieren-darmstadt',
   '/badsanierung-ablauf-rhein-main': '/ablauf-badsanierung',
@@ -65,12 +67,20 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/sanierung/altbau'), to: '/sanierung/altbausanierung' },
 
   // General contractor / complete renovation
-  { test: (p) => p.startsWith('/generalunternehmer') || p.startsWith('/bauleitung-projektsteuerung'), to: '/generalunternehmer-rhein-main' },
+  { test: (p) => p.startsWith('/generalunternehmer'), to: '/generalunternehmer-rhein-main' },
   { test: (p) => p.startsWith('/komplettsanierung') || p.startsWith('/kernsanierung') || p.startsWith('/teilsanierung'), to: '/komplettsanierung-rhein-main' },
 
   // Electrical
+  { test: (p) => p.startsWith('/elektrotechnik') && p !== '/elektrotechnik-gebaeudetechnik', to: '/elektrotechnik-gebaeudetechnik' },
   { test: (p) => p.startsWith('/sicherungskasten') && !p.startsWith('/sicherungskasten-erneuern-rhein-main'), to: '/sicherungskasten-erneuern-rhein-main' },
-  { test: (p) => p.startsWith('/elektro') || p.startsWith('/altbau-elektrik'), to: '/elektroinstallation-rhein-main' },
+  { test: (p) => p.startsWith('/altbau-elektrik') && !p.startsWith('/altbau-elektrik-erneuern-rhein-main'), to: '/altbau-elektrik-erneuern-rhein-main' },
+  {
+    test: (p) =>
+      p.startsWith('/elektro') &&
+      !p.startsWith('/elektroinstallation-rhein-main') &&
+      !p.startsWith('/elektrotechnik-gebaeudetechnik'),
+    to: '/elektrotechnik-gebaeudetechnik',
+  },
 
   // Heating & plumbing
   { test: (p) => p.startsWith('/waermepumpe') && !p.startsWith('/waermepumpe-rhein-main'), to: '/waermepumpe-rhein-main' },
@@ -81,7 +91,9 @@ const keywordRedirects = [
   { test: (p) => p.startsWith('/innenausbau') || p.startsWith('/trockenbau'), to: '/innenausbau-umbau-rhein-main' },
 
   // Energy efficiency
-  { test: (p) => p.startsWith('/energetische-sanierung') || p.startsWith('/energieeffizienz') || p.startsWith('/sanierung-foerderung'), to: '/energetische-sanierung-rhein-main' },
+  { test: (p) => p.startsWith('/energetische-sanierung'), to: '/energetische-sanierung-rhein-main' },
+  { test: (p) => p.startsWith('/energieeffizienz'), to: '/energieeffizienz-rhein-main' },
+  { test: (p) => p.startsWith('/sanierung-foerderung'), to: '/sanierung-foerderung-rhein-main' },
 
   // Mold / asbestos / hazardous materials
   { test: (p) => p.startsWith('/schimmelsanierung'), to: '/schimmelsanierung-rhein-main' },
@@ -93,7 +105,7 @@ const keywordRedirects = [
 
   // Commercial / office renovation
   { test: (p) => p.startsWith('/mieterausbau'), to: '/gewerbesanierung-rhein-main' },
-  { test: (p) => p.startsWith('/bueroumbau'), to: '/gewerbesanierung-rhein-main' },
+  { test: (p) => p.startsWith('/bueroumbau'), to: '/bueroumbau-rhein-main' },
   { test: (p) => p.startsWith('/gewerbe'), to: '/gewerbe-objektsanierung-rhein-main' },
 
   // City pages we don't host individually go to the service area hub

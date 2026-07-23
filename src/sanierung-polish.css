@@ -4288,6 +4288,16 @@
   height: 100%;
 }
 
+.br-sanierung-compare-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+  .br-sanierung-compare-grid--three {
+    grid-template-columns: 1fr;
+  }
+}
+
 .br-seo-checklist--grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

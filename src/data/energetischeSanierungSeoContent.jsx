@@ -1,227 +1,160 @@
-import { Link } from '../router';
-
 const p = 'mb-4 text-gray-600';
-const ul = 'br-seo-list mb-4';
 
 export const energetischeSanierungSeoIntro = (
   <>
     <p className={p}>
-      Energetische Sanierung ist mehr als ein Gerätetausch. Gebäudehülle, Heizung, Warmwasser, Lüftung,
-      Feuchtigkeitsschutz und Innenausbau müssen zusammenpassen, damit sich Maßnahmen wirklich lohnen und der
-      Wohnkomfort steigt.
-    </p>
-    <p className={p}>
-      Die Radex Objektmanagement GmbH koordiniert energetische Sanierungen im Rhein-Main-Gebiet. Im Bereich Heizung,
-      Sanitär und Gebäudetechnik ist Bernd Knoop als SHK-Meister und Betriebsleiter fachlich verantwortlich – so greifen
-      Technik, Förderung und Bauablauf sauber ineinander.
+      Eine energetische Sanierung verfolgt das Ziel, den Energiebedarf eines Gebäudes dauerhaft zu senken. Dabei werden
+      verschiedene Maßnahmen sinnvoll miteinander kombiniert, um Wärmeverluste zu reduzieren und den Wohnkomfort
+      nachhaltig zu verbessern. Die folgenden Themen zeigen wichtige Bestandteile einer ganzheitlichen energetischen
+      Modernisierung.
     </p>
   </>
 );
 
 export const energetischeSanierungSeoSections = [
   {
-    id: 'gesamtsystem',
-    title: 'Energetische Sanierung als Gesamtsystem',
+    id: 'fassadendaemmung',
+    title: 'Fassadendämmung',
     content: (
-      <>
-        <p className={p}>
-          Wer nur die Heizung oder nur Fenster betrachtet, übersieht oft Schnittstellen: Vorlauftemperaturen, Heizflächen,
-          Anschlüsse, Lüftung und Feuchteverhalten. Eine strukturierte Bestandsaufnahme klärt, was dringend ist, was
-          sinnvoll ist und was später folgen kann.
-        </p>
-        <p className={p}>
-          Radex bringt die SHK-Meisterkompetenz in Heizung und Gebäudetechnik ein und koordiniert Dämmung, Fenster,
-          Bad und Innenausbau so, dass die Maßnahmen bauphysikalisch und wirtschaftlich stimmig sind. Mehr zum{' '}
-          <Link to="/generalunternehmer-rhein-main">Generalunternehmer</Link> und zur{' '}
-          <Link to="/sanierung/haussanierung">Haussanierung</Link>.
-        </p>
-      </>
+      <p className={p}>
+        Eine hochwertige Fassadendämmung reduziert Wärmeverluste erheblich und verbessert die Energieeffizienz der
+        gesamten Gebäudehülle.
+      </p>
     ),
   },
   {
-    id: 'bestandsgebaeude',
-    title: 'Warum Bestandsgebäude sorgfältig geplant werden müssen',
+    id: 'dachdaemmung',
+    title: 'Dachdämmung',
     content: (
-      <>
-        <p className={p}>
-          Bestandsobjekte haben alte Leitungen, unterschiedliche Modernisierungsstände und oft mehrere Bauschichten. Wer
-          Maßnahmen isoliert umsetzt, riskiert Zugluft, Schimmel oder unnötig hohe Folgekosten.
-        </p>
-        <p className={p}>
-          Eine gute Bestandsaufnahme macht die Reihenfolge technisch sinnvoll und wirtschaftlich nachvollziehbar – egal
-          ob Einzelmaßnahme, Heizungstausch oder umfassendere energetische Sanierung.
-        </p>
-      </>
+      <p className={p}>
+        Da ein großer Teil der Heizenergie über das Dach verloren gehen kann, zählt die Dachdämmung zu den
+        wirkungsvollsten energetischen Maßnahmen.
+      </p>
     ),
   },
   {
-    id: 'heizung-daemmung',
-    title: 'Heizung, Dämmung und Wärmepumpe',
+    id: 'kellerdeckendaemmung',
+    title: 'Kellerdeckendämmung',
     content: (
-      <>
-        <p className={p}>
-          Die Heizungsmodernisierung ist oft der Ausgangspunkt. Für Wärmepumpen sind Vorlauftemperatur, Heizflächen,
-          Aufstellort, Schallschutz und Elektroanschluss genauso wichtig wie der Zustand der Gebäudehülle.
-        </p>
-        <p className={p}>
-          Dämmmaßnahmen an Dach, Fassade oder Kellerdecke müssen bauphysikalisch passen. Feuchtigkeit, Anschlüsse und
-          Lüftung dürfen nicht aus dem Blick geraten. Details zur{' '}
-          <Link to="/waermepumpe-rhein-main">Wärmepumpe</Link> und zu{' '}
-          <Link to="/heizung-sanitaer-rhein-main">Heizung &amp; Sanitär</Link>.
-        </p>
-      </>
+      <p className={p}>
+        Eine gedämmte Kellerdecke reduziert kalte Fußböden und verhindert unnötige Wärmeverluste in unbeheizte Bereiche.
+      </p>
     ),
   },
   {
-    id: 'lueftung-feuchte',
-    title: 'Feuchtigkeit, Lüftung und Schimmel mitdenken',
+    id: 'fenster',
+    title: 'Fenster austauschen',
     content: (
-      <>
-        <p className={p}>
-          Wenn Gebäude dichter werden, verändert sich das Raumklima. Besonders Bäder, Küchen, Schlafzimmer und Keller
-          müssen im Zusammenhang mit Lüftung und Feuchte beurteilt werden – sonst entsteht später Schimmelrisiko.
-        </p>
-        <p className={p}>
-          Radex ist zertifiziert für Schimmel- und Asbestsanierung und verfügt über TRGS-519-Sachkunde, sodass
-          Schadstoffthemen im Ablauf fachlich eingeordnet werden können. Mehr zur{' '}
-          <Link to="/schimmelsanierung-rhein-main">Schimmel- &amp; Schadstoffsanierung</Link>.
-        </p>
-      </>
+      <p className={p}>
+        Moderne Fenster verbessern den Wärmeschutz, reduzieren Zugluft und steigern den Wohnkomfort deutlich.
+      </p>
     ),
   },
   {
-    id: 'foerderung',
-    title: 'Förderung und regionale Erreichbarkeit',
+    id: 'haustuer',
+    title: 'Haustüren modernisieren',
     content: (
-      <>
-        <p className={p}>
-          Förderprogramme (z.&nbsp;B. BEG über BAFA/KfW) können die Wirtschaftlichkeit verbessern, müssen aber vor Beginn
-          und immer aktuell geprüft werden. Radex ersetzt keine Förderzusage, kann Förderthemen im Sanierungsablauf aber
-          mitdenken und bei Bedarf Energie-Effizienz-Experten einbinden.
-        </p>
-        <p className={p}>
-          Für eine erste Einschätzung unter 06074 960620 oder über den Kontaktbereich ist Radex im gesamten
-          Rhein-Main-Gebiet erreichbar. Mehr zu{' '}
-          <Link to="/sanierungskosten-rhein-main">Sanierungskosten</Link> und{' '}
-          <Link to="/einsatzgebiete-rhein-main">Einsatzgebieten</Link>.
-        </p>
-      </>
+      <p className={p}>
+        Auch moderne Haustüren leisten einen wichtigen Beitrag zur Verbesserung der Gebäudehülle und minimieren
+        Energieverluste.
+      </p>
     ),
   },
   {
-    id: 'fuer-wen',
-    title: 'Für wen ist energetische Sanierung sinnvoll?',
+    id: 'luftdichtheit',
+    title: 'Luftdichtheit verbessern',
     content: (
-      <>
-        <p className={p}>Energieeffizienz ist immer dann ein Thema, wenn Gebäudehülle und Haustechnik nicht mehr zusammenpassen:</p>
-        <ul className={ul}>
-          <li>
-            <strong>Eigentümer älterer Häuser:</strong> hohe Heizkosten, Zugluft oder alte Heiztechnik dauerhaft
-            verbessern.
-          </li>
-          <li>
-            <strong>Käufer vor dem Einzug:</strong> Heizung, Dämmung, Fenster und Innenausbau noch sinnvoll bündeln.
-          </li>
-          <li>
-            <strong>Vermieter &amp; Bestandshalter:</strong> wirtschaftlich modernisieren mit klarer Reihenfolge und wenig
-            Leerstand.
-          </li>
-          <li>
-            <strong>Eigentümer mit Feuchtigkeit oder Schimmel:</strong> Ursachen vor weiteren Maßnahmen klären.
-          </li>
-          <li>
-            <strong>Sanierer mit Förderinteresse:</strong> Programme vor Auftragsvergabe prüfen und planen.
-          </li>
-        </ul>
-      </>
+      <p className={p}>
+        Eine luftdichte Gebäudehülle verhindert unkontrollierte Wärmeverluste und erhöht die Effizienz der gesamten
+        Immobilie.
+      </p>
     ),
   },
   {
-    id: 'massnahmen',
-    title: 'Typische Maßnahmen der energetischen Sanierung',
+    id: 'waermebruecken',
+    title: 'Wärmebrücken vermeiden',
     content: (
-      <>
-        <p className={p}>Radex betrachtet das Gebäude immer als Gesamtsystem. Typische Maßnahmen sind:</p>
-        <ul className={ul}>
-          <li>Heizungsmodernisierung und Regelungstechnik</li>
-          <li>Wärmepumpe im Bestand inkl. Heizflächen und hydraulischem Abgleich</li>
-          <li>Dämmung von Dach, Fassade und Kellerdecke</li>
-          <li>Fenster und dichte Anschlüsse</li>
-          <li>Lüftung und Feuchtigkeitsschutz</li>
-          <li>Bad und Innenausbau mitdenken – Warmwasser, Heizkörper, Oberflächen</li>
-        </ul>
-      </>
+      <p className={p}>
+        Die Reduzierung von Wärmebrücken verbessert den Wärmeschutz und kann das Risiko von Feuchtigkeit und
+        Schimmelbildung verringern.
+      </p>
     ),
   },
   {
-    id: 'kosten',
-    title: 'Kosten einer energetischen Sanierung',
+    id: 'wohnraumlueftung',
+    title: 'Kontrollierte Wohnraumlüftung',
     content: (
-      <>
-        <p className={p}>
-          Die Kosten hängen von Gebäudezustand, Maßnahmefolge, Förderfähigkeit und Ausbauumfang ab. Orientierungswerte:
-        </p>
-        <ul className={ul}>
-          <li>
-            <strong>Einzelmaßnahme:</strong> ab ca. 10.000&nbsp;€
-          </li>
-          <li>
-            <strong>Heizungstausch:</strong> ab ca. 20.000&nbsp;€
-          </li>
-          <li>
-            <strong>Umfassende energetische Sanierung:</strong> ab ca. 80.000&nbsp;€
-          </li>
-        </ul>
-        <p className={p}>
-          Nach der Bestandsaufnahme erhalten Sie ein konkretes Angebot. Nutzen Sie auch unseren{' '}
-          <Link to="/sanierungskosten-rhein-main">Sanierungskosten-Rechner</Link> für eine erste Schätzung.
-        </p>
-      </>
+      <p className={p}>
+        Moderne Lüftungssysteme sorgen für einen kontinuierlichen Luftaustausch und können den Energieverbrauch
+        zusätzlich optimieren.
+      </p>
     ),
   },
   {
-    id: 'ablauf',
-    title: 'So läuft die energetische Sanierung mit Radex ab',
+    id: 'isfp',
+    title: 'Individueller Sanierungsfahrplan (iSFP)',
     content: (
-      <>
-        <p className={p}>Ein strukturierter Ablauf schafft Planungssicherheit:</p>
-        <ul className={ul}>
-          <li>Ziel und Objekt klären</li>
-          <li>Bestandsaufnahme vor Ort</li>
-          <li>Maßnahmen und Reihenfolge einordnen</li>
-          <li>Förder- und Fachfragen prüfen</li>
-          <li>Umsetzung und Gewerkeabstimmung</li>
-          <li>Übergabe und Nachbetreuung</li>
-        </ul>
-        <p className={p}>
-          Mehr zum{' '}
-          <Link to="/sanierung-ablauf-rhein-main">Sanierungsablauf</Link> und zur{' '}
-          <Link to="/sanierung/altbausanierung">Altbausanierung</Link>.
-        </p>
-      </>
+      <p className={p}>
+        Ein individueller Sanierungsfahrplan zeigt auf, welche Maßnahmen in welcher Reihenfolge sinnvoll umgesetzt werden
+        können und kann je nach Förderprogramm zusätzliche Vorteile bieten.
+      </p>
     ),
   },
   {
-    id: 'warum-radex',
-    title: 'Warum Radex für energetische Sanierung',
+    id: 'effizienzhaus',
+    title: 'Effizienzhaus-Standard erreichen',
     content: (
-      <>
-        <p className={p}>
-          <strong>SHK-Meisterkompetenz:</strong> Heizung und Gebäudetechnik unter Meisterverantwortung von Bernd Knoop.
-        </p>
-        <p className={p}>
-          <strong>Gesamtsystem statt Einzelaktionen:</strong> Dämmung, Fenster, Lüftung und Innenausbau werden
-          abgestimmt.
-        </p>
-        <p className={p}>
-          <strong>Förderung mitdenken:</strong> Antragszeitpunkte und technische Anforderungen werden im Ablauf
-          berücksichtigt – ohne Garantieversprechen.
-        </p>
-        <p className={p}>
-          <strong>Regional im Rhein-Main-Gebiet:</strong> kurze Wege, lokale Bestandserfahrung und ein fester
-          Ansprechpartner.
-        </p>
-      </>
+      <p className={p}>
+        Durch die Kombination verschiedener energetischer Maßnahmen kann ein Gebäude schrittweise an höhere
+        Effizienzstandards herangeführt werden.
+      </p>
     ),
+  },
+];
+
+import { Gauge, BadgeEuro, Hammer, Flame, Zap, BriefcaseBusiness } from 'lucide-react';
+
+export const energetischeSanierungSeoInternalLinks = [
+  {
+    title: 'Energieeffizienz',
+    desc: 'Optimieren Sie den Energieverbrauch Ihrer Immobilie durch moderne Gebäudetechnik und intelligente Lösungen.',
+    icon: Gauge,
+    to: '/energieeffizienz-rhein-main',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Sanierung Förderung',
+    desc: 'Informieren Sie sich über Zuschüsse, Kredite und Förderprogramme für energetische Modernisierungen.',
+    icon: BadgeEuro,
+    to: '/sanierung-foerderung-rhein-main',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Komplettsanierung',
+    desc: 'Kombinieren Sie energetische Maßnahmen mit einer umfassenden Modernisierung Ihrer Immobilie.',
+    icon: Hammer,
+    to: '/komplettsanierung-rhein-main',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Heizung & Sanitär',
+    desc: 'Moderne Heiztechnik und Sanitärinstallationen ergänzen energetische Sanierungen sinnvoll.',
+    icon: Flame,
+    to: '/heizung-sanitaer-rhein-main',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Elektrotechnik & Gebäudetechnik',
+    desc: 'Elektroinstallation, Energiemanagement und moderne Gebäudetechnik für energieeffiziente Immobilien.',
+    icon: Zap,
+    to: '/elektrotechnik-gebaeudetechnik',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Generalunternehmer',
+    desc: 'Ein Ansprechpartner koordiniert sämtliche Gewerke während Ihrer energetischen Sanierung.',
+    icon: BriefcaseBusiness,
+    to: '/generalunternehmer-rhein-main',
+    cta: 'Mehr erfahren',
   },
 ];

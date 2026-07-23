@@ -44,7 +44,7 @@ const footerColumns = [
     links: [
       { label: 'Generalunternehmer', to: '/generalunternehmer-rhein-main' },
       { label: 'Heizung & Sanitär', to: '/heizung-sanitaer-rhein-main' },
-      { label: 'Elektrotechnik', to: '/elektroinstallation-rhein-main' },
+      { label: 'Elektrotechnik', to: '/elektrotechnik-gebaeudetechnik' },
       { label: 'Innenausbau & Umbau', to: '/innenausbau-umbau-rhein-main' },
       { label: 'Energetische Sanierung', to: '/energetische-sanierung-rhein-main' },
       { label: 'Energieeffizienz', to: '/energieeffizienz-rhein-main' },

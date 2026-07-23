@@ -190,7 +190,7 @@ export const leistungenCards = [
     icon: Flame,
   },
   {
-    to: '/leistungen/elektrotechnik',
+    to: '/elektrotechnik-gebaeudetechnik',
     title: 'Elektrotechnik',
     desc: 'Elektroinstallation, Altbau-Elektrik und Sicherungskasten erneuern.',
     cta: 'Leistungen ansehen',
@@ -204,7 +204,7 @@ export const leistungenCards = [
     icon: Hammer,
   },
   {
-    to: '/leistungen/energie-foerderung',
+    to: '/energie-foerderung',
     title: 'Energie & Förderung',
     desc: 'Energetische Sanierung, Energieeffizienz und Fördermöglichkeiten nutzen.',
     cta: 'Leistungen ansehen',
@@ -266,12 +266,12 @@ export const leistungenCategories = {
     ],
   },
   'elektrotechnik': {
-    title: 'Elektrotechnik',
+    title: 'Elektrotechnik & Gebäudetechnik',
     subtitle: 'Elektrische Aufwertungen und Gebäudetechnik für Wohnung, Haus und Gewerbe.',
     seo: {
-      title: 'Elektrotechnik | Leistungen | Radex',
-      description: 'Elektroinstallation, Altbau-Elektrik erneuern und Sicherungskasten modernisieren im Rhein-Main-Gebiet.',
-      path: '/leistungen/elektrotechnik',
+      title: 'Elektrotechnik & Gebäudetechnik | Elektroarbeiten im Rhein-Main | Radex',
+      description: 'Elektrotechnik und Gebäudetechnik im Rhein-Main-Gebiet. Finden Sie die passende Leistung – von der Elektroinstallation über die Altbau-Elektrik bis zum neuen Sicherungskasten.',
+      path: '/elektrotechnik-gebaeudetechnik',
     },
     subpages: [
       { to: '/elektroinstallation-rhein-main', title: 'Elektroinstallation', desc: 'Steckdosen, Leitungen, Licht und Gebäudetechnik nach VDE.', icon: Zap },
@@ -299,9 +299,9 @@ export const leistungenCategories = {
     title: 'Energie & Förderung',
     subtitle: 'Energiekosten senken, Effizienz steigern und staatliche Förderungen nutzen.',
     seo: {
-      title: 'Energie & Förderung | Leistungen | Radex',
-      description: 'Energetische Sanierung, Energieeffizienz verbessern und Fördermöglichkeiten (KfW/BAFA) im Rhein-Main-Gebiet nutzen.',
-      path: '/leistungen/energie-foerderung',
+      title: 'Energie & Förderung | Energetische Sanierung & Fördermittel | Radex',
+      description: 'Alles rund um energetische Sanierungen, Energieeffizienz und Fördermöglichkeiten im Rhein-Main-Gebiet. Finden Sie die passende Lösung für Ihre Immobilie.',
+      path: '/energie-foerderung',
     },
     subpages: [
       { to: '/energetische-sanierung-rhein-main', title: 'Energetische Sanierung', desc: 'Dämmung, Fenster, Heizung und Gebäudetechnik im Zusammenspiel.', icon: Leaf },
@@ -319,7 +319,7 @@ export const leistungenCategories = {
     },
     subpages: [
       { to: '/schimmelsanierung-rhein-main', title: 'Schimmel entfernen', desc: 'Ursachenanalyse, Bautrocknung und dauerhafte Beseitigung.', icon: AlertTriangle },
-      { to: '/asbestsanierung-rhein-main', title: 'Asbest entfernen', desc: 'Fachgerechte Entfernung und Entsorgung nach TRGS 519.', icon: Shield },
+      { to: '/asbestsanierung-rhein-main', title: 'Asbest entfernen', desc: 'Koordination von Untersuchung, Rückbau, Entsorgung und Wiederherstellung.', icon: Shield },
       { to: '/schadstoffsanierung-rhein-main', title: 'Schadstoffsanierung', desc: 'Gefahrstoffe sicher beseitigen und dokumentieren.', icon: Trash2 },
     ],
   },

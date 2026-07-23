@@ -190,7 +190,7 @@ export const notfallSoforthilfeSeoSections = [
             <Link to="/innenausbau-umbau-rhein-main">Innenausbau</Link>
           </li>
           <li>
-            <Link to="/leistungen/elektrotechnik">Elektrotechnik</Link>
+            <Link to="/elektrotechnik-gebaeudetechnik">Elektrotechnik</Link>
           </li>
           <li>
             <Link to="/heizung-sanitaer-rhein-main">Heizungs- und Sanitärtechnik</Link>

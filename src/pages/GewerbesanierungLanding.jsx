@@ -1,678 +1,508 @@
-import { useEffect, useState } from 'react';
-import { RADEX_LIVE_URL } from '../constants/brand';
+import { useEffect } from 'react';
 import {
-  Camera,
-  ChevronDown,
-  MessageSquare,
-  Phone,
-  ArrowRight,
-  Stethoscope,
-  Store,
-  UtensilsCrossed,
+  HardHat,
   Building2,
-  UserCheck,
-  CalendarCheck,
-  Award,
-  Users,
+  Network,
+  Workflow,
+  ClipboardCheck,
   ShieldCheck,
-  MapPin,
+  MapPinned,
+  BadgeEuro,
+  UserRound,
+  CalendarClock,
+  MessagesSquare,
+  Building,
   Hammer,
-  Zap,
-  Flame,
-  Home,
+  KeyRound,
+  Search,
+  ClipboardList,
+  CircleCheckBig,
+  Phone,
+  Mail,
+  MessageCircle,
 } from 'lucide-react';
-import { Link, useLocation } from '../router';
+import { Link } from '../router';
 import '../badsanierung.css';
-import useSeo, { buildFaqSchema } from '../useSeo';
-import SanierungskostenRechner from '../components/SanierungskostenRechner';
+import '../badsanierung-polish.css';
+import '../sanierung-polish.css';
+import '../home.css';
+import '../data/legacyServiceStyles.css';
+import useSeo, { buildBreadcrumbSchema, buildServiceSchema } from '../useSeo';
+import ReviewsMarquee from '../components/ReviewsMarquee';
+import {
+  PremiumIconCards,
+  SectionTransition,
+  SeoKnowledgeDrawer,
+  RadexLiveSection,
+  HorizontalProcessTimeline,
+  BerndExplainsVideo,
+} from '../components/landing/SharedLandingParts';
+import {
+  gewerbesanierungSeoIntro,
+  gewerbesanierungSeoSections,
+} from '../data/gewerbesanierungSeoContent';
+import { gewerbesanierungLegacySections } from '../data/gewerbesanierungLegacyContent';
 
-const HERO_IMAGE = '/img/gewerbesanierung-hero.webp';
-const LIVE_IMAGE = '/img/gewerbesanierung-radex-live.webp';
+const SITE_URL = 'https://www.radex-objektmanagement.de';
+const PAGE_PATH = '/gewerbesanierung-rhein-main';
+const HERO_IMAGE = '/img/gewerbesanierung-rhein-main-radex.webp';
+const HERO_IMAGE_FALLBACK = '/img/gewerbesanierung-hero.webp';
+const VIDEO_POSTER = '/img/bernd-gewerbesanierung-rhein-main.webp';
+const WHATSAPP_URL = 'https://wa.me/496074960620';
+const PHONE_TEL = 'tel:+496074960620';
 
-const objectCards = [
-  { title: 'Arztpraxen', desc: 'Moderne Praxisräume für Patienten und Mitarbeiter.', icon: Stethoscope },
-  { title: 'Ladenlokale', desc: 'Attraktive Verkaufsflächen für Handel und Dienstleistung.', icon: Store },
-  { title: 'Restaurants & Gastronomie', desc: 'Modernisierung von Gasträumen und Nebenbereichen.', icon: UtensilsCrossed },
-  { title: 'Gewerbeeinheiten', desc: 'Sanierung von Bestandsflächen für neue Nutzungskonzepte.', icon: Building2 },
+const META_TITLE = 'Gewerbesanierung Rhein-Main | Gewerbeimmobilien professionell sanieren';
+const META_DESCRIPTION =
+  'Gewerbesanierung im Rhein-Main-Gebiet für Büros, Praxen, Ladenlokale und Gewerbeimmobilien. Modernisierung, Umbau und Sanierung aus einer Hand.';
+
+const BREADCRUMBS = [
+  { name: 'Startseite', path: '/' },
+  { name: 'Gewerbe & Objektsanierung', path: '/gewerbe-objektsanierung-rhein-main' },
+  { name: 'Gewerbesanierung', path: PAGE_PATH },
 ];
+
+function GewerbesanierungCTA({ isHero = false, centered = false }) {
+  return (
+    <div
+      className={`br-hero-actions ${isHero ? 'br-hero-actions--hero' : ''} ${centered ? 'br-hero-actions--centered' : ''}`}
+    >
+      <a href="#kontakt" className="btn br-btn-orange">
+        Kostenlose Beratung
+      </a>
+      <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
+        <MessageCircle size={20} />
+        Fotos per WhatsApp senden
+      </a>
+    </div>
+  );
+}
 
 const whyRadexCards = [
-  { title: 'Ein Ansprechpartner für alle Gewerke', desc: 'Planung, Koordination und Ausführung aus einer Hand – ohne Schnittstellenprobleme.', icon: UserCheck },
-  { title: 'Termintreue Projektabwicklung', desc: 'Abgestimmte Bauabläufe reduzieren Leerstandszeiten und sichern den Betrieb.', icon: CalendarCheck },
-  { title: 'SHK-meistergeführter Fachbetrieb', desc: 'Heizung, Sanitär und Gebäudetechnik werden fachgerecht und normkonform umgesetzt.', icon: Award },
-  { title: 'Koordination aller Fachbetriebe', desc: 'Elektro, Trockenbau, Innenausbau und weitere Gewerke werden als Gesamtprojekt gesteuert.', icon: Users },
-  { title: 'Transparente Festpreisangebote', desc: 'Nach Besichtigung erhalten Sie ein nachvollziehbares Angebot ohne versteckte Kosten.', icon: ShieldCheck },
-  { title: 'Regional im Rhein-Main-Gebiet', desc: 'Über 60 Städte – kurze Wege, schnelle Reaktionszeiten und lokale Erfahrung.', icon: MapPin },
+  {
+    title: 'Spezialisiert auf Gewerbesanierungen',
+    desc: 'Wir modernisieren Gewerbeimmobilien jeder Größe – von einzelnen Gewerbeflächen bis zu kompletten Unternehmensstandorten.',
+    icon: Building2,
+  },
+  {
+    title: 'Alle Gewerke aus einer Hand',
+    desc: 'Von der Planung bis zur Fertigstellung koordinieren wir sämtliche Fachbereiche zentral und effizient.',
+    icon: Network,
+  },
+  {
+    title: 'Sanierung im laufenden Betrieb',
+    desc: 'Auf Wunsch erfolgt die Umsetzung abschnittsweise, damit Ihr Unternehmen möglichst ohne größere Unterbrechungen weiterarbeiten kann.',
+    icon: Workflow,
+  },
+  {
+    title: 'Transparente Projektsteuerung',
+    desc: 'Klare Abläufe, feste Termine und regelmäßige Abstimmungen sorgen für maximale Planungssicherheit.',
+    icon: ClipboardCheck,
+  },
+  {
+    title: 'Hochwertige Ausführung',
+    desc: 'Wir setzen auf geprüfte Materialien, erfahrene Fachbetriebe und konsequente Qualitätskontrollen.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Regional im Rhein-Main-Gebiet',
+    desc: 'Kurze Wege ermöglichen eine schnelle Betreuung Ihrer Projekte in der gesamten Region.',
+    icon: MapPinned,
+  },
 ];
 
-const serviceCards = [
-  { to: '/innenausbau-umbau-rhein-main', title: 'Innenausbau', desc: 'Trockenbau, Böden, Malerarbeiten und Raumgestaltung für Gewerbeflächen.', icon: Hammer },
-  { to: '/elektroinstallation-rhein-main', title: 'Elektrotechnik', desc: 'Elektroinstallation, Beleuchtung und technische Infrastruktur im Gewerbe.', icon: Zap },
-  { to: '/heizung-sanitaer-rhein-main', title: 'Heizung & Sanitär', desc: 'Sanitäranlagen, Heizung und Gebäudetechnik vom SHK-Meisterbetrieb.', icon: Flame },
-  { to: '/komplettsanierung-rhein-main', title: 'Komplettsanierung', desc: 'Umfassende Modernisierung aller Gewerke aus einer Hand.', icon: Home },
+const qualityCards = [
+  {
+    title: 'Festpreisgarantie',
+    desc: 'Klare Angebote und transparente Leistungen schaffen maximale Kostensicherheit.',
+    icon: BadgeEuro,
+  },
+  {
+    title: 'Fester Ansprechpartner',
+    desc: 'Während der gesamten Gewerbesanierung begleitet Sie dieselbe Projektleitung.',
+    icon: UserRound,
+  },
+  {
+    title: 'Termingerechte Umsetzung',
+    desc: 'Eine strukturierte Bauzeitenplanung sorgt für einen zuverlässigen Projektablauf.',
+    icon: CalendarClock,
+  },
+  {
+    title: 'Koordination aller Gewerke',
+    desc: 'Alle beteiligten Fachbereiche werden zentral organisiert und aufeinander abgestimmt.',
+    icon: Network,
+  },
+  {
+    title: 'Geprüfte Qualität',
+    desc: 'Jeder Projektabschnitt wird sorgfältig kontrolliert und fachgerecht ausgeführt.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Transparente Kommunikation',
+    desc: 'Sie erhalten jederzeit einen klaren Überblick über Termine, Baufortschritt und die nächsten Schritte.',
+    icon: MessagesSquare,
+  },
+];
+
+const leistungenCards = [
+  {
+    title: 'Gewerbeimmobilien sanieren',
+    desc: 'Wir modernisieren bestehende Gewerbeimmobilien nachhaltig und wirtschaftlich. Von der ersten Analyse bis zur fertigen Übergabe koordinieren wir sämtliche Arbeiten und sorgen für einen reibungslosen Ablauf.',
+    icon: Building,
+    href: '#gewerbeimmobilien-sanieren',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Innenausbau & Modernisierung',
+    desc: 'Durch neue Raumkonzepte, hochwertige Materialien und moderne Ausstattungen schaffen wir funktionale Arbeits- und Gewerbeflächen, die langfristig überzeugen.',
+    icon: Hammer,
+    href: '#innenausbau-gewerbe',
+    cta: 'Mehr erfahren',
+  },
+  {
+    title: 'Schlüsselfertige Umsetzung',
+    desc: 'Als zentraler Ansprechpartner übernehmen wir die komplette Projektkoordination aller Gewerke – zuverlässig, termingerecht und transparent.',
+    icon: KeyRound,
+    href: '#schluesselfertige-gewerbesanierung',
+    cta: 'Mehr erfahren',
+  },
 ];
 
 const processSteps = [
-  'Kostenlose Beratung',
-  'Besichtigung der Gewerbefläche',
-  'Projektplanung',
-  'Festpreisangebot',
-  'Koordination aller Gewerke',
-  'Fertigstellung & Übergabe',
-];
-
-const faqsData = [
   {
-    q: 'Sanieren Sie auch während des laufenden Betriebs?',
-    a: 'Ja, je nach Umfang können Teilbereiche abschnittsweise saniert werden. Bei größeren Eingriffen planen wir die Arbeiten so, dass Betriebsunterbrechungen minimal bleiben.',
+    title: 'Analyse',
+    desc: 'Wir besichtigen die Immobilie, erfassen den Sanierungsbedarf und besprechen Ihre Ziele.',
+    icon: Search,
   },
   {
-    q: 'Welche Gewerbeobjekte übernehmen Sie?',
-    a: 'Radex modernisiert Arztpraxen, Ladenlokale, Restaurants, Büros, Kanzleien, Dienstleistungsflächen und weitere Gewerbeeinheiten im Rhein-Main-Gebiet.',
+    title: 'Planung',
+    desc: 'Auf Basis der Bestandsaufnahme entwickeln wir ein individuelles Sanierungskonzept inklusive Zeit- und Kostenplanung.',
+    icon: ClipboardList,
   },
   {
-    q: 'Koordinieren Sie alle Gewerke?',
-    a: 'Ja. Als Generalunternehmer koordiniert Radex SHK, Elektro, Trockenbau, Innenausbau, Böden und weitere Fachbetriebe als Gesamtprojekt.',
+    title: 'Umsetzung',
+    desc: 'Unsere Fachkräfte setzen sämtliche Arbeiten präzise, sauber und termingerecht um.',
+    icon: Hammer,
   },
   {
-    q: 'Gibt es Festpreisangebote?',
-    a: 'Nach einer Besichtigung vor Ort erstellen wir ein transparentes Festpreisangebot für Ihr Gewerbeobjekt – ohne versteckte Kosten.',
+    title: 'Qualitätskontrolle',
+    desc: 'Alle Leistungen werden geprüft und dokumentiert, bevor das Projekt abgeschlossen wird.',
+    icon: ShieldCheck,
   },
   {
-    q: 'Arbeiten Sie im gesamten Rhein-Main-Gebiet?',
-    a: 'Ja. Radex ist in über 60 Städten und Gemeinden im Rhein-Main-Gebiet tätig, darunter Frankfurt, Wiesbaden, Mainz, Darmstadt, Offenbach und Hanau.',
-  },
-  {
-    q: 'Kann ich Pläne oder Fotos per WhatsApp senden?',
-    a: 'Ja. Senden Sie uns Fotos oder Pläne per WhatsApp und erhalten Sie eine erste fachliche Einschätzung zu Ihrem Gewerbeprojekt.',
+    title: 'Übergabe',
+    desc: 'Nach der gemeinsamen Abnahme erhalten Sie eine modernisierte Gewerbeimmobilie, die sofort genutzt werden kann.',
+    icon: CircleCheckBig,
   },
 ];
 
-const seoAccordions = [
+const videoTranscript =
+  'Jede Gewerbeimmobilie ist anders. Deshalb beginnt jede Sanierung mit einer gründlichen Analyse. Gemeinsam planen wir alle Maßnahmen, koordinieren sämtliche Gewerke und sorgen dafür, dass Ihr Projekt effizient und termingerecht umgesetzt wird – auf Wunsch auch während des laufenden Betriebs.';
+
+const radexLiveProjects = [
   {
-    title: 'Gewerbeflächen müssen funktionieren',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Gewerbe- und Objektsanierung bedeutet, Flächen so zu modernisieren, dass sie im Alltag für Mitarbeiter, Kunden, Betreiber und Eigentümer zuverlässig funktionieren. Optik ist wichtig, aber ohne funktionierende Technik und Raumstruktur bleibt die Fläche problematisch.
-        </p>
-        <p className="text-gray-600">
-          Radex koordiniert solche Projekte als{' '}
-          <Link to="/generalunternehmer-rhein-main">Generalunternehmer im Rhein-Main-Gebiet</Link>{' '}
-          und bringt Heizung, Sanitär und Gebäudetechnik als SHK-Meisterbetrieb mit ein.
-        </p>
-      </>
-    ),
+    image: '/img/buero1.webp',
+    badge: 'LIVE',
+    title: 'Büroumbau Eschborn',
+    location: 'Eschborn',
+    desc: 'Modernisierung von Büroflächen mit Trockenbau, Elektro und Bodenbelägen – koordiniert aus einer Hand.',
+    cta: 'Projekt ansehen',
   },
   {
-    title: 'Bestandsprüfung vor der Planung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Gewerbliche Bestände haben oft viele Vorarbeiten und Umbauten hinter sich. Deshalb beginnt die sinnvolle Planung immer mit einer Bestandsaufnahme: Raumstruktur, Technik, Sanitär, Elektro, Oberflächen, Zugang und mögliche Schnittstellen.
-        </p>
-        <p className="text-gray-600">
-          Erst daraus entsteht ein realistischer Sanierungsfahrplan für Büro, Praxis, Laden, Dienstleistung oder gemischt genutzte Flächen.
-        </p>
-      </>
-    ),
+    image: '/img/gewerbesanierung-radex-live.webp',
+    badge: 'Vorher & Nachher',
+    title: 'Gewerbesanierung Frankfurt',
+    location: 'Frankfurt am Main',
+    desc: 'Umfassende Sanierung einer Gewerbefläche mit neuer Raumaufteilung und technischer Modernisierung.',
+    cta: 'Vorher & Nachher ansehen',
   },
   {
-    title: 'Mieterausbau, Betrieb und Zeitfenster',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Bei gewerblichen Projekten sind Termine oft eng. Radex plant deshalb Rückbau, Trockenbau, Technik, Oberflächen und Übergabe so, dass Leerstand, Nutzung oder laufender Betrieb möglichst wenig gestört werden.
-        </p>
-        <p className="text-gray-600">
-          Wenn Schadstoffthemen, Brandschutz oder technische Anpassungen dazukommen, werden diese früh in die Reihenfolge integriert. Mehr zum{' '}
-          <a href="/mieterausbau-rhein-main">Mieterausbau</a> und{' '}
-          <a href="/bueroumbau-rhein-main">Büroumbau</a>.
-        </p>
-      </>
-    ),
+    image: '/img/buro2.webp',
+    badge: 'Abgeschlossen',
+    title: 'Praxisumbau Bad Homburg',
+    location: 'Bad Homburg',
+    desc: 'Funktionale Raumaufteilung, Sanitärbereiche und technische Anpassungen für eine medizinische Praxis.',
+    cta: 'Projekt ansehen',
   },
   {
-    title: 'Technik und Innenausbau zusammen denken',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Elektro, Licht, Netzwerk, WC-Anlagen, Teeküchen, Heizung und Sanitär müssen zu Raumaufteilung und Nutzung passen. Wer Technik zu spät plant, riskiert fertige Flächen, die nochmals geöffnet werden müssen.
-        </p>
-        <p className="text-gray-600">
-          Radex sorgt dafür, dass diese Schnittstellen rechtzeitig abgestimmt werden. Dazu gehören{' '}
-          <Link to="/innenausbau-umbau-rhein-main">Innenausbau</Link>,{' '}
-          <Link to="/elektroinstallation-rhein-main">Elektrotechnik</Link> und{' '}
-          <Link to="/heizung-sanitaer-rhein-main">Heizung & Sanitär</Link>.
-        </p>
-      </>
-    ),
+    image: '/img/gewerbesanierung-hero.webp',
+    badge: 'LIVE',
+    title: 'Ladenfläche modernisieren',
+    location: 'Hanau',
+    desc: 'Verkaufsfläche mit neuer Beleuchtung, robusten Böden und angepasster Elektroinstallation saniert.',
+    cta: 'Projekt ansehen',
   },
   {
-    title: 'Regionale Stärke im Rhein-Main-Gebiet',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Ob Büro in Eschborn, Praxis in Darmstadt, Objekt in Hanau oder Ladenfläche in Neu-Isenburg: Radex arbeitet regional mit Erfahrung aus über 40 Jahren und ist unter 06074 960620 gut erreichbar.
-        </p>
-        <p className="text-gray-600">
-          Ziel ist immer eine wirtschaftlich sinnvolle und sauber koordinierte Sanierung. Verfolgen Sie laufende Projekte bei{' '}
-          <a href={RADEX_LIVE_URL}>Radex Live</a> oder{' '}
-          <a href="/kontakt">kontaktieren Sie uns</a> direkt.
-        </p>
-      </>
-    ),
+    image: '/img/buero1.webp',
+    badge: 'Video',
+    title: 'Gewerbesanierung im Bestand',
+    location: 'Neu-Isenburg',
+    desc: 'Authentischer Einblick in Trockenbau, Innenausbau und SHK-Arbeiten auf einer Gewerbebaustelle.',
+    cta: 'Video ansehen',
   },
   {
-    title: 'Für wen Gewerbe- und Objektsanierung wichtig ist',
-    content: (
-      <ul className="space-y-4 text-gray-600">
-        <li><strong>Bürobetreiber:</strong> Wenn Raumaufteilung, Akustik, Licht, Netzwerk und Arbeitsplätze neu gedacht werden müssen.</li>
-        <li><strong>Praxisinhaber:</strong> Wenn Sanitär, Hygiene, Zugänge, Wartebereiche und technische Anforderungen zusammenkommen.</li>
-        <li><strong>Einzelhandel und Ladenflächen:</strong> Wenn Kundenführung, Beleuchtung, Boden und Nutzung für den Betrieb stimmen müssen.</li>
-        <li><strong>Vermieter und Bestandshalter:</strong> Wenn Leerstand, Neuvermietung oder die Vorbereitung auf einen neuen Mieter im Vordergrund stehen.</li>
-        <li><strong>Hausverwaltungen und Objektverantwortliche:</strong> Wenn mehrere Nutzer, enge Zeitfenster und klare Kommunikation den Ablauf bestimmen.</li>
-      </ul>
-    ),
-  },
-  {
-    title: 'Typische Gewerbe- und Objektprojekte',
-    content: (
-      <ul className="space-y-4 text-gray-600">
-        <li><strong><a href="/bueroumbau-rhein-main">Büroumbau</a>:</strong> Trockenbau, Akustik, Licht, Arbeitsplätze und Raumaufteilung für neue Nutzungsanforderungen.</li>
-        <li><strong>Praxisumbau:</strong> Raumstruktur, Sanitär, Hygiene, Wartebereiche und technische Anforderungen werden abgestimmt.</li>
-        <li><strong>Ladenfläche modernisieren:</strong> Beleuchtung, Boden, Kassenbereich, Schaufensterwirkung und Aufenthaltsqualität werden verbessert.</li>
-        <li><strong><a href="/mieterausbau-rhein-main">Mieterausbau</a>:</strong> Fläche wird gezielt für den neuen Mieter vorbereitet und schlüsselfertig übergeben.</li>
-        <li><strong>Objektsanierung:</strong> Mehrere Einheiten oder gemeinschaftliche Bereiche werden als Gesamtprojekt betrachtet.</li>
-        <li><strong>Sanitär und Technik:</strong> WC-Anlagen, Teeküchen, Leitungen, Heizkörper und Elektrokoordination werden mitgedacht.</li>
-      </ul>
-    ),
-  },
-  {
-    title: 'Kosten einer Gewerbe- und Objektsanierung',
-    content: (
-      <>
-        <p className="mb-4 text-gray-600">
-          Die Kosten hängen von Fläche, Zustand, Nutzung, Zeitfenster und Fachgewerken ab. Ein realistisches Angebot entsteht nach Begehung.
-        </p>
-        <ul className="space-y-2 text-gray-600">
-          <li><strong>Teilumbau:</strong> projektbezogen</li>
-          <li><strong>Bürofläche:</strong> nach Begehung</li>
-          <li><strong>Praxis oder Laden:</strong> individuell kalkuliert</li>
-          <li><strong>Mieterausbau:</strong> objektbezogen</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    title: 'Was gehört zu einer Gewerbe- und Objektsanierung?',
-    content: (
-      <p className="text-gray-600">
-        Dazu können Rückbau, Bestandsaufnahme, Innenausbau, Trockenbau, Elektro, Netzwerk, Heizung, Sanitär, Böden, Decken, Oberflächen, Brandschutzthemen, Mieterausbau und die Modernisierung gewerblicher Flächen gehören.
-      </p>
-    ),
-  },
-  {
-    title: 'Für welche Gewerbeflächen arbeitet Radex?',
-    content: (
-      <p className="text-gray-600">
-        Radex begleitet Büroflächen, Praxen, Ladenflächen, Dienstleistungsflächen, Verwaltungsbereiche, Mietflächen, gemischt genutzte Objekte und gewerbliche Bestandsflächen im Rhein-Main-Gebiet.
-      </p>
-    ),
-  },
-  {
-    title: 'Was ist der Unterschied zwischen Gewerbesanierung und Objektsanierung?',
-    content: (
-      <p className="text-gray-600">
-        Gewerbesanierung bezieht sich oft auf eine konkrete gewerbliche Fläche wie Büro, Praxis oder Laden. Objektsanierung kann größer gedacht sein und mehrere Einheiten oder gemeinschaftliche Bereiche betreffen.
-      </p>
-    ),
-  },
-  {
-    title: 'Kann Radex mehrere Gewerke bei einer Objektsanierung koordinieren?',
-    content: (
-      <p className="text-gray-600">
-        Ja. Radex koordiniert SHK, Elektro, Trockenbau, Innenausbau, Böden, Oberflächen, Rückbau und weitere Fachgewerke als Gesamtprojekt.
-      </p>
-    ),
-  },
-  {
-    title: 'Kann eine Gewerbesanierung im laufenden Betrieb stattfinden?',
-    content: (
-      <p className="text-gray-600">
-        Das hängt vom Umfang ab. Teilbereiche können häufig abschnittsweise saniert werden. Bei größeren Eingriffen kann eine temporäre Sperrung sinnvoller sein.
-      </p>
-    ),
-  },
-  {
-    title: 'Was kostet eine Gewerbe- und Objektsanierung?',
-    content: (
-      <p className="text-gray-600">
-        Die Kosten hängen von Fläche, Zustand, Nutzung, Gewerken, Technik, Materialqualität, Zeitfenster und möglicher Fachplanung ab. Ein realistisches Angebot entsteht nach Begehung.
-      </p>
-    ),
-  },
-  {
-    title: 'Was ist beim Mieterausbau wichtig?',
-    content: (
-      <p className="text-gray-600">
-        Beim Mieterausbau müssen Übergabezustand, Mietbeginn, Anforderungen des Mieters, technische Anschlüsse, Raumaufteilung, Sanitär, Elektro, Böden und Oberflächen früh geklärt werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Muss eine Objektsanierung genehmigt werden?',
-    content: (
-      <p className="text-gray-600">
-        Das hängt vom Umfang ab. Wenn Nutzungsänderungen, Brandschutz, Fluchtwege, tragende Bauteile oder öffentlich zugängliche Bereiche betroffen sind, können Fachplanung oder Abstimmung nötig werden.
-      </p>
-    ),
-  },
-  {
-    title: 'Arbeitet Radex auch für Hausverwaltungen?',
-    content: (
-      <p className="text-gray-600">
-        Ja. Radex begleitet Hausverwaltungen bei der Sanierung einzelner Gewerbeeinheiten, gemeinschaftlicher Bereiche und gewerblicher Bestandsflächen.
-      </p>
-    ),
-  },
-  {
-    title: 'In welchen Städten bietet Radex Gewerbe- und Objektsanierung an?',
-    content: (
-      <p className="text-gray-600">
-        Radex ist in über 60 Städten und Gemeinden im Rhein-Main-Gebiet tätig, unter anderem in Rödermark, Eschborn, Bad Homburg, Oberursel, Neu-Isenburg, Dreieich, Langen, Darmstadt, Wiesbaden, Mainz, Hanau, Rodgau, Mörfelden-Walldorf und Groß-Gerau.
-      </p>
-    ),
+    image: '/img/gewerbesanierung-radex-live.webp',
+    badge: 'Abgeschlossen',
+    title: 'Servicefläche nach Mieterwechsel',
+    location: 'Darmstadt',
+    desc: 'Komplette Gewerbesanierung mit Rückbau, Technik und schlüsselfertiger Übergabe.',
+    cta: 'Projekt ansehen',
   },
 ];
 
-function SharedCTABlock({ isHero = false, centered = false }) {
-  return (
-    <div
-      className={`br-hero-actions ${isHero ? '' : 'mt-8'}`}
-      style={{
-        display: 'flex',
-        gap: '16px',
-        flexWrap: 'wrap',
-        justifyContent: centered ? 'center' : 'flex-start',
-      }}
-    >
-      <a href="#kontakt" className="btn br-btn-orange">Kostenlose Beratung &rarr;</a>
-      <a
-        href="https://wa.me/496074960620"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn br-btn-whatsapp"
-      >
-        Fotos über WhatsApp senden <MessageSquare size={18} color="#25D366" style={{ marginLeft: '8px' }} />
-      </a>
-      <a
-        href="tel:+496074960620"
-        className="btn"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-          background: isHero ? 'transparent' : '#fff',
-          border: isHero ? '1px solid #111827' : '1px solid #d1d5db',
-          color: '#111827',
-          padding: '12px 24px',
-          borderRadius: '4px',
-          fontWeight: 'bold',
-          textDecoration: 'none',
-        }}
-      >
-        <Phone size={18} /> Jetzt anrufen
-      </a>
-    </div>
-  );
-}
-
-function PremiumIconCards({ cards, linked = false }) {
-  return (
-    <div className="br-nav-landing-grid">
-      {cards.map((card) => {
-        const Icon = card.icon;
-        const content = (
-          <>
-            <div className="br-decision-icon">
-              <Icon size={40} strokeWidth={1.5} />
-            </div>
-            <h3>{card.title}</h3>
-            <p>{card.desc}</p>
-            {linked && <span className="br-btn-orange">Mehr erfahren</span>}
-          </>
-        );
-
-        if (linked && card.to) {
-          return (
-            <Link key={card.title} to={card.to} className="br-decision-card">
-              {content}
-            </Link>
-          );
-        }
-
-        return (
-          <div key={card.title} className="br-decision-card" style={{ cursor: 'default' }}>
-            {content}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
+const videoSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: 'Was gehört zu einer professionellen Gewerbesanierung?',
+  description:
+    'Bernd erklärt, wie eine Gewerbesanierung geplant wird, welche Leistungen dazugehören und warum eine strukturierte Projektsteuerung Zeit und Kosten spart.',
+  thumbnailUrl: `${SITE_URL}${VIDEO_POSTER}`,
+  duration: 'PT2M',
+  inLanguage: 'de',
+  publisher: { '@id': `${SITE_URL}/#organization` },
+};
 
 export default function GewerbesanierungLanding() {
-  const [openFaq, setOpenFaq] = useState(null);
-  const [openSeo, setOpenSeo] = useState(null);
-  const { pathname } = useLocation();
-
-  const isMieterausbau = pathname === '/mieterausbau-rhein-main';
-
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   useSeo({
-    title: isMieterausbau
-      ? 'Mieterausbau im Rhein-Main-Gebiet | Gewerbe modernisieren | Radex'
-      : 'Gewerbesanierung im Rhein-Main-Gebiet | Gewerbe modernisieren | Radex',
-    description: isMieterausbau
-      ? 'Mieterausbau und Gewerbeflächen-Vorbereitung im Rhein-Main-Gebiet: termingerecht, sauber und aus einer Hand vom SHK-Meisterbetrieb Radex.'
-      : 'Professionelle Gewerbesanierung für Praxen, Ladenlokale, Restaurants und Gewerbeflächen im Rhein-Main-Gebiet. Planung, Koordination und Ausführung aus einer Hand.',
-    path: pathname,
+    title: META_TITLE,
+    description: META_DESCRIPTION,
+    path: PAGE_PATH,
     image: HERO_IMAGE,
-    jsonLd: [buildFaqSchema(faqsData)],
+    jsonLd: [
+      buildServiceSchema({
+        name: 'Gewerbesanierung Rhein-Main',
+        description: META_DESCRIPTION,
+        path: PAGE_PATH,
+      }),
+      buildBreadcrumbSchema(BREADCRUMBS),
+      videoSchema,
+    ],
   });
 
   return (
-    <main className="badsanierung-page">
-      {/* 1. HERO */}
+    <main className="badsanierung-page ablauf-badsanierung-page gewerbesanierung-page">
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
+            <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
+              <Link to="/">Startseite</Link>
+              <span aria-hidden="true">↓</span>
+              <Link to="/gewerbe-objektsanierung-rhein-main">Gewerbe &amp; Objektsanierung</Link>
+              <span aria-hidden="true">↓</span>
+              <span>Gewerbesanierung</span>
+            </nav>
+            <p className="br-hero-kicker">
+              <HardHat size={16} strokeWidth={1.5} aria-hidden="true" /> Gewerbesanierung · Rhein-Main-Gebiet
+            </p>
             <h1 className="br-hero-title">
-              Gewerbesanierung im<br />
-              <span>Rhein-Main-Gebiet</span>
+              Professionelle Gewerbesanierung
+              <br />
+              <span>im Rhein-Main-Gebiet</span>
             </h1>
-            <p className="br-hero-subtitle">
-              Gewerbe modernisieren. Betrieb sichern. Zukunft gestalten.
+            <p className="br-hero-lead">
+              Radex modernisiert Gewerbeimmobilien wirtschaftlich, termingerecht und aus einer Hand – von der ersten
+              Bestandsaufnahme bis zur schlüsselfertigen Übergabe.
             </p>
             <p className="br-hero-text">
-              Ob Praxis, Ladenlokal, Restaurant, Kanzlei oder Gewerbeeinheit – moderne Gewerberäume müssen funktional, repräsentativ und wirtschaftlich sein. Radex übernimmt die Planung, Koordination und Umsetzung Ihrer Gewerbesanierung im gesamten Rhein-Main-Gebiet. Durch abgestimmte Bauabläufe und einen festen Ansprechpartner reduzieren wir Leerstandszeiten und schaffen optimale Voraussetzungen für den weiteren Geschäftsbetrieb.
+              Eine moderne Gewerbeimmobilie steigert nicht nur den Wert einer Immobilie, sondern verbessert auch
+              Arbeitsabläufe, Energieeffizienz und den ersten Eindruck bei Kunden und Mitarbeitern. Radex übernimmt die
+              komplette Gewerbesanierung von Büros, Praxen, Ladenlokalen, Produktionsflächen und weiteren Gewerbeobjekten
+              im gesamten Rhein-Main-Gebiet.
             </p>
-            <SharedCTABlock isHero />
-            <p className="br-hero-micro mt-4">
-              <Camera size={14} /> Fotos senden. Erste Einschätzung erhalten.
+            <p className="br-hero-text">
+              Durch eine strukturierte Planung, die Koordination aller Gewerke und einen festen Ansprechpartner entstehen
+              wirtschaftliche Lösungen mit hoher Ausführungsqualität – auch bei Sanierungen im laufenden Betrieb.
             </p>
+            <GewerbesanierungCTA isHero />
           </div>
         </div>
-        <div className="br-hero-right" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
+        <div
+          className="br-hero-right"
+          style={{ backgroundImage: `url(${HERO_IMAGE}), url(${HERO_IMAGE_FALLBACK})` }}
+          role="img"
+          aria-label="Professionell sanierte Gewerbeimmobilie im Rhein-Main-Gebiet durch Radex Objektmanagement."
+          title="Modernisierte Gewerbeimmobilie mit hochwertigen Büro- und Gewerbeflächen nach einer umfassenden Sanierung."
+        />
       </section>
 
-      {/* 2. GEWERBEOBJEKTE */}
       <section className="br-section br-bg-light">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Welche Gewerbeobjekte modernisieren wir?</h2>
+        <div className="container" style={{ maxWidth: '820px' }}>
+          <div className="text-center">
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: 0 }}>
+              Jede Gewerbeimmobilie stellt unterschiedliche Anforderungen an Planung, Technik und Nutzung. Deshalb
+              entwickelt Radex für jedes Projekt ein individuelles Sanierungskonzept, das auf die bestehende
+              Gebäudestruktur und die zukünftige Nutzung abgestimmt ist.
+            </p>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginTop: '16px', marginBottom: 0 }}>
+              Ob einzelne Büroetage, komplette Gewerbeeinheit oder größeres Bestandsgebäude – wir übernehmen die
+              Planung, Koordination und Umsetzung sämtlicher Arbeiten. Dazu gehören unter anderem Trockenbau,
+              Bodenbeläge, Malerarbeiten, Elektroinstallationen, Sanitärarbeiten sowie Modernisierungsmaßnahmen im
+              Innenausbau.
+            </p>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginTop: '16px', marginBottom: 0 }}>
+              Unsere Gewerbesanierungen realisieren wir unter anderem in Frankfurt am Main, Wiesbaden, Mainz, Offenbach
+              am Main, Hanau, Darmstadt, Eschborn, Neu-Isenburg und im gesamten Rhein-Main-Gebiet.
+            </p>
           </div>
-          <PremiumIconCards cards={objectCards} />
         </div>
       </section>
 
-      {/* 3. WARUM RADEX */}
       <section className="br-section">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="br-section-title">Warum Unternehmen Radex wählen</h2>
+            <h2 className="br-section-title">Warum Radex?</h2>
           </div>
-          <PremiumIconCards cards={whyRadexCards} />
+          <PremiumIconCards cards={whyRadexCards} largeIcons />
         </div>
       </section>
 
-      {/* 4. LEISTUNGEN */}
       <section className="br-section br-bg-light">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="br-section-title">Qualitätsversprechen</h2>
+          </div>
+          <PremiumIconCards cards={qualityCards} largeIcons />
+        </div>
+      </section>
+
+      <SectionTransition>
+        Von der Gewerbeimmobilien-Sanierung bis zur schlüsselfertigen Umsetzung – im nächsten Abschnitt finden Sie einen
+        Überblick über unsere Leistungen im Bereich Gewerbesanierung.
+      </SectionTransition>
+
+      <section id="leistungen" className="br-section">
         <div className="container">
           <div className="text-center mb-12">
             <h2 className="br-section-title">Unsere Leistungen</h2>
           </div>
-          <PremiumIconCards cards={serviceCards} linked />
+          <div className="br-leistungen-grid-three">
+            <PremiumIconCards cards={leistungenCards} linked largeIcons />
+          </div>
         </div>
       </section>
 
-      {/* 5. KOSTENORIENTIERUNG */}
-      <section className="br-section">
+      <SectionTransition>
+        Ein klar strukturierter Projektablauf schafft Planungssicherheit – von der ersten Analyse bis zur schlüsselfertigen
+        Übergabe Ihrer modernisierten Gewerbeimmobilie.
+      </SectionTransition>
+
+      <HorizontalProcessTimeline
+        title="Projektablauf"
+        intro="Von der Analyse bis zur schlüsselfertigen Übergabe – so begleiten wir Ihre Gewerbesanierung Schritt für Schritt."
+        steps={processSteps}
+      />
+
+      <section id="kontakt" className="br-section br-dept-contact-section">
         <div className="container">
-          <div className="text-center mb-8">
-            <h2 className="br-section-title">Erste Kostenorientierung</h2>
-            <p className="br-section-subtitle" style={{ maxWidth: '720px', margin: '0 auto' }}>
-              Nutzen Sie unseren Sanierungskosten-Rechner für eine erste Orientierung. Nach einer Besichtigung erstellen wir ein individuelles Festpreisangebot für Ihr Gewerbeobjekt.
+          <div className="text-center mb-12" style={{ maxWidth: '760px', margin: '0 auto' }}>
+            <h2 className="br-section-title">Ihre Ansprechpartner</h2>
+            <p className="br-section-subtitle br-section-subtitle--wide" style={{ marginBottom: '8px' }}>
+              <strong>Das Team Gewerbesanierung</strong>
+            </p>
+            <p className="br-section-subtitle br-section-subtitle--wide">
+              Unsere Projektleiter begleiten Sanierungen jeder Größenordnung – von einzelnen Gewerbeflächen bis zu
+              kompletten Bestandsimmobilien. Sie erhalten eine persönliche Betreuung, kurze Entscheidungswege und eine
+              zuverlässige Koordination aller Projektphasen.
             </p>
           </div>
+
+          <div className="br-ablauf-contact-cards">
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon">
+                <Phone size={24} strokeWidth={1.5} />
+              </div>
+              <h3>Telefon</h3>
+              <p>+49 (0) 6074 960620</p>
+              <a href={PHONE_TEL} className="br-ablauf-contact-number">
+                06074 960620
+              </a>
+            </div>
+
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon">
+                <Mail size={24} strokeWidth={1.5} />
+              </div>
+              <h3>E-Mail</h3>
+              <p>info@radex-objektmanagement.de</p>
+              <a href="mailto:info@radex-objektmanagement.de" className="br-ablauf-contact-number">
+                info@radex-objektmanagement.de
+              </a>
+            </div>
+
+            <div className="br-ablauf-contact-card">
+              <div className="br-ablauf-contact-icon br-ablauf-contact-icon--wa">
+                <MessageCircle size={24} strokeWidth={1.5} />
+              </div>
+              <h3>WhatsApp</h3>
+              <p>Projektfotos senden und eine unverbindliche Ersteinschätzung erhalten.</p>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn br-btn-whatsapp">
+                WhatsApp öffnen
+              </a>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <a href="#kontakt" className="btn br-btn-orange">
+              Kostenlose Beratung
+            </a>
+          </div>
         </div>
-        <SanierungskostenRechner defaultType="wohnung" compact />
       </section>
 
-      {/* 6. RADEX LIVE */}
-      <section className="br-section br-bg-light">
+      <BerndExplainsVideo
+        title="Was gehört zu einer professionellen Gewerbesanierung?"
+        description="In diesem Video erklärt Bernd, wie eine Gewerbesanierung geplant wird, welche Leistungen dazugehören und warum eine strukturierte Projektsteuerung Zeit und Kosten spart."
+        poster={VIDEO_POSTER}
+        posterAlt="Bernd erklärt den Ablauf einer professionellen Gewerbesanierung im Rhein-Main-Gebiet."
+        duration="ca. 2 Minuten"
+        transcript={videoTranscript}
+      />
+
+      <ReviewsMarquee />
+
+      <section className="br-section br-gwc-cta-section">
         <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Radex Live</h2>
-            <p className="br-section-subtitle">Schauen Sie uns bei der Arbeit über die Schulter.</p>
-          </div>
-
-          <div
-            className="br-project-img mb-10"
-            style={{
-              backgroundImage: `url(${LIVE_IMAGE})`,
-              height: '420px',
-              borderRadius: '8px',
-            }}
-          />
-
-          <div className="br-projects-grid">
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div
-                className="br-project-img"
-                style={{ backgroundImage: `url(/img/buero1.webp)` }}
-              >
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Büroumbau Eschborn</h4>
-                <p>Eschborn</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div
-                className="br-project-img"
-                style={{ backgroundImage: `url(/img/buro2.webp)` }}
-              >
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Praxisumbau Bad Homburg</h4>
-                <p>Bad Homburg</p>
-              </div>
-            </a>
-            <a href={RADEX_LIVE_URL} className="br-project-card" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div
-                className="br-project-img"
-                style={{ backgroundImage: `url(/img/gewerbesanierung-radex-live.webp)` }}
-              >
-                <span className="br-project-badge live">Live</span>
-              </div>
-              <div className="br-project-info">
-                <h4>Gewerbesanierung Frankfurt</h4>
-                <p>Frankfurt am Main</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="text-center mt-10" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href={RADEX_LIVE_URL} className="br-btn-outline-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
-              Alle Projekte ansehen
-            </a>
-            <a href="#kontakt" className="br-btn-orange" style={{ display: 'inline-block', textDecoration: 'none' }}>
-              Projekt anfragen
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. ABLAUF */}
-      <section className="br-section">
-        <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="br-section-title">So läuft Ihre Gewerbesanierung ab</h2>
-          </div>
-          <div className="br-process-flow">
-            {processSteps.map((step, idx) => (
-              <div key={step} style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="br-process-step">
-                  <div className="br-step-number">{idx + 1}</div>
-                  <h4>{step}</h4>
-                </div>
-                {idx < processSteps.length - 1 && <ArrowRight className="br-step-arrow" size={24} />}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8. FAQ */}
-      <section className="br-section br-bg-light">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Häufig gestellte Fragen</h2>
-          </div>
-          <div className="br-faq-grid">
-            {faqsData.map((faq, i) => (
-              <div key={faq.q} className="home-faq-item">
-                <button
-                  type="button"
-                  className="home-faq-btn"
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                >
-                  <span style={{ fontWeight: 600, color: '#1f2937', fontSize: '16px', textAlign: 'left' }}>{faq.q}</span>
-                  <ChevronDown
-                    style={{
-                      transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }}
-                    color="#9ca3af"
-                    size={18}
-                  />
-                </button>
-                <div
-                  className="home-faq-answer"
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: openFaq === i ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                    padding: 0,
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ borderTop: '1px solid #f9fafb', padding: '16px', color: '#4b5563', fontSize: '15px', lineHeight: '1.6' }}>
-                      {faq.a}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. CTA */}
-      <section id="kontakt" className="br-section">
-        <div className="container">
-          <div className="text-center" style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <h2 className="br-section-title">Jetzt kostenlos beraten lassen</h2>
-            <p className="br-section-subtitle mb-8">
-              Sie möchten Ihre Gewerbeimmobilie modernisieren oder für eine neue Nutzung vorbereiten?
-              Senden Sie uns Fotos oder Pläne per WhatsApp oder vereinbaren Sie eine persönliche Beratung. Gemeinsam entwickeln wir die passende Lösung für Ihr Objekt.
+          <div className="br-gwc-cta-box">
+            <h2>Ihre Gewerbeimmobilie verdient eine professionelle Sanierung.</h2>
+            <p>
+              Ob Modernisierung, Umbau oder komplette Gewerbesanierung – Radex begleitet Sie von der ersten Beratung bis
+              zur schlüsselfertigen Fertigstellung mit festen Ansprechpartnern und transparenten Abläufen.
             </p>
-            <SharedCTABlock centered />
+            <GewerbesanierungCTA centered />
           </div>
         </div>
       </section>
 
-      {/* 10. SEO ACCORDIONS */}
-      <section className="br-section br-bg-light">
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <div className="text-center mb-12">
-            <h2 className="br-section-title">Weitere Informationen</h2>
-          </div>
-          <div className="br-faq-grid">
-            {seoAccordions.map((item, i) => (
-              <div key={item.title} className="home-faq-item">
-                <button
-                  type="button"
-                  className="home-faq-btn"
-                  onClick={() => setOpenSeo(openSeo === i ? null : i)}
-                  aria-expanded={openSeo === i}
-                >
-                  <span style={{ fontWeight: 600, color: '#1f2937', fontSize: '16px', textAlign: 'left' }}>{item.title}</span>
-                  <ChevronDown
-                    style={{
-                      transform: openSeo === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }}
-                    color="#9ca3af"
-                    size={18}
-                  />
-                </button>
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: openSeo === i ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div style={{ borderTop: '1px solid #f9fafb', padding: '16px', fontSize: '15px', lineHeight: '1.6' }}>
-                      {item.content}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div id="weitere-informationen">
+        <SeoKnowledgeDrawer
+          title="Weitere Informationen zur Gewerbesanierung"
+          sections={gewerbesanierungLegacySections}
+          ctaLabel="Kostenlose Beratung"
+          ctaHref="#kontakt"
+          panelId="gewerbesanierung-legacy-panel"
+        />
+      </div>
 
-          <div className="br-trust-footer mt-12">
-            <div className="br-trust-item">
-              <Award size={32} color="#aaa" />
-              <div>
-                <strong>500+</strong>
-                <span>Abgeschlossene Projekte</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <MapPin size={32} color="#aaa" />
-              <div>
-                <strong>60+</strong>
-                <span>Betreute Städte</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <ShieldCheck size={32} color="#aaa" />
-              <div>
-                <strong>100%</strong>
-                <span>Festpreisgarantie</span>
-              </div>
-            </div>
-            <div className="br-trust-item">
-              <Users size={32} color="#aaa" />
-              <div>
-                <strong>SHK-Meister</strong>
-                <span>Zugelassener Fachbetrieb</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SeoKnowledgeDrawer
+        title="Unsere Leistungen im Bereich Gewerbesanierung"
+        intro={gewerbesanierungSeoIntro}
+        sections={gewerbesanierungSeoSections}
+        ctaLabel="Kostenlose Beratung"
+        ctaHref="#kontakt"
+        panelId="gewerbesanierung-seo-panel"
+        showToc
+      />
+
+      <RadexLiveSection
+        title="Radex Live – Einblicke in Gewerbesanierungen"
+        intro="Authentische Baustelleneinblicke aus dem Rhein-Main-Gebiet: Büroumbauten, Praxissanierungen, Ladenflächen und schlüsselfertige Gewerbeübergaben."
+        projects={radexLiveProjects}
+      />
     </main>
   );
 }

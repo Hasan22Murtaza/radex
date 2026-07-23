@@ -42,7 +42,7 @@ const serviceCards = [
     icon: Flame,
   },
   {
-    to: '/leistungen/elektrotechnik',
+    to: '/elektrotechnik-gebaeudetechnik',
     title: 'Elektrotechnik',
     desc: 'Elektroinstallation, Altbau-Elektrik modernisieren und Sicherungskästen erneuern.',
     icon: Zap,
@@ -54,7 +54,7 @@ const serviceCards = [
     icon: Hammer,
   },
   {
-    to: '/leistungen/energie-foerderung',
+    to: '/energie-foerderung',
     title: 'Energie & Förderung',
     desc: 'Energie sparen, energetisch sanieren und Fördermöglichkeiten optimal nutzen.',
     icon: Leaf,
@@ -180,7 +180,7 @@ const seoAccordions = [
     content: (
       <SeoP>
         Eine moderne Elektroinstallation ist ein zentraler Bestandteil jeder Sanierung. Licht, Steckdosen, Sicherungskasten, Netzwerk und Gebäudetechnik müssen früh geplant werden. Radex koordiniert qualifizierte Elektrofachbetriebe im Rahmen der Sanierung.{' '}
-        <Link to="/leistungen/elektrotechnik">Elektrotechnik im Überblick</Link>.
+        <Link to="/elektrotechnik-gebaeudetechnik">Elektrotechnik im Überblick</Link>.
       </SeoP>
     ),
   },
@@ -395,9 +395,9 @@ const seoAccordions = [
           Ob komplette Sanierung, technische Modernisierung oder einzelne Fachleistungen – wählen Sie den passenden Bereich:{' '}
           <Link to="/leistungen/generalunternehmer-bauleitung">Generalunternehmer</Link>,{' '}
           <Link to="/leistungen/heizung-sanitaer">Heizung & Sanitär</Link>,{' '}
-          <Link to="/leistungen/elektrotechnik">Elektrotechnik</Link>,{' '}
+          <Link to="/elektrotechnik-gebaeudetechnik">Elektrotechnik</Link>,{' '}
           <Link to="/leistungen/innenausbau-umbau">Innenausbau</Link>,{' '}
-          <Link to="/leistungen/energie-foerderung">Energie & Förderung</Link>,{' '}
+          <Link to="/energie-foerderung">Energie & Förderung</Link>,{' '}
           <Link to="/leistungen/schimmel-asbest">Schimmel & Asbest</Link>,{' '}
           <Link to="/leistungen/express-soforthilfe">Express & Soforthilfe</Link> oder{' '}
           <Link to="/leistungen/gewerbe-objektsanierung">Gewerbe & Objektsanierung</Link>.

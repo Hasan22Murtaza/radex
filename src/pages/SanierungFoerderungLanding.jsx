@@ -37,7 +37,6 @@ import {
   PremiumIconCards,
   SectionTransition,
   SeoKnowledgeDrawer,
-  SeoTocSection,
   RadexLiveSection,
   HorizontalProcessTimeline,
   BerndExplainsVideo,
@@ -63,7 +62,7 @@ const META_DESCRIPTION =
 
 const BREADCRUMBS = [
   { name: 'Startseite', path: '/' },
-  { name: 'Energie & Förderung', path: '/leistungen/energie-foerderung' },
+  { name: 'Energie & Förderung', path: '/energie-foerderung' },
   { name: 'Sanierung Förderung', path: PAGE_PATH },
 ];
 
@@ -323,14 +322,14 @@ export default function SanierungFoerderungLanding() {
   });
 
   return (
-    <main className="badsanierung-page sanierung-money-page sanierung-foerderung-page">
+    <main className="badsanierung-page ablauf-badsanierung-page sanierung-money-page sanierung-foerderung-page">
       <section className="br-hero-split">
         <div className="br-hero-left">
           <div className="br-hero-content">
             <nav className="br-bw-breadcrumb" aria-label="Brotkrumen">
               <Link to="/">Startseite</Link>
               <span aria-hidden="true">↓</span>
-              <Link to="/leistungen/energie-foerderung">Energie &amp; Förderung</Link>
+              <Link to="/energie-foerderung">Energie &amp; Förderung</Link>
               <span aria-hidden="true">↓</span>
               <span>Sanierung Förderung</span>
             </nav>
@@ -520,11 +519,14 @@ export default function SanierungFoerderungLanding() {
         />
       )}
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Unsere Leistungen im Bereich Sanierungsförderung"
         intro={sanierungFoerderungSeoIntro}
         sections={sanierungFoerderungSeoSections}
-        showAllContent
+        ctaLabel="Kostenlose Beratung"
+        ctaHref="#kontakt"
+        panelId="sanierung-foerderung-seo-panel"
+        showToc
       />
 
       <RadexLiveSection

@@ -693,6 +693,8 @@ export default function SchimmelAsbestSanierungLanding() {
         intro={schimmelAsbestSanierungSeoIntro}
         sections={seoTocSections}
         showAllContent
+        panelId="schimmel-asbest-sanierung-seo-panel"
+        ctaLabel="Kostenlose Beratung"
       />
 
       {/* Weiterführende Leistungen */}

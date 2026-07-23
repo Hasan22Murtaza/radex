@@ -46,7 +46,7 @@ import ReviewsMarquee from '../components/ReviewsMarquee';
 import {
   PremiumIconCards,
   SectionTransition,
-  SeoTocSection,
+  SeoKnowledgeDrawer,
   RadexLiveSection,
   HorizontalProcessTimeline,
   BerndExplainsVideo,
@@ -707,11 +707,14 @@ export default function InnenausbauUmbauLanding() {
         </div>
       </section>
 
-      <SeoTocSection
+      <SeoKnowledgeDrawer
         title="Unsere Leistungen im Bereich Innenausbau & Umbau"
         intro={innenausbauUmbauSeoIntro}
         sections={seoTocSections}
-        showAllContent
+        ctaLabel="Kostenlose Erstberatung"
+        ctaHref="#kontakt"
+        panelId="innenausbau-umbau-seo-panel"
+        showToc
       />
 
       <section className="br-section">
